@@ -66,7 +66,7 @@ public class Taskmanager{
         // MergeSort
         Filemanager.println("------ MergeSort ------------------------");
         current = System.nanoTime();
-        String[] sortedString3 = Sort.mergeSort(strings, "TryingNewThings/Textfiles/CharacterOrder.txt", 
+        String[] sortedString3 = Sort.mergeInsertSort(strings, "TryingNewThings/Textfiles/CharacterOrder.txt", 
                 (int) ((Math.log(strings.length) / Math.log(2))/1.2));
         double t3 = (System.nanoTime() - current) * Math.pow(10, -6);
 
