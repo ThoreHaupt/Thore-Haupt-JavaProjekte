@@ -1,0 +1,189 @@
+Sorting Test of 3 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            655140,000000
+
+-----------------------------------------------------------------------------
+------ Radix - Sortingalgorithms -----------------------------I
+------ RadixSort ---------------------
+RadixSort time in microseconds:                      4223,385500
+ratio (Insert/radix):                             2367768,701200
+Saved radix Sort to file 1...
+
+------ RadixInsertSort ---------------
+load counterreferenceHashMap                            0,771100
+find max:                                              15,225600
+lengthdistribution                                     10,099700
+split into both Arrays                                 12,367900
+radix characteradding                                  62,719600
+radix sort                                           2124,037200
+removing temp chars                                   379,321700
+InsertSort:                                             0,000800
+radixinsert sort complete:                           2610,538300
+radixInsertSort time in microseconds:                2611,223300
+ratio (Insert/radixInsert):                       3829622,690637
+Saved RadixInsertSort to file 2...
+
+------ radixMergeInsertSort ----------
+load counterreferenceHashMap                            0,573600
+find max:                                              17,479900
+lengthdistribution                                      6,228700
+split into both Arrays                                 20,277300
+radix characteradding                                  58,902600
+radix sort                                           2005,176100
+removing temp chars                                   259,394100
+InsertSort:                                             0,001100
+radixinsert sort complete:                           2373,747800
+radixMergeInsertSort time in microseconds:           2374,426900
+ratio (Insert/radixMergeInsertSort):              4211542,583181
+Saved RadixInsertSort to file 3...
+
+-----------------------------------------------------------------------------
+Sorting Test of 6 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            300000,000000
+
+-----------------------------------------------------------------------------
+------ Insert - Sortingalgorithms -----------------------------I
+------ MergeSort ------------------------
+Sorting Test of 6 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            300000,000000
+
+-----------------------------------------------------------------------------
+------ Insert - Sortingalgorithms -----------------------------I
+------ MergeSort ------------------------
+Mergesort:
+mergesort executiontime: (milliseconds)             48326,926700
+StringInsertSort time in microseconds:              48341,510400
+ratio (MergeSort/MergeSort):                            1,000000
+
+Saved MergeSort to file 6...
+
+------ Radix - Sortingalgorithms -----------------------------I
+------ RadixSort ---------------------
+RadixSort time in microseconds:                      2238,428400
+ratio (Insert/radix):                                  21,596183
+Saved radix Sort to file 1...
+
+------ RadixInsertSort ---------------
+load counterreferenceHashMap                            0,692600
+find max:                                              18,761600
+lengthdistribution                                     14,241200
+split into both Arrays                                 15,437500
+radix characteradding                                  31,862600
+radix sort                                            823,949800
+removing temp chars                                    69,393900
+InsertSort:                                             0,000700
+radixinsert sort complete:                            980,430800
+radixInsertSort time in microseconds:                 981,044600
+ratio (Insert/radixInsert):                            49,275548
+Saved RadixInsertSort to file 2...
+
+------ radixMergeInsertSort ----------
+load counterreferenceHashMap                            0,684600
+find max:                                              19,547800
+lengthdistribution                                      9,875500
+split into both Arrays                                 22,340000
+radix characteradding                                  44,333100
+radix sort                                            825,857000
+removing temp chars                                    58,806800
+InsertSort:                                             0,000400
+radixinsert sort complete:                            987,826200
+radixMergeInsertSort time in microseconds:            988,408500
+ratio (Insert/radixMergeInsertSort):                   48,908432
+Saved RadixInsertSort to file 3...
+
+-----------------------------------------------------------------------------
+Sorting Test of 6 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            300000,000000
+
+-----------------------------------------------------------------------------
+------ Insert - Sortingalgorithms -----------------------------I
+------ MergeSort ------------------------
+Sorting Test of 6 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            300000,000000
+
+-----------------------------------------------------------------------------
+------ Insert - Sortingalgorithms -----------------------------I
+------ MergeSort ------------------------
+Sorting Test of 6 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            300000,000000
+
+-----------------------------------------------------------------------------
+------ Insert - Sortingalgorithms -----------------------------I
+------ MergeSort ------------------------
+Sorting Test of 6 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            300000,000000
+
+-----------------------------------------------------------------------------
+------ Insert - Sortingalgorithms -----------------------------I
+------ MergeSort ------------------------
+Sorting Test of 6 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            300000,000000
+
+-----------------------------------------------------------------------------
+------ Insert - Sortingalgorithms -----------------------------I
+------ MergeSort ------------------------
+Sorting Test of 6 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            300000,000000
+
+-----------------------------------------------------------------------------
+------ Insert - Sortingalgorithms -----------------------------I
+------ MergeSort ------------------------
+Sorting Test of 6 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            300000,000000
+
+-----------------------------------------------------------------------------
+------ Insert - Sortingalgorithms -----------------------------I
+------ MergeSort ------------------------
+Sorting Test of 6 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            300000,000000
+
+-----------------------------------------------------------------------------
+------ Insert - Sortingalgorithms -----------------------------I
+------ MergeSort ------------------------
+Sorting Test of 6 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            300000,000000
+
+-----------------------------------------------------------------------------
+------ Insert - Sortingalgorithms -----------------------------I
+------ MergeSort ------------------------
+Sorting Test of 6 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            300000,000000
+
+-----------------------------------------------------------------------------
+------ Insert - Sortingalgorithms -----------------------------I
+------ MergeSort ------------------------
+Sorting Test of 6 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            300000,000000
+
+-----------------------------------------------------------------------------
+------ Insert - Sortingalgorithms -----------------------------I
+------ MergeSort ------------------------
+Sorting Test of 6 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            300000,000000
+
+-----------------------------------------------------------------------------
+------ Insert - Sortingalgorithms -----------------------------I
+------ MergeSort ------------------------
+Sorting Test of 6 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            300000,000000
+
+-----------------------------------------------------------------------------
+------ Insert - Sortingalgorithms -----------------------------I
+------ MergeSort ------------------------
+Sorting Test of 6 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            300000,000000
+
+-----------------------------------------------------------------------------
+------ Insert - Sortingalgorithms -----------------------------I
+------ MergeSort ------------------------
+Sorting Test of 6 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            300000,000000
+
+-----------------------------------------------------------------------------
+------ Insert - Sortingalgorithms -----------------------------I
+------ MergeSort ------------------------
+Sorting Test of 6 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            300000,000000
+
+-----------------------------------------------------------------------------
+------ Insert - Sortingalgorithms -----------------------------I
+------ MergeSort ------------------------

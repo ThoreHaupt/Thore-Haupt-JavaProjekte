@@ -1,0 +1,5 @@
+INDEX VERSION 1.131+C:\Users\Thore\Java-Workspaces\Studium\SemProg1\.metadata\.plugins\org.eclipse.jdt.core
+4282477016.index
+1745888252.index
+3738582126.index
+1205824980.index

@@ -1,0 +1,84 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Launch Stringoperations",
+            "request": "launch",
+            "mainClass": "TryingNewThings.Stringoperations",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "Launch ArrayLists",
+            "request": "launch",
+            "mainClass": "TryingNewThings.ArrayLists",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch Person",
+            "request": "launch",
+            "mainClass": "TryingNewThings.Person",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch Taskmanager",
+            "request": "launch",
+            "mainClass": "TryingNewThings.Taskmanager",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch W3A2",
+            "request": "launch",
+            "mainClass": "W3.W3A2",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch W3A2b",
+            "request": "launch",
+            "mainClass": "W3.W3A2b",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch W3A3",
+            "request": "launch",
+            "mainClass": "W3.W3A3",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch W3A4",
+            "request": "launch",
+            "mainClass": "W3.W3A4",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch W3A5",
+            "request": "launch",
+            "mainClass": "W3.W3A5",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch W4A1",
+            "request": "launch",
+            "mainClass": "W3.W4A1",
+            "projectName": "SemProg1_9b998420"
+        }
+    ]
+}
