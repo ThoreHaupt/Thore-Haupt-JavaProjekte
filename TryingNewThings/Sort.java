@@ -917,8 +917,11 @@ public class Sort {
                 }
             } 
             if((Inputarray.length - lastindex < smalestchuncsize)) {
-                sortlist = mergeSortedArrayListRegions(sortlist, lastindex - 2 * chuncklist.get(chuncklist.size() - 1),
-                        lastindex - chuncklist.get(chuncklist.size() - 1), lastindex, counterrefference);
+                sortlist = mergeSortedArrayListRegions(sortlist,
+                        lastindex + 1 - 2 * chuncklist.get(chuncklist.size() - 1),
+                        lastindex + 1 - chuncklist.get(chuncklist.size() - 1), 
+                        lastindex + 1, 
+                        counterrefference);
             }
             
             lastindex += currentchunksize;

@@ -25,7 +25,7 @@ public class Taskmanager{
     public static void compareSortingalgorythems(){
         /** comapres the speed of my InsertSort algorythem and my Implementation of a Randix sort, both for strings */
         Filemanager.println("Sorting Test of 6 different sorting algorithms: -----------------------------");
-        int AmountOfElementsTobeSorted = 300000;
+        int AmountOfElementsTobeSorted = 10000;
         Filemanager.printtp("Amount of Items sorted:", AmountOfElementsTobeSorted);
         Filemanager.println("");
         String[] strings = Stringoperations.createRandomStringArray(AmountOfElementsTobeSorted);
