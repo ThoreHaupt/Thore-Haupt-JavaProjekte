@@ -349,17 +349,46 @@ public class Sort {
                 i++;
             }
         }
-        /*
-        if (!(IndexBoarder2 == IndexBoarder2 -1)){
-            for (; A1Index < IndexBoarder2; A1Index++) {
-                sortliste.add((IndexBoarder3 + A1Index), sortliste.get(A1Index));
-                sortliste.remove(A1Index);
-            }
-        }
-        */
         return sortliste;
 
     }
+
+    public static ArrayList<String> mergeSortedArrayListRegionsII(ArrayList<String> sortliste, int IndexBoarder1,
+            int IndexBoarder2, int IndexBoarder3, HashMap<Character, Integer> referencemap) {
+
+        int c = IndexBoarder1;
+        int i = IndexBoarder2;
+        while (i < IndexBoarder3) {                                                         // interates over 2nd listpart
+            if (firstStringbool(sortliste.get(i), sortliste.get(c), referencemap)) {
+                sortliste.add(c, sortliste.get(i));
+                sortliste.remove(i + 1);                                                    // remove old element i, but it is moved bc of the insert (--> +1)
+                i++;                                                                        // take next character from index
+                c++;                                                                        // bc was moved to the right through the insert
+            } else {
+                c++;                                                                        //compare to next character
+            }
+            if (c > i)break;
+        }
+        return sortliste;
+
+    }
+
+    public static ArrayList<String> mergeArrayListe(ArrayList<String> sortlist, HashMap<Character, Integer> referencemap, boolean equalsOnly, 
+            ArrayList<Integer> chunklist){
+        
+                int[] chunk = new int[3];
+                while((chunklist.size() > 2 && ((int) chunklist.get(chunklist.size() - 1) == (int) chunklist.get(chunklist.size() - 2))) || !equalsOnly ){
+                    chunk[3] = 
+                    mergeSortedArrayListRegionsII(sortlist, chunk[0], chunk[1], chunk[2], referencemap);
+                    chunklist.add(chunk[3] - chunk[0]);
+                    chunklist.remove(chunklist.size() - 2);
+                    chunklist.remove(chunklist.size() - 2);
+
+                }
+        
+
+    }
+
 
     /**
      * randixsort algorythem for stringsorting O(n, maxlength(n))
@@ -868,11 +897,11 @@ public class Sort {
         return outputarray;
     }
 
-    public static String[] mergeSort(String[] Inputarray, String elementorderfilepath, int seperatorval){
+    public static String[] mergeInsertSort(String[] Inputarray, String elementorderfilepath, int seperatorval){
 
         long starttime = System.nanoTime();
-        HashMap<Character, Integer> counterrefference = new HashMap<Character, Integer>();
         ArrayList<String> sortlist = new ArrayList<String>(Arrays.asList(Inputarray));
+        HashMap<Character, Integer> counterrefference = new HashMap<Character, Integer>();
         {
             String[] orderinfo = Filemanager.getallLinesFromFile(elementorderfilepath);
             for (int i = 0; i < orderinfo.length; i++) {
@@ -904,24 +933,47 @@ public class Sort {
                 sortlist.remove(i + 1);
                 // System.out.println("added word at index:" + c + " word: " + inputarray[i]);
             }
-            
+
             chuncklist.add(currentchunksize);
             if (chuncklist.size() >= 2){
-                while (chuncklist.get(chuncklist.size() - 1) == chuncklist.get(chuncklist.size() - 2)) {
-                    sortlist = mergeSortedArrayListRegions(sortlist, lastindex + 1  - 2 * chuncklist.get(chuncklist.size() - 1),
-                            lastindex + 1 - chuncklist.get(chuncklist.size() - 1), lastindex + 1, counterrefference);
+                while ((int)chuncklist.get(chuncklist.size() - 1) == (int) chuncklist.get(chuncklist.size() - 2)) {
+                    sortlist = mergeSortedArrayListRegionsII(sortlist, 
+                            lastindex + 1  - 2 * chuncklist.get(chuncklist.size() - 1),
+                            lastindex + 1 - chuncklist.get(chuncklist.size() - 1), 
+                            lastindex + 1, 
+                            counterrefference);
                     chuncklist.add(2 * chuncklist.get(chuncklist.size() - 1));
                     chuncklist.remove(chuncklist.size() - 2);
                     chuncklist.remove(chuncklist.size() - 2);
-                    if(chuncklist.size() == 1) break;
+                    if(chuncklist.size() == 1) {
+                        System.out.println("liste 1 lang, break");
+                        break;}
                 }
             } 
             if((Inputarray.length - lastindex < smalestchuncsize)) {
-                sortlist = mergeSortedArrayListRegions(sortlist,
-                        lastindex + 1 - 2 * chuncklist.get(chuncklist.size() - 1),
-                        lastindex + 1 - chuncklist.get(chuncklist.size() - 1), 
-                        lastindex + 1, 
-                        counterrefference);
+                while ((int) chuncklist.get(chuncklist.size() - 1) != Inputarray.length) {
+                    sortlist = mergeSortedArrayListRegionsII(sortlist,
+                            lastindex + 1 - chuncklist.get(chuncklist.size() - 1) - chuncklist.get(chuncklist.size() - 2),
+                            lastindex + 1 - chuncklist.get(chuncklist.size() - 1), 
+                            lastindex + 1, 
+                            counterrefference);
+
+                    chuncklist.add(chuncklist.get(chuncklist.size() - 1) + chuncklist.get(chuncklist.size() - 2));
+                    chuncklist.remove(chuncklist.size() - 2);
+                    chuncklist.remove(chuncklist.size() - 2);
+                    if (chuncklist.size() == 1) {
+                        System.out.println("liste 1 lang, break");
+                        break;
+                    }
+
+                    if (chuncklist.get(chuncklist.size() - 1) == 128) {
+
+                        int s1 = chuncklist.get(chuncklist.size() - 1);
+                        int s2 = chuncklist.get(chuncklist.size() - 2);
+                        System.out.println(s1 == s2);
+                        System.out.println("dammit");
+                    }
+                }
             }
             
             lastindex += currentchunksize;
@@ -931,6 +983,42 @@ public class Sort {
         String[] returnArray = new String[Inputarray.length];
         Filemanager.println("Mergesort:");
         Filemanager.printtp("mergesort executiontime: (milliseconds) ",  (System.nanoTime() - starttime) * Math.pow(10, -6));
+        return sortlist.toArray(returnArray);
+
+    }
+
+    public static String[] MergeSort(String[] Inputarray, String elementorderfilepath) {
+
+        long starttime = System.nanoTime();
+        ArrayList<String> sortlist = new ArrayList<String>(Arrays.asList(Inputarray));
+        ArrayList<Integer> chunklist = new ArrayList<Integer>();
+        int[] chunk = new int[]{0,1,2};                                                              // first index of first chunk, first Index of second chunk, index after second chunk
+        HashMap<Character, Integer> counterrefference = new HashMap<Character, Integer>();
+        {
+            String[] orderinfo = Filemanager.getallLinesFromFile(elementorderfilepath);
+            for (int i = 0; i < orderinfo.length; i++) {
+                for (char charakter : orderinfo[i].toCharArray()) {
+                    // System.out.println("matched charakter:" + charakter + " with Index:" + i);
+                    counterrefference.put(charakter, i);
+                }
+            }
+        }
+
+        while (chunk[2] < Inputarray.length + 1)
+            if (chunklist.size() < 2  || !((int) chunklist.get(chunklist.size() - 1) ==  (int) chunklist.get(chunklist.size() - 2))){
+                chunklist.add(1);
+            }
+            
+            
+            
+            
+            lastindex += currentchunksize;
+        
+
+        String[] returnArray = new String[Inputarray.length];
+        Filemanager.println("Mergesort:");
+        Filemanager.printtp("mergesort executiontime: (milliseconds) ",
+                (System.nanoTime() - starttime) * Math.pow(10, -6));
         return sortlist.toArray(returnArray);
 
     }

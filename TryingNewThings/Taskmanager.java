@@ -1,31 +1,18 @@
 package TryingNewThings;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class Taskmanager{
     public static void main(String[] args){
         
-        //Stringoperations.printStringArray(Filemanager.getallLinesFromFile("TryingNewThings/loremIpsum.txt"));
-        //System.out.println(Filemanager.returnLineFromFile("TryingNewThings/test.txt", 3));
-        //String[] strings = Stringoperations.splitStringsIntoWordArray(Filemanager.getallLinesFromFile("TryingNewThings/Textfiles/loremIpsum.txt"));
-        
         compareSortingalgorythems();
-
-        //String savefilepath = "TryingNewThings/Textfiles/sortedList.txt";
-        //String stringsourcepath = "TryingNewThings/Textfiles/test.txt";
-        //Filemanager.deleteFile(savefilepath);
-        //Filemanager.createFile(savefilepath);
-        //String[] strings = Stringoperations.splitStringsIntoWordArray(Filemanager.getallLinesFromFile(stringsourcepath));
-        //String[] liste = Sort.radixsort(strings);
-        //Filemanager.writeToFile(
-        //        savefilepath, 
-        //        liste,
-        //        true);
-        
     }
 
     public static void compareSortingalgorythems(){
         /** comapres the speed of my InsertSort algorythem and my Implementation of a Randix sort, both for strings */
         Filemanager.println("Sorting Test of 6 different sorting algorithms: -----------------------------");
-        int AmountOfElementsTobeSorted = 10000;
+        int AmountOfElementsTobeSorted = 100;
         Filemanager.printtp("Amount of Items sorted:", AmountOfElementsTobeSorted);
         Filemanager.println("");
         String[] strings = Stringoperations.createRandomStringArray(AmountOfElementsTobeSorted);
@@ -159,4 +146,27 @@ public class Taskmanager{
         
     }
 
+    public static void testmerge(){
+        HashMap<Character, Integer> counterrefference = new HashMap<Character, Integer>();
+        {
+            String[] orderinfo = Filemanager.getallLinesFromFile("TryingNewThings/Textfiles/CharacterOrder.txt");
+            for (int i = 0; i < orderinfo.length; i++) {
+                for (char charakter : orderinfo[i].toCharArray()) {
+                    // System.out.println("matched charakter:" + charakter + " with Index:" + i);
+                    counterrefference.put(charakter, i);
+                }
+            }
+        }
+
+        ArrayList<String> test = new ArrayList<>();
+        test.add("ba");
+        test.add("c");
+        test.add("d");
+        test.add("aa");
+        test.add("ab");
+        Sort.mergeSortedArrayListRegionsII(test, 0, 3, 5, counterrefference);
+        for (String string : test) {
+            System.out.println(string);
+        }
+    }
 }
