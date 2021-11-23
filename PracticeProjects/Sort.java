@@ -2,6 +2,7 @@ package PracticeProjects;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 
 /**some random sorting method */
@@ -306,9 +307,11 @@ public class Sort {
             templist.remove(i + 1);
             progressbar.update(100.0 / (inputarray.length));
         }
-        Filemanager.println(String.format("%-32s%32f", "Insertsort average sortingtime:",
+        Filemanager.println(String.format("%-32s%32f", "Element Insert average sortingtime:",
                 (System.nanoTime() - E9time) * Math.pow(10, -6) / (double) inputarray.length));
 
+
+        Collections.reverse(templist);        
         return templist.toArray(new String[templist.size()]);
     }
 

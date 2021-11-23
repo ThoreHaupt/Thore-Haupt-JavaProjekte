@@ -34,7 +34,7 @@ public class Taskmanager{
         
         Filemanager.println("------ Comaprison based - Sortingalgorithms ------------------------I");
         long current;
-        /*
+        
         // Insert Sort my first implementation
         Filemanager.println("------ InsertI -------------------------");
         current = System.nanoTime();
@@ -68,8 +68,7 @@ public class Taskmanager{
         Filemanager.println("");
 
        
-        */
-        double t1 = 1000000;
+        
         // MergeSort 
         Filemanager.println("------ MergeSort ------------------------");
         current = System.nanoTime();
