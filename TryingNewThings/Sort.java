@@ -374,15 +374,18 @@ public class Sort {
     }
 
     public static ArrayList<String> mergeArrayListe(ArrayList<String> sortlist, HashMap<Character, Integer> referencemap, boolean equalsOnly, 
-            ArrayList<Integer> chunklist){
+            ArrayList<Integer> chunklist, int[] chunk){
         
-                int[] chunk = new int[3];
-                while((chunklist.size() > 2 && ((int) chunklist.get(chunklist.size() - 1) == (int) chunklist.get(chunklist.size() - 2))) || !equalsOnly ){
-                    chunk[3] = 0;
+                
+                while((chunklist.size() >= 2 && ((int) chunklist.get(chunklist.size() - 1) == (int) chunklist.get(chunklist.size() - 2))) || !equalsOnly ){
+                    
+                    
                     mergeSortedArrayListRegionsII(sortlist, chunk[0], chunk[1], chunk[2], referencemap);
-                    chunklist.add(chunk[3] - chunk[0]);
+                    chunklist.add(chunk[2] - chunk[0]);
                     chunklist.remove(chunklist.size() - 2);
                     chunklist.remove(chunklist.size() - 2);
+                    chunk[1] -= (chunklist.get(chuncklist.size()-1));
+                    chunk[2] -= chunklist.get(chunklist.size() - 3);
 
                 }
 
@@ -392,7 +395,14 @@ public class Sort {
         return sortlist;
 
     }
-
+    public static int sumArrayList(ArrayList<Integer> list){
+        int sum =0;
+        for(int i = 0; i < list.size(); i++){
+            sum += list.get(i);
+        }
+        return sum;
+        
+    }
 
     /**
      * randixsort algorythem for stringsorting O(n, maxlength(n))
