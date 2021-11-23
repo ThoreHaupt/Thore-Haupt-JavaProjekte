@@ -16,7 +16,7 @@ public class Taskmanager{
     public static void compareSortingalgorithms(){
         /** comapres the speed of my InsertSort algorithm and my Implementation of a Randix sort, both for strings */
         Filemanager.println("\n\nSorting Test of 7 different sorting algorithms: -----------------------------");
-        int AmountOfElementsTobeSorted = 60000;
+        int AmountOfElementsTobeSorted = 120000;
         Filemanager.printtp("Amount of Items sorted:", AmountOfElementsTobeSorted);
         Filemanager.println("");
         String[] strings = Stringoperations.createRandomStringArray(AmountOfElementsTobeSorted);
@@ -34,7 +34,7 @@ public class Taskmanager{
         
         Filemanager.println("------ Comaprison based - Sortingalgorithms ------------------------I");
         long current;
-        
+        /*
         // Insert Sort my first implementation
         Filemanager.println("------ InsertI -------------------------");
         current = System.nanoTime();
@@ -68,7 +68,8 @@ public class Taskmanager{
         Filemanager.println("");
 
        
-        
+        */
+        double t1 = 1000000;
         // MergeSort 
         Filemanager.println("------ MergeSort ------------------------");
         current = System.nanoTime();

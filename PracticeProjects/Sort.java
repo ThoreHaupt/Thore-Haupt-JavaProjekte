@@ -42,9 +42,12 @@ public class Sort {
         while (lastindex < Inputarray.length) {
             int c = 0;
             currentchunksize = ((Inputarray.length - lastindex) > smalestchuncsize) ? smalestchuncsize
-                    : Inputarray.length - lastindex;
+                    : Inputarray.length - lastindex;                                                                    // wenn die kleinste chunksize größer ist als die restlichen Elemente auf der Arrayliste 
+                                                                                                                        //wird der momentanige Chunk auf den Rest gesetzt
             int lowerchunkboarder = lastindex - currentchunksize + 2;
-            for (int i = lowerchunkboarder; i < lastindex + currentchunksize - 1; i++) {
+
+            //insert Sort für den kleinsten Chunk
+            for (int i = lowerchunkboarder; i < lastindex + currentchunksize - 1; i++) {                            
                 c = i;
                 while (firstStringbool(sortlist.get(i), sortlist.get(c), counterrefference)) {
                     if (c == lowerchunkboarder - 1) {
@@ -60,6 +63,7 @@ public class Sort {
 
             chunklist.add(currentchunksize);                                                                            //Hier wird ein Element der chunkliste hinzugefügt
             if (chunklist.size() >= 2) {
+                //gleich große chunks zusammenfügen, bis die letzten beiden chunks aus chunkliste nicht mehr gleich groß sind.
                 while ((int) chunklist.get(chunklist.size() - 1) == (int) chunklist.get(chunklist.size() - 2)) {        // Hier ist die besagte while Schleife, Ohne (int) gibt dieses Statement false zurück
                     sortlist = mergeSortedArrayListRegionsII(sortlist,
                             lastindex + 1 - 2 * chunklist.get(chunklist.size() - 1),
@@ -72,6 +76,7 @@ public class Sort {
                     }
                 }
             }
+            // Am Ende die letzten chunks zusammentuen
             if ((Inputarray.length - lastindex < smalestchuncsize)) {
                 while ((int) chunklist.get(chunklist.size() - 1) != Inputarray.length) {
                     sortlist = mergeSortedArrayListRegionsII(sortlist,
@@ -86,12 +91,11 @@ public class Sort {
                     }
                 }
             }
-            progressbar.update((100.0 / Inputarray.length));
+            progressbar.update((100.0 / Inputarray.length)*currentchunksize);
             lastindex += currentchunksize;
         }
 
         String[] returnArray = new String[Inputarray.length];
-                (System.nanoTime() - starttime) * Math.pow(10, -6));
         return sortlist.toArray(returnArray);
 
     }
