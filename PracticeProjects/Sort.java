@@ -129,7 +129,7 @@ public class Sort {
         
         String[] outputarray = new String[inputarray.length];
         ArrayList<String> templist = new ArrayList<String>();
-        String[] orderinfo = Filemanager.getallLinesFromFile("TryingNewThings/Textfiles/CharacterOrder.txt");
+        String[] orderinfo = Filemanager.getallLinesFromFile("PracticeProjects/Textfiles/CharacterOrder.txt");
         
         HashMap<Character, Integer> counterrefference = new HashMap<Character, Integer>();
         {
@@ -180,7 +180,7 @@ public class Sort {
         ArrayList<String> templist = new ArrayList<String>(Arrays.asList(inputarray));
         HashMap<Character, Integer> counterrefference = new HashMap<Character, Integer>();
         {
-            String[] orderinfo = Filemanager.getallLinesFromFile("TryingNewThings/Textfiles/CharacterOrder.txt");
+            String[] orderinfo = Filemanager.getallLinesFromFile("PracticeProjects/Textfiles/CharacterOrder.txt");
             for (int i = 0; i < orderinfo.length; i++) {
                 for (char charakter : orderinfo[i].toCharArray()) {
                     // System.out.println("matched charakter:" + charakter + " with Index:" + i);
@@ -194,12 +194,13 @@ public class Sort {
         for (int i = 1; i < templist.size() ; i++) {
             c = i - 1;
             while (firstStringbool(templist.get(i), templist.get(c), counterrefference)) {
+                
                 if (c == 0) {
                     break;
                 }
                 c--;
             }
-            templist.add(c, templist.get(i));
+            templist.add(c + 1, templist.get(i));
             templist.remove(i + 1);
             // System.out.println("added word at index:" + c + " word: " + inputarray[i]);
         }
@@ -218,7 +219,7 @@ public class Sort {
      * @return sorted Array of the Strings
      */
     public static String[] radixsort(String[] Inputarray){
-        return radixsortAlgorythm(Inputarray, "TryingNewThings/Textfiles/CharacterOrder.txt");
+        return radixsortAlgorythm(Inputarray, "PracticeProjects/Textfiles/CharacterOrder.txt");
     }
 
     /**
@@ -252,7 +253,7 @@ public class Sort {
      * @return sorted Array of the Strings
      */
     public static String[] radixInsertSort(String[] Inputarray){
-        return radixInsertSortAlgorythm(Inputarray, "TryingNewThings/Textfiles/CharacterOrder.txt", .9d); 
+        return radixInsertSortAlgorythm(Inputarray, "PracticeProjects/Textfiles/CharacterOrder.txt", .9d); 
     }
     
     /**
@@ -955,6 +956,7 @@ public class Sort {
 
         long starttime = System.nanoTime();
         ArrayList<String> sortlist = new ArrayList<String>(Arrays.asList(Inputarray));
+        //loads referencemap to get order of charakters when comaring
         HashMap<Character, Integer> counterrefference = new HashMap<Character, Integer>();
         {
             String[] orderinfo = Filemanager.getallLinesFromFile(elementorderfilepath);
@@ -969,15 +971,15 @@ public class Sort {
         int smalestchuncsize = (Inputarray.length / (int) Math.pow(2, seperatorval));
         int lastindex = smalestchuncsize - 1;
         int currentchunksize;
-        ArrayList<Integer> chuncklist = new ArrayList<Integer>();
+        ArrayList<Integer> chunklist = new ArrayList<Integer>();
         while(lastindex < Inputarray.length){
             int c = 0;
             currentchunksize = ((Inputarray.length - lastindex) > smalestchuncsize) ?  smalestchuncsize : Inputarray.length - lastindex;
-            int lowerChunckboarder = lastindex - currentchunksize + 2;
-            for (int i = lowerChunckboarder; i < lastindex + currentchunksize - 1; i++) {
+            int lowerchunkboarder = lastindex - currentchunksize + 2;
+            for (int i = lowerchunkboarder; i < lastindex + currentchunksize - 1; i++) {
                 c = i;
                 while (firstStringbool(sortlist.get(i), sortlist.get(c), counterrefference)) {
-                    if (c == lowerChunckboarder - 1) {
+                    if (c == lowerchunkboarder - 1) {
                         c--;
                         break;
                     }
@@ -988,34 +990,34 @@ public class Sort {
                 // System.out.println("added word at index:" + c + " word: " + inputarray[i]);
             }
 
-            chuncklist.add(currentchunksize);
-            if (chuncklist.size() >= 2){
-                while ((int)chuncklist.get(chuncklist.size() - 1) == (int) chuncklist.get(chuncklist.size() - 2)) {
+            chunklist.add(currentchunksize);
+            if (chunklist.size() >= 2){
+                while ((int)chunklist.get(chunklist.size() - 1) == (int) chunklist.get(chunklist.size() - 2)) {
                     sortlist = mergeSortedArrayListRegionsII(sortlist, 
-                            lastindex + 1  - 2 * chuncklist.get(chuncklist.size() - 1),
-                            lastindex + 1 - chuncklist.get(chuncklist.size() - 1), 
+                            lastindex + 1  - 2 * chunklist.get(chunklist.size() - 1),
+                            lastindex + 1 - chunklist.get(chunklist.size() - 1), 
                             lastindex + 1, 
                             counterrefference);
-                    chuncklist.add(2 * chuncklist.get(chuncklist.size() - 1));
-                    chuncklist.remove(chuncklist.size() - 2);
-                    chuncklist.remove(chuncklist.size() - 2);
-                    if(chuncklist.size() == 1) {
+                    chunklist.add(2 * chunklist.get(chunklist.size() - 1));
+                    chunklist.remove(chunklist.size() - 2);
+                    chunklist.remove(chunklist.size() - 2);
+                    if(chunklist.size() == 1) {
                         System.out.println("liste 1 lang, break");
                         break;}
                 }
             } 
             if((Inputarray.length - lastindex < smalestchuncsize)) {
-                while ((int) chuncklist.get(chuncklist.size() - 1) != Inputarray.length) {
+                while ((int) chunklist.get(chunklist.size() - 1) != Inputarray.length) {
                     sortlist = mergeSortedArrayListRegionsII(sortlist,
-                            lastindex + 1 - chuncklist.get(chuncklist.size() - 1) - chuncklist.get(chuncklist.size() - 2),
-                            lastindex + 1 - chuncklist.get(chuncklist.size() - 1), 
+                            lastindex + 1 - chunklist.get(chunklist.size() - 1) - chunklist.get(chunklist.size() - 2),
+                            lastindex + 1 - chunklist.get(chunklist.size() - 1), 
                             lastindex + 1, 
                             counterrefference);
 
-                    chuncklist.add(chuncklist.get(chuncklist.size() - 1) + chuncklist.get(chuncklist.size() - 2));
-                    chuncklist.remove(chuncklist.size() - 2);
-                    chuncklist.remove(chuncklist.size() - 2);
-                    if (chuncklist.size() == 1) {
+                    chunklist.add(chunklist.get(chunklist.size() - 1) + chunklist.get(chunklist.size() - 2));
+                    chunklist.remove(chunklist.size() - 2);
+                    chunklist.remove(chunklist.size() - 2);
+                    if (chunklist.size() == 1) {
                         break;
                     }
                 }

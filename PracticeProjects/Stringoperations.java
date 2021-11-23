@@ -12,7 +12,7 @@ public class Stringoperations {
      * to run the missing char method
      */
     public static void main(String[] args) {
-        findNewChars("TryingNewThings/Textfiles/ListEnglishAndGermanWords", "TryingNewThings/Textfiles/CharacterOrder.txt");
+        findNewChars("PracticeProjects/Textfiles/ListEnglishAndGermanWords", "PracticeProjects/Textfiles/CharacterOrder.txt");
     }
 
     /**
@@ -39,7 +39,7 @@ public class Stringoperations {
         for (int i = 0; i < length; i++){
             indices[i] = (int) (randomNumberGenerator.nextDouble() * 654140);
         }
-        list = Filemanager.getLinesFromFile("TryingNewThings/Textfiles/ListEnglishAndGermanWords", indices);
+        list = Filemanager.getLinesFromFile("PracticeProjects/Textfiles/ListEnglishAndGermanWords", indices);
         System.out.println("generated an Array of length: " + length);
         shuffleArray(list);
         return list;
@@ -171,8 +171,8 @@ public class Stringoperations {
         }
 
 
-        Filemanager.createFile("TryingNewThings/Textfiles/missingChars.txt", true);
-        Filemanager.writeToFile("TryingNewThings/Textfiles/missingChars.txt",output.toArray(new String[output.size()]) , true);
+        Filemanager.createFile("PracticeProjects/Textfiles/missingChars.txt", true);
+        Filemanager.writeToFile("PracticeProjects/Textfiles/missingChars.txt",output.toArray(new String[output.size()]) , true);
 
     }
 

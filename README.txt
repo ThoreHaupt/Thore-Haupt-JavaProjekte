@@ -1,3 +1,30 @@
 2 different folders: 
     1. Rechnerpraktika Aufgaben (/RP..)
     2. Experiments and Practice (TryingNewThings)
+
+
+
+"Problem"/Frage in mergeInsertSort
+
+Struktur: 
+taskmanager: 
+    main  
+        compareSortingalgorithms
+            testInsertSortingalgorithms
+                Sort. mergeInsertSort: ln 89
+            
+
+Frage an Experten: 
+    in Sort.java:mergeInsertSort: ln 993:
+    steht:
+
+    (int) chuncklist.get(chuncklist.size() - 1) == (int) chuncklist.get(chuncklist.size() - 2)
+
+    Frage, warum müssen die explizite int casts da hin? Sollten nicht beide Werte von chuncklist einen int returnen? 
+    So wie es da steht funktioniert es, aber wenn (int) fehlt, funktioniert die Aussage nur bis zum wert 128, das ist auch
+    der Wert den beide Variablen haben, zumindest im Debugmode auch.
+
+    Hier ist die Deklaration und Initialisierung von chuncklist: (ln 972)
+        ArrayList<Integer> chuncklist = new ArrayList<Integer>();
+
+Vielen Dank für die Information!

@@ -270,19 +270,19 @@ public class Filemanager {
     }
 
     public static void println(String string){
-        writeToFile("TryingNewThings/Textfiles/Console", string + "\n");
+        writeToFile("PracticeProjects/Textfiles/Console", string + "\n");
     }
     
     public static void println(char string) {
-        writeToFile("TryingNewThings/Textfiles/Console", "" + string + "\n");
+        writeToFile("PracticeProjects/Textfiles/Console", "" + string + "\n");
     }
     
     public static void println(int string) {
-        writeToFile("TryingNewThings/Textfiles/Console", "" + string + "\n");
+        writeToFile("PracticeProjects/Textfiles/Console", "" + string + "\n");
     }
 
     public static void println(double string) {
-        writeToFile("TryingNewThings/Textfiles/Console", "" + string + "\n");
+        writeToFile("PracticeProjects/Textfiles/Console", "" + string + "\n");
     }
 
     public static void printtp(String string, double value){
@@ -295,7 +295,7 @@ public class Filemanager {
         
         String format = "%-" + stringvar + "s%" + valuevar + "f";
         String printstring = String.format(format, string, value); 
-        writeToFile("TryingNewThings/Textfiles/Console", printstring + "\n");
+        writeToFile("PracticeProjects/Textfiles/Console", printstring + "\n");
 
         
     }

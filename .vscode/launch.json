@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Taskmanager",
+            "request": "launch",
+            "mainClass": "PracticeProjects.Taskmanager",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
             "name": "Launch Stringoperations",
             "request": "launch",
             "mainClass": "TryingNewThings.Stringoperations",
