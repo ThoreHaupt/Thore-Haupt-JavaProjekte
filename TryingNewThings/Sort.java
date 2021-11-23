@@ -977,16 +977,7 @@ public class Sort {
                     chuncklist.remove(chuncklist.size() - 2);
                     chuncklist.remove(chuncklist.size() - 2);
                     if (chuncklist.size() == 1) {
-                        System.out.println("liste 1 lang, break");
                         break;
-                    }
-
-                    if (chuncklist.get(chuncklist.size() - 1) == 128) {
-
-                        int s1 = chuncklist.get(chuncklist.size() - 1);
-                        int s2 = chuncklist.get(chuncklist.size() - 2);
-                        System.out.println(s1 == s2);
-                        System.out.println("dammit");
                     }
                 }
             }
@@ -1005,8 +996,8 @@ public class Sort {
     public static String[] MergeSort(String[] Inputarray, String elementorderfilepath) {
 
         long starttime = System.nanoTime();
-        ArrayList<String> sortlist = new ArrayList<String>(Arrays.asList(Inputarray));
-        ArrayList<Integer> chunklist = new ArrayList<Integer>();
+        ArrayList<String> sortlist = new ArrayList<String>(Arrays.asList(Inputarray));               //Arraylistsorted on, this algorithm might be slow, but it only uses this Arralist to do all operations on the Stringorder
+        ArrayList<Integer> chunklist = new ArrayList<Integer>();                                     // list of chunks sorted
         int[] chunk = new int[]{0,0,0};                                                              // first index of first chunk, first Index of second chunk, index after second chunk
         HashMap<Character, Integer> counterrefference = new HashMap<Character, Integer>();           // The order of characters sorted by
         {
@@ -1019,20 +1010,19 @@ public class Sort {
             }
         }
 
-        while (chunk[2] < Inputarray.length){
+        while (chunk[2] < Inputarray.length){                                                                                      
             if (!((int) chunklist.get(chunklist.size() - 1) ==  (int) chunklist.get(chunklist.size() - 2))){
                 chunklist.add(1);
                 chunk[2] +=1;
             }
-            if (chunklist.size() < 2) sortlist = mergeArrayListe(sortlist, counterrefference, true, chunklist, chunk);
+            if (chunklist.size() > 1) sortlist = mergeArrayListe(sortlist, counterrefference, true, chunklist, chunk);
         }
         sortlist = mergeArrayListe(sortlist, counterrefference, false, chunklist, chunk);
 
-        String[] returnArray = new String[Inputarray.length];
-        Filemanager.println("Mergesort:");
+        String[] Inputarray = new String[Inputarray.length];
         Filemanager.printtp("mergesort executiontime: (milliseconds) ",
                 (System.nanoTime() - starttime) * Math.pow(10, -6));
-        return sortlist.toArray(returnArray);
+        return sortlist.toArray(Inputarray);
 
     }
 }
