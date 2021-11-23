@@ -1,4 +1,4 @@
-package TryingNewThings.RP.W3;
+package RP.W3;
 
 import java.util.Scanner;
 

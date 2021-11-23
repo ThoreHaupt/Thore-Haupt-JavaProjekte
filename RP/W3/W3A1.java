@@ -1,7 +1,7 @@
 package RP.W3;
 import java.util.Scanner;
 
-public class W4A1{
+public class W3A1{
 
     public static void main(String[] args){
 

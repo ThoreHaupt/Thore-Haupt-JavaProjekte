@@ -1,5 +1,4 @@
 package RP.W4;
-import java.util.Random;
 import java.util.Scanner;
 
 public class W4A1 {
