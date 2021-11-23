@@ -372,29 +372,30 @@ public class Sort {
         return sortliste;
 
     }
-
+    /**
+    *
+    *
+    */
     public static ArrayList<String> mergeArrayListe(ArrayList<String> sortlist, HashMap<Character, Integer> referencemap, boolean equalsOnly, 
             ArrayList<Integer> chunklist, int[] chunk){
         
-                
-                while((chunklist.size() >= 2 && ((int) chunklist.get(chunklist.size() - 1) == (int) chunklist.get(chunklist.size() - 2))) || !equalsOnly ){
-                    
-                    
-                    mergeSortedArrayListRegionsII(sortlist, chunk[0], chunk[1], chunk[2], referencemap);
-                    chunklist.add(chunk[2] - chunk[0]);
-                    chunklist.remove(chunklist.size() - 2);
-                    chunklist.remove(chunklist.size() - 2);
-                    chunk[1] -= (chunklist.get(chuncklist.size()-1));
-                    chunk[2] -= chunklist.get(chunklist.size() - 3);
+        chunk[0] = chunk[3] - chunklist.get(chunklist.size() - 1) - chunklist.get(chunklist.size() - 2);
+        chunk[0] = chunk[3] - chunklist.get(chunklist.size() - 1);
+        while((chunklist.size() >= 2 && ((int) chunklist.get(chunklist.size() - 1) == (int) chunklist.get(chunklist.size() - 2))) || !equalsOnly ){
+            mergeSortedArrayListRegionsII(sortlist, chunk[0], chunk[1], chunk[2], referencemap);
+            
+            chunklist.add(chunk[2] - chunk[0]);
+            chunklist.remove(chunklist.size() - 2);
+            chunklist.remove(chunklist.size() - 2);
+            chunk[1] -= chunk[0] 
+            chunk[0] -= chunklist.get(chunklist.size() - 2);
+            
+        }
 
-                }
-
-
-
-                
         return sortlist;
 
     }
+
     public static int sumArrayList(ArrayList<Integer> list){
         int sum =0;
         for(int i = 0; i < list.size(); i++){
@@ -1006,8 +1007,8 @@ public class Sort {
         long starttime = System.nanoTime();
         ArrayList<String> sortlist = new ArrayList<String>(Arrays.asList(Inputarray));
         ArrayList<Integer> chunklist = new ArrayList<Integer>();
-        int[] chunk = new int[]{0,1,2};                                                              // first index of first chunk, first Index of second chunk, index after second chunk
-        HashMap<Character, Integer> counterrefference = new HashMap<Character, Integer>();
+        int[] chunk = new int[]{0,0,0};                                                              // first index of first chunk, first Index of second chunk, index after second chunk
+        HashMap<Character, Integer> counterrefference = new HashMap<Character, Integer>();           // The order of characters sorted by
         {
             String[] orderinfo = Filemanager.getallLinesFromFile(elementorderfilepath);
             for (int i = 0; i < orderinfo.length; i++) {
@@ -1018,16 +1019,14 @@ public class Sort {
             }
         }
 
-        while (chunk[2] < Inputarray.length + 1)
-            if (chunklist.size() < 2  || !((int) chunklist.get(chunklist.size() - 1) ==  (int) chunklist.get(chunklist.size() - 2))){
+        while (chunk[2] < Inputarray.length){
+            if (!((int) chunklist.get(chunklist.size() - 1) ==  (int) chunklist.get(chunklist.size() - 2))){
                 chunklist.add(1);
+                chunk[2] +=1;
             }
-            
-            
-            
-            
-            //lastindex += currentchunksize;
-        
+            if (chunklist.size() < 2) sortlist = mergeArrayListe(sortlist, counterrefference, true, chunklist, chunk);
+        }
+        sortlist = mergeArrayListe(sortlist, counterrefference, false, chunklist, chunk);
 
         String[] returnArray = new String[Inputarray.length];
         Filemanager.println("Mergesort:");
