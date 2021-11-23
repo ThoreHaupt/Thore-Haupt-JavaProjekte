@@ -1024,7 +1024,6 @@ public class Sort {
             }
             
             lastindex += currentchunksize;
-            System.out.println("Mergesort progress: ~" + (double) lastindex/Inputarray.length);
         }
 
         String[] returnArray = new String[Inputarray.length];

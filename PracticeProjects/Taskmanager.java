@@ -16,7 +16,7 @@ public class Taskmanager{
     public static void compareSortingalgorithms(){
         /** comapres the speed of my InsertSort algorithm and my Implementation of a Randix sort, both for strings */
         Filemanager.println("\n\nSorting Test of 7 different sorting algorithms: -----------------------------");
-        int AmountOfElementsTobeSorted = 1000;
+        int AmountOfElementsTobeSorted = 100000;
         Filemanager.printtp("Amount of Items sorted:", AmountOfElementsTobeSorted);
         Filemanager.println("");
         String[] strings = Stringoperations.createRandomStringArray(AmountOfElementsTobeSorted);
@@ -41,7 +41,7 @@ public class Taskmanager{
         String[] sortedString1 = Sort.StringInsertSort(strings); // <--calling the Algorithm
         double t1 = (System.nanoTime() - current) * Math.pow(10, -6);
 
-        Filemanager.printtp("StringInsertSort time in microseconds: ", t1);
+        Filemanager.printtp("StringInsertSort time in milliseconds: ", t1);
         Filemanager.printtp("ratio (Insert/Insert): ", (double) (t1 / t1));
         
         Filemanager.createFile("PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert4.txt", true);
@@ -56,7 +56,7 @@ public class Taskmanager{
         String[] sortedString2 = Sort.StringInsertSortII(strings);  // <--calling the Algorithm
         double t2 = (System.nanoTime() - current) * Math.pow(10, -6);
 
-        Filemanager.printtp("StringInsertSort time in microseconds: ", t2);
+        Filemanager.printtp("StringInsertSort time in milliseconds: ", t2);
         Filemanager.printtp("ratio (Insert/Insert): ", (double) (t1 / t2));
         
         Filemanager.createFile("PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert5.txt", true);
@@ -73,7 +73,7 @@ public class Taskmanager{
         String[] sortedString3 = Sort.MergeSort(strings, "PracticeProjects/Textfiles/CharacterOrder.txt"); // <--calling the Algorithm
         double t3 = (System.nanoTime() - current) * Math.pow(10, -6);
 
-        Filemanager.printtp("MergeSort time in microseconds: ", t3);
+        Filemanager.printtp("MergeSort time in milliseconds: ", t3);
         Filemanager.printtp("ratio (InsertSort 1/MergeSort): ", (double) (t1 / t3));
         Filemanager.println("");
 
@@ -89,7 +89,7 @@ public class Taskmanager{
         String[] sortedString4 = Sort.mergeInsertSort(strings, "PracticeProjects/Textfiles/CharacterOrder.txt", 6); // <--calling the Algorithm
         double t4 = (System.nanoTime() - current) * Math.pow(10, -6);
 
-        Filemanager.printtp("MergeInsertSort time in microseconds: ", t4);
+        Filemanager.printtp("MergeInsertSort time in milliseconds: ", t4);
         Filemanager.printtp("ratio (InsertSort 1/MergeInsertSort): ", (double) (t1 / t4));
         Filemanager.println("");
 
@@ -117,7 +117,7 @@ public class Taskmanager{
         
         double r1 = (System.nanoTime() - current) * Math.pow(10, -6);
 
-        Filemanager.printtp("RadixSort time in microseconds: ", r1);
+        Filemanager.printtp("RadixSort time in milliseconds: ", r1);
         Filemanager.printtp("ratio (Insert/radix): ", (double) (t1 / r1));
 
         Filemanager.createFile("PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert1.txt", true);
@@ -134,7 +134,7 @@ public class Taskmanager{
         String[] sortedString2 = Sort.radixInsertSort(strings, "PracticeProjects/Textfiles/CharacterOrder.txt", .9d);
         double t2 = (System.nanoTime() - current) * Math.pow(10, -6);
 
-        Filemanager.printtp("radixInsertSort time in microseconds: ", t2);
+        Filemanager.printtp("radixInsertSort time in milliseconds: ", t2);
         Filemanager.printtp("ratio (Insert/radixInsert): ", (double) (t1 / t2));
         
         Filemanager.createFile("PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert2.txt", true);
@@ -150,7 +150,7 @@ public class Taskmanager{
                 .9d);
         double t4 = (System.nanoTime() - current) * Math.pow(10, -6);
 
-        Filemanager.printtp("radixMergeInsertSort time in microseconds: ", t4);
+        Filemanager.printtp("radixMergeInsertSort time in milliseconds: ", t4);
         Filemanager.printtp("ratio (Insert/radixMergeInsertSort): ", (double) (t1 / t4));
         
         Filemanager.createFile("PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert3.txt", true);

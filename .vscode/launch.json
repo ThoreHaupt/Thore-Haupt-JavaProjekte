@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Terminaloutputtests",
+            "request": "launch",
+            "mainClass": "PracticeProjects.Terminaloutputtests",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
             "name": "Launch Taskmanager",
             "request": "launch",
             "mainClass": "PracticeProjects.Taskmanager",

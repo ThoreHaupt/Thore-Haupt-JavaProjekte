@@ -3,6 +3,11 @@
     2. Experiments and Practice (TryingNewThings)
 
 
+Experimente/ meine Implementationen von Sortieralgorithmen
+    Die Menge der zu sortierenden Strings kann in Taskmanager angegeben werden. 
+    Es werden zufällige Wörter aus einer Liste mit deutschen und englischen wörtern ausgewählt.
+    Ausgabe der gemessenden Zeiten ist unter Textfiles/Console.
+
 
 "Problem"/Frage in mergeInsertSort
 
