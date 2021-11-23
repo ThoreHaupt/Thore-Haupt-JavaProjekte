@@ -333,6 +333,15 @@ public class Sort {
 
     }
     
+    /**
+     * this mill merge two sorted chunk of an ArrayList<String> to one sorted chunk on the same ArrayList
+     * @param sortliste         ArrayList with Elements
+     * @param IndexBoarder1     first index of first chunk
+     * @param IndexBoarder2     first index of second chunk
+     * @param IndexBoarder3     first index after second chunk
+     * @param referencemap      reference HashMap with char, int key, value pairs to find the priority of each char
+     * @return
+     */
     public static ArrayList<String> mergeSortedArrayListRegions(ArrayList<String> sortliste, int IndexBoarder1, int IndexBoarder2, 
             int IndexBoarder3, HashMap<Character, Integer> referencemap ) {
 
@@ -351,6 +360,18 @@ public class Sort {
 
     }
 
+    /**
+     * this mill merge two sorted chunk of an ArrayList<String> to one sorted chunk
+     * on the same ArrayList VersionII, which is a little cleaner than version 1 
+     * 
+     * @param sortliste     ArrayList with Elements
+     * @param IndexBoarder1 first index of first chunk
+     * @param IndexBoarder2 first index of second chunk
+     * @param IndexBoarder3 first index after second chunk
+     * @param referencemap  reference HashMap with char, int key, value pairs to
+     *                      find the priority of each char
+     * @return
+     */
     public static ArrayList<String> mergeSortedArrayListRegionsII(ArrayList<String> sortliste, int IndexBoarder1,
             int IndexBoarder2, int IndexBoarder3, HashMap<Character, Integer> referencemap) {
 

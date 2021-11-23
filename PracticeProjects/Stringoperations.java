@@ -1,17 +1,24 @@
 package PracticeProjects;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Stringoperations {
-    
 
+    /**
+     * to run the missing char method
+     */
     public static void main(String[] args) {
         findNewChars("TryingNewThings/Textfiles/ListEnglishAndGermanWords", "TryingNewThings/Textfiles/CharacterOrder.txt");
     }
-    /** prints a String[] */
+
+    /**
+     *  prints a String[] 
+     *  @param array String[] input
+     */
     public static void printStringArray(String[] array) {
         
         for (int i = 0; i < array.length; i++) {
@@ -62,7 +69,10 @@ public class Stringoperations {
         return outputarray;
     }
 
-    /** converts an ArrayList<String> Type to an String[] */
+    /** 
+     * converts an ArrayList<String> Type to an String[] 
+     * better := new ArrayList<>(Arrays.asList(Array))
+     * */
     public static String[] convertArrayListtoArray(ArrayList<String> inputArrayList){
         
         String[] output = new String[inputArrayList.size()];
@@ -74,6 +84,7 @@ public class Stringoperations {
 
     /**
      * moves Elements from an ArrayList to an Array
+     * better: 
      * @param inputArrayList    ArrayList to be converted
      * @param direction         >= 0 --> same order, <0 inverses order of elements
      * @return                  Array
@@ -95,7 +106,10 @@ public class Stringoperations {
         return output;
     }
 
-    /** removes dots and comma */
+    /** 
+     * removes dots and comma from all string in a String[]
+     * @param inputArray input Array 
+     * */
     public static String[] removeSemantics(String[] inputArray){
         
         ArrayList<String> outputList = new ArrayList<String>();
@@ -108,6 +122,14 @@ public class Stringoperations {
         return inputArray;
     }
 
+    /**
+     * randomly assigns new indexes to each element of an Array
+     * 
+     * @param ar Array
+     * @author leventov
+     * @apiNote webpage
+     *          https://stackoverflow.com/questions/1519736/random-shuffling-of-an-array
+     */
     static void shuffleArray(String[] ar) {
         // If running on Java 6 or older, use `new Random()` on RHS here
         Random rnd = ThreadLocalRandom.current();
@@ -120,6 +142,11 @@ public class Stringoperations {
         }
     }
 
+    /**
+     * this can check wether all chars in one file are also in a different file. If not it will generate a missingChars.txt with the missing charakters in them
+     * @param path          path of file to check   
+     * @param reference     path of reference file
+     */
     public static void findNewChars(String path, String reference){
         
         HashMap<Character, Integer> counterrefference = new HashMap<Character, Integer>();
@@ -149,4 +176,21 @@ public class Stringoperations {
 
     }
 
+    /**
+     * compares each element of two files, if each line is the same, it will return
+     * true;
+     * 
+     * @param path1    The filepath to one File
+     * @param path2    The filepath to the other File
+     * @return         true, if both are the same
+     */
+    public static boolean comparetwofiles(String path1, String path2){
+        String[] A1 = Filemanager.getallLinesFromFile(path1);
+        String[] A2 = Filemanager.getallLinesFromFile(path2);
+
+        for (int i = 0; i < A2.length; i++) {
+            if (!(A1[i].strip() == A2[i].strip())) return false;
+        }
+        return true;
+    }
 }

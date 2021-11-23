@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * methods to use files easily 
+ * methods to use files more easily 
  * static
 */
 public class Filemanager {
