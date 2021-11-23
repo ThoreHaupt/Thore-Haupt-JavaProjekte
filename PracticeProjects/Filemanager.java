@@ -214,16 +214,32 @@ public class Filemanager {
     /**
      * adds a String to the end of the file
      * @param path      filepath
+     * @param line      index of the line to be changed (first line has index = 0)
      * @param input     String to add to file
      * @return          true, if sucessfull
      */
-    public static boolean writeToFile(String path, String input){
-        try{
+    public static boolean writeToFileLine(String path, int line, String input){
+        
+        String[] file = getallLinesFromFile(path);
+        if(file.length >= line)file[line] = input;
+        writeToFile(path, file, true);
+
+        return true;
+    }
+
+    /**
+     * adds a String to the end of the file
+     * 
+     * @param path  filepath
+     * @param input String to add to file
+     * @return true, if sucessfull
+     */
+    public static boolean writeToFile(String path, String input) {
+        try {
             FileWriter myWriter = new FileWriter(path, true);
             myWriter.write(input);
             myWriter.close();
-        }catch(IOException e)
-        {
+        } catch (IOException e) {
             System.out.println("An error occurred.");
             e.printStackTrace();
         }
@@ -270,19 +286,23 @@ public class Filemanager {
     }
 
     public static void println(String string){
-        writeToFile("PracticeProjects/Textfiles/Console", string + "\n");
+        writeToFile("PracticeProjects/Textfiles/Console.txt", string + "\n");
+    }
+
+    public static void print(String string) {
+        writeToFile("PracticeProjects/Textfiles/Console.txt", string);
     }
     
     public static void println(char string) {
-        writeToFile("PracticeProjects/Textfiles/Console", "" + string + "\n");
+        writeToFile("PracticeProjects/Textfiles/Console.txt", "" + string + "\n");
     }
     
     public static void println(int string) {
-        writeToFile("PracticeProjects/Textfiles/Console", "" + string + "\n");
+        writeToFile("PracticeProjects/Textfiles/Console.txt", "" + string + "\n");
     }
 
     public static void println(double string) {
-        writeToFile("PracticeProjects/Textfiles/Console", "" + string + "\n");
+        writeToFile("PracticeProjects/Textfiles/Console.txt", "" + string + "\n");
     }
 
     public static void printtp(String string, double value){
@@ -295,8 +315,10 @@ public class Filemanager {
         
         String format = "%-" + stringvar + "s%" + valuevar + "f";
         String printstring = String.format(format, string, value); 
-        writeToFile("PracticeProjects/Textfiles/Console", printstring + "\n");
+        writeToFile("PracticeProjects/Textfiles/Console.txt", printstring + "\n");
 
         
     }
+
+    
 }
