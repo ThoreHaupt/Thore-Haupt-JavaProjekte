@@ -378,14 +378,18 @@ public class Sort {
         
                 int[] chunk = new int[3];
                 while((chunklist.size() > 2 && ((int) chunklist.get(chunklist.size() - 1) == (int) chunklist.get(chunklist.size() - 2))) || !equalsOnly ){
-                    chunk[3] = 
+                    chunk[3] = 0;
                     mergeSortedArrayListRegionsII(sortlist, chunk[0], chunk[1], chunk[2], referencemap);
                     chunklist.add(chunk[3] - chunk[0]);
                     chunklist.remove(chunklist.size() - 2);
                     chunklist.remove(chunklist.size() - 2);
 
                 }
-        
+
+
+
+                
+        return sortlist;
 
     }
 
@@ -1012,7 +1016,7 @@ public class Sort {
             
             
             
-            lastindex += currentchunksize;
+            //lastindex += currentchunksize;
         
 
         String[] returnArray = new String[Inputarray.length];
