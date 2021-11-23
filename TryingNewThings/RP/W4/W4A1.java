@@ -1,4 +1,4 @@
-package TryingNewThings.RP.W4;
+package RP.W4;
 import java.util.Random;
 import java.util.Scanner;
 
