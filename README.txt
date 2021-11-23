@@ -25,9 +25,9 @@ Frage an Experten:
 
     (int) chuncklist.get(chuncklist.size() - 1) == (int) chuncklist.get(chuncklist.size() - 2)
 
-    Frage, warum müssen die explizite int casts da hin? Sollten nicht beide Werte von chuncklist einen int returnen? 
-    So wie es da steht funktioniert es, aber wenn (int) fehlt, funktioniert die Aussage nur bis zum wert 128, das ist auch
-    der Wert den beide Variablen haben, zumindest im Debugmode auch.
+    Frage, warum müssen die explizite int casts da hin? Sollten nicht beide Werte von chuncklist einen int zurückgeben? 
+    So wie es da steht funktioniert es, aber wenn (int) fehlt, funktioniert die Aussage nur bis zum Wert 128, das ist auch
+    der Wert den beide Variablen haben, zumindest im Debugmode auch. Jedoch gibt dieses Statement dann false zurück
 
     Hier ist die Deklaration und Initialisierung von chuncklist: (ln 972)
         ArrayList<Integer> chuncklist = new ArrayList<Integer>();
