@@ -1,6 +1,6 @@
-2 different folders: 
+2 Ordner: 
     1. Rechnerpraktika Aufgaben (/RP..)
-    2. Experiments and Practice (TryingNewThings)
+    2. Experiments and Practice (/PracticeProjects..)
 
 
 Experimente/ meine Implementationen von Sortieralgorithmen
