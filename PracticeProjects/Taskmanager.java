@@ -16,7 +16,7 @@ public class Taskmanager{
     public static void compareSortingalgorithms(){
         /** comapres the speed of my InsertSort algorithm and my Implementation of a Randix sort, both for strings */
         Filemanager.println("\n\nSorting Test of 7 different sorting algorithms: -----------------------------");
-        int AmountOfElementsTobeSorted = 100000;
+        int AmountOfElementsTobeSorted = 60000;
         Filemanager.printtp("Amount of Items sorted:", AmountOfElementsTobeSorted);
         Filemanager.println("");
         String[] strings = Stringoperations.createRandomStringArray(AmountOfElementsTobeSorted);
@@ -42,6 +42,7 @@ public class Taskmanager{
         double t1 = (System.nanoTime() - current) * Math.pow(10, -6);
 
         Filemanager.printtp("StringInsertSort time in milliseconds: ", t1);
+        Filemanager.printtp("Time per Element: ", t1 / strings.length);
         Filemanager.printtp("ratio (Insert/Insert): ", (double) (t1 / t1));
         
         Filemanager.createFile("PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert4.txt", true);
@@ -57,6 +58,7 @@ public class Taskmanager{
         double t2 = (System.nanoTime() - current) * Math.pow(10, -6);
 
         Filemanager.printtp("StringInsertSort time in milliseconds: ", t2);
+        Filemanager.printtp("Time per Element: ", t2 / strings.length);
         Filemanager.printtp("ratio (Insert/Insert): ", (double) (t1 / t2));
         
         Filemanager.createFile("PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert5.txt", true);
@@ -74,6 +76,7 @@ public class Taskmanager{
         double t3 = (System.nanoTime() - current) * Math.pow(10, -6);
 
         Filemanager.printtp("MergeSort time in milliseconds: ", t3);
+        Filemanager.printtp("Time per Element: ", t3 / strings.length);
         Filemanager.printtp("ratio (InsertSort 1/MergeSort): ", (double) (t1 / t3));
         Filemanager.println("");
 
@@ -90,6 +93,7 @@ public class Taskmanager{
         double t4 = (System.nanoTime() - current) * Math.pow(10, -6);
 
         Filemanager.printtp("MergeInsertSort time in milliseconds: ", t4);
+        Filemanager.printtp("Time per Element: ", t4 / strings.length);
         Filemanager.printtp("ratio (InsertSort 1/MergeInsertSort): ", (double) (t1 / t4));
         Filemanager.println("");
 
@@ -118,6 +122,7 @@ public class Taskmanager{
         double r1 = (System.nanoTime() - current) * Math.pow(10, -6);
 
         Filemanager.printtp("RadixSort time in milliseconds: ", r1);
+        Filemanager.printtp("Time per Element: ", r1 / strings.length);
         Filemanager.printtp("ratio (Insert/radix): ", (double) (t1 / r1));
 
         Filemanager.createFile("PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert1.txt", true);
@@ -135,6 +140,7 @@ public class Taskmanager{
         double t2 = (System.nanoTime() - current) * Math.pow(10, -6);
 
         Filemanager.printtp("radixInsertSort time in milliseconds: ", t2);
+        Filemanager.printtp("Time per Element: ", t2 / strings.length);
         Filemanager.printtp("ratio (Insert/radixInsert): ", (double) (t1 / t2));
         
         Filemanager.createFile("PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert2.txt", true);
@@ -148,10 +154,11 @@ public class Taskmanager{
         current = System.nanoTime();
         String[] sortedString3 = Sort.radixMergeInsertSort(strings, "PracticeProjects/Textfiles/CharacterOrder.txt",
                 .9d);
-        double t4 = (System.nanoTime() - current) * Math.pow(10, -6);
+        double t3 = (System.nanoTime() - current) * Math.pow(10, -6);
 
-        Filemanager.printtp("radixMergeInsertSort time in milliseconds: ", t4);
-        Filemanager.printtp("ratio (Insert/radixMergeInsertSort): ", (double) (t1 / t4));
+        Filemanager.printtp("radixMergeInsertSort time in milliseconds: ", t3);
+        Filemanager.printtp("Time per Element: ", t3 / strings.length);
+        Filemanager.printtp("ratio (Insert/radixMergeInsertSort): ", (double) (t1 / t3));
         
         Filemanager.createFile("PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert3.txt", true);
         Filemanager.writeToFile("PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert3.txt", sortedString3, true);

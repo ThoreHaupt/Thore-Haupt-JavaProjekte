@@ -3,8 +3,10 @@ package PracticeProjects;
 public class Terminaloutputtests {
     public static void main(String[] args){
         
-        Progressbart pb = new Progressbart("PracticeProjects/Textfiles/Console.txt", 3, "Test");
-        pb.update(10);
+        Progressbart pb = new Progressbart("PracticeProjects/Textfiles/Console.txt", "Test");
+        pb.update(55);
+        Progressbart pb1 = new Progressbart("PracticeProjects/Textfiles/Console.txt", "Test");
+        pb1.update(50);
         
     }
     public static void deletelastterminaloutputline(){

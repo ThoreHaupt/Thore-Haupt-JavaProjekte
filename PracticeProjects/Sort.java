@@ -140,7 +140,8 @@ public class Sort {
                 }
             }
         }
-
+        //progressbar in console.txt file
+        Progressbart progressbar = new Progressbart("PracticeProjects/Textfiles/Console.txt", "Insertsort I Progress:");
 
         templist.add(inputarray[0]);
         int c = 0;
@@ -158,6 +159,7 @@ public class Sort {
             templist.add(c, inputarray[i]);
             
             // System.out.println("added word at index:" + c + " word: " + inputarray[i]);
+            progressbar.update(100.0 / (inputarray.length));
         }
         Filemanager.println(String.format("%-32s%32f","Insertsort average sortingtime:" , (System.nanoTime() - E9time) * Math.pow(10, -6) / (double) inputarray.length));
         
@@ -189,6 +191,8 @@ public class Sort {
             }
         }
 
+        Progressbart progressbar = new Progressbart("PracticeProjects/Textfiles/Console.txt", "Insertsort II Progress:");
+
         int c = 0;
         long E9time = System.nanoTime();
         for (int i = 1; i < templist.size() ; i++) {
@@ -202,7 +206,7 @@ public class Sort {
             }
             templist.add(c + 1, templist.get(i));
             templist.remove(i + 1);
-            // System.out.println("added word at index:" + c + " word: " + inputarray[i]);
+            progressbar.update(100.0 / (inputarray.length));
         }
         Filemanager.println(String.format("%-32s%32f", "Insertsort average sortingtime:",
                 (System.nanoTime() - E9time) * Math.pow(10, -6) / (double) inputarray.length));
@@ -500,6 +504,9 @@ public class Sort {
             }
         }
 
+        Progressbart progressbar = new Progressbart("PracticeProjects/Textfiles/Console.txt",
+                "Radixsort Progress:");
+
         // the actual radixsort sorting algorythm
         for (int m = Inputarray[0].length() - 1; m >= 0; m--) {
             outputarray = new String[Inputarray.length];
@@ -533,6 +540,7 @@ public class Sort {
             //Stringoperations.printStringArray(Inputarray);                
             
             counterarray = new int[orderinfo.length];
+            progressbar.update(100.0/(Inputarray[0].length() - 1));
         }
         
         // removeing the temporary charakters
@@ -1044,7 +1052,9 @@ public class Sort {
         long starttime = System.nanoTime();
         ArrayList<String> sortlist = new ArrayList<String>(Arrays.asList(Inputarray));               //Arraylistsorted on, this algorithm might be slow, but it only uses this Arralist to do all operations on the Stringorder
         ArrayList<Integer> chunklist = new ArrayList<Integer>();                                     // list of chunks sorted
-        int[] chunk = new int[]{0,0,0};                                                              // first index of first chunk, first Index of second chunk, index after second chunk
+        int[] chunk = new int[]{0,0,0}; 
+        Progressbart progressbar = new Progressbart("PracticeProjects/Textfiles/Console.txt", "Mergesort Progress:");
+                                                                  // first index of first chunk, first Index of second chunk, index after second chunk
         HashMap<Character, Integer> counterrefference = new HashMap<Character, Integer>();           // The order of characters sorted by
         {
             String[] orderinfo = Filemanager.getallLinesFromFile(elementorderfilepath);
@@ -1062,6 +1072,7 @@ public class Sort {
                 chunk[2] +=1;
             }
             if (chunklist.size() > 1) sortlist = mergeArrayListe(sortlist, counterrefference, true, chunklist, chunk);
+            progressbar.update(100.0/(Inputarray.length));
         }
         sortlist = mergeArrayListe(sortlist, counterrefference, false, chunklist, chunk);
 

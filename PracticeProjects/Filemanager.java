@@ -116,6 +116,22 @@ public class Filemanager {
         return returnlines;
     }
 
+    public static int getfilelength(String path) {
+        int c = 0;
+        File file = new File(path);
+        try {
+            Scanner filereader = new Scanner(file);
+            while (filereader.hasNextLine()){
+                c++;
+                filereader.nextLine();
+            }
+            filereader.close();
+        } catch (Exception e) {
+            System.out.println("could give back the length of file, because it doesnt exist");
+        }
+        return c + 1;
+    }
+
     /**
      * reads all lines between two boarder lines
      * @param path      filepath
@@ -181,6 +197,32 @@ public class Filemanager {
     }
 
     /**
+     * Read the whole file
+     * 
+     * @param path filepath
+     * @return String[] of all lines in the file
+     */
+    public static String[] getallLinesFromFileExact(String path) {
+        ArrayList<String> returnlines = new ArrayList<String>();
+        String line;
+        try {
+            File file = new File(path);
+            Scanner filereader = new Scanner(file);
+            while (filereader.hasNextLine()) {
+                line = filereader.nextLine();
+                returnlines.add(line);
+            }
+            filereader.close();
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        String[] returnlinesArray = Stringoperations.convertArrayListtoArray(returnlines);
+
+        return returnlinesArray;
+    }
+
+    /**
      * creates a new file
      * @param path  filepath
      * @return      true, if creation successfull
@@ -212,7 +254,7 @@ public class Filemanager {
     }
 
     /**
-     * adds a String to the end of the file
+     * Changes the specific line in a file.
      * @param path      filepath
      * @param line      index of the line to be changed (first line has index = 0)
      * @param input     String to add to file
@@ -220,8 +262,8 @@ public class Filemanager {
      */
     public static boolean writeToFileLine(String path, int line, String input){
         
-        String[] file = getallLinesFromFile(path);
-        if(file.length >= line)file[line] = input;
+        String[] file = getallLinesFromFileExact(path);
+        if(file.length >= line)file[line - 1] = input;
         writeToFile(path, file, true);
 
         return true;
@@ -234,9 +276,10 @@ public class Filemanager {
      * @param input String to add to file
      * @return true, if sucessfull
      */
-    public static boolean writeToFile(String path, String input) {
+    public static boolean writeToFile(String path, String input, boolean newline) {
         try {
             FileWriter myWriter = new FileWriter(path, true);
+            input += newline? "\n":"";
             myWriter.write(input);
             myWriter.close();
         } catch (IOException e) {
@@ -286,23 +329,23 @@ public class Filemanager {
     }
 
     public static void println(String string){
-        writeToFile("PracticeProjects/Textfiles/Console.txt", string + "\n");
+        writeToFile("PracticeProjects/Textfiles/Console.txt", string, true);
     }
 
     public static void print(String string) {
-        writeToFile("PracticeProjects/Textfiles/Console.txt", string);
+        writeToFile("PracticeProjects/Textfiles/Console.txt", string, false);
     }
     
     public static void println(char string) {
-        writeToFile("PracticeProjects/Textfiles/Console.txt", "" + string + "\n");
+        writeToFile("PracticeProjects/Textfiles/Console.txt", "" + string, true);
     }
     
     public static void println(int string) {
-        writeToFile("PracticeProjects/Textfiles/Console.txt", "" + string + "\n");
+        writeToFile("PracticeProjects/Textfiles/Console.txt", "" + string, true);
     }
 
     public static void println(double string) {
-        writeToFile("PracticeProjects/Textfiles/Console.txt", "" + string + "\n");
+        writeToFile("PracticeProjects/Textfiles/Console.txt", "" + string, true);
     }
 
     public static void printtp(String string, double value){
@@ -315,7 +358,7 @@ public class Filemanager {
         
         String format = "%-" + stringvar + "s%" + valuevar + "f";
         String printstring = String.format(format, string, value); 
-        writeToFile("PracticeProjects/Textfiles/Console.txt", printstring + "\n");
+        writeToFile("PracticeProjects/Textfiles/Console.txt", printstring, true);
 
         
     }
