@@ -116,8 +116,13 @@ public class Filemanager {
         return returnlines;
     }
 
+    /**
+     * returns the Index of the last line in the file.
+     * @param path
+     * @return
+     */
     public static int getfilelength(String path) {
-        int c = 0;
+        int c = 1;
         File file = new File(path);
         try {
             Scanner filereader = new Scanner(file);
@@ -129,7 +134,7 @@ public class Filemanager {
         } catch (Exception e) {
             System.out.println("could give back the length of file, because it doesnt exist");
         }
-        return c + 1;
+        return c;
     }
 
     /**
@@ -171,7 +176,7 @@ public class Filemanager {
     }
 
     /**
-     * Read the whole file
+     * Read the whole file, ignores empty lines
      * 
      * @param path      filepath
      * @return          String[] of all lines in the file
@@ -197,7 +202,7 @@ public class Filemanager {
     }
 
     /**
-     * Read the whole file
+     * Read the whole file including empty lines in the form of an empty String
      * 
      * @param path filepath
      * @return String[] of all lines in the file
@@ -328,26 +333,57 @@ public class Filemanager {
         return success;
     }
 
+    /**
+     * Prints to the last line of the console.txt file
+     * @param string
+     */
     public static void println(String string){
         writeToFile("PracticeProjects/Textfiles/Console.txt", string, true);
     }
 
+    /**
+     * Prints to the last line of the console.txt file
+     * 
+     * @param string
+     */
     public static void print(String string) {
         writeToFile("PracticeProjects/Textfiles/Console.txt", string, false);
     }
     
+    /**
+     * Prints to the last line of the console.txt file
+     * 
+     * @param string
+     */
     public static void println(char string) {
         writeToFile("PracticeProjects/Textfiles/Console.txt", "" + string, true);
     }
     
+    /**
+     * Prints to the last line of the console.txt file
+     * 
+     * @param string
+     */
     public static void println(int string) {
         writeToFile("PracticeProjects/Textfiles/Console.txt", "" + string, true);
     }
 
+    /**
+     * Prints to the last line of the console.txt file
+     * 
+     * @param string
+     */
     public static void println(double string) {
         writeToFile("PracticeProjects/Textfiles/Console.txt", "" + string, true);
     }
 
+    /**
+     * prints a String and a correstponding value into the console.txt file.
+     * Formatted
+     * 
+     * @param string
+     * @param value
+     */
     public static void printtp(String string, double value){
         int valuevar = 32;
         int stringvar = 32;
