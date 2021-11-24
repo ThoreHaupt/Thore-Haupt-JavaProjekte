@@ -65,7 +65,7 @@ public class Sort {
             chunklist.add(currentchunksize);                                                                            //Hier wird ein Element der chunkliste hinzugefügt
             if (chunklist.size() >= 2) {
                 //gleich große chunks zusammenfügen, bis die letzten beiden chunks aus chunkliste nicht mehr gleich groß sind.
-                while ((int) chunklist.get(chunklist.size() - 1) == (int) chunklist.get(chunklist.size() - 2)) {        // Hier ist die besagte while Schleife, Ohne (int) gibt dieses Statement false zurück
+                while (chunklist.get(chunklist.size() - 1) == (chunklist.get(chunklist.size() - 2))) {        // Hier ist die besagte while Schleife, Ohne (int) gibt dieses Statement false zurück, sobald die größe der Chunks einen bestimmten Wert überschreitet.
                     sortlist = mergeSortedArrayListRegionsII(sortlist,
                             lastindex + 1 - 2 * chunklist.get(chunklist.size() - 1),
                             lastindex + 1 - chunklist.get(chunklist.size() - 1), lastindex + 1, counterrefference);
