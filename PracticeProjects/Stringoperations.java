@@ -83,7 +83,7 @@ public class Stringoperations {
     }
 
     /**
-     * moves Elements from an ArrayList to an Array better: new better :=
+     * moves Elements from an ArrayList to an Array better: 
      * better := inputArrayList.toArray(new String[inputArrayList.size()]);
      * 
      * @param inputArrayList ArrayList to be converted

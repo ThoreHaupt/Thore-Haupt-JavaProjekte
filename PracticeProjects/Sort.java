@@ -163,9 +163,9 @@ public class Sort {
             progressbar.update(100.0 / (inputarray.length));
         }
         Filemanager.println(String.format("%-32s%32f","Insertsort average sortingtime:" , (System.nanoTime() - E9time) * Math.pow(10, -6) / (double) inputarray.length));
-        
-        outputarrray = 
-        return outputarray;
+        Collections.reverse(templist);
+        inputarray = templist.toArray(new String[templist.size()]);
+        return inputarray;
     }
 
     /**
