@@ -989,7 +989,6 @@ public class Sort {
         return sortlist.toArray(Inputarray);
 
     }
-
     
     // Methode mit dem Problem: speichert in Datei SortedList7
     /**
