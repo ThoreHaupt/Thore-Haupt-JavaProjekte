@@ -9,6 +9,7 @@ public class Terminaloutputtests {
         pb1.update(50);
         
     }
+    
     public static void deletelastterminaloutputline(){
         int count = 1;
         System.out.print(String.format("\033[%dA", count)); // Move up
