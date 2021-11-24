@@ -164,10 +164,7 @@ public class Sort {
         }
         Filemanager.println(String.format("%-32s%32f","Insertsort average sortingtime:" , (System.nanoTime() - E9time) * Math.pow(10, -6) / (double) inputarray.length));
         
-        for (int i = 0; i < templist.size(); i++) {
-            outputarray[i] = templist.get(i);
-        }
-
+        outputarrray = 
         return outputarray;
     }
 
