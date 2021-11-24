@@ -2,6 +2,7 @@ package PracticeProjects;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 
 /**some random sorting method */
@@ -93,7 +94,7 @@ public class Sort {
      * @param s1                first String    
      * @param s2                second String
      * @param referencemap      reference HashMap. 
-     * @return                  true, if s1 > s2 --> s1 comes later 
+     * @return                  true, if s1 < s2 --> s1 comes before s2 
      */
     public static boolean firstStringbool(String s1, String s2, HashMap<Character, Integer> referencemap){
         int i = 0;
@@ -208,9 +209,11 @@ public class Sort {
             templist.remove(i + 1);
             progressbar.update(100.0 / (inputarray.length));
         }
-        Filemanager.println(String.format("%-32s%32f", "Insertsort average sortingtime:",
+        Filemanager.println(String.format("%-32s%32f", "Element Insert average sortingtime:",
                 (System.nanoTime() - E9time) * Math.pow(10, -6) / (double) inputarray.length));
 
+
+        Collections.reverse(templist);        
         return templist.toArray(new String[templist.size()]);
     }
 
@@ -953,95 +956,6 @@ public class Sort {
     }
 
     /**
-     * Mergesort Algorithm with Insert Elements. Firstlayer sorting done with an Insertsort Algorithm, then chunks are merged.
-     * 
-     * @param Inputarray            Array to be sorted
-     * @param elementorderfilepath  filepath of char order map
-     * @param seperatorval          desired layers of merging.
-     * @return Sorted Array (Inputarray)
-     */
-    public static String[] mergeInsertSort(String[] Inputarray, String elementorderfilepath, int seperatorval){
-
-        long starttime = System.nanoTime();
-        ArrayList<String> sortlist = new ArrayList<String>(Arrays.asList(Inputarray));
-        //loads referencemap to get order of charakters when comaring
-        HashMap<Character, Integer> counterrefference = new HashMap<Character, Integer>();
-        {
-            String[] orderinfo = Filemanager.getallLinesFromFile(elementorderfilepath);
-            for (int i = 0; i < orderinfo.length; i++) {
-                for (char charakter : orderinfo[i].toCharArray()) {
-                    // System.out.println("matched charakter:" + charakter + " with Index:" + i);
-                    counterrefference.put(charakter, i);
-                }
-            }
-        }
-
-        int smalestchuncsize = (Inputarray.length / (int) Math.pow(2, seperatorval));
-        int lastindex = smalestchuncsize - 1;
-        int currentchunksize;
-        ArrayList<Integer> chunklist = new ArrayList<Integer>();
-        while(lastindex < Inputarray.length){
-            int c = 0;
-            currentchunksize = ((Inputarray.length - lastindex) > smalestchuncsize) ?  smalestchuncsize : Inputarray.length - lastindex;
-            int lowerchunkboarder = lastindex - currentchunksize + 2;
-            for (int i = lowerchunkboarder; i < lastindex + currentchunksize - 1; i++) {
-                c = i;
-                while (firstStringbool(sortlist.get(i), sortlist.get(c), counterrefference)) {
-                    if (c == lowerchunkboarder - 1) {
-                        c--;
-                        break;
-                    }
-                    c--;
-                }
-                sortlist.add(c + 1, sortlist.get(i));
-                sortlist.remove(i + 1);
-                // System.out.println("added word at index:" + c + " word: " + inputarray[i]);
-            }
-
-            chunklist.add(currentchunksize);
-            if (chunklist.size() >= 2){
-                while ((int)chunklist.get(chunklist.size() - 1) == (int) chunklist.get(chunklist.size() - 2)) {
-                    sortlist = mergeSortedArrayListRegionsII(sortlist, 
-                            lastindex + 1  - 2 * chunklist.get(chunklist.size() - 1),
-                            lastindex + 1 - chunklist.get(chunklist.size() - 1), 
-                            lastindex + 1, 
-                            counterrefference);
-                    chunklist.add(2 * chunklist.get(chunklist.size() - 1));
-                    chunklist.remove(chunklist.size() - 2);
-                    chunklist.remove(chunklist.size() - 2);
-                    if(chunklist.size() == 1) {
-                        System.out.println("liste 1 lang, break");
-                        break;}
-                }
-            } 
-            if((Inputarray.length - lastindex < smalestchuncsize)) {
-                while ((int) chunklist.get(chunklist.size() - 1) != Inputarray.length) {
-                    sortlist = mergeSortedArrayListRegionsII(sortlist,
-                            lastindex + 1 - chunklist.get(chunklist.size() - 1) - chunklist.get(chunklist.size() - 2),
-                            lastindex + 1 - chunklist.get(chunklist.size() - 1), 
-                            lastindex + 1, 
-                            counterrefference);
-
-                    chunklist.add(chunklist.get(chunklist.size() - 1) + chunklist.get(chunklist.size() - 2));
-                    chunklist.remove(chunklist.size() - 2);
-                    chunklist.remove(chunklist.size() - 2);
-                    if (chunklist.size() == 1) {
-                        break;
-                    }
-                }
-            }
-            
-            lastindex += currentchunksize;
-        }
-
-        String[] returnArray = new String[Inputarray.length];
-        Filemanager.println("Mergesort:");
-        Filemanager.printtp("mergesort executiontime: (milliseconds) ",  (System.nanoTime() - starttime) * Math.pow(10, -6));
-        return sortlist.toArray(returnArray);
-
-    }
-
-    /**
      * Mergesort Algorithm
      * @param Inputarray                Array to be sorted
      * @param elementorderfilepath      filepath of char order map
@@ -1049,7 +963,6 @@ public class Sort {
      */
     public static String[] MergeSort(String[] Inputarray, String elementorderfilepath) {
 
-        long starttime = System.nanoTime();
         ArrayList<String> sortlist = new ArrayList<String>(Arrays.asList(Inputarray));               //Arraylistsorted on, this algorithm might be slow, but it only uses this Arralist to do all operations on the Stringorder
         ArrayList<Integer> chunklist = new ArrayList<Integer>();                                     // list of chunks sorted
         int[] chunk = new int[]{0,0,0}; 
@@ -1076,9 +989,125 @@ public class Sort {
         }
         sortlist = mergeArrayListe(sortlist, counterrefference, false, chunklist, chunk);
 
-        Filemanager.printtp("mergesort executiontime: (milliseconds) ",
-                (System.nanoTime() - starttime) * Math.pow(10, -6));
         return sortlist.toArray(Inputarray);
 
     }
+
+    
+    // Methode mit dem Problem: speichert in Datei SortedList7
+    /**
+     * Mergesort Algorithm with Insert Elements. Firstlayer sorting done with an
+     * Insertsort Algorithm, then chunks are merged.
+     * 
+     * @param Inputarray           Array to be sorted
+     * @param elementorderfilepath filepath of char order map
+     * @param seperatorval         desired layers of merging.
+     * @return Sorted Array (Inputarray)
+     */
+    public static String[] mergeInsertSort(String[] Inputarray, String elementorderfilepath, int seperatorval) {
+
+        ArrayList<String> sortlist = new ArrayList<String>(Arrays.asList(Inputarray));
+        // loads referencemap to get order of charakters when comaring
+        HashMap<Character, Integer> counterrefference = new HashMap<Character, Integer>();
+        {
+            String[] orderinfo = Filemanager.getallLinesFromFile(elementorderfilepath);
+            for (int i = 0; i < orderinfo.length; i++) {
+                for (char charakter : orderinfo[i].toCharArray()) {
+                    // System.out.println("matched charakter:" + charakter + " with Index:" + i);
+                    counterrefference.put(charakter, i);
+                }
+            }
+        }
+        // Progressbar:
+        Progressbart progressbar = new Progressbart("PracticeProjects/Textfiles/Console.txt", "Mergesort Progress:");
+
+        // init chunk variables
+        int smalestchuncsize = (Inputarray.length / (int) Math.pow(2, seperatorval));
+        int lastindex = smalestchuncsize - 1;
+        int currentchunksize;
+        ArrayList<Integer> chunklist = new ArrayList<Integer>(); // chunkliste erstellt, Typ Integer
+        while (lastindex < Inputarray.length) {
+            int c = 0;
+            currentchunksize = ((Inputarray.length - lastindex) > smalestchuncsize) ? smalestchuncsize
+                    : Inputarray.length - lastindex; // wenn die kleinste chunksize größer ist als die restlichen
+                                                     // Elemente auf der Arrayliste
+                                                     // wird der momentanige Chunk auf den Rest gesetzt
+            int lowerchunkboarder = lastindex - currentchunksize + 2;
+
+            // insert Sort für den kleinsten Chunk
+            for (int i = lowerchunkboarder; i < lastindex + currentchunksize - 1; i++) {
+                c = i;
+                while (firstStringbool(sortlist.get(i), sortlist.get(c), counterrefference)) {
+                    if (c == lowerchunkboarder - 1) {
+                        c--;
+                        break;
+                    }
+                    c--;
+                }
+                sortlist.add(c + 1, sortlist.get(i));
+                sortlist.remove(i + 1);
+                // System.out.println("added word at index:" + c + " word: " + inputarray[i]);
+            }
+
+            chunklist.add(currentchunksize); // Hier wird ein Element der chunkliste hinzugefügt
+            if (chunklist.size() >= 2) {
+                // gleich große chunks zusammenfügen, bis die letzten beiden chunks aus
+                // chunkliste nicht mehr gleich groß sind.
+                while ((int) chunklist.get(chunklist.size() - 1) == (int) (chunklist.get(chunklist.size() - 2))) { // Hier
+                                                                                                                   // ist
+                                                                                                                   // die
+                                                                                                                   // besagte
+                                                                                                                   // while
+                                                                                                                   // Schleife,
+                                                                                                                   // Ohne
+                                                                                                                   // (int)
+                                                                                                                   // gibt
+                                                                                                                   // dieses
+                                                                                                                   // Statement
+                                                                                                                   // false
+                                                                                                                   // zurück,
+                                                                                                                   // sobald
+                                                                                                                   // die
+                                                                                                                   // größe
+                                                                                                                   // der
+                                                                                                                   // Chunks
+                                                                                                                   // einen
+                                                                                                                   // bestimmten
+                                                                                                                   // Wert
+                                                                                                                   // überschreitet.
+                    sortlist = mergeSortedArrayListRegionsII(sortlist,
+                            lastindex + 1 - 2 * chunklist.get(chunklist.size() - 1),
+                            lastindex + 1 - chunklist.get(chunklist.size() - 1), lastindex + 1, counterrefference);
+                    chunklist.add(2 * chunklist.get(chunklist.size() - 1));
+                    chunklist.remove(chunklist.size() - 2);
+                    chunklist.remove(chunklist.size() - 2);
+                    if (chunklist.size() == 1) {
+                        break;
+                    }
+                }
+            }
+            // Am Ende die letzten chunks zusammentuen
+            if ((Inputarray.length - lastindex < smalestchuncsize)) {
+                while ((int) chunklist.get(chunklist.size() - 1) != Inputarray.length) {
+                    sortlist = mergeSortedArrayListRegionsII(sortlist,
+                            lastindex + 1 - chunklist.get(chunklist.size() - 1) - chunklist.get(chunklist.size() - 2),
+                            lastindex + 1 - chunklist.get(chunklist.size() - 1), lastindex + 1, counterrefference);
+
+                    chunklist.add(chunklist.get(chunklist.size() - 1) + chunklist.get(chunklist.size() - 2));
+                    chunklist.remove(chunklist.size() - 2);
+                    chunklist.remove(chunklist.size() - 2);
+                    if (chunklist.size() == 1) {
+                        break;
+                    }
+                }
+            }
+            progressbar.update((100.0 / Inputarray.length) * currentchunksize);
+            lastindex += currentchunksize;
+        }
+
+        String[] returnArray = new String[Inputarray.length];
+        return sortlist.toArray(returnArray);
+
+    }
+
 }

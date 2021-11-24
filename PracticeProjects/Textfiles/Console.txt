@@ -519,3 +519,364 @@ ratio (Insert/radixMergeInsertSort):                   95,183407
 Saved RadixInsertSort to file 3...
 
 -----------------------------------------------------------------------------
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                             60000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |□□□□□□□□□□□□□□□□□□□□|
+Insertsort average sortingtime:                         0,190721
+StringInsertSort time in milliseconds:              11467,605900
+Time per Element:                                       0,191127
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |□□□□□□□□□□□□□□□□□□□□|
+Insertsort average sortingtime:                         0,164930
+StringInsertSort time in milliseconds:               9905,551300
+Time per Element:                                       0,165093
+ratio (Insert/Insert):                                  1,157695
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |□□□□□□□□□□□□□□□□□□□□|
+mergesort executiontime: (milliseconds)              1793,589400
+MergeSort time in milliseconds:                      1795,001200
+Time per Element:                                       0,029917
+ratio (InsertSort 1/MergeSort):                         6,388634
+
+Saved MergeSort to file 6...
+
+------ MergeInsertSort ------------------------
+Mergesort Progress:                       |□                   |
+Mergesort:
+mergesort executiontime: (milliseconds)               954,909500
+MergeInsertSort time in milliseconds:                 956,136700
+Time per Element:                                       0,015936
+ratio (InsertSort 1/MergeInsertSort):                  11,993689
+
+Saved MergeInsertSort to file 7...
+
+------ Radix - Sortingalgorithms -----------------------------I
+------ RadixSort ---------------------
+Radixsort Progress:                       |□□□□□□□□□□□□□□□□□□□□|
+RadixSort time in milliseconds:                       330,033000
+Time per Element:                                       0,005501
+ratio (Insert/radix):                                  34,746846
+Saved radix Sort to file 1...
+
+------ RadixInsertSort ---------------
+load counterreferenceHashMap                            0,368100
+find max:                                               2,956300
+lengthdistribution                                      2,355300
+split into both Arrays                                  2,604600
+radix characteradding                                   7,498500
+radix sort                                             97,525100
+removing temp chars                                    13,823700
+InsertSort:                                             0,001000
+radixinsert sort complete:                            132,403000
+radixInsertSort time in milliseconds:                 132,988900
+Time per Element:                                       0,002216
+ratio (Insert/radixInsert):                            86,229797
+Saved RadixInsertSort to file 2...
+
+------ radixMergeInsertSort ----------
+load counterreferenceHashMap                            0,498800
+find max:                                               3,661600
+lengthdistribution                                      3,018800
+split into both Arrays                                  3,059500
+radix characteradding                                   9,144800
+radix sort                                             97,456500
+removing temp chars                                     8,823600
+InsertSort:                                             0,000400
+radixinsert sort complete:                            133,546700
+radixMergeInsertSort time in milliseconds:            134,232300
+Time per Element:                                       0,002237
+ratio (Insert/radixMergeInsertSort):                   85,431047
+Saved RadixInsertSort to file 3...
+
+-----------------------------------------------------------------------------
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            120000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSort ------------------------
+Mergesort Progress:                       |□□□□□□□□□□□□□□□□□□□□|
+MergeSort time in milliseconds:                      8385,557500
+Time per Element:                                       0,069880
+ratio (InsertSort 1/MergeSort):                       119,252656
+
+Saved MergeSort to file 6...
+
+------ MergeInsertSort ------------------------
+Mergesort Progress:                       |□                   |
+MergeInsertSort time in milliseconds:                4255,698700
+Time per Element:                                       0,035464
+ratio (InsertSort 1/MergeInsertSort):                 234,979041
+
+Saved MergeInsertSort to file 7...
+
+------ Radix - Sortingalgorithms -----------------------------I
+------ RadixSort ---------------------
+Radixsort Progress:                       |□□□□□□□□□□□□□□□□□□□□|
+RadixSort time in milliseconds:                       498,657500
+Time per Element:                                       0,004155
+ratio (Insert/radix):                                2005,384457
+Saved radix Sort to file 1...
+
+------ RadixInsertSort ---------------
+load counterreferenceHashMap                            0,409400
+find max:                                               6,678800
+lengthdistribution                                      5,780100
+split into both Arrays                                  5,588900
+radix characteradding                                  13,093400
+radix sort                                            208,564800
+removing temp chars                                    21,020200
+InsertSort:                                             0,000700
+radixinsert sort complete:                            268,716500
+radixInsertSort time in milliseconds:                 269,496400
+Time per Element:                                       0,002246
+ratio (Insert/radixInsert):                          3710,624706
+Saved RadixInsertSort to file 2...
+
+------ radixMergeInsertSort ----------
+load counterreferenceHashMap                            0,472300
+find max:                                               9,106000
+lengthdistribution                                      6,154900
+split into both Arrays                                  6,270600
+radix characteradding                                  15,451000
+radix sort                                            260,980100
+removing temp chars                                    11,676500
+InsertSort:                                             0,000700
+radixinsert sort complete:                            317,597200
+radixMergeInsertSort time in milliseconds:            318,176800
+Time per Element:                                       0,002651
+ratio (Insert/radixMergeInsertSort):                 3142,906711
+Saved RadixInsertSort to file 3...
+
+-----------------------------------------------------------------------------
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            120000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSort ------------------------
+Mergesort Progress:                       |□□□□□□□□□□□□□□□□□□□□|
+MergeSort time in milliseconds:                      7967,604500
+Time per Element:                                       0,066397
+ratio (InsertSort 1/MergeSort):                       125,508238
+
+Saved MergeSort to file 6...
+
+------ MergeInsertSort ------------------------
+Mergesort Progress:                       |□□□□□□□□□□□□□□□□□□□□|
+MergeInsertSort time in milliseconds:                4344,360500
+Time per Element:                                       0,036203
+ratio (InsertSort 1/MergeInsertSort):                 230,183476
+
+Saved MergeInsertSort to file 7...
+
+------ Radix - Sortingalgorithms -----------------------------I
+------ RadixSort ---------------------
+Radixsort Progress:                       |□□□□□□□□□□□□□□□□□□□□|
+RadixSort time in milliseconds:                       527,601300
+Time per Element:                                       0,004397
+ratio (Insert/radix):                                1895,370614
+Saved radix Sort to file 1...
+
+------ RadixInsertSort ---------------
+load counterreferenceHashMap                            0,440900
+find max:                                               5,472500
+lengthdistribution                                      4,597400
+split into both Arrays                                  5,203100
+radix characteradding                                  19,369800
+radix sort                                            161,543800
+removing temp chars                                    19,705800
+InsertSort:                                             0,000400
+radixinsert sort complete:                            222,365200
+radixInsertSort time in milliseconds:                 222,987200
+Time per Element:                                       0,001858
+ratio (Insert/radixInsert):                          4484,562343
+Saved RadixInsertSort to file 2...
+
+------ radixMergeInsertSort ----------
+load counterreferenceHashMap                            0,423100
+find max:                                               4,950000
+lengthdistribution                                      3,448200
+split into both Arrays                                  4,040500
+radix characteradding                                  10,213200
+radix sort                                            232,256000
+removing temp chars                                    13,749600
+InsertSort:                                             0,002600
+radixinsert sort complete:                            275,741700
+radixMergeInsertSort time in milliseconds:            276,281600
+Time per Element:                                       0,002302
+ratio (Insert/radixMergeInsertSort):                 3619,495471
+Saved RadixInsertSort to file 3...
+
+-----------------------------------------------------------------------------
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            120000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |□□□□□□□□□□□□□□□□□□□□|
+Insertsort average sortingtime:                         0,440749
+StringInsertSort time in milliseconds:              52928,184500
+Time per Element:                                       0,441068
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |□□□□□□□□□□□□□□□□□□□□|
+Element Insert average sortingtime:                        0,440751
+StringInsertSort time in milliseconds:              52904,868500
+Time per Element:                                       0,440874
+ratio (Insert/Insert):                                  1,000441
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |□□□□□□□□□□□□□□□□□□□□|
+MergeSort time in milliseconds:                      7946,059500
+Time per Element:                                       0,066217
+ratio (InsertSort 1/MergeSort):                         6,660935
+
+Saved MergeSort to file 6...
+
+------ MergeInsertSort ------------------------
+Mergesort Progress:                       |□□□□□□□□□□□□□□□□□□□□|
+MergeInsertSort time in milliseconds:               75116,117000
+Time per Element:                                       0,625968
+ratio (InsertSort 1/MergeInsertSort):                   0,704618
+
+Saved MergeInsertSort to file 7...
+
+------ Radix - Sortingalgorithms -----------------------------I
+------ RadixSort ---------------------
+Radixsort Progress:                       |□□□□□□□□□□□□□□□□□□□□|
+RadixSort time in milliseconds:                       629,504300
+Time per Element:                                       0,005246
+ratio (Insert/radix):                                  84,079147
+Saved radix Sort to file 1...
+
+------ RadixInsertSort ---------------
+load counterreferenceHashMap                            0,538600
+find max:                                               6,357400
+lengthdistribution                                      4,908200
+split into both Arrays                                  6,011100
+radix characteradding                                  12,527600
+radix sort                                            254,569500
+removing temp chars                                    32,340900
+InsertSort:                                             0,000500
+radixinsert sort complete:                            323,132700
+radixInsertSort time in milliseconds:                 323,731700
+Time per Element:                                       0,002698
+ratio (Insert/radixInsert):                           163,493981
+Saved RadixInsertSort to file 2...
+
+------ radixMergeInsertSort ----------
+load counterreferenceHashMap                            0,659400
+find max:                                               4,911500
+lengthdistribution                                      5,004000
+split into both Arrays                                  4,507600
+radix characteradding                                  12,612100
+radix sort                                            284,033100
+removing temp chars                                    13,018800
+InsertSort:                                             0,000500
+radixinsert sort complete:                            331,360300
+radixMergeInsertSort time in milliseconds:            331,856400
+Time per Element:                                       0,002765
+ratio (Insert/radixMergeInsertSort):                  159,491227
+Saved RadixInsertSort to file 3...
+
+-----------------------------------------------------------------------------
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            120000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |□□□□□□□□□□□□□□□□□□□□|
+Insertsort average sortingtime:                         0,445882
+StringInsertSort time in milliseconds:              53540,669000
+Time per Element:                                       0,446172
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |□□□□□□□□□□□□□□□□□□□□|
+Element Insert average sortingtime:                        0,404632
+StringInsertSort time in milliseconds:              48570,864800
+Time per Element:                                       0,404757
+ratio (Insert/Insert):                                  1,102321
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |□□□□□□□□□□□□□□□□□□□□|
+MergeSort time in milliseconds:                      8048,681500
+Time per Element:                                       0,067072
+ratio (InsertSort 1/MergeSort):                         6,652104
+
+Saved MergeSort to file 6...
+
+------ MergeInsertSort ------------------------
+Mergesort Progress:                       |□□□□□□□□□□□□□□□□□□□□|
+MergeInsertSort time in milliseconds:               95647,338200
+Time per Element:                                       0,797061
+ratio (InsertSort 1/MergeInsertSort):                   0,559772
+
+Saved MergeInsertSort to file 7...
+
+------ Radix - Sortingalgorithms -----------------------------I
+------ RadixSort ---------------------
+Radixsort Progress:                       |□□□□□□□□□□□□□□□□□□□□|
+RadixSort time in milliseconds:                       675,469500
+Time per Element:                                       0,005629
+ratio (Insert/radix):                                  79,264377
+Saved radix Sort to file 1...
+
+------ RadixInsertSort ---------------
+load counterreferenceHashMap                            0,436300
+find max:                                               6,237700
+lengthdistribution                                      5,043900
+split into both Arrays                                  5,448900
+radix characteradding                                  14,494700
+radix sort                                            277,843200
+removing temp chars                                    26,296300
+InsertSort:                                             0,000700
+radixinsert sort complete:                            341,232200
+radixInsertSort time in milliseconds:                 341,819600
+Time per Element:                                       0,002848
+ratio (Insert/radixInsert):                           156,634286
+Saved RadixInsertSort to file 2...
+
+------ radixMergeInsertSort ----------
+load counterreferenceHashMap                            0,498500
+find max:                                               6,459000
+lengthdistribution                                      4,982400
+split into both Arrays                                  5,492700
+radix characteradding                                  13,923900
+radix sort                                            254,147600
+removing temp chars                                    12,440100
+InsertSort:                                             0,000300
+radixinsert sort complete:                            303,657800
+radixMergeInsertSort time in milliseconds:            304,182900
+Time per Element:                                       0,002535
+ratio (Insert/radixMergeInsertSort):                  176,014723
+Saved RadixInsertSort to file 3...
+
+-----------------------------------------------------------------------------

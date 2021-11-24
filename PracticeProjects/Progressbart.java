@@ -32,7 +32,10 @@ public class Progressbart {
     int prefixlength;
     String currentline;
     
-
+    /**
+     * moves the progressbar up by the specified double. 
+     * @param update    Value out of 100.0. If that value is reached the progressbar is full.
+     */
     public void update(double update){
         int oldint = progressint;
         progress += update;
@@ -43,6 +46,10 @@ public class Progressbart {
         
     }
 
+    /**
+     * generates the Progressbar line and returns/ stores it in the currentline instanzvariable
+     * @return the current progressbar String
+     */
     public String generateLine(){
         String format = "%-" + prefixlength + "s%" + prefixlength + "s";
         String fillstate = ""; 
