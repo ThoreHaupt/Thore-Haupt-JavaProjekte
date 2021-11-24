@@ -70,8 +70,9 @@ public class Stringoperations {
 
     /** 
      * converts an ArrayList<String> Type to an String[] 
-     * better := new ArrayList<>(Arrays.asList(Array))
-     * */
+     * better := inputArrayList.toArray(new String[inputArrayList.size()]);
+     * 
+     */
     public static String[] convertArrayListtoArray(ArrayList<String> inputArrayList){
         
         String[] output = new String[inputArrayList.size()];
@@ -82,11 +83,12 @@ public class Stringoperations {
     }
 
     /**
-     * moves Elements from an ArrayList to an Array
-     * better: 
-     * @param inputArrayList    ArrayList to be converted
-     * @param direction         >= 0 --> same order, <0 inverses order of elements
-     * @return                  Array
+     * moves Elements from an ArrayList to an Array better: new better :=
+     * better := inputArrayList.toArray(new String[inputArrayList.size()]);
+     * 
+     * @param inputArrayList ArrayList to be converted
+     * @param direction      >= 0 --> same order, <0 inverses order of elements
+     * @return Array
      */
     public static String[] convertArrayListtoArray(ArrayList<String> inputArrayList, int direction) {
 
