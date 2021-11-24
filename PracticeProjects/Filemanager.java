@@ -348,6 +348,11 @@ public class Filemanager {
         writeToFile("PracticeProjects/Textfiles/Console.txt", "" + string, true);
     }
 
+    /**
+     * prints a String and a correstponding value into the console.txt file. Formatted
+     * @param string
+     * @param value
+     */
     public static void printtp(String string, double value){
         int valuevar = 32;
         int stringvar = 32;
