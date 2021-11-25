@@ -128,7 +128,7 @@ public class Sort {
      */
     public static String[] StringInsertSort(String[] inputarray) {
         
-        String[] outputarray = new String[inputarray.length];
+        
         ArrayList<String> templist = new ArrayList<String>();
         String[] orderinfo = Filemanager.getallLinesFromFile("PracticeProjects/Textfiles/CharacterOrder.txt");
         
