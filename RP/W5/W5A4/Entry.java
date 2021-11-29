@@ -1,25 +1,25 @@
 package RP.W5.W5A4;
 
-public class Entries {
-    public int entrynumber;
+public class Entry {
+    public int id;
     private String firstname = "";
     private String lastname = "";
     private int telno = 000000000;
     
-    public Entries(String firstname, String lastname, int telno) {
+    public Entry(String firstname, String lastname, int telno) {
         
         this.firstname = firstname;
         this.lastname = lastname;
         this.telno = telno;
-        this.entrynumber = Telefonbuch.entries.size();
-        Telefonbuch.entries.add(this);
-        
+        Telefonbuch.entriesID.put(this.id, this);
+        Telefonbuch.entriesName.put(this.getFullName(), this);
+        System.out.println("added " + getFirstname() + " " + getLastname());
     }
 
 
     
     public int getEntrynumber() {
-        return entrynumber;
+        return id;
     }
 
 
@@ -41,7 +41,7 @@ public class Entries {
 
 
     public String getFullName(){
-        return firstname + " " + lastname;
+        return (firstname + " " + lastname);
     }
 
 
@@ -63,6 +63,6 @@ public class Entries {
 
     @Override
     public String toString(){
-        return (firstname + " " + lastname + " telefonnummer: " + telno);
+        return (firstname + " " + lastname + ": " + telno);
     }
 }

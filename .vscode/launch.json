@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Telefonbuch",
+            "request": "launch",
+            "mainClass": "RP.W5.W5A4.Telefonbuch",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
             "name": "Launch TBBT",
             "request": "launch",
             "mainClass": "RP.W5.W4A3.TBBT",
