@@ -7,7 +7,7 @@ package PracticeProjects;
 public class Progressbart {
     
     /**
-     * Hello!
+     * Progressbar that shows up in the conosle file.
      * @param path
      * @param progress
      * @param line

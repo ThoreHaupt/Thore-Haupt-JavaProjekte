@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch TBBT",
+            "request": "launch",
+            "mainClass": "RP.W5.W4A3.TBBT",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch W4A1_5",
+            "request": "launch",
+            "mainClass": "RP.W5.W4A1_5",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
             "name": "Launch Terminaloutputtests",
             "request": "launch",
             "mainClass": "PracticeProjects.Terminaloutputtests",
