@@ -54,7 +54,7 @@ public class Progressbart {
         String format = "%-" + prefixlength + "s%" + prefixlength + "s";
         String fillstate = ""; 
         for (int i = 0; i < 20; i++) {
-           fillstate +=  i >= progressint ? " " : "□";
+           fillstate +=  i >= progressint ? " " : "□"; // "□"
         }
 
         String bar = "|" + fillstate + "|";

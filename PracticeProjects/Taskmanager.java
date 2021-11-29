@@ -1,6 +1,7 @@
 package PracticeProjects;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 /**
@@ -11,19 +12,32 @@ public class Taskmanager{
         
         compareSortingalgorithms();
         //testmerge();
+        
+
     }
 
     public static void compareSortingalgorithms(){
         /** comapres the speed of my InsertSort algorithm and my Implementation of a Randix sort, both for strings */
         Filemanager.println("\n\nSorting Test of 7 different sorting algorithms: -----------------------------");
-        int AmountOfElementsTobeSorted = 120000;
+        int AmountOfElementsTobeSorted = 600000;
         Filemanager.printtp("Amount of Items sorted:", AmountOfElementsTobeSorted);
         Filemanager.println("");
         String[] strings = Stringoperations.createRandomStringArray(AmountOfElementsTobeSorted);
         Filemanager.println("-----------------------------------------------------------------------------");
 
-        double t1 = testInsertSortingalgorithms(strings);          //t1 is the reference time for the other algorithms
+        double t1 = 100000; //testInsertSortingalgorithms(strings);          //t1 is the reference time for the other algorithms
         testradixalgorithms(strings, t1);
+
+        Filemanager.println("------ Comaprison based - Sortingalgorithms ------------------------I");
+
+        String[] stringII = strings.clone();
+        long current = System.nanoTime();
+        Arrays.sort(stringII); // <--calling the Algorithm
+        double t2 = (System.nanoTime() - current) * Math.pow(10, -6);
+        Filemanager.printtp("Collections time in milliseconds: ", t2);
+        Filemanager.printtp("Time per Element: ", t2 / strings.length);
+        Filemanager.printtp("ratio (Insert/TimSort): ", (double) (t1 / t2));
+
 
         Filemanager.println("-----------------------------------------------------------------------------");
         
@@ -115,10 +129,9 @@ public class Taskmanager{
         
         // RadixSort
         Filemanager.println("------ RadixSort ---------------------");
+        String[] str1 = strings.clone();
         current = System.nanoTime();
-        
-        String[] sortedString1 = Sort.radixsort(strings, "PracticeProjects/Textfiles/CharacterOrder.txt");
-        
+        String[] sortedString1 = Sort.radixsort(str1, "PracticeProjects/Textfiles/CharacterOrder.txt");
         double r1 = (System.nanoTime() - current) * Math.pow(10, -6);
 
         Filemanager.printtp("RadixSort time in milliseconds: ", r1);
@@ -132,11 +145,12 @@ public class Taskmanager{
         Filemanager.println("");
 
 
-
+        /*
         // RadixInsertSort
         Filemanager.println("------ RadixInsertSort ---------------");
+        String[] str2 = strings.clone();
         current = System.nanoTime();
-        String[] sortedString2 = Sort.radixInsertSort(strings, "PracticeProjects/Textfiles/CharacterOrder.txt", .9d);
+        String[] sortedString2 = Sort.radixInsertSort(str2, "PracticeProjects/Textfiles/CharacterOrder.txt", .99d);
         double t2 = (System.nanoTime() - current) * Math.pow(10, -6);
 
         Filemanager.printtp("radixInsertSort time in milliseconds: ", t2);
@@ -149,11 +163,15 @@ public class Taskmanager{
 
         Filemanager.println("");
 
+        */
+
+        
         // radixMergeInsertSort
         Filemanager.println("------ radixMergeInsertSort ----------");
+        String[] str3 = strings.clone();
         current = System.nanoTime();
-        String[] sortedString3 = Sort.radixMergeInsertSort(strings, "PracticeProjects/Textfiles/CharacterOrder.txt",
-                .9d);
+        String[] sortedString3 = Sort.radixMergeInsertSort(str3, "PracticeProjects/Textfiles/CharacterOrder.txt",
+                .98d);
         double t3 = (System.nanoTime() - current) * Math.pow(10, -6);
 
         Filemanager.printtp("radixMergeInsertSort time in milliseconds: ", t3);

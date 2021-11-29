@@ -310,7 +310,7 @@ public class Sort {
     public static String[] mergeSortedArrays(String[] Array1, String[] Array2, String elementorderfilepath) {
 
         long starttime = System.nanoTime();
-        ArrayList<String> sortlist = new ArrayList<String>(Arrays.asList(Array1));
+        ArrayList<String> sortlist = new ArrayList<String>(Arrays.asList(Array2));
         HashMap<Character, Integer> counterrefference = new HashMap<Character, Integer>();
         {
             String[] orderinfo = Filemanager.getallLinesFromFile(elementorderfilepath);
@@ -327,8 +327,8 @@ public class Sort {
             if (firstStringbool(Array2[i], Array1[A1Index], counterrefference)) {
                 continue;
             } else {
-                sortlist.add((i + A1Index), Array2[i]);
-                A1Index++;
+                sortlist.add((i + A1Index), Array1[A1Index]);
+                if(A1Index < Array1.length - 1){A1Index++;}else break;
             }
         }
         String[] returnArray = new String[Array1.length + Array2.length];
@@ -817,6 +817,7 @@ public class Sort {
                 max = Inputarray[i].length();
             }
         }
+        
 
         Filemanager.println(String.format("%-32s%32f", "find max:", (System.nanoTime() - E2time) * Math.pow(10, -6)));
         long E3time = System.nanoTime();
@@ -939,16 +940,17 @@ public class Sort {
         Filemanager.printtp( "removing temp chars", (System.nanoTime() - E7time) * Math.pow(10, -6));
         long E8time = System.nanoTime();
 
-        // InsertSort the other long Elements
+        // Merge the other long Elements
         String[] outputarray;
         if (InsertInputArray.length >= 1) {
-            outputarray = mergeSortedArrays(StringInsertSort(InsertInputArray), randixoutputarray , elementorderfilepath); 
+            outputarray = mergeSortedArrays(MergeSort(InsertInputArray, 
+                    elementorderfilepath), randixoutputarray , elementorderfilepath); 
         } else {
             outputarray = randixoutputarray;
         }
 
-        Filemanager.printtp( "InsertSort:", (System.nanoTime() - E8time) * Math.pow(10, -6));
-        Filemanager.printtp( "radixinsert sort complete: ", (System.nanoTime() - starttime) * Math.pow(10, -6));
+        Filemanager.printtp( "MergeSort:", (System.nanoTime() - E8time) * Math.pow(10, -6));
+        Filemanager.printtp( "radixinsertmerch sort complete: ", (System.nanoTime() - starttime) * Math.pow(10, -6));
         return outputarray;
     }
 
