@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch W5A2",
+            "request": "launch",
+            "mainClass": "RP.W5.W5A2",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_b85525c3"
+        },
+        {
+            "type": "java",
+            "name": "Launch Telefonbuch",
+            "request": "launch",
+            "mainClass": "RP.W5.W5A4.Telefonbuch",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_b85525c3"
+        },
+        {
+            "type": "java",
             "name": "Launch Telefonbuch",
             "request": "launch",
             "mainClass": "RP.W5.W5A4.Telefonbuch",
