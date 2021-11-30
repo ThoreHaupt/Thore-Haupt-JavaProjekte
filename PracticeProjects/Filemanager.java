@@ -132,7 +132,7 @@ public class Filemanager {
             }
             filereader.close();
         } catch (Exception e) {
-            System.out.println("could give back the length of file, because it doesnt exist");
+            System.out.println("could not give back the length of file, because it doesnt exist");
         }
         return c;
     }

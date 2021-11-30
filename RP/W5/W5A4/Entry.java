@@ -13,7 +13,6 @@ public class Entry {
         this.telno = telno;
         Telefonbuch.entriesID.put(this.id, this);
         Telefonbuch.entriesName.put(this.getFullName(), this);
-        System.out.println("added " + getFirstname() + " " + getLastname());
     }
 
 
