@@ -1051,7 +1051,7 @@ public class Sort {
             if (chunklist.size() >= 2) {
                 // gleich große chunks zusammenfügen, bis die letzten beiden chunks aus
                 // chunkliste nicht mehr gleich groß sind.
-                while ((int) chunklist.get(chunklist.size() - 1) == (int) (chunklist.get(chunklist.size() - 2))) { // Hier
+                while (chunklist.get(chunklist.size() - 1).equals(chunklist.get(chunklist.size() - 2))) { // Hier
                                                                                                                    // ist
                                                                                                                    // die
                                                                                                                    // besagte

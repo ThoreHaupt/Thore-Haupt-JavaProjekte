@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch myGenerics",
+            "request": "launch",
+            "mainClass": "PracticeProjects.myGenerics",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch Method_Object",
+            "request": "launch",
+            "mainClass": "PracticeProjects.Method_Object",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
             "name": "Launch W5A2",
             "request": "launch",
             "mainClass": "RP.W5.W5A2",
