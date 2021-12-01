@@ -10,10 +10,23 @@ import java.util.HashMap;
 public class Taskmanager{
     public static void main(String[] args){
         
-        compareSortingalgorithms();
-        //testmerge();
+        TLinkedList<Integer> testlist = new TLinkedList<>();
+        int[] intarr = new int[1000000];
+        TNode<Integer> node = new TNode();
+        for (int i = 0; i < 1000000; i++) {
+            testlist.add(i);
+            if(i == 500000){node = testlist.getLastNode();}
+            intarr[i] = i;
+        }
+        long current = System.nanoTime();
+        testlist.insert(-1, node);
+        testlist.remove(node.getNextNode());
+        System.out.println(System.nanoTime() - current);
         
 
+
+        //compareSortingalgorithms();
+        //testmerge();
     }
 
     public static void compareSortingalgorithms(){
