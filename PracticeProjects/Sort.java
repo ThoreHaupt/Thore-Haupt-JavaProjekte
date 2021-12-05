@@ -1137,7 +1137,8 @@ public class Sort {
         }
         sortlist = mergeLinkedListe(sortlist, counterrefference, false, chunklist, chunk);
 
-        return sortlist.toArray(Inputarray);
+        sortlist.toArray(Inputarray);
+        return Inputarray;
 
     }
 
@@ -1190,14 +1191,18 @@ public class Sort {
 
         int c = IndexBoarder1;
         int i = IndexBoarder2;
+        TNode<String> cNode = sortliste.getNodeIndex(c);
+        TNode<String> iNode = sortliste.getNodeIndex(i);
         while (i < IndexBoarder3) {                                                         // interates over 2nd listpart
-            if (firstStringbool(sortliste.get(i), sortliste.get(c), referencemap)) {
-                sortliste.add(c, sortliste.get(i));
-                sortliste.remove(i + 1);                                                    // remove old element i, but it is moved bc of the insert (--> +1)
-                i++;                                                                        // take next character from index
-                c++;                                                                        // bc was moved to the right through the insert
+            if (firstStringbool(iNode.getValue(), cNode.getValue(), referencemap)) {
+                sortliste.insert(iNode.getValue(), cNode);
+                sortliste.remove(iNode);                                                    // remove old element i, but it is moved bc of the insert (--> +1)
+                i++;
+                c++;
+                iNode = iNode.getNextNode();                                                                        // take next character from index
             } else {
-                c++;                                                                        //compare to next character
+                c++; 
+                cNode = cNode.getNextNode();                                                                       //compare to next character
             }
             if (c > i)break;
         }

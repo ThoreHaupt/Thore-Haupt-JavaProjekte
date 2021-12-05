@@ -6,14 +6,15 @@ import java.util.Objects;
 
 public class TLinkedList<T>{
     private int size = 0;
-    private TNode<T> fisTNode = null;
+    private int modifications = 0;
+    private TNode<T> firstNode = null;
     
     private TNode<T> lastNode = null;
 
     public TLinkedList() {
     }
 
-    public TLinkedList(ArrayList<T> list){
+    public TLinkedList(List<T> list){
         if (list.size() == 0) return;
         createFirstNode(list.get(0));
         for (int i = 1; i < list.size(); i++) {
@@ -22,11 +23,11 @@ public class TLinkedList<T>{
     }
 
     public TNode<T> getFisTNode() {
-        return fisTNode;
+        return firstNode;
     }
 
     public void setFisTNode(TNode<T> fisTNode) {
-        this.fisTNode = fisTNode;
+        this.firstNode = fisTNode;
     }
 
     public TNode<T> getLastNode() {
@@ -56,6 +57,16 @@ public class TLinkedList<T>{
         return newNode;
     }
 
+    private TNode<T> createBeforeNode(TNode<T> startnode, T value) {
+        TNode<T> newNode;
+        if (size > 0) {
+            newNode = startnode.createBeforeNode(value);
+        } else {
+            newNode = createFirstNode(value);
+        }
+        return newNode;
+    }
+
     public void set(T value, TNode<T> node){
         node.setValue(value);
     }
@@ -64,37 +75,49 @@ public class TLinkedList<T>{
         getNodeIndex(index).setValue(value);
     }
 
-    public void insert(T value, int index) {
-        getNodeIndex(index).createNextNode(value);
-        lastNode = lastNode.getNextNode();
+    public void insertAfter(T value, int index) {
+        TNode<T> node = getNodeIndex(index);
+        insertAfter(value, node);
+    }
+
+    public void insertAfter(T value, TNode<T> node){
+        TNode<T> newNode = node.createNextNode(value);
+        lastNode = (node == lastNode ? newNode : lastNode);
         size++;
     }
 
-    public void insert(T value, TNode<T> node){
-        node.createNextNode(value);
-        lastNode = lastNode.getNextNode();
+    public void insert(T value, int index) {
+        TNode<T> node = getNodeIndex(index);
+        insert(value, node);
+    }
+
+    public void insert(T value, TNode<T> node) {
+        TNode<T> newNode = createBeforeNode(node, value);
+        if(firstNode != null && firstNode == node){
+            this.firstNode = newNode;
+        }
         size++;
     }
 
     public void remove(int index){
         TNode<T> node = getNodeIndex(index - 1);
-        node.setNextNode(null);
-        size--;
+        remove(node);
     }
     
     public void remove(TNode<T> node) {
         node.removeNode();
         size--; 
     }
+
     public void removeNext(TNode<T> node){
         node.removeNextNode();
         size--;
     }
     
     public T pullFirst(){
-        T value = fisTNode.getValue();
-        fisTNode = fisTNode.getNextNode();
-        fisTNode.setBeforeNode(null);
+        T value = firstNode.getValue();
+        firstNode = firstNode.getNextNode();
+        firstNode.setBeforeNode(null);
         size--;
         return value;
     }
@@ -109,27 +132,29 @@ public class TLinkedList<T>{
 
     public TNode<T> getNodeIndex(int index){
         Objects.checkIndex(index, size);
-        TNode<T> current = fisTNode;
+        TNode<T> current = firstNode;
         int i = 0;
         while(i < index){
+            if (current.getNextNode() == null) 
+                break;
             current = current.getNextNode();
             i++;
         }
         return current;
     }
 
-    public Object[] toArray(){
-        Object[] arr = new Object[size];
-        TNode<T> node = fisTNode;
+    public void toArray(Object[] arr){
+        TNode<T> node = firstNode;
         for (int i = 0; i < arr.length; i++) {
             arr[i] = node.getValue();
             node = node.getNextNode();
         }
-        return arr;
     }
     
     public TNode<T> createFirstNode(T value){
-        fisTNode = new TNode<T>(this, null, null, value, 0);
-        return fisTNode;
+        firstNode = new TNode<T>(this, null, null, value);
+        lastNode = firstNode;
+        size++;
+        return firstNode;
     }
 }

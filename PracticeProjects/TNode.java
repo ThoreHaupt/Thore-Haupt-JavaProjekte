@@ -5,22 +5,31 @@ public class TNode<T> {
     private TNode<T> beforeNode;
     public TLinkedList<T> list;
     private T value;
-    private int index;
 
-    public TNode(TLinkedList<T> list, TNode<T> nextNode, TNode<T> beforeNode, T value, int index) {
+    public TNode(TLinkedList<T> list, TNode<T> nextNode, TNode<T> beforeNode, T value) {
         this.list = list;
         this.nextNode = nextNode;
         this.beforeNode = beforeNode;
         this.value = value;
         this.list = list;
-        this.index = index;
+        if (beforeNode != null){
+            beforeNode.setNextNode(this);
+        }
+        if (nextNode != null) {
+            nextNode.setBeforeNode(this);
+        }
     }
 
     public TNode(){};
 
     public TNode<T> createNextNode(T value){
-        nextNode = new TNode<T>(list, nextNode, this, value, index + 1);
+        nextNode = new TNode<T>(list, nextNode, this, value);
         return nextNode;
+    }
+
+    public TNode<T> createBeforeNode(T value) {
+        beforeNode = new TNode<T>(list, this, this.beforeNode, value);
+        return beforeNode;
     }
     
     public TNode<T> getNextNode() {
@@ -46,13 +55,22 @@ public class TNode<T> {
     }
     
     public void removeNextNode(){
-        nextNode = nextNode.getNextNode();
+        if (nextNode == null)return;
+            nextNode = nextNode.getNextNode();
+        if (nextNode.getNextNode() == null)
+            nextNode.getNextNode().setBeforeNode(this);
     }
 
     public void removeNode() {
-        if (nextNode != null){
-            beforeNode.setNextNode(nextNode.getNextNode());
-        }else{
+        if (nextNode != null && beforeNode != null){
+            beforeNode.setNextNode(nextNode);
+            nextNode.setBeforeNode(beforeNode);
+        }else if(nextNode == null && beforeNode == null){
+            list.setFisTNode(null);
+            list.setLastNode(null);
+        }else if (nextNode != null && beforeNode == null){
+            nextNode.setBeforeNode(null);
+        } else {
             beforeNode.setNextNode(null);
         }
     }

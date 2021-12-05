@@ -1953,3 +1953,2410 @@ Collections time in milliseconds:                     445,578200
 Time per Element:                                       0,000743
 ratio (Insert/TimSort):                               224,427497
 -----------------------------------------------------------------------------
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                             60000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,200366
+StringInsertSort time in milliseconds:              12052,885900
+Time per Element:                                       0,200881
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,164684
+StringInsertSort time in milliseconds:               9902,219300
+Time per Element:                                       0,165037
+ratio (Insert/Insert):                                  1,217190
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                      1930,470300
+Time per Element:                                       0,032175
+ratio (InsertSort 1/MergeSort):                         6,243497
+
+Saved MergeSort to file 6...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                             60000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,169725
+StringInsertSort time in milliseconds:              10212,869700
+Time per Element:                                       0,170214
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,172141
+StringInsertSort time in milliseconds:              10343,927900
+Time per Element:                                       0,172399
+ratio (Insert/Insert):                                  0,987330
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                      1953,421500
+Time per Element:                                       0,032557
+ratio (InsertSort 1/MergeSort):                         5,228196
+
+Saved MergeSort to file 6...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                             60000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,202505
+StringInsertSort time in milliseconds:              12202,922200
+Time per Element:                                       0,203382
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,198443
+StringInsertSort time in milliseconds:              11919,061400
+Time per Element:                                       0,198651
+ratio (Insert/Insert):                                  1,023816
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                      1924,085900
+Time per Element:                                       0,032068
+ratio (InsertSort 1/MergeSort):                         6,342192
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,060955
+StringInsertSort time in milliseconds:                404,603600
+Time per Element:                                       0,067434
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,069205
+StringInsertSort time in milliseconds:                433,030500
+Time per Element:                                       0,072172
+ratio (Insert/Insert):                                  0,934354
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       230,236100
+Time per Element:                                       0,038373
+ratio (InsertSort 1/MergeSort):                         1,757342
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,060396
+StringInsertSort time in milliseconds:                397,264100
+Time per Element:                                       0,066211
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,053103
+StringInsertSort time in milliseconds:                333,537400
+Time per Element:                                       0,055590
+ratio (Insert/Insert):                                  1,191063
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       256,506900
+Time per Element:                                       0,042751
+ratio (InsertSort 1/MergeSort):                         1,548746
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,062704
+StringInsertSort time in milliseconds:                422,914900
+Time per Element:                                       0,070486
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,054435
+StringInsertSort time in milliseconds:                340,882500
+Time per Element:                                       0,056814
+ratio (Insert/Insert):                                  1,240647
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       251,231100
+Time per Element:                                       0,041872
+ratio (InsertSort 1/MergeSort):                         1,683370
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,058480
+StringInsertSort time in milliseconds:                387,626000
+Time per Element:                                       0,064604
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,054107
+StringInsertSort time in milliseconds:                338,219300
+Time per Element:                                       0,056370
+ratio (Insert/Insert):                                  1,146079
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       242,154100
+Time per Element:                                       0,040359
+ratio (InsertSort 1/MergeSort):                         1,600741
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,065786
+StringInsertSort time in milliseconds:                429,835300
+Time per Element:                                       0,071639
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,057055
+StringInsertSort time in milliseconds:                355,421100
+Time per Element:                                       0,059237
+ratio (Insert/Insert):                                  1,209369
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       231,633000
+Time per Element:                                       0,038605
+ratio (InsertSort 1/MergeSort):                         1,855674
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,071439
+StringInsertSort time in milliseconds:                466,060400
+Time per Element:                                       0,077677
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,053660
+StringInsertSort time in milliseconds:                336,269300
+Time per Element:                                       0,056045
+ratio (Insert/Insert):                                  1,385974
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       240,844100
+Time per Element:                                       0,040141
+ratio (InsertSort 1/MergeSort):                         1,935112
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,063402
+StringInsertSort time in milliseconds:                449,383200
+Time per Element:                                       0,074897
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,062658
+StringInsertSort time in milliseconds:                393,146500
+Time per Element:                                       0,065524
+ratio (Insert/Insert):                                  1,143043
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       264,010000
+Time per Element:                                       0,044002
+ratio (InsertSort 1/MergeSort):                         1,702145
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,065562
+StringInsertSort time in milliseconds:                432,559500
+Time per Element:                                       0,072093
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,063240
+StringInsertSort time in milliseconds:                394,168600
+Time per Element:                                       0,065695
+ratio (Insert/Insert):                                  1,097397
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       238,033000
+Time per Element:                                       0,039672
+ratio (InsertSort 1/MergeSort):                         1,817225
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,073003
+StringInsertSort time in milliseconds:                478,262100
+Time per Element:                                       0,079710
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,055524
+StringInsertSort time in milliseconds:                347,513400
+Time per Element:                                       0,057919
+ratio (Insert/Insert):                                  1,376241
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       270,435000
+Time per Element:                                       0,045073
+ratio (InsertSort 1/MergeSort):                         1,768492
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,061994
+StringInsertSort time in milliseconds:                449,676900
+Time per Element:                                       0,074946
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,061471
+StringInsertSort time in milliseconds:                386,009900
+Time per Element:                                       0,064335
+ratio (Insert/Insert):                                  1,164936
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       271,165000
+Time per Element:                                       0,045194
+ratio (InsertSort 1/MergeSort):                         1,658315
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,061683
+StringInsertSort time in milliseconds:                404,408300
+Time per Element:                                       0,067401
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,063565
+StringInsertSort time in milliseconds:                399,790200
+Time per Element:                                       0,066632
+ratio (Insert/Insert):                                  1,011551
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       252,354900
+Time per Element:                                       0,042059
+ratio (InsertSort 1/MergeSort):                         1,602538
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |????????            |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,080113
+StringInsertSort time in milliseconds:                519,453700
+Time per Element:                                       0,086576
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,070582
+StringInsertSort time in milliseconds:                444,454500
+Time per Element:                                       0,074076
+ratio (Insert/Insert):                                  1,168744
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       315,245000
+Time per Element:                                       0,052541
+ratio (InsertSort 1/MergeSort):                         1,647778
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,066323
+StringInsertSort time in milliseconds:                479,194900
+Time per Element:                                       0,079866
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,060828
+StringInsertSort time in milliseconds:                382,005300
+Time per Element:                                       0,063668
+ratio (Insert/Insert):                                  1,254420
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       279,508200
+Time per Element:                                       0,046585
+ratio (InsertSort 1/MergeSort):                         1,714422
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,068997
+StringInsertSort time in milliseconds:                476,053600
+Time per Element:                                       0,079342
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,057198
+StringInsertSort time in milliseconds:                360,190300
+Time per Element:                                       0,060032
+ratio (Insert/Insert):                                  1,321672
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       273,025400
+Time per Element:                                       0,045504
+ratio (InsertSort 1/MergeSort):                         1,743624
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,069365
+StringInsertSort time in milliseconds:                496,548300
+Time per Element:                                       0,082758
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,054989
+StringInsertSort time in milliseconds:                343,188300
+Time per Element:                                       0,057198
+ratio (Insert/Insert):                                  1,446868
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       298,527300
+Time per Element:                                       0,049755
+ratio (InsertSort 1/MergeSort):                         1,663326
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,065255
+StringInsertSort time in milliseconds:                426,095500
+Time per Element:                                       0,071016
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,063106
+StringInsertSort time in milliseconds:                398,470600
+Time per Element:                                       0,066412
+ratio (Insert/Insert):                                  1,069327
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       277,273300
+Time per Element:                                       0,046212
+ratio (InsertSort 1/MergeSort):                         1,536735
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,079875
+StringInsertSort time in milliseconds:                516,342800
+Time per Element:                                       0,086057
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,063097
+StringInsertSort time in milliseconds:                399,717800
+Time per Element:                                       0,066620
+ratio (Insert/Insert):                                  1,291768
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       260,025100
+Time per Element:                                       0,043338
+ratio (InsertSort 1/MergeSort):                         1,985742
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,067493
+StringInsertSort time in milliseconds:                441,584600
+Time per Element:                                       0,073597
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,067253
+StringInsertSort time in milliseconds:                417,851600
+Time per Element:                                       0,069642
+ratio (Insert/Insert):                                  1,056798
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       264,581500
+Time per Element:                                       0,044097
+ratio (InsertSort 1/MergeSort):                         1,668993
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,069100
+StringInsertSort time in milliseconds:                465,769300
+Time per Element:                                       0,077628
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,064542
+StringInsertSort time in milliseconds:                400,805200
+Time per Element:                                       0,066801
+ratio (Insert/Insert):                                  1,162084
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       276,210400
+Time per Element:                                       0,046035
+ratio (InsertSort 1/MergeSort):                         1,686284
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,069549
+StringInsertSort time in milliseconds:                453,497100
+Time per Element:                                       0,075583
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,065552
+StringInsertSort time in milliseconds:                410,416300
+Time per Element:                                       0,068403
+ratio (Insert/Insert):                                  1,104969
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       290,031800
+Time per Element:                                       0,048339
+ratio (InsertSort 1/MergeSort):                         1,563612
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,067753
+StringInsertSort time in milliseconds:                454,699400
+Time per Element:                                       0,075783
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,059657
+StringInsertSort time in milliseconds:                371,026900
+Time per Element:                                       0,061838
+ratio (Insert/Insert):                                  1,225516
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       272,517700
+Time per Element:                                       0,045420
+ratio (InsertSort 1/MergeSort):                         1,668513
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,069926
+StringInsertSort time in milliseconds:                486,572400
+Time per Element:                                       0,081095
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,071384
+StringInsertSort time in milliseconds:                443,213900
+Time per Element:                                       0,073869
+ratio (Insert/Insert):                                  1,097827
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       288,289300
+Time per Element:                                       0,048048
+ratio (InsertSort 1/MergeSort):                         1,687792
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,067480
+StringInsertSort time in milliseconds:                482,581300
+Time per Element:                                       0,080430
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,066539
+StringInsertSort time in milliseconds:                420,867500
+Time per Element:                                       0,070145
+ratio (Insert/Insert):                                  1,146635
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       298,137000
+Time per Element:                                       0,049690
+ratio (InsertSort 1/MergeSort):                         1,618656
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,068831
+StringInsertSort time in milliseconds:                458,230400
+Time per Element:                                       0,076372
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,068731
+StringInsertSort time in milliseconds:                438,014600
+Time per Element:                                       0,073002
+ratio (Insert/Insert):                                  1,046153
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       287,849300
+Time per Element:                                       0,047975
+ratio (InsertSort 1/MergeSort):                         1,591911
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |????????????        |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,077336
+StringInsertSort time in milliseconds:                497,552400
+Time per Element:                                       0,082925
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,070681
+StringInsertSort time in milliseconds:                441,081900
+Time per Element:                                       0,073514
+ratio (Insert/Insert):                                  1,128027
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       281,805300
+Time per Element:                                       0,046968
+ratio (InsertSort 1/MergeSort):                         1,765589
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |????????????        |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,074349
+StringInsertSort time in milliseconds:                475,992400
+Time per Element:                                       0,079332
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,068317
+StringInsertSort time in milliseconds:                429,034200
+Time per Element:                                       0,071506
+ratio (Insert/Insert):                                  1,109451
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       306,900300
+Time per Element:                                       0,051150
+ratio (InsertSort 1/MergeSort):                         1,550968
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,076054
+StringInsertSort time in milliseconds:                534,885400
+Time per Element:                                       0,089148
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,058828
+StringInsertSort time in milliseconds:                368,214400
+Time per Element:                                       0,061369
+ratio (Insert/Insert):                                  1,452647
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       306,386800
+Time per Element:                                       0,051064
+ratio (InsertSort 1/MergeSort):                         1,745785
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????????         |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,079799
+StringInsertSort time in milliseconds:                517,118500
+Time per Element:                                       0,086186
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,057776
+StringInsertSort time in milliseconds:                365,819000
+Time per Element:                                       0,060970
+ratio (Insert/Insert):                                  1,413591
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       316,246400
+Time per Element:                                       0,052708
+ratio (InsertSort 1/MergeSort):                         1,635176
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????????         |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,078028
+StringInsertSort time in milliseconds:                506,839000
+Time per Element:                                       0,084473
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,060083
+StringInsertSort time in milliseconds:                387,233900
+Time per Element:                                       0,064539
+ratio (Insert/Insert):                                  1,308870
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       290,743900
+Time per Element:                                       0,048457
+ratio (InsertSort 1/MergeSort):                         1,743249
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????????         |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,075062
+StringInsertSort time in milliseconds:                507,149700
+Time per Element:                                       0,084525
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,069754
+StringInsertSort time in milliseconds:                439,680900
+Time per Element:                                       0,073280
+ratio (Insert/Insert):                                  1,153449
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       299,137600
+Time per Element:                                       0,049856
+ratio (InsertSort 1/MergeSort):                         1,695373
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,076184
+StringInsertSort time in milliseconds:                508,832200
+Time per Element:                                       0,084805
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,061979
+StringInsertSort time in milliseconds:                386,517400
+Time per Element:                                       0,064420
+ratio (Insert/Insert):                                  1,316454
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       284,717000
+Time per Element:                                       0,047453
+ratio (InsertSort 1/MergeSort):                         1,787151
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????????         |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,072124
+StringInsertSort time in milliseconds:                464,810000
+Time per Element:                                       0,077468
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,071020
+StringInsertSort time in milliseconds:                446,405900
+Time per Element:                                       0,074401
+ratio (Insert/Insert):                                  1,041227
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       309,967900
+Time per Element:                                       0,051661
+ratio (InsertSort 1/MergeSort):                         1,499542
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????????         |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,072450
+StringInsertSort time in milliseconds:                506,006400
+Time per Element:                                       0,084334
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,070035
+StringInsertSort time in milliseconds:                439,100400
+Time per Element:                                       0,073183
+ratio (Insert/Insert):                                  1,152371
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       297,813000
+Time per Element:                                       0,049636
+ratio (InsertSort 1/MergeSort):                         1,699074
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????????         |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,070112
+StringInsertSort time in milliseconds:                451,367000
+Time per Element:                                       0,075228
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,062538
+StringInsertSort time in milliseconds:                390,348800
+Time per Element:                                       0,065058
+ratio (Insert/Insert):                                  1,156317
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       308,467700
+Time per Element:                                       0,051411
+ratio (InsertSort 1/MergeSort):                         1,463255
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |????????            |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,069888
+StringInsertSort time in milliseconds:                496,609000
+Time per Element:                                       0,082768
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,070136
+StringInsertSort time in milliseconds:                436,878300
+Time per Element:                                       0,072813
+ratio (Insert/Insert):                                  1,136722
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       300,205200
+Time per Element:                                       0,050034
+ratio (InsertSort 1/MergeSort):                         1,654232
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,080032
+StringInsertSort time in milliseconds:                526,704700
+Time per Element:                                       0,087784
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,067922
+StringInsertSort time in milliseconds:                426,679800
+Time per Element:                                       0,071113
+ratio (Insert/Insert):                                  1,234426
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       311,874900
+Time per Element:                                       0,051979
+ratio (InsertSort 1/MergeSort):                         1,688833
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,072724
+StringInsertSort time in milliseconds:                470,684600
+Time per Element:                                       0,078447
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,074049
+StringInsertSort time in milliseconds:                458,930000
+Time per Element:                                       0,076488
+ratio (Insert/Insert):                                  1,025613
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       298,621100
+Time per Element:                                       0,049770
+ratio (InsertSort 1/MergeSort):                         1,576193
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |????????            |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,071793
+StringInsertSort time in milliseconds:                510,584700
+Time per Element:                                       0,085097
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,066731
+StringInsertSort time in milliseconds:                422,004100
+Time per Element:                                       0,070334
+ratio (Insert/Insert):                                  1,209905
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       301,453900
+Time per Element:                                       0,050242
+ratio (InsertSort 1/MergeSort):                         1,693741
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?????????????????   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,079178
+StringInsertSort time in milliseconds:                515,586300
+Time per Element:                                       0,085931
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,073046
+StringInsertSort time in milliseconds:                457,761200
+Time per Element:                                       0,076294
+ratio (Insert/Insert):                                  1,126322
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       291,215900
+Time per Element:                                       0,048536
+ratio (InsertSort 1/MergeSort):                         1,770461
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?????????????????   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,070776
+StringInsertSort time in milliseconds:                470,714700
+Time per Element:                                       0,078452
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,071233
+StringInsertSort time in milliseconds:                444,861800
+Time per Element:                                       0,074144
+ratio (Insert/Insert):                                  1,058114
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       316,102700
+Time per Element:                                       0,052684
+ratio (InsertSort 1/MergeSort):                         1,489120
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |??????????????      |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,073057
+StringInsertSort time in milliseconds:                471,735400
+Time per Element:                                       0,078623
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,072356
+StringInsertSort time in milliseconds:                451,580900
+Time per Element:                                       0,075263
+ratio (Insert/Insert):                                  1,044631
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       312,012800
+Time per Element:                                       0,052002
+ratio (InsertSort 1/MergeSort):                         1,511910
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |??????????????????  |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,081186
+StringInsertSort time in milliseconds:                522,082700
+Time per Element:                                       0,087014
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,064136
+StringInsertSort time in milliseconds:                406,475000
+Time per Element:                                       0,067746
+ratio (Insert/Insert):                                  1,284415
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       310,117100
+Time per Element:                                       0,051686
+ratio (InsertSort 1/MergeSort):                         1,683502
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |??????????????????  |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,081801
+StringInsertSort time in milliseconds:                576,973600
+Time per Element:                                       0,096162
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,067389
+StringInsertSort time in milliseconds:                422,681300
+Time per Element:                                       0,070447
+ratio (Insert/Insert):                                  1,365032
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       368,612500
+Time per Element:                                       0,061435
+ratio (InsertSort 1/MergeSort):                         1,565258
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????????????     |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              1000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,366798
+StringInsertSort time in milliseconds:                414,646200
+Time per Element:                                       0,414646
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,384088
+StringInsertSort time in milliseconds:                401,775000
+Time per Element:                                       0,401775
+ratio (Insert/Insert):                                  1,032036
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       272,403300
+Time per Element:                                       0,272403
+ratio (InsertSort 1/MergeSort):                         1,522178
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |??????????????      |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        19,582160
+StringInsertSort time in milliseconds:                277,995100
+Time per Element:                                      27,799510
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       15,884260
+StringInsertSort time in milliseconds:                175,788500
+Time per Element:                                      17,578850
+ratio (Insert/Insert):                                  1,581418
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       193,676500
+Time per Element:                                      19,367650
+ratio (InsertSort 1/MergeSort):                         1,435358
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????????????     |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        22,805560
+StringInsertSort time in milliseconds:                270,214400
+Time per Element:                                      27,021440
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       16,818160
+StringInsertSort time in milliseconds:                187,143100
+Time per Element:                                      18,714310
+ratio (Insert/Insert):                                  1,443892
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       215,379200
+Time per Element:                                      21,537920
+ratio (InsertSort 1/MergeSort):                         1,254598
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????             |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        19,170320
+StringInsertSort time in milliseconds:                265,580500
+Time per Element:                                      26,558050
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       14,699010
+StringInsertSort time in milliseconds:                180,826300
+Time per Element:                                      18,082630
+ratio (Insert/Insert):                                  1,468705
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       183,353800
+Time per Element:                                      18,335380
+ratio (InsertSort 1/MergeSort):                         1,448459
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????????????     |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        18,643260
+StringInsertSort time in milliseconds:                225,974200
+Time per Element:                                      22,597420
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       15,171980
+StringInsertSort time in milliseconds:                165,850100
+Time per Element:                                      16,585010
+ratio (Insert/Insert):                                  1,362521
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       179,500400
+Time per Element:                                      17,950040
+ratio (InsertSort 1/MergeSort):                         1,258906
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????             |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        20,692840
+StringInsertSort time in milliseconds:                248,457100
+Time per Element:                                      24,845710
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       17,014360
+StringInsertSort time in milliseconds:                221,957100
+Time per Element:                                      22,195710
+ratio (Insert/Insert):                                  1,119392
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       235,657500
+Time per Element:                                      23,565750
+ratio (InsertSort 1/MergeSort):                         1,054314
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???                 |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        19,497640
+StringInsertSort time in milliseconds:                237,207600
+Time per Element:                                      23,720760
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       19,316180
+StringInsertSort time in milliseconds:                215,633000
+Time per Element:                                      21,563300
+ratio (Insert/Insert):                                  1,100052
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       229,338000
+Time per Element:                                      22,933800
+ratio (InsertSort 1/MergeSort):                         1,034314
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????????????     |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        19,484530
+StringInsertSort time in milliseconds:                246,094400
+Time per Element:                                      24,609440
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       15,072160
+StringInsertSort time in milliseconds:                166,885600
+Time per Element:                                      16,688560
+ratio (Insert/Insert):                                  1,474629
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       178,017800
+Time per Element:                                      17,801780
+ratio (InsertSort 1/MergeSort):                         1,382415
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????             |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        18,275110
+StringInsertSort time in milliseconds:                238,657900
+Time per Element:                                      23,865790
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       15,755090
+StringInsertSort time in milliseconds:                171,670200
+Time per Element:                                      17,167020
+ratio (Insert/Insert):                                  1,390212
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       202,887000
+Time per Element:                                      20,288700
+ratio (InsertSort 1/MergeSort):                         1,176309
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????????????     |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        20,781530
+StringInsertSort time in milliseconds:                247,920000
+Time per Element:                                      24,792000
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       16,464310
+StringInsertSort time in milliseconds:                184,601600
+Time per Element:                                      18,460160
+ratio (Insert/Insert):                                  1,343000
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       203,170000
+Time per Element:                                      20,317000
+ratio (InsertSort 1/MergeSort):                         1,220259
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????????????     |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        20,975220
+StringInsertSort time in milliseconds:                256,144400
+Time per Element:                                      25,614440
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       17,031530
+StringInsertSort time in milliseconds:                195,493700
+Time per Element:                                      19,549370
+ratio (Insert/Insert):                                  1,310244
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       212,759900
+Time per Element:                                      21,275990
+ratio (InsertSort 1/MergeSort):                         1,203913
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????????????     |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        22,422120
+StringInsertSort time in milliseconds:                264,253600
+Time per Element:                                      26,425360
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       17,700700
+StringInsertSort time in milliseconds:                200,417500
+Time per Element:                                      20,041750
+ratio (Insert/Insert):                                  1,318516
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       208,613500
+Time per Element:                                      20,861350
+ratio (InsertSort 1/MergeSort):                         1,266714
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????             |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        22,226040
+StringInsertSort time in milliseconds:                297,168500
+Time per Element:                                      29,716850
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       14,521470
+StringInsertSort time in milliseconds:                163,561700
+Time per Element:                                      16,356170
+ratio (Insert/Insert):                                  1,816859
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       188,869700
+Time per Element:                                      18,886970
+ratio (InsertSort 1/MergeSort):                         1,573405
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???                 |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        19,936090
+StringInsertSort time in milliseconds:                235,777100
+Time per Element:                                      23,577710
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       16,305020
+StringInsertSort time in milliseconds:                178,750600
+Time per Element:                                      17,875060
+ratio (Insert/Insert):                                  1,319028
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       205,513900
+Time per Element:                                      20,551390
+ratio (InsertSort 1/MergeSort):                         1,147256
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????             |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        18,613330
+StringInsertSort time in milliseconds:                224,074400
+Time per Element:                                      22,407440
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       15,582030
+StringInsertSort time in milliseconds:                171,592400
+Time per Element:                                      17,159240
+ratio (Insert/Insert):                                  1,305853
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       201,008100
+Time per Element:                                      20,100810
+ratio (InsertSort 1/MergeSort):                         1,114753
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???                 |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        19,702940
+StringInsertSort time in milliseconds:                244,070000
+Time per Element:                                      24,407000
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       15,980810
+StringInsertSort time in milliseconds:                177,078700
+Time per Element:                                      17,707870
+ratio (Insert/Insert):                                  1,378314
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       222,057400
+Time per Element:                                      22,205740
+ratio (InsertSort 1/MergeSort):                         1,099130
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????             |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        20,722240
+StringInsertSort time in milliseconds:                243,902600
+Time per Element:                                      24,390260
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       16,078480
+StringInsertSort time in milliseconds:                177,134100
+Time per Element:                                      17,713410
+ratio (Insert/Insert):                                  1,376938
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       249,430000
+Time per Element:                                      24,943000
+ratio (InsertSort 1/MergeSort):                         0,977840
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |????????????????????|
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        22,251440
+StringInsertSort time in milliseconds:                263,642500
+Time per Element:                                      26,364250
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       19,717930
+StringInsertSort time in milliseconds:                218,579900
+Time per Element:                                      21,857990
+ratio (Insert/Insert):                                  1,206161
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       255,959800
+Time per Element:                                      25,595980
+ratio (InsertSort 1/MergeSort):                         1,030015
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |????????????????????|
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        19,863740
+StringInsertSort time in milliseconds:                328,204800
+Time per Element:                                      32,820480
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       16,286730
+StringInsertSort time in milliseconds:                182,959300
+Time per Element:                                      18,295930
+ratio (Insert/Insert):                                  1,793868
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       233,233900
+Time per Element:                                      23,323390
+ratio (InsertSort 1/MergeSort):                         1,407192
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????             |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        22,146150
+StringInsertSort time in milliseconds:                277,993500
+Time per Element:                                      27,799350
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       15,940230
+StringInsertSort time in milliseconds:                176,075400
+Time per Element:                                      17,607540
+ratio (Insert/Insert):                                  1,578832
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       251,203900
+Time per Element:                                      25,120390
+ratio (InsertSort 1/MergeSort):                         1,106645
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |????????????????????|
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        22,206380
+StringInsertSort time in milliseconds:                255,148600
+Time per Element:                                      25,514860
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       18,368220
+StringInsertSort time in milliseconds:                206,765400
+Time per Element:                                      20,676540
+ratio (Insert/Insert):                                  1,234000
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       210,292200
+Time per Element:                                      21,029220
+ratio (InsertSort 1/MergeSort):                         1,213305
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????             |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        20,761980
+StringInsertSort time in milliseconds:                255,592900
+Time per Element:                                      25,559290
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       17,092460
+StringInsertSort time in milliseconds:                186,449400
+Time per Element:                                      18,644940
+ratio (Insert/Insert):                                  1,370843
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       229,867300
+Time per Element:                                      22,986730
+ratio (InsertSort 1/MergeSort):                         1,111915
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????             |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        19,032910
+StringInsertSort time in milliseconds:                224,308800
+Time per Element:                                      22,430880
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       17,593070
+StringInsertSort time in milliseconds:                192,513900
+Time per Element:                                      19,251390
+ratio (Insert/Insert):                                  1,165156
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       233,679100
+Time per Element:                                      23,367910
+ratio (InsertSort 1/MergeSort):                         0,959901
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????             |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        19,540820
+StringInsertSort time in milliseconds:                220,750500
+Time per Element:                                      22,075050
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       16,700360
+StringInsertSort time in milliseconds:                186,245800
+Time per Element:                                      18,624580
+ratio (Insert/Insert):                                  1,185264
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       220,225700
+Time per Element:                                      22,022570
+ratio (InsertSort 1/MergeSort):                         1,002383
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????             |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                                10,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |??????????????????? |
+Insertsort average sortingtime:                        22,534940
+StringInsertSort time in milliseconds:                324,953500
+Time per Element:                                      32,495350
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |??????????????????? |
+Element Insert average sortingtime:                       19,490600
+StringInsertSort time in milliseconds:                219,653000
+Time per Element:                                      21,965300
+ratio (Insert/Insert):                                  1,479395
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       251,834000
+Time per Element:                                      25,183400
+ratio (InsertSort 1/MergeSort):                         1,290348
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       198,252300
+Time per Element:                                      19,825230
+ratio (InsertSort 1/MergeSort):                         1,639091
+
+Saved MergeSort to file 8...
+
+------ MergeInsertSort ------------------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            100000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ InsertI -------------------------
+Insertsort I Progress:                    |????????????????????|
+Insertsort average sortingtime:                         0,402105
+StringInsertSort time in milliseconds:              40253,804800
+Time per Element:                                       0,402538
+ratio (Insert/Insert):                                  1,000000
+Saved Insert I to file 4...
+
+------ InsertII ------------------------
+Insertsort II Progress:                   |????????????????????|
+Element Insert average sortingtime:                        0,388983
+StringInsertSort time in milliseconds:              38918,160200
+Time per Element:                                       0,389182
+ratio (Insert/Insert):                                  1,034319
+Saved Insert II to file 5...
+
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                      5478,387500
+Time per Element:                                       0,054784
+ratio (InsertSort 1/MergeSort):                         7,347747
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                    342957,775900
+Time per Element:                                       3,429578
+ratio (InsertSort 1/MergeSort):                         0,117372
+
+Saved MergeSort to file 8...
+
+------ MergeInsertSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeInsertSort time in milliseconds:                5910,980500
+Time per Element:                                       0,059110
+ratio (InsertSort 1/MergeInsertSort):                   6,810005
+
+Saved MergeInsertSort to file 7...
+
+------ Comaprison based - Sortingalgorithms ------------------------I
+Collections time in milliseconds:                      96,341400
+Time per Element:                                       0,000963
+ratio (Insert/TimSort):                              1037,975367
+-----------------------------------------------------------------------------
