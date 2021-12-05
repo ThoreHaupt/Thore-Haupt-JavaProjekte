@@ -3,6 +3,7 @@ package PracticeProjects;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  *
@@ -11,16 +12,23 @@ public class Taskmanager{
     public static void main(String[] args){
         
         TLinkedList<Integer> testlist = new TLinkedList<>();
-        int[] intarr = new int[1000000];
+        Integer[] intarr = new Integer[1000000];
         TNode<Integer> node = new TNode();
         for (int i = 0; i < 1000000; i++) {
             testlist.add(i);
             if(i == 500000){node = testlist.getLastNode();}
             intarr[i] = i;
         }
+        testlist.get(node);
+        
         long current = System.nanoTime();
-        testlist.insert(-1, node);
-        testlist.remove(node.getNextNode());
+        //testlist.insert(-1, node);
+        //testlist.remove(node.getNextNode().getNextNode());
+        System.out.println(testlist.get(node.getNextNode()));
+
+        ArrayList<Integer> a = new ArrayList<Integer>(Arrays.asList(intarr));
+        TLinkedList<Integer> testlistII = new TLinkedList<Integer>(a);
+        System.out.println(testlistII.get(500000));
         System.out.println(System.nanoTime() - current);
         
 

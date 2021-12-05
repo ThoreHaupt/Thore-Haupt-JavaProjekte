@@ -1,11 +1,26 @@
 package PracticeProjects;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class TLinkedList<T>{
     private int size = 0;
     private TNode<T> fisTNode = null;
+    
+    private TNode<T> lastNode = null;
+
+    public TLinkedList() {
+    }
+
+    public TLinkedList(ArrayList<T> list){
+        if (list.size() == 0) return;
+        createFirstNode(list.get(0));
+        for (int i = 1; i < list.size(); i++) {
+            add(list.get(i));
+        }
+    }
+
     public TNode<T> getFisTNode() {
         return fisTNode;
     }
@@ -20,19 +35,6 @@ public class TLinkedList<T>{
 
     public void setLastNode(TNode<T> lastNode) {
         this.lastNode = lastNode;
-    }
-
-    private TNode<T> lastNode = null;
-
-    public TLinkedList() {
-    }
-
-    public TLinkedList(List<T> list){
-        if (list.size() == 0) return;
-        createFirstNode(list.get(0));
-        for (int i = 1; i < list.size(); i++) {
-            add(list.get(i));
-        }
     }
 
     public int size(){
@@ -82,7 +84,7 @@ public class TLinkedList<T>{
     
     public void remove(TNode<T> node) {
         node.removeNode();
-        size--;
+        size--; 
     }
     public void removeNext(TNode<T> node){
         node.removeNextNode();
