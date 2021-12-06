@@ -8,7 +8,7 @@ public class myGenerics<T> {
         ob.hello(128);
     }
 
-    public <T> void hello(T i){
+    public void hello(T i){
         System.out.println(i.getClass().getName());
     }
 }

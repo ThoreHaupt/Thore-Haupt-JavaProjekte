@@ -1,0 +1,1 @@
+memberSearchIndex = [{"p":"RP.W6.A1","c":"MyMath","l":"abs(double)"},{"p":"RP.W6.A1","c":"MyMath","l":"abs(int)"},{"p":"RP.W6.A1","c":"MyMath","l":"main(String[])","url":"main(java.lang.String[])"},{"p":"RP.W6.A1","c":"MyMath","l":"MyMath()","url":"%3Cinit%3E()"}]

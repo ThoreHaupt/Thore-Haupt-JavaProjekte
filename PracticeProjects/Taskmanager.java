@@ -3,7 +3,9 @@ package PracticeProjects;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
+
+import PracticeProjects.Sortingalgorythms.MergeHybrids;
+import PracticeProjects.Sortingalgorythms.MergeSortArrayList;
 
 /**
  *
@@ -42,15 +44,15 @@ public class Taskmanager{
     public static void compareSortingalgorithms(){
         /** comapres the speed of my InsertSort algorithm and my Implementation of a Randix sort, both for strings */
         Filemanager.println("\n\nSorting Test of 7 different sorting algorithms: -----------------------------");
-        int AmountOfElementsTobeSorted = 100000;
+        int AmountOfElementsTobeSorted = 600000;
         Filemanager.printtp("Amount of Items sorted:", AmountOfElementsTobeSorted);
         Filemanager.println("");
-        String[] strings = Stringoperations.createRandomStringArray(AmountOfElementsTobeSorted);
+        final String[] strings = Stringoperations.createRandomStringArray(AmountOfElementsTobeSorted);
         Filemanager.println("-----------------------------------------------------------------------------");
 
         double t1 = 100000; 
         testInsertSortingalgorithms(strings);          //t1 is the reference time for the other algorithms
-        //testradixalgorithms(strings, t1);
+        testradixalgorithms(strings, t1);
 
         Filemanager.println("------ Comaprison based - Sortingalgorithms ------------------------I");
 
@@ -72,12 +74,14 @@ public class Taskmanager{
         
         Filemanager.println("------ Comaprison based - Sortingalgorithms ------------------------I");
         long current;
+        double t1 = 100000;
         
+        /*
         // Insert Sort my first implementation
         Filemanager.println("------ InsertI -------------------------");
         current = System.nanoTime();
         String[] sortedString1 = Sort.StringInsertSort(strings.clone()); // <--calling the Algorithm
-        double t1 = (System.nanoTime() - current) * Math.pow(10, -6);
+        t1 = (System.nanoTime() - current) * Math.pow(10, -6);
 
         Filemanager.printtp("StringInsertSort time in milliseconds: ", t1);
         Filemanager.printtp("Time per Element: ", t1 / strings.length);
@@ -104,13 +108,13 @@ public class Taskmanager{
         Filemanager.println("Saved Insert II to file 5...");
         
         Filemanager.println("");
-
+        */
        
         
         // MergeSort 
         Filemanager.println("------ MergeSort ------------------------");
         current = System.nanoTime();
-        String[] sortedString3 = Sort.MergeSort(strings.clone(), "PracticeProjects/Textfiles/CharacterOrder.txt"); // <--calling the Algorithm
+        String[] sortedString3 = MergeSortArrayList.MergeSort(strings.clone(), "PracticeProjects/Textfiles/CharacterOrder.txt"); // <--calling the Algorithm
         double t3 = (System.nanoTime() - current) * Math.pow(10, -6);
 
         Filemanager.printtp("MergeSort time in milliseconds: ", t3);
@@ -148,7 +152,7 @@ public class Taskmanager{
         // MergeInsertSort
         Filemanager.println("------ MergeInsertSort ------------------------");
         current = System.nanoTime();
-        String[] sortedString4 = Sort.mergeInsertSort(
+        String[] sortedString4 = MergeHybrids.mergeInsertSort(
                 strings.clone(), "PracticeProjects/Textfiles/CharacterOrder.txt", 6); // <--calling the Algorithm
         double t4 = (System.nanoTime() - current) * Math.pow(10, -6);
 
@@ -256,7 +260,7 @@ public class Taskmanager{
         test.add("aa");
         test.add("ab");
         test.add("ca");
-        Sort.mergeSortedArrayListRegionsII(test, 0, 3, 6, counterrefference);
+        MergeSortArrayList.mergeSortedArrayListRegionsII(test, 0, 3, 6, counterrefference);
         for (String string : test) {
             System.out.println(string);
         }

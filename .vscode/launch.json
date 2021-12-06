@@ -6,6 +6,34 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch ExperimentauswertungDemo",
+            "request": "launch",
+            "mainClass": "RP.W6.A4.ExperimentauswertungDemo",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch IterateTriangle",
+            "request": "launch",
+            "mainClass": "RP.W6.A3.IterateTriangle",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch Weihnachtsbaeckerei",
+            "request": "launch",
+            "mainClass": "RP.W6.A2.Weihnachtsbaeckerei",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch MyMath",
+            "request": "launch",
+            "mainClass": "RP.W6.A1.MyMath",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
             "name": "Launch myGenerics",
             "request": "launch",
             "mainClass": "PracticeProjects.myGenerics",

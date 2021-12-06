@@ -1,12 +1,11 @@
 package PracticeProjects;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class TLinkedList<T>{
     private int size = 0;
-    private int modifications = 0;
+    private int modCount = 0;
     private TNode<T> firstNode = null;
     
     private TNode<T> lastNode = null;
@@ -26,8 +25,9 @@ public class TLinkedList<T>{
         return firstNode;
     }
 
-    public void setFisTNode(TNode<T> fisTNode) {
+    public void setFisrstTNode(TNode<T> fisTNode) {
         this.firstNode = fisTNode;
+        modCount++;
     }
 
     public TNode<T> getLastNode() {
@@ -36,6 +36,7 @@ public class TLinkedList<T>{
 
     public void setLastNode(TNode<T> lastNode) {
         this.lastNode = lastNode;
+        modCount++;
     }
 
     public int size(){
@@ -45,6 +46,7 @@ public class TLinkedList<T>{
     public void add(T value){
         lastNode = createNextNode(lastNode, value);
         size++;
+        modCount++;
     }
 
     private TNode<T> createNextNode(TNode<T> startnode, T value) {
@@ -69,10 +71,12 @@ public class TLinkedList<T>{
 
     public void set(T value, TNode<T> node){
         node.setValue(value);
+        modCount++;
     }
 
     public void set(T value, int index) {
         getNodeIndex(index).setValue(value);
+        modCount++;
     }
 
     public void insertAfter(T value, int index) {
@@ -84,6 +88,7 @@ public class TLinkedList<T>{
         TNode<T> newNode = node.createNextNode(value);
         lastNode = (node == lastNode ? newNode : lastNode);
         size++;
+        modCount++;
     }
 
     public void insert(T value, int index) {
@@ -91,12 +96,14 @@ public class TLinkedList<T>{
         insert(value, node);
     }
 
-    public void insert(T value, TNode<T> node) {
+    public TNode<T> insert(T value, TNode<T> node) {
         TNode<T> newNode = createBeforeNode(node, value);
         if(firstNode != null && firstNode == node){
             this.firstNode = newNode;
         }
         size++;
+        modCount++;
+        return newNode;
     }
 
     public void remove(int index){
@@ -106,12 +113,14 @@ public class TLinkedList<T>{
     
     public void remove(TNode<T> node) {
         node.removeNode();
-        size--; 
+        size--;
+        modCount++; 
     }
 
     public void removeNext(TNode<T> node){
         node.removeNextNode();
         size--;
+        modCount++;
     }
     
     public T pullFirst(){
@@ -119,6 +128,7 @@ public class TLinkedList<T>{
         firstNode = firstNode.getNextNode();
         firstNode.setBeforeNode(null);
         size--;
+        modCount++;
         return value;
     }
 
@@ -135,8 +145,10 @@ public class TLinkedList<T>{
         TNode<T> current = firstNode;
         int i = 0;
         while(i < index){
-            if (current.getNextNode() == null) 
+            if (current.getNextNode() == null) {
+                System.out.println("TLInkedList is only" + i + "elements long");
                 break;
+                }
             current = current.getNextNode();
             i++;
         }
@@ -156,5 +168,9 @@ public class TLinkedList<T>{
         lastNode = firstNode;
         size++;
         return firstNode;
+    }
+
+    public int modCount() {
+        return this.modCount;
     }
 }
