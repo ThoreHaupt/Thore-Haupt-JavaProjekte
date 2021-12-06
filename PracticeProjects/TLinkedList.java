@@ -135,8 +135,10 @@ public class TLinkedList<T>{
         TNode<T> current = firstNode;
         int i = 0;
         while(i < index){
-            if (current.getNextNode() == null) 
+            if (current.getNextNode() == null) {
+                System.out.println("TLInkedList is only" + i + "elements long");
                 break;
+                }
             current = current.getNextNode();
             i++;
         }

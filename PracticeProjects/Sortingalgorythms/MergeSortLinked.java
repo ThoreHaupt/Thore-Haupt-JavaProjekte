@@ -34,7 +34,6 @@ public class MergeSortLinked{
         chunkNodes.add(sortlist.getFisTNode()); 
         chunkNodes.add(sortlist.getFisTNode());
         chunkNodes.add(sortlist.getFisTNode());
-        chunklistNodes.add(sortlist.getFisTNode());
         Progressbart progressbar = new Progressbart("PracticeProjects/Textfiles/Console.txt", "Mergesort Progress:");
         // first index of first chunk, first Index of second chunk, index after second
         // chunk
@@ -57,12 +56,14 @@ public class MergeSortLinked{
                 chunk[2] += 1;
                 chunkNodes.set(2, chunkNodes.get(2).getNextNode());
             }
-            if (chunklist.size() > 1)
+            if (chunklist.size() > 1 && (chunklist.get(chunklist.size() - 1).equals(chunklist.get(chunklist.size() - 2))))
                 sortlist = mergeLinkedListe(sortlist, counterrefference, true, chunklist, chunklistNodes, chunk, chunkNodes);
             progressbar.update(100.0 / (Inputarray.length));
         }
         sortlist = mergeLinkedListe(sortlist, counterrefference, false, chunklist, chunklistNodes, chunk, chunkNodes);
         Filemanager.printtp("Sum Time to get init Nodes", sumMergeTimetogetArrayIndex * Math.pow(10, -6));
+        
+        sortlist.getNodeIndex(sortlist.size() - 1);
         sortlist.toArray(Inputarray);
         return Inputarray;
 
@@ -95,29 +96,42 @@ public class MergeSortLinked{
         chunk[0] = chunk[2] - chunklist.get(chunklist.size() - 1) - chunklist.get(chunklist.size() - 2);
         chunk[1] = chunk[2] - chunklist.get(chunklist.size() - 1);
         
+        chunkNodes.set(1, chunklistNodes.get(chunklistNodes.size() - 1));
+        chunkNodes.set(0, chunklistNodes.get(chunklistNodes.size() - 2));        
+
         while ((chunklist.size() >= 2 && (chunklist.get(chunklist.size() - 1).equals(chunklist.get(chunklist.size() - 2)))) || !equalsOnly) {
             
-            ArrayList<TNode<String>> chunkNodesCopy = (ArrayList<TNode<String>>) chunkNodes.clone();; 
-            mergeSortedArrayListRegionsIII(sortlist, chunk[0], chunk[1], chunk[2], chunkNodesCopy, referencemap);
+            ArrayList<TNode<String>> chunkNodesCopy = (ArrayList<TNode<String>>) chunkNodes.clone();
+            if(!(chunkNodes.get(1).equals(chunklistNodes.get(chunklistNodes.size() - 1)))){
+                System.out.println(chunk[1]);
+            }
+            if(chunkNodesCopy.get(1) == null){
+                System.out.println(chunk[1]);
+            } 
+            mergeSortedArrayListRegionsIII(sortlist, chunk[0], chunk[1], chunk[2], chunkNodesCopy, chunklistNodes, referencemap);
 
             chunklist.add(chunk[2] - chunk[0]);
             chunklist.remove(chunklist.size() - 2);
             chunklist.remove(chunklist.size() - 2);
 
-            if (chunklist.size() < 2)break;
-
             chunklistNodes.remove(chunklistNodes.size() - 1);
 
             chunk[1] = chunk[0];
-            chunk[0] = chunk[0] - (int) chunklist.get(chunklist.size() - 2);
+            chunk[0] = chunk[0] - (chunklist.size() < 2 ? chunk[0] :(int) chunklist.get(chunklist.size() - 2));
 
             chunkNodes.set(1, chunklistNodes.get(chunklist.size() - 1));
-            chunkNodes.set(0, chunklistNodes.get(chunklist.size() - 2));
+            
+            int chunkNode0offset = 2;
+            if(chunklist.size() < 2){
+                chunkNode0offset = 1;
+                
+            }
+
+            chunkNodes.set(0, chunklistNodes.get(chunklist.size() - chunkNode0offset));
 
             if (chunk[2] == sortlist.size() && chunklist.size() == 1)
                 break;
         }
-
         return sortlist;
 
     }
@@ -136,11 +150,13 @@ public class MergeSortLinked{
      */
     public static TLinkedList<String> mergeSortedArrayListRegionsIII(TLinkedList<String> sortliste, int IndexBoarder1,
             int IndexBoarder2,  int IndexBoarder3, 
-            ArrayList<TNode<String>> chunkNodes, HashMap<Character, Integer> referencemap) {
+            ArrayList<TNode<String>> chunkNodes, ArrayList<TNode<String>> chunklistNodes, HashMap<Character, Integer> referencemap) {
 
         int c = IndexBoarder1;
         int i = IndexBoarder2;
 
+        TNode<String> firstNodeNewChunk = chunkNodes.get(0);
+         
 
         //long current = System.nanoTime();
         //TNode<String> chunkNodes.get(0) = sortliste.getNodeIndex(c);
@@ -148,9 +164,14 @@ public class MergeSortLinked{
         //sumMergeTimetogetArrayIndex += (System.nanoTime() - current);
 
         while (i < IndexBoarder3) { // interates over 2nd listpart
+            
             if (Sort.firstStringbool(chunkNodes.get(1).getValue(), chunkNodes.get(0).getValue(), referencemap)) {
                 sortliste.insert(chunkNodes.get(1).getValue(), chunkNodes.get(0));
                 sortliste.remove(chunkNodes.get(1)); // remove old element i, but it is moved bc of the insert (--> +1)
+                //set firstNodeNewChunk, if this is the first comparison, if i comes before c. (--> then this if statement is called)
+                if (i == IndexBoarder1 && c == IndexBoarder2) {
+                    firstNodeNewChunk = chunkNodes.get(0).getBeforeNode();
+                }
                 i++;
                 c++;
                 chunkNodes.set(1, chunkNodes.get(1).getNextNode()); // take next character from index
@@ -158,10 +179,11 @@ public class MergeSortLinked{
                 c++;
                 chunkNodes.set(0,chunkNodes.get(0).getNextNode()); // compare to next character
             }
-            if (c > i){
+            if (chunkNodes.get(1) == null || c > i){
                 break;
             }
         }
+        chunklistNodes.set(chunklistNodes.size() - 2, firstNodeNewChunk);
         return sortliste;
 
     }
