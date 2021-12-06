@@ -3,7 +3,9 @@ package PracticeProjects;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
+
+import PracticeProjects.Sortingalgorythms.MergeHybrids;
+import PracticeProjects.Sortingalgorythms.MergeSortArrayList;
 
 /**
  *
@@ -112,7 +114,7 @@ public class Taskmanager{
         // MergeSort 
         Filemanager.println("------ MergeSort ------------------------");
         current = System.nanoTime();
-        String[] sortedString3 = Sort.MergeSort(strings.clone(), "PracticeProjects/Textfiles/CharacterOrder.txt"); // <--calling the Algorithm
+        String[] sortedString3 = MergeSortArrayList.MergeSort(strings.clone(), "PracticeProjects/Textfiles/CharacterOrder.txt"); // <--calling the Algorithm
         double t3 = (System.nanoTime() - current) * Math.pow(10, -6);
 
         Filemanager.printtp("MergeSort time in milliseconds: ", t3);
@@ -150,7 +152,7 @@ public class Taskmanager{
         // MergeInsertSort
         Filemanager.println("------ MergeInsertSort ------------------------");
         current = System.nanoTime();
-        String[] sortedString4 = Sort.mergeInsertSort(
+        String[] sortedString4 = MergeHybrids.mergeInsertSort(
                 strings.clone(), "PracticeProjects/Textfiles/CharacterOrder.txt", 6); // <--calling the Algorithm
         double t4 = (System.nanoTime() - current) * Math.pow(10, -6);
 
@@ -258,7 +260,7 @@ public class Taskmanager{
         test.add("aa");
         test.add("ab");
         test.add("ca");
-        Sort.mergeSortedArrayListRegionsII(test, 0, 3, 6, counterrefference);
+        MergeSortArrayList.mergeSortedArrayListRegionsII(test, 0, 3, 6, counterrefference);
         for (String string : test) {
             System.out.println(string);
         }

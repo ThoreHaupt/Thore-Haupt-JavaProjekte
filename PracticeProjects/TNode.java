@@ -66,7 +66,7 @@ public class TNode<T> {
             beforeNode.setNextNode(nextNode);
             nextNode.setBeforeNode(beforeNode);
         }else if(nextNode == null && beforeNode == null){
-            list.setFisTNode(null);
+            list.setFisrstTNode(null);
             list.setLastNode(null);
         }else if (nextNode != null && beforeNode == null){
             nextNode.setBeforeNode(null);

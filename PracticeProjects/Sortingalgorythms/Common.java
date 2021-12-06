@@ -1,5 +1,6 @@
 package PracticeProjects.Sortingalgorythms;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Common {
@@ -114,5 +115,49 @@ public class Common {
             }
         } 
     }
+    
+    /**
+     * merges presorted Array chunks.
+     * 
+     * @param sortlist     ArrayList of elements ordered in at least 2 chunks (-->
+     *                     otherwise nothing will really happpen)
+     * @param referencemap A HashMap containing the char --> int value pair to
+     *                     define the order in which characters are supoosed to be
+     *                     sortet
+     * @param qualsOnly    if true it merges unequal chunks as well, this will
+     *                     always result in one chunk up to the index of chunk[2]
+     *                     parameter
+     * @param chunklist    An Arraylists that has stored each chunk as an int
+     *                     (length of the chunk)
+     * @param chunk        The boarders of the last two chunks, {first index first
+     *                     chunk, first Index second chunk, index of last element of
+     *                     chunk 2 + 1} Only have to pass in chunk[3], which has to
+     *                     describe the first index not merged in any chunk so far
+     * 
+     * @return (not really nessesary) ArrayList with merged Chunks
+     */
+    public static ArrayList<String> mergeArrayListe(ArrayList<String> sortlist,
+            HashMap<Character, Integer> referencemap, boolean equalsOnly,
+            ArrayList<Integer> chunklist, int[] chunk) {
 
+        chunk[0] = chunk[2] - chunklist.get(chunklist.size() - 1) - chunklist.get(chunklist.size() - 2);
+        chunk[1] = chunk[2] - chunklist.get(chunklist.size() - 1);
+        while ((chunklist.size() >= 2
+                && ((int) chunklist.get(chunklist.size() - 1) == (int) chunklist.get(chunklist.size() - 2)))
+                || !equalsOnly) {
+            MergeSortArrayList.mergeSortedArrayListRegionsII(sortlist, chunk[0], chunk[1], chunk[2], referencemap);
+
+            chunklist.add(chunk[2] - chunk[0]);
+            chunklist.remove(chunklist.size() - 2);
+            chunklist.remove(chunklist.size() - 2);
+            chunk[1] = chunk[0];
+            chunk[0] = chunk[0]
+                    - ((chunklist.size() < 2) ? chunklist.size() : (int) chunklist.get((int) chunklist.size() - 2));
+            if (chunk[2] == sortlist.size() && chunklist.size() == 1)
+                break;
+        }
+
+        return sortlist;
+
+    }
 }

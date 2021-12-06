@@ -3,22 +3,20 @@ package PracticeProjects.Sortingalgorythms;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 import PracticeProjects.Filemanager;
 import PracticeProjects.Progressbart;
-import PracticeProjects.Sort;
 import PracticeProjects.TLinkedList;
 import PracticeProjects.TNode;
 
 public class MergeSortLinked{
 
-
-    static long sumMergeTimetogetArrayIndex = 0;
-
-
-    //@SuppressWarnings("unchecked")
+    /**
+     * Merge Sort Algorythm for Strings. Works with a LinkedList Datastructure.
+     * @param Inputarray                Array to be sorted
+     * @param elementorderfilepath
+     * @return
+     */
     public static String[] MergeSortLinkedAlgorythm(String[] Inputarray, String elementorderfilepath) {
 
         TLinkedList<String> sortlist = new TLinkedList<String>(Arrays.asList(Inputarray)); // Arraylistsorted on, this
@@ -61,10 +59,10 @@ public class MergeSortLinked{
             progressbar.update(100.0 / (Inputarray.length));
         }
         sortlist = mergeLinkedListe(sortlist, counterrefference, false, chunklist, chunklistNodes, chunk, chunkNodes);
-        Filemanager.printtp("Sum Time to get init Nodes", sumMergeTimetogetArrayIndex * Math.pow(10, -6));
         
         sortlist.getNodeIndex(sortlist.size() - 1);
         sortlist.toArray(Inputarray);
+        Filemanager.printtp("modifications to Link structure", sortlist.modCount());
         return Inputarray;
 
     }
@@ -89,6 +87,7 @@ public class MergeSortLinked{
      * 
      * @return (not really nessesary) ArrayList with merged Chunks
      */
+    @SuppressWarnings("unchecked")
     public static TLinkedList<String> mergeLinkedListe(TLinkedList<String> sortlist,
             HashMap<Character, Integer> referencemap, boolean equalsOnly,
             ArrayList<Integer> chunklist, ArrayList<TNode<String>> chunklistNodes, int[] chunk, ArrayList<TNode<String>> chunkNodes) {
@@ -102,13 +101,7 @@ public class MergeSortLinked{
         while ((chunklist.size() >= 2 && (chunklist.get(chunklist.size() - 1).equals(chunklist.get(chunklist.size() - 2)))) || !equalsOnly) {
             
             ArrayList<TNode<String>> chunkNodesCopy = (ArrayList<TNode<String>>) chunkNodes.clone();
-            if(!(chunkNodes.get(1).equals(chunklistNodes.get(chunklistNodes.size() - 1)))){
-                System.out.println(chunk[1]);
-            }
-            if(chunkNodesCopy.get(1) == null){
-                System.out.println(chunk[1]);
-            } 
-            mergeSortedArrayListRegionsIII(sortlist, chunk[0], chunk[1], chunk[2], chunkNodesCopy, chunklistNodes, referencemap);
+            mergeSortedArrayListRegionsTLinked(sortlist, chunk[0], chunk[1], chunk[2], chunkNodesCopy, chunklistNodes, referencemap);
 
             chunklist.add(chunk[2] - chunk[0]);
             chunklist.remove(chunklist.size() - 2);
@@ -133,22 +126,23 @@ public class MergeSortLinked{
                 break;
         }
         return sortlist;
-
     }
 
     /**
-     * this mill merge two sorted chunk of an ArrayList<String> to one sorted chunk
-     * on the same ArrayList VersionII, which is a little cleaner than version 1
+     * Merges two chunks on a TLinkedList (coustom Generic Linked List). It utilizes
+     * nodes in this list to prevent
+     * having to iterate over the list.
      * 
-     * @param sortliste     ArrayList with Elements
-     * @param IndexBoarder1 first index of first chunk
-     * @param IndexBoarder2 first index of second chunk
-     * @param IndexBoarder3 first index after second chunk
-     * @param referencemap  reference HashMap with char, int key, value pairs to
-     *                      find the priority of each char
-     * @return
+     * @param sortliste         TLinked List the values are on
+     * @param IndexBoarder1     The Index of the first Element in the first chunk
+     * @param IndexBoarder2     The Index of the first Element in the second chunk
+     * @param IndexBoarder3     The Index of the first Element in the next chunk, == upward border(exclusive)
+     * @param chunkNodes        Nodes of those indexes as an ArrayList 
+     * @param chunklistNodes    Every first Node of each chunk already sorted
+     * @param referencemap      reference map for the order in which characters are to be evaluated
+     * @return  
      */
-    public static TLinkedList<String> mergeSortedArrayListRegionsIII(TLinkedList<String> sortliste, int IndexBoarder1,
+    public static TLinkedList<String> mergeSortedArrayListRegionsTLinked(TLinkedList<String> sortliste, int IndexBoarder1,
             int IndexBoarder2,  int IndexBoarder3, 
             ArrayList<TNode<String>> chunkNodes, ArrayList<TNode<String>> chunklistNodes, HashMap<Character, Integer> referencemap) {
 
@@ -156,16 +150,10 @@ public class MergeSortLinked{
         int i = IndexBoarder2;
 
         TNode<String> firstNodeNewChunk = chunkNodes.get(0);
-         
-
-        //long current = System.nanoTime();
-        //TNode<String> chunkNodes.get(0) = sortliste.getNodeIndex(c);
-        //TNode<String> chunkNodes.get(1) = sortliste.getNodeIndex(i);
-        //sumMergeTimetogetArrayIndex += (System.nanoTime() - current);
-
+        
         while (i < IndexBoarder3) { // interates over 2nd listpart
             
-            if (Sort.firstStringbool(chunkNodes.get(1).getValue(), chunkNodes.get(0).getValue(), referencemap)) {
+            if (Common.firstStringbool(chunkNodes.get(1).getValue(), chunkNodes.get(0).getValue(), referencemap)) {
                 
                 TNode<String> insertedNode = sortliste.insert(chunkNodes.get(1).getValue(), chunkNodes.get(0));
                 sortliste.remove(chunkNodes.get(1)); // remove old element i, but it is moved bc of the insert (--> +1)
@@ -188,5 +176,6 @@ public class MergeSortLinked{
         return sortliste;
 
     }
+
 
 }
