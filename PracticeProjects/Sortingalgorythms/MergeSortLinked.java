@@ -166,11 +166,12 @@ public class MergeSortLinked{
         while (i < IndexBoarder3) { // interates over 2nd listpart
             
             if (Sort.firstStringbool(chunkNodes.get(1).getValue(), chunkNodes.get(0).getValue(), referencemap)) {
-                sortliste.insert(chunkNodes.get(1).getValue(), chunkNodes.get(0));
+                
+                TNode<String> insertedNode = sortliste.insert(chunkNodes.get(1).getValue(), chunkNodes.get(0));
                 sortliste.remove(chunkNodes.get(1)); // remove old element i, but it is moved bc of the insert (--> +1)
                 //set firstNodeNewChunk, if this is the first comparison, if i comes before c. (--> then this if statement is called)
-                if (i == IndexBoarder1 && c == IndexBoarder2) {
-                    firstNodeNewChunk = chunkNodes.get(0).getBeforeNode();
+                if (c == IndexBoarder1 && i == IndexBoarder2) {
+                    firstNodeNewChunk = insertedNode;
                 }
                 i++;
                 c++;

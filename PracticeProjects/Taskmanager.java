@@ -42,7 +42,7 @@ public class Taskmanager{
     public static void compareSortingalgorithms(){
         /** comapres the speed of my InsertSort algorithm and my Implementation of a Randix sort, both for strings */
         Filemanager.println("\n\nSorting Test of 7 different sorting algorithms: -----------------------------");
-        int AmountOfElementsTobeSorted = 20;
+        int AmountOfElementsTobeSorted = 600000;
         Filemanager.printtp("Amount of Items sorted:", AmountOfElementsTobeSorted);
         Filemanager.println("");
         final String[] strings = Stringoperations.createRandomStringArray(AmountOfElementsTobeSorted);
@@ -50,7 +50,7 @@ public class Taskmanager{
 
         double t1 = 100000; 
         testInsertSortingalgorithms(strings);          //t1 is the reference time for the other algorithms
-        //testradixalgorithms(strings, t1);
+        testradixalgorithms(strings, t1);
 
         Filemanager.println("------ Comaprison based - Sortingalgorithms ------------------------I");
 
@@ -72,12 +72,14 @@ public class Taskmanager{
         
         Filemanager.println("------ Comaprison based - Sortingalgorithms ------------------------I");
         long current;
+        double t1 = 100000;
         
+        /*
         // Insert Sort my first implementation
         Filemanager.println("------ InsertI -------------------------");
         current = System.nanoTime();
         String[] sortedString1 = Sort.StringInsertSort(strings.clone()); // <--calling the Algorithm
-        double t1 = (System.nanoTime() - current) * Math.pow(10, -6);
+        t1 = (System.nanoTime() - current) * Math.pow(10, -6);
 
         Filemanager.printtp("StringInsertSort time in milliseconds: ", t1);
         Filemanager.printtp("Time per Element: ", t1 / strings.length);
@@ -104,7 +106,7 @@ public class Taskmanager{
         Filemanager.println("Saved Insert II to file 5...");
         
         Filemanager.println("");
-
+        */
        
         
         // MergeSort 

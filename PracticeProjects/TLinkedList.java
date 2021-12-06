@@ -91,12 +91,13 @@ public class TLinkedList<T>{
         insert(value, node);
     }
 
-    public void insert(T value, TNode<T> node) {
+    public TNode<T> insert(T value, TNode<T> node) {
         TNode<T> newNode = createBeforeNode(node, value);
         if(firstNode != null && firstNode == node){
             this.firstNode = newNode;
         }
         size++;
+        return newNode;
     }
 
     public void remove(int index){
