@@ -102,14 +102,12 @@ public class MergeSortLinked{
 
             chunklist.add(chunk[2] - chunk[0]);
             chunklist.remove(chunklist.size() - 2);
-            chunklist.remove(chunklist.size() - 2);
-
-            if (chunklist.size() < 2)break;
+            chunklist.remove(chunklist.size() - 2);          
 
             chunklistNodes.remove(chunklistNodes.size() - 1);
 
             chunk[1] = chunk[0];
-            chunk[0] = chunk[0] - (int) chunklist.get(chunklist.size() - 2);
+            chunk[0] = chunk[0] - (chunklist.size()>2?(int) chunklist.get(chunklist.size()-2):chunk[0]);
 
             chunkNodes.set(1, chunklistNodes.get(chunklist.size() - 1));
             chunkNodes.set(0, chunklistNodes.get(chunklist.size() - 2));
@@ -134,7 +132,7 @@ public class MergeSortLinked{
      *                      find the priority of each char
      * @return
      */
-    public static TLinkedList<String> mergeSortedArrayListRegionsIII(TLinkedList<String> sortliste, int IndexBoarder1,
+    public static TLinkedList<String> mergeSortedArrayListRegionsIII(TLinkedList<String> sortliste, int IndexBoarder,
             int IndexBoarder2,  int IndexBoarder3, 
             ArrayList<TNode<String>> chunkNodes, HashMap<Character, Integer> referencemap) {
 
