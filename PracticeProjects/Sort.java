@@ -3,6 +3,7 @@ package PracticeProjects;
 import java.util.ArrayList;
 
 import PracticeProjects.Sortingalgorythms.MergeSortLinked;
+import PracticeProjects.Sortingalgorythms.MergeSortLinkedII;
 import PracticeProjects.Sortingalgorythms.RadixHybrids;
 import PracticeProjects.Sortingalgorythms.RadixSort;
 
@@ -111,7 +112,7 @@ public class Sort {
 
 
     public static String[] MergeSortLinked(String[] Inputarray, String elementorderfilepath){
-        return MergeSortLinked.MergeSortLinkedAlgorythm(Inputarray, elementorderfilepath);
+        return MergeSortLinkedII.MergeSortLinkedAlgorythm(Inputarray, elementorderfilepath);
     }
 
 }

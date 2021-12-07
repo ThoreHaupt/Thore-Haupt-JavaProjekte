@@ -6015,3 +6015,401 @@ Collections time in milliseconds:                     498,320700
 Time per Element:                                       0,000831
 ratio (Insert/TimSort):                               200,673984
 -----------------------------------------------------------------------------
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       869,196700
+Time per Element:                                       0,144866
+ratio (InsertSort 1/MergeSort):                       115,048757
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????             |
+modifications to Link structure                     53397,000000
+MergeSort time in milliseconds:                       278,046400
+Time per Element:                                       0,046341
+ratio (InsertSort 1/MergeSort):                       359,652202
+
+Saved MergeSort to file 8...
+
+------ MergeInsertSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeInsertSort time in milliseconds:                 676,371700
+Time per Element:                                       0,112729
+ratio (InsertSort 1/MergeInsertSort):                 147,847700
+
+Saved MergeInsertSort to file 7...
+
+------ Radix - Sortingalgorithms -----------------------------I
+------ RadixSort ---------------------
+Radixsort Progress:                       |????????????????????|
+RadixSort time in milliseconds:                       719,998800
+Time per Element:                                       0,120000
+ratio (Insert/radix):                                 138,889120
+Saved radix Sort to file 1...
+
+------ radixMergeInsertSort ----------
+load counterreferenceHashMap                            0,651700
+find max:                                               0,342800
+lengthdistribution                                      0,250200
+split into both Arrays                                  0,317300
+radix characteradding                                   1,385400
+radix sort                                             18,205500
+removing temp chars                                    17,022200
+Mergesort Progress:                       |????????????????????|
+modifications to Link structure                       488,000000
+sortmerge Arrays                                        0,960200
+MergeSort:                                            682,977700
+radixinsertmerch sort complete:                       732,679800
+radixMergeInsertSort time in milliseconds:            734,681600
+Time per Element:                                       0,122447
+ratio (Insert/radixMergeInsertSort):                  136,113386
+Saved RadixInsertSort to file 3...
+
+------ Comaprison based - Sortingalgorithms ------------------------I
+Collections time in milliseconds:                       8,684100
+Time per Element:                                       0,001447
+ratio (Insert/TimSort):                             11515,298073
+-----------------------------------------------------------------------------
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       909,796200
+Time per Element:                                       0,151633
+ratio (InsertSort 1/MergeSort):                       109,914726
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       912,211000
+Time per Element:                                       0,152035
+ratio (InsertSort 1/MergeSort):                       109,623760
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????             |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       958,851000
+Time per Element:                                       0,159809
+ratio (InsertSort 1/MergeSort):                       104,291491
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????             |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                      1042,230800
+Time per Element:                                       0,173705
+ratio (InsertSort 1/MergeSort):                        95,948038
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                      1041,355500
+Time per Element:                                       0,173559
+ratio (InsertSort 1/MergeSort):                        96,028686
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????             |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                      1313,865800
+Time per Element:                                       0,218978
+ratio (InsertSort 1/MergeSort):                        76,111274
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????             |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       879,780400
+Time per Element:                                       0,146630
+ratio (InsertSort 1/MergeSort):                       113,664728
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       866,078900
+Time per Element:                                       0,144346
+ratio (InsertSort 1/MergeSort):                       115,462921
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????             |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       901,167400
+Time per Element:                                       0,150195
+ratio (InsertSort 1/MergeSort):                       110,967174
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????             |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                      1048,906500
+Time per Element:                                       0,174818
+ratio (InsertSort 1/MergeSort):                        95,337382
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????             |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       919,392100
+Time per Element:                                       0,153232
+ratio (InsertSort 1/MergeSort):                       108,767521
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                      1024,460400
+Time per Element:                                       0,170743
+ratio (InsertSort 1/MergeSort):                        97,612363
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                      1078,118100
+Time per Element:                                       0,179686
+ratio (InsertSort 1/MergeSort):                        92,754217
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |??????????          |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                       999,987400
+Time per Element:                                       0,166665
+ratio (InsertSort 1/MergeSort):                       100,001260
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????????         |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                      1000,471700
+Time per Element:                                       0,166745
+ratio (InsertSort 1/MergeSort):                        99,952852
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????????         |
+modifications to Link structure                     82803,000000
+MergeSort time in milliseconds:                      8816,555500
+Time per Element:                                       1,469426
+ratio (InsertSort 1/MergeSort):                        11,342298
+
+Saved MergeSort to file 8...
+
+------ MergeInsertSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeInsertSort time in milliseconds:                 908,442000
+Time per Element:                                       0,151407
+ratio (InsertSort 1/MergeInsertSort):                 110,078574
+
+Saved MergeInsertSort to file 7...
+
+------ Radix - Sortingalgorithms -----------------------------I
+------ RadixSort ---------------------
+Radixsort Progress:                       |????????????????????|
+RadixSort time in milliseconds:                       848,951300
+Time per Element:                                       0,141492
+ratio (Insert/radix):                                 117,792387
+Saved radix Sort to file 1...
+
+------ radixMergeInsertSort ----------
+load counterreferenceHashMap                            5,040100
+find max:                                               0,357800
+lengthdistribution                                      0,236100
+split into both Arrays                                  0,316400
+radix characteradding                                   0,997800
+radix sort                                             71,018700
+removing temp chars                                    31,400500
+Mergesort Progress:                       |????????????????????|
+modifications to Link structure                       805,000000
+sortmerge Arrays                                        1,074700
+MergeSort:                                            681,695600
+radixinsertmerch sort complete:                       800,553700
+radixMergeInsertSort time in milliseconds:            811,456000
+Time per Element:                                       0,135243
+ratio (Insert/radixMergeInsertSort):                  123,235271
+Saved RadixInsertSort to file 3...
+
+------ Comaprison based - Sortingalgorithms ------------------------I
+Collections time in milliseconds:                      25,945900
+Time per Element:                                       0,004324
+ratio (Insert/TimSort):                              3854,173492
+-----------------------------------------------------------------------------
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                      1062,616700
+Time per Element:                                       0,177103
+ratio (InsertSort 1/MergeSort):                        94,107311
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |???????????         |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                              6000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSort ------------------------
+Mergesort Progress:                       |????????????????????|
+MergeSort time in milliseconds:                      1320,952300
+Time per Element:                                       0,220159
+ratio (InsertSort 1/MergeSort):                        75,702961
+
+Saved MergeSort to file 6...
+
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |??????????          |
