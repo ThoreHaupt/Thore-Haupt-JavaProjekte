@@ -168,7 +168,7 @@ public class MergeSortLinked{
                 c++;
                 chunkNodes.set(0,chunkNodes.get(0).getNextNode()); // compare to next character
             }
-            if (chunkNodes.get(1) == null || c > i){
+            if (chunkNodes.get(1) == null || c >= i){
                 break;
             }
         }

@@ -79,11 +79,12 @@ public class MergeSortLinkedII{
         chunklistNodes.add(chunkNodes.get(2));
         chunkNodes.set(2, chunkNodes.get(2).getNextNode());
         while(chunkNodes.get(2) != null && chunkNodes.get(2).getNextNode() != null 
-            && Common.firstStringbool(chunkNodes.get(2).getBeforeNode().getValue(), chunkNodes.get(2).getValue())){
+            && Common.firstStringbool(chunkNodes.get(2).getBeforeNode().getValue(), chunkNodes.get(2).getValue(),
+                        referencemap)){
             newChunk++;
             chunkNodes.set(2, chunkNodes.get(2).getNextNode());
         }
-
+        
         chunk[2] += newChunk;
         chunklist.add(newChunk);
         
