@@ -50,7 +50,7 @@ public class MergeSortArrayList{
                 sortlist = Common.mergeArrayListe(sortlist, counterrefference, true, chunklist, chunk);
             progressbar.update(100.0 / (Inputarray.length));
         }
-        sortlist = Common.mergeArrayListe(sortlist, counterrefference, false, chunklist, chunk);
+        if (chunklist.size() > 1)sortlist = Common.mergeArrayListe(sortlist, counterrefference, false, chunklist, chunk);
 
         return sortlist.toArray(Inputarray);
 

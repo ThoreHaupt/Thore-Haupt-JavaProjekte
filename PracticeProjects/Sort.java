@@ -112,6 +112,10 @@ public class Sort {
 
 
     public static String[] MergeSortLinked(String[] Inputarray, String elementorderfilepath){
+        return MergeSortLinked.MergeSortLinkedAlgorythm(Inputarray, elementorderfilepath);
+    }
+
+    public static String[] MergeSortLinkedII(String[] Inputarray, String elementorderfilepath){
         return MergeSortLinkedII.MergeSortLinkedAlgorythm(Inputarray, elementorderfilepath);
     }
 

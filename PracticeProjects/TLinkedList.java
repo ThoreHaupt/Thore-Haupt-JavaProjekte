@@ -6,6 +6,7 @@ import java.util.Objects;
 public class TLinkedList<T>{
     private int size = 0;
     private int modCount = 0;
+    private int removeLastNodeCount = 0;
     private TNode<T> firstNode = null;
     
     private TNode<T> lastNode = null;
@@ -21,11 +22,11 @@ public class TLinkedList<T>{
         }
     }
 
-    public TNode<T> getFisTNode() {
+    public TNode<T> getFirstNode() {
         return firstNode;
     }
 
-    public void setFisrstTNode(TNode<T> fisTNode) {
+    public void setFirstTNode(TNode<T> fisTNode) {
         this.firstNode = fisTNode;
         modCount++;
     }
@@ -53,6 +54,9 @@ public class TLinkedList<T>{
         TNode<T> newNode;
         if (size > 0){
             newNode = startnode.createNextNode(value);
+            if(startnode == lastNode){
+                lastNode = newNode;
+            }
         }else{
             newNode = createFirstNode(value);
         }
@@ -112,9 +116,12 @@ public class TLinkedList<T>{
     }
     
     public void remove(TNode<T> node) {
+        if (node == lastNode){
+            removeLastNodeCount++;
+            lastNode = node.getBeforeNode();}
         node.removeNode();
         size--;
-        modCount++; 
+        modCount++;
     }
 
     public void removeNext(TNode<T> node){
@@ -155,6 +162,19 @@ public class TLinkedList<T>{
         return current;
     }
 
+    public boolean testIntegrity(){
+        TNode<T> current = firstNode;
+        int i = 0;
+        while (i < this.size - 1) {
+            if (current.getNextNode() == null) {
+                return false;
+            }
+            current = current.getNextNode();
+            i++;
+        }
+        return true;
+    }
+
     public void toArray(Object[] arr){
         TNode<T> node = firstNode;
         for (int i = 0; i < arr.length; i++) {
@@ -172,5 +192,9 @@ public class TLinkedList<T>{
 
     public int modCount() {
         return this.modCount;
+    }
+
+    public int getRemoveLastNodeCount() {
+        return this.removeLastNodeCount;
     }
 }

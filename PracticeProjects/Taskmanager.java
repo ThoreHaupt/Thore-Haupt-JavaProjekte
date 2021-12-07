@@ -44,7 +44,7 @@ public class Taskmanager{
     public static void compareSortingalgorithms(){
         /** comapres the speed of my InsertSort algorithm and my Implementation of a Randix sort, both for strings */
         Filemanager.println("\n\nSorting Test of 7 different sorting algorithms: -----------------------------");
-        int AmountOfElementsTobeSorted = 6000;
+        int AmountOfElementsTobeSorted = 10000;
         Filemanager.printtp("Amount of Items sorted:", AmountOfElementsTobeSorted);
         Filemanager.println("");
         final String[] strings = Stringoperations.createRandomStringArray(AmountOfElementsTobeSorted);
@@ -138,12 +138,31 @@ public class Taskmanager{
 
         Filemanager.printtp("MergeSort time in milliseconds: ", t5);
         Filemanager.printtp("Time per Element: ", t5 / strings.length);
-        Filemanager.printtp("ratio (InsertSort 1/MergeSort): ", (double) (t1 / t5));
+        Filemanager.printtp("ratio (InsertSort 1/MergeSortLinked): ", (double) (t1 / t5));
         Filemanager.println("");
 
         Filemanager.createFile("PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert8.txt", true);
         Filemanager.writeToFile("PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert8.txt", sortedString5, true);
         Filemanager.println("Saved MergeSort to file 8...");
+
+        Filemanager.println("");
+
+        // MergeSortLinkedII
+        Filemanager.println("------ MergeSortLinkedII ----------------");
+        current = System.nanoTime();
+        String[] sortedString6 = Sort.MergeSortLinkedII(strings.clone(), "PracticeProjects/Textfiles/CharacterOrder.txt"); // <--calling
+        // the
+        // Algorithm
+        double t6 = (System.nanoTime() - current) * Math.pow(10, -6);
+
+        Filemanager.printtp("MergeSort time in milliseconds: ", t6);
+        Filemanager.printtp("Time per Element: ", t6 / strings.length);
+        Filemanager.printtp("ratio (InsertSort 1/MergeSortLinkedII): ", (double) (t1 / t6));
+        Filemanager.println("");
+
+        Filemanager.createFile("PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert9.txt", true);
+        Filemanager.writeToFile("PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert9.txt", sortedString6, true);
+        Filemanager.println("Saved MergeSort to file 9...");
 
         Filemanager.println("");
 

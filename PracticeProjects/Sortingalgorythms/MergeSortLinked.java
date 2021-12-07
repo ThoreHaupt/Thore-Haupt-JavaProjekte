@@ -29,9 +29,9 @@ public class MergeSortLinked{
         ArrayList<TNode<String>> chunklistNodes = new ArrayList<TNode<String>>();
         int[] chunk = new int[] { 0, 0, 0 };
         ArrayList<TNode<String>> chunkNodes = new ArrayList<TNode<String>>(); // got to supress that unchecked warning
-        chunkNodes.add(sortlist.getFisTNode()); 
-        chunkNodes.add(sortlist.getFisTNode());
-        chunkNodes.add(sortlist.getFisTNode());
+        chunkNodes.add(sortlist.getFirstNode()); 
+        chunkNodes.add(sortlist.getFirstNode());
+        chunkNodes.add(sortlist.getFirstNode());
         Progressbart progressbar = new Progressbart("PracticeProjects/Textfiles/Console.txt", "Mergesort Progress:");
         // first index of first chunk, first Index of second chunk, index after second
         // chunk
@@ -58,7 +58,7 @@ public class MergeSortLinked{
                 sortlist = mergeLinkedListe(sortlist, counterrefference, true, chunklist, chunklistNodes, chunk, chunkNodes);
             progressbar.update(100.0 / (Inputarray.length));
         }
-        sortlist = mergeLinkedListe(sortlist, counterrefference, false, chunklist, chunklistNodes, chunk, chunkNodes);
+        if(chunklist.size()>1)sortlist = mergeLinkedListe(sortlist, counterrefference, false, chunklist, chunklistNodes, chunk, chunkNodes);
         
         sortlist.getNodeIndex(sortlist.size() - 1);
         sortlist.toArray(Inputarray);

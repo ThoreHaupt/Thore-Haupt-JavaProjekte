@@ -36,7 +36,7 @@ public class MergeHybrids {
         Progressbart progressbar = new Progressbart("PracticeProjects/Textfiles/Console.txt", "Mergesort Progress:");
 
         // init chunk variables
-        int smalestchuncsize = (Inputarray.length / (int) Math.pow(2, seperatorval));
+        int smalestchuncsize = Math.max(Inputarray.length / (int) Math.pow(2, seperatorval), 1);
         int lastindex = smalestchuncsize - 1;
         int currentchunksize;
         ArrayList<Integer> chunklist = new ArrayList<Integer>(); // chunkliste erstellt, Typ Integer
