@@ -14,7 +14,7 @@ public class MergeWorker<T> extends Thread {
 
     public HashMap<String, Integer> referenceMap;
 
-    TNode<Chunk<T>> currentChunk;
+    TNode<Chunk<T>> currentChunkNode;
 
     Thread parentThread;
     boolean isFirst;
@@ -70,12 +70,34 @@ public class MergeWorker<T> extends Thread {
         // parentThread.threadsAmount--;
     }
 
-    private void routine(){
-        while(chunkList.getLastNode().getValue() != currentChunk.getNextNode().getValue()){
+    private void routine(){ // gets called when the thread is created, which only happens when there are two new chunks
+        currentChunkNode = chunkList.getFirstNode();
+        while(chunkList.getLastNode().getValue() != currentChunkNode.getNextNode().getValue() || currentChunkNode
+            .getNextNode().getValue().upperNode != null){
+            if(currentChunkNode.getValue() != null && currentChunkNode.getNextNode().getValue() != null){
+                // merge currentChunkNode and currentChunkNode.getNextNode()
+                // Adjust chunkList --> delete currentChunkNode and expand the new one to the front
+                merges++;
+                if(merges == 2){
+                    //call function in main thread to create new worker / increase worker demand by one
+                }else{
+                    // wait until there are more threads, waiting in the form of sleeping. This should not happen theoratically.
+                    try {
+                        sleep(0,10);
+                    } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                        System.out.println("Sleep went wrong or sth.");
+                    }
+                }
+            }
+            
             
         }
+        // when we reach this this layer has terminated
     }
 
+    
     
 
 }
