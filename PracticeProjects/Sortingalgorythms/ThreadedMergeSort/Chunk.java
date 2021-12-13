@@ -104,4 +104,8 @@ public class Chunk<T> {
             return true;
         return false; 
     }
+
+    public void remove(){
+        chunkList.remove(selfNode);
+    }
 }

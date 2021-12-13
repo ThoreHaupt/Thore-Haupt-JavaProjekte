@@ -1,7 +1,6 @@
 package PracticeProjects.Sortingalgorythms.ThreadedMergeSort;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 import PracticeProjects.TLinkedList;
@@ -10,7 +9,7 @@ import PracticeProjects.Sortingalgorythms.Common;
 
 public class mergeAlgorythms {
     
-    public static <T> void merge2Chunks(TLinkedList<T> sortList, Chunk<T> chunk1, Chunk<T> chunk2, HashMap<String, Integer> referenceMap) {
+    public static <T> void mergeChunks(TLinkedList<T> sortList, Chunk<T> chunk1, Chunk<T> chunk2, HashMap<String, Integer> referenceMap) {
         
         int c = chunk1.getFirstIndex();
         int i = chunk2.getFirstIndex();
@@ -49,7 +48,8 @@ public class mergeAlgorythms {
             }
 
         }
-
-        chunk1.setFirstNode(firstNodeNewChunk);        
+        chunk1.setFirstNode(firstNodeNewChunk);   
+        chunk1.extend(true, chunk2.getSize(), chunkNodes.get(1));
+        chunk2.remove();     
         }
 }
