@@ -2,6 +2,7 @@ package PracticeProjects.Sortingalgorythms;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 public class Common {
     
@@ -159,5 +160,18 @@ public class Common {
 
         return sortlist;
 
+    }
+
+    public static <T> boolean firstStringbool(T value, T value2, HashMap<String, Integer> referenceMap) {
+        if (value instanceof Set<?>) {
+            Set<?> set = (Set<?>) value;
+            if (set.stream().allMatch(String.class::isInstance)) {
+                return firstStringbool(value, value2, referenceMap);
+            }
+        }
+        else{
+            return false;
+        }
+        return false;
     }
 }
