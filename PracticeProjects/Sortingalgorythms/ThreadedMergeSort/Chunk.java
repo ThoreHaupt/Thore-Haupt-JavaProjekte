@@ -16,7 +16,7 @@ public class Chunk<T> {
     TNode<Chunk<T>> selfNode;
     public boolean locked = false;
     private int size;
-    
+        
     public Chunk(TNode<T> firstNode, TNode<T> upperNode, int firstIndex, int upperIndex, 
             TLinkedList<Chunk<T>> chunkList) {
         this.firstNode = firstNode;
@@ -40,6 +40,14 @@ public class Chunk<T> {
         list.add(firstNode);
         list.add(upperNode);
         return list;
+    }
+
+    public TNode<T> getFirstNode() {
+        return firstNode;
+    }
+
+    public TNode<T> getUpperNode() {
+        return upperNode;
     }
 
     public int getFirstIndex() {
