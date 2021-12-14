@@ -20,6 +20,13 @@ public class MergeWorker<T> extends Thread {
     boolean isFirst;
     int merges;
     
+
+    /**
+     * @param sortlist
+     * @param ChunkList
+     * @param isFirst
+     * @param referenceMap
+     */
     public MergeWorker(TLinkedList<T> sortList, TLinkedList<Chunk<T>> ChunkList, Thread parentThread, boolean isFirst, HashMap<String, Integer> referenceMap) {
         this.sortList = sortList;
         this.chunkList = ChunkList;
@@ -80,7 +87,7 @@ public class MergeWorker<T> extends Thread {
                 
                 merges++;
                 if(merges == 2){
-                    // create the Worker who works on the next level
+                    ThreadedMergeSort.createThread();
                 }
             }
             else{
@@ -98,4 +105,5 @@ public class MergeWorker<T> extends Thread {
         
     }
     // when we reach this this layer has terminated
+
 }

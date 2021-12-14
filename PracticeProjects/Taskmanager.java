@@ -48,7 +48,6 @@ public class Taskmanager{
         Filemanager.printtp("Amount of Items sorted:", AmountOfElementsTobeSorted);
         Filemanager.println("");
         String[] strings = Stringoperations.createRandomStringArray(AmountOfElementsTobeSorted);
-        Sort.MergeSortLinked(strings, "PracticeProjects/Textfiles/CharacterOrder.txt");
         Filemanager.println("-----------------------------------------------------------------------------");
 
         double t1 = 100000; 
