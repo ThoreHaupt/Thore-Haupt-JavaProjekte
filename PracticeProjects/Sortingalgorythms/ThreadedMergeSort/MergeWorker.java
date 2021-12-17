@@ -16,8 +16,12 @@ public class MergeWorker<T> extends Thread {
 
     TNode<Chunk<T>> currentChunkNode;
 
-    Thread parentThread;
+    Thread mainThread;
+    MergeWorker<T> lowerThread;
+    MergeWorker<T> higherThread = null;
     boolean isFirst;
+    boolean running = false;
+    int chunkstep = 2;
     int merges;
     
 
@@ -27,11 +31,14 @@ public class MergeWorker<T> extends Thread {
      * @param isFirst
      * @param referenceMap
      */
-    public MergeWorker(TLinkedList<T> sortList, TLinkedList<Chunk<T>> ChunkList, Thread parentThread, boolean isFirst, HashMap<String, Integer> referenceMap) {
+    public MergeWorker(TLinkedList<T> sortList, TLinkedList<Chunk<T>> ChunkList, MergeWorker<T> mainThread, 
+            MergeWorker<T> lowerThread, boolean isFirst, HashMap<String, Integer> referenceMap) {
+        
         this.sortList = sortList;
         this.chunkList = ChunkList;
         this.isFirst = isFirst;
-        this.parentThread = parentThread;
+        this.mainThread = mainThread;
+        this.lowerThread = lowerThread;
     }
 
     @Override
@@ -79,26 +86,27 @@ public class MergeWorker<T> extends Thread {
 
     private void routine(){ // gets called when the thread is created, which only happens when there are two new chunks
         currentChunkNode = chunkList.getFirstNode();
-        while(chunkList.getLastNode().getValue() != currentChunkNode.getNextNode().getValue() || currentChunkNode
-            .getNextNode().getValue().upperNode != null){
-            if(currentChunkNode.getValue() != null && currentChunkNode.getNextNode().getValue() != null){
-                mergeAlgorythms.mergeChunks(sortList, currentChunkNode.getValue(),
-                        currentChunkNode.getNextNode().getValue(), referenceMap);
-                
-                merges++;
-                if(merges == 2){
-                    ThreadedMergeSort.createThread();
-                }
+        while(running){
+            if(chunkstep == 2){
+                currentChunkNode = currentChunkNode.getNextNode();
             }
-            else{
-                // wait until there are more threads, waiting in the form of sleeping. This should not happen theoratically.
-                try {
-                    sleep(0,10);
-                } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                    System.out.println("Sleep went wrong or sth.");
-                }
+
+            mergeAlgorythms.mergeChunks(sortList, currentChunkNode.getValue(),
+                    currentChunkNode.getNextNode().getValue(), referenceMap);
+            
+            merges++;
+            if(merges == 2){
+                createHigherThread();
+            }
+            if(merges%2 == 0 && merges >= 2){
+                higherThread.notify();
+            }
+
+            try {
+                Thread.currentThread().wait();
+            } catch (InterruptedException e) {
+                System.out.println("Something went wrong in Mergeworker, could not wait because:");
+                e.printStackTrace();
             }
         }
         
@@ -106,4 +114,9 @@ public class MergeWorker<T> extends Thread {
     }
     // when we reach this this layer has terminated
 
+
+    public void createHigherThread(){
+        higherThread = ThreadedMergeSort.createThread((MergeWorker<T>) Thread.currentThread());
+
+    }
 }

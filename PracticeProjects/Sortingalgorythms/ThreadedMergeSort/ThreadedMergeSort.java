@@ -15,7 +15,7 @@ public class ThreadedMergeSort {
         String[] a = PracticeProjects.Stringoperations.createRandomStringArray(10000);
         TLinkedList<String> liste = new TLinkedList<>(Arrays.asList(a));
         MergeSortLinkedAlgorythmThreaded(liste, "PracticeProjects/Textfiles/CharacterOrder.txt");
-        sortList.toArray(a);
+        liste.toArray(a);
         Filemanager.createFile("PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert9.txt", true);
         Filemanager.writeToFile("PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert9.txt", a, true);
         Filemanager.println("Saved MergeSort to file 9...");
@@ -29,9 +29,9 @@ public class ThreadedMergeSort {
     public static TLinkedList<String> sortList;
     public static TLinkedList<Chunk<String>> chunkList;
     public static HashMap<Character, Integer> counterrefference;
-    public static ArrayList<MergeWorker<String>> Threads;
+    public static ArrayList<MergeWorker<String>> threads;
 
-    public static void MergeSortLinkedAlgorythmThreaded(TLinkedList<String> sortList, String elementorderfilepath) {
+    public static <T> void MergeSortLinkedAlgorythmThreaded(TLinkedList<T> sortList, String elementorderfilepath) {
         chunkList = new TLinkedList<Chunk<String>>(); // list of chunks sorted
         sortList = sortList;
         Progressbart progressbar = new Progressbart("PracticeProjects/Textfiles/Console.txt", "Mergesort Progress:");
@@ -49,10 +49,19 @@ public class ThreadedMergeSort {
                 }
             }
         }
-        MergeWorker newThread = new MergeWorker(sortList, chunkList, Thread.currentThread(), true, counterrefference);
-        Threads.add(newThread);
+        MergeWorker newThread = new MergeWorker(sortList, chunkList, Thread.currentThread(), null, true, counterrefference);
+        threads.add(newThread);
         livingThreads++;
+        newThread.start();
         
+        while(threads.size() > 0){
+            try {
+                threads.get(0).join();
+            } catch (InterruptedException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
 
     }
 
@@ -60,9 +69,11 @@ public class ThreadedMergeSort {
         livingThreads--;
     }
 
-    public static void createThread(){
+    public static <T> MergeWorker<T> createThread(MergeWorker<T> lowerThread){
         if (maxThreads<livingThreads){
-            Threads.add(new MergeWorker(sortList, chunkList, Thread.currentThread(), false, counterrefference));
+            
+            MergeWorker<T> newThread = new MergeWorker<T>(sortList, chunkList, Thread.currentThread(), lowerThread, false, counterrefference);
+            threads.add(newThread);
             livingThreads++;
         }
     }
