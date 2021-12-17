@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch ArrayLists",
+            "request": "launch",
+            "mainClass": "PracticeProjects.ArrayLists",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch testThread",
+            "request": "launch",
+            "mainClass": "PracticeProjects.Threading.testThread",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch ThreadedMergeSort",
+            "request": "launch",
+            "mainClass": "PracticeProjects.Sortingalgorythms.ThreadedMergeSort.ThreadedMergeSort",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
             "name": "Launch Test",
             "request": "launch",
             "mainClass": "RP.Test",

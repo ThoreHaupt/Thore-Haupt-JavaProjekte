@@ -58,7 +58,6 @@ public class MergeSortLinkedII{
             }
             
         }
-        System.out.println(sortlist.getRemoveLastNodeCount());
         System.out.println(mergecount);
         //TNode<String> lastNode = sortlist.getNodeIndex(sortlist.size() - 1);
         sortlist = mergeLinkedListe(sortlist, counterrefference, false, chunklist, chunklistNodes, chunk, chunkNodes);

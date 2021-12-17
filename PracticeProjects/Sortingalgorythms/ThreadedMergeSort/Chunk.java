@@ -25,9 +25,11 @@ public class Chunk<T> {
         this.upperIndex = upperIndex;
         size = upperIndex - firstIndex;
         this.chunkList = chunkList;
+        chunkList.add(this);
+        selfNode = chunkList.getLastNode();
     }
 
-    public void setSelfNode(){
+    public synchronized void setSelfNode(){
         selfNode = chunkList.getLastNode();
     }
 
@@ -54,7 +56,7 @@ public class Chunk<T> {
         return firstIndex;
     }
 
-    public void setFirstIndex(int firstIndex) {
+    public synchronized void setFirstIndex(int firstIndex) {
         this.firstIndex = firstIndex;
         size = upperIndex - firstIndex;
     }
@@ -90,9 +92,12 @@ public class Chunk<T> {
     }
 
     public void setFirstNode(TNode<T> node){
-        Chunk<T> beforechunk = this.selfNode.getBeforeNode().getValue();
-        if (beforechunk != null)
-            beforechunk.setUpperNode(node);
+        TNode<Chunk<T>> beforeNode = this.selfNode.getBeforeNode();
+        if (beforeNode!= null) {
+            Chunk<T> beforechunk = beforeNode.getValue();
+            if (beforechunk != null)
+                beforechunk.setUpperNode(node);
+        }
         this.firstNode = node;
     }
 
@@ -105,7 +110,7 @@ public class Chunk<T> {
         return false; 
     }
 
-    public void remove(){
+    public synchronized void remove(){
         chunkList.remove(selfNode);
     }
 }

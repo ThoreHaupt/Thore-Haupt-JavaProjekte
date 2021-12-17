@@ -9,7 +9,7 @@ import PracticeProjects.Sortingalgorythms.Common;
 
 public class mergeAlgorythms {
     
-    public static <T> void mergeChunks(TLinkedList<T> sortList, Chunk<T> chunk1, Chunk<T> chunk2, HashMap<String, Integer> referenceMap) {
+    public static <T> void mergeChunks(Chunk<T> chunk1, Chunk<T> chunk2, HashMap<String, Integer> referenceMap) {
         
         int c = chunk1.getFirstIndex();
         int i = chunk2.getFirstIndex();
@@ -25,10 +25,10 @@ public class mergeAlgorythms {
 
             if (Common.firstStringbool(chunkNodes.get(1).getValue(), chunkNodes.get(0).getValue(), referenceMap)) {
 
-                TNode<T> insertedNode = sortList.insert(chunkNodes.get(1).getValue(), chunkNodes.get(0));
-
-                sortList.remove(chunkNodes.get(1)); // remove old element i, but it is moved bc of the insert (--> +1)
-
+                TNode<T> insertedNode = chunkNodes.get(0).createBeforeNode(chunkNodes.get(1).getValue());
+                
+                chunkNodes.get(1).removeNode(); // remove old element i, but it is moved bc of the insert (--> +1)
+                
                 // set firstNodeNewChunk, if this is the first comparison, if i comes before c.
                 // (--> then this if statement is called)
                 if (c == chunk1.getFirstIndex() && i == chunk2.getFirstIndex()) {
@@ -49,7 +49,7 @@ public class mergeAlgorythms {
 
         }
         chunk1.setFirstNode(firstNodeNewChunk);   
-        chunk1.extend(true, chunk2.getSize(), chunkNodes.get(1));
+        chunk1.extend(true, chunk2.getSize(), chunk2.getUpperNode());
         chunk2.remove();     
         }
 }

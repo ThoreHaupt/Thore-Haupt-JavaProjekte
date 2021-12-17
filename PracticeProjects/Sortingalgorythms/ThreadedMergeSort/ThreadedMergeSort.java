@@ -34,6 +34,8 @@ public class ThreadedMergeSort {
 
     public static void MergeSortLinkedAlgorythmThreaded(TLinkedList<String> sortList, String elementorderfilepath) {
         chunkList = new TLinkedList<Chunk<String>>(); // list of chunks sorted
+        threads = new ArrayList<MergeWorker>();
+        quedThread = new ArrayList<MergeWorker>();
         Progressbart progressbar = new Progressbart("PracticeProjects/Textfiles/Console.txt", "Mergesort Progress:");
         // first index of first chunk, first Index of second chunk, index after second
         // chunk
@@ -49,6 +51,7 @@ public class ThreadedMergeSort {
                 }
             }
         }
+
         MergeWorker newThread = new MergeWorker(sortList, chunkList, Thread.currentThread(), null, true, counterrefference);
         threads.add(newThread);
         livingThreads++;
@@ -57,6 +60,7 @@ public class ThreadedMergeSort {
         while(threads.size() > 0){
             try {
                 threads.get(0).join();
+                threads.remove(0);
             } catch (InterruptedException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -65,7 +69,7 @@ public class ThreadedMergeSort {
 
     }
 
-    public static void closeThread(Thread t){
+    public static void closeThread(MergeWorker t){
         livingThreads--;
         if(quedThread.size() > 0){
             createThread(quedThread.get(0));
@@ -74,10 +78,11 @@ public class ThreadedMergeSort {
     }
 
     public static MergeWorker createThread(MergeWorker lowerThread){
-        if (maxThreads<livingThreads){
+        if (maxThreads>livingThreads){
             MergeWorker newThread = new MergeWorker(sortList, chunkList, Thread.currentThread(), lowerThread, false, counterrefference);
             threads.add(newThread);
             livingThreads++;
+            newThread.start();
             return newThread;
         }else{
             quedThread.add(lowerThread);
