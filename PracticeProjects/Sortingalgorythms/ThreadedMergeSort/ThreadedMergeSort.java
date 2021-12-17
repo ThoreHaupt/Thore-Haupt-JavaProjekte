@@ -49,8 +49,8 @@ public class ThreadedMergeSort {
                 }
             }
         }
-
-        Threads.add(new MergeWorker(sortList, chunkList, Thread.currentThread(), true, counterrefference));
+        MergeWorker newThread = new MergeWorker(sortList, chunkList, Thread.currentThread(), true, counterrefference);
+        Threads.add(newThread);
         livingThreads++;
         
 
