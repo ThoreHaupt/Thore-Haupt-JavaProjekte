@@ -29,11 +29,10 @@ public class ThreadedMergeSort {
     public static TLinkedList<String> sortList;
     public static TLinkedList<Chunk<String>> chunkList;
     public static HashMap<Character, Integer> counterrefference;
-    public static ArrayList<MergeWorker<String>> threads;
+    public static ArrayList<MergeWorker> threads;
 
-    public static <T> void MergeSortLinkedAlgorythmThreaded(TLinkedList<T> sortList, String elementorderfilepath) {
+    public static void MergeSortLinkedAlgorythmThreaded(TLinkedList<String> sortList, String elementorderfilepath) {
         chunkList = new TLinkedList<Chunk<String>>(); // list of chunks sorted
-        sortList = sortList;
         Progressbart progressbar = new Progressbart("PracticeProjects/Textfiles/Console.txt", "Mergesort Progress:");
         // first index of first chunk, first Index of second chunk, index after second
         // chunk
@@ -69,10 +68,10 @@ public class ThreadedMergeSort {
         livingThreads--;
     }
 
-    public static <T> MergeWorker<T> createThread(MergeWorker<T> lowerThread){
+    public static MergeWorker createThread(MergeWorker lowerThread){
         if (maxThreads<livingThreads){
             
-            MergeWorker<T> newThread = new MergeWorker<T>(sortList, chunkList, Thread.currentThread(), lowerThread, false, counterrefference);
+            MergeWorker newThread = new MergeWorker(sortList, chunkList, Thread.currentThread(), lowerThread, false, counterrefference);
             threads.add(newThread);
             livingThreads++;
         }
