@@ -7,18 +7,18 @@ import PracticeProjects.TNode;
 import PracticeProjects.Sortingalgorythms.Common;
 import PracticeProjects.Sortingalgorythms.MergeSortLinkedII;
 
-public class MergeWorker<T> extends Thread {
+public class MergeWorker extends Thread {
     
-    public TLinkedList<T> sortList;
-    public TLinkedList<Chunk<T>> chunkList;
+    public TLinkedList<String> sortList;
+    public TLinkedList<Chunk<String>> chunkList;
 
     public HashMap<String, Integer> referenceMap;
 
-    TNode<Chunk<T>> currentChunkNode;
+    TNode<Chunk<String>> currentChunkNode;
 
     Thread mainThread;
-    MergeWorker<T> lowerThread;
-    MergeWorker<T> higherThread = null;
+    MergeWorker lowerThread;
+    MergeWorker higherThread = null;
     boolean isFirst;
     boolean running = false;
     int chunkstep = 2;
@@ -31,8 +31,8 @@ public class MergeWorker<T> extends Thread {
      * @param isFirst
      * @param referenceMap
      */
-    public MergeWorker(TLinkedList<T> sortList, TLinkedList<Chunk<T>> ChunkList, MergeWorker<T> mainThread, 
-            MergeWorker<T> lowerThread, boolean isFirst, HashMap<String, Integer> referenceMap) {
+    public MergeWorker(TLinkedList<String> sortList, TLinkedList<Chunk<String>> ChunkList, MergeWorker mainThread, 
+            MergeWorker lowerThread, boolean isFirst, HashMap<String, Integer> referenceMap) {
         
         this.sortList = sortList;
         this.chunkList = ChunkList;
@@ -66,15 +66,15 @@ public class MergeWorker<T> extends Thread {
     private void createFirstLayerRoutine(){
         int currentIndex = 1;
         int firstChunkIndex = 0;
-        TNode<T> currentTNode = sortList.getFirstNode().getNextNode();
-        TNode<T> firstNode = sortList.getFirstNode();
+        TNode<String> currentTNode = sortList.getFirstNode().getNextNode();
+        TNode<String> firstNode = sortList.getFirstNode();
         while(!(chunkList.getLastNode().getValue().upperNode.getNextNode() == null)){ // If ! the node after the last node in sortList == null
             
             while(Common.firstStringbool(currentTNode.getValue(), currentTNode.getBeforeNode().getValue(), referenceMap)){
                 currentTNode = currentTNode.getNextNode();
                 currentIndex++;
             }
-            Chunk<T> newChunk = new Chunk<T>(firstNode, currentTNode, firstChunkIndex, currentIndex, chunkList);
+            Chunk<String> newChunk = new Chunk<String>(firstNode, currentTNode, firstChunkIndex, currentIndex, chunkList);
             chunkList.add(newChunk);
             newChunk.setSelfNode();
             firstNode = currentTNode;
@@ -116,7 +116,7 @@ public class MergeWorker<T> extends Thread {
 
 
     public void createHigherThread(){
-        higherThread = ThreadedMergeSort.createThread((MergeWorker<T>) Thread.currentThread());
+        higherThread = ThreadedMergeSort.createThread((MergeWorker) Thread.currentThread());
 
     }
 }
