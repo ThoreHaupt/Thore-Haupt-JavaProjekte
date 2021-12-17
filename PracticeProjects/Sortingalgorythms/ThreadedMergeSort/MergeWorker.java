@@ -31,8 +31,8 @@ public class MergeWorker extends Thread {
      * @param isFirst
      * @param referenceMap
      */
-    public MergeWorker(TLinkedList<String> sortList, TLinkedList<Chunk<String>> ChunkList, MergeWorker mainThread, 
-            MergeWorker lowerThread, boolean isFirst, HashMap<String, Integer> referenceMap) {
+    public MergeWorker(TLinkedList<String> sortList, TLinkedList<Chunk<String>> ChunkList, Thread mainThread, 
+            MergeWorker lowerThread, boolean isFirst, HashMap<Character, Integer> referenceMap) {
         
         this.sortList = sortList;
         this.chunkList = ChunkList;

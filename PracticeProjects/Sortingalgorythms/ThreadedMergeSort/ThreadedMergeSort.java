@@ -30,6 +30,7 @@ public class ThreadedMergeSort {
     public static TLinkedList<Chunk<String>> chunkList;
     public static HashMap<Character, Integer> counterrefference;
     public static ArrayList<MergeWorker> threads;
+    public static ArrayList<MergeWorker> quedThread;
 
     public static void MergeSortLinkedAlgorythmThreaded(TLinkedList<String> sortList, String elementorderfilepath) {
         chunkList = new TLinkedList<Chunk<String>>(); // list of chunks sorted
@@ -66,14 +67,21 @@ public class ThreadedMergeSort {
 
     public static void closeThread(Thread t){
         livingThreads--;
+        if(quedThread.size() > 0){
+            createThread(quedThread.get(0));
+            quedThread.remove(0);
+        }
     }
 
     public static MergeWorker createThread(MergeWorker lowerThread){
         if (maxThreads<livingThreads){
-            
             MergeWorker newThread = new MergeWorker(sortList, chunkList, Thread.currentThread(), lowerThread, false, counterrefference);
             threads.add(newThread);
             livingThreads++;
+            return newThread;
+        }else{
+            quedThread.add(lowerThread);
+            return null;
         }
     }
 }
