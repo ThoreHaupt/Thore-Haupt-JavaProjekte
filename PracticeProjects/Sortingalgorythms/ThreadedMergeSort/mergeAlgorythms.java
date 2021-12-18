@@ -9,7 +9,7 @@ import PracticeProjects.Sortingalgorythms.Common;
 
 public class mergeAlgorythms {
     
-    public static <T> void mergeChunks(Chunk<T> chunk1, Chunk<T> chunk2, HashMap<String, Integer> referenceMap) {
+    public static <T> void mergeChunks(Chunk<T> chunk1, Chunk<T> chunk2, HashMap<Character, Integer> referenceMap) {
         
         int c = chunk1.getFirstIndex();
         int i = chunk2.getFirstIndex();
@@ -23,7 +23,8 @@ public class mergeAlgorythms {
 
         while (i < chunk2.getUpperIndex()) { // interates over 2nd listpart
 
-            if (Common.firstStringbool(chunkNodes.get(1).getValue(), chunkNodes.get(0).getValue(), referenceMap)) {
+            if (Common.firstStringbool((String)chunkNodes.get(1).getValue(), 
+                    (String)chunkNodes.get(0).getValue(), referenceMap)) {
 
                 TNode<T> insertedNode = chunkNodes.get(0).createBeforeNode(chunkNodes.get(1).getValue());
                 

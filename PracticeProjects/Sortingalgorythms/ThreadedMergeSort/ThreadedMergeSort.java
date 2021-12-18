@@ -71,6 +71,7 @@ public class ThreadedMergeSort {
 
     public static void closeThread(MergeWorker t){
         livingThreads--;
+        System.out.println("closing Thread" + t.getName());
         if(quedThread.size() > 0){
             createThread(quedThread.get(0));
             quedThread.remove(0);
