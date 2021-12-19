@@ -6,6 +6,62 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch LKW",
+            "request": "launch",
+            "mainClass": "RP.alteAufgaben.J1920.LKW",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch A3",
+            "request": "launch",
+            "mainClass": "RP.alteAufgaben.J1920.A3",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch A1",
+            "request": "launch",
+            "mainClass": "RP.alteAufgaben.J1920.A1",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch Schatz",
+            "request": "launch",
+            "mainClass": "RP.J1819.Schatz",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch SuperFelder",
+            "request": "launch",
+            "mainClass": "RP.J1819.SuperFelder",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch A1",
+            "request": "launch",
+            "mainClass": "RP.J1819.A1",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch CelsiusToFahrenheit",
+            "request": "launch",
+            "mainClass": "RP.alteAufgaben.J1718.CelsiusToFahrenheit",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch A1",
+            "request": "launch",
+            "mainClass": "RP.alteAufgaben.J1718.A1",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
             "name": "Launch ArrayLists",
             "request": "launch",
             "mainClass": "PracticeProjects.ArrayLists",

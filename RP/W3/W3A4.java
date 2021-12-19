@@ -26,6 +26,45 @@ public class W3A4 {
                 default: yield("flascher Input");
             };
 
+            String ausgabe2 = ""; 
+            switch (input) {
+
+                case 1:
+                    ausgabe2 = "ungerade";
+                    break;
+                case 2:
+                    ausgabe2 = "gerade";
+                    break;
+                case 3:
+                    ausgabe2 = "ungerade";
+                    break;
+                case 4:
+                    ausgabe2 = "gerade";
+                    break;
+                case 5:
+                    ausgabe2 = "ungerade";
+                    break;
+                case 6:
+                    ausgabe2 = "gerade";
+                    break;
+                case 7:
+                    ausgabe2 = "ungerade";
+                    break;
+                case 8:
+                    ausgabe2 = "gerade";
+                    break;
+                case 9:
+                    ausgabe2 = "ungerade";
+                    break;
+                case 10:
+                    ausgabe2 = "gerade";
+                    break;
+                default:
+                    ausgabe2 = "falscher Input";
+            };
+            System.out.println(ausgabe2);
+            
+
             switch(input){
 
                 case 1 -> System.out.println("ungerade");
