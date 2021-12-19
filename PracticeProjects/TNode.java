@@ -40,11 +40,11 @@ public class TNode<T> {
         return beforeNode;
     }
     
-    public void setNextNode(TNode<T> nextNode) {
+    public synchronized void setNextNode(TNode<T> nextNode) {
         this.nextNode = nextNode;
     }
     
-    public void setBeforeNode(TNode<T> beforeNode) {
+    public synchronized void setBeforeNode(TNode<T> beforeNode) {
         this.beforeNode = beforeNode;
     }
     public T getValue() {
@@ -63,8 +63,10 @@ public class TNode<T> {
 
     public void removeNode() {
         if (nextNode != null && beforeNode != null){
+            list.testIntegrityFull();
             beforeNode.setNextNode(nextNode);
             nextNode.setBeforeNode(beforeNode);
+            
         }else if(nextNode == null && beforeNode == null){
             list.setFirstTNode(null);
             list.setLastNode(null);
@@ -74,4 +76,6 @@ public class TNode<T> {
             beforeNode.setNextNode(null);
         }
     }
+
+    
 }

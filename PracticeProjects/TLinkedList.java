@@ -117,11 +117,12 @@ public class TLinkedList<T> {
     }
 
     public void remove(TNode<T> node) {
+        size--;
         if (node == lastNode) {
             lastNode = node.getBeforeNode();
         }
         node.removeNode();
-        size--;
+        
         modCount++;
     }
 
@@ -166,15 +167,17 @@ public class TLinkedList<T> {
     public boolean testIntegrity() {
         TNode<T> current = firstNode;
         int i = 0;
-        while (i < this.size - 1) {
-            if (current.getNextNode() == null) {
-                System.out.println("Length of list: " + (i + 1));
-                return false;
-            }
+        while (current != null) {
+            
             current = current.getNextNode();
             i++;
         }
-        return true;
+        if (i == this.size){
+            return true;
+        }else{
+            System.out.println("size of list = " + size + "| actual size = " + i);
+            return false;
+        }
     }
 
     public void testIntegrityFull(){
@@ -202,5 +205,13 @@ public class TLinkedList<T> {
 
     public int modCount() {
         return this.modCount;
+    }
+
+    public void printListChunk(int indexa, int indexb) {
+        TNode<T> node = getNodeIndex(indexa);
+        for (int i = indexa; i < indexb - indexa - 1; i++) {
+            System.out.println("Index: " + i + ": " + node.getValue());
+            if(node !=null)node = node.getNextNode();
+        }
     }
 }
