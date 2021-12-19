@@ -2,6 +2,7 @@ package PracticeProjects.Sortingalgorythms.ThreadedMergeSort;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Currency;
 import java.util.HashMap;
 
 import PracticeProjects.Filemanager;
@@ -24,7 +25,7 @@ public class ThreadedMergeSort {
 
 
     public static int livingThreads = 0;
-    public static int maxThreads = 5;
+    public static int maxThreads = 30;
 
     public static Thread mainThread;
 
@@ -78,13 +79,15 @@ public class ThreadedMergeSort {
         livingThreads--;
         System.out.println("closing Thread" + t.getName());
         if(quedThread.size() > 0){
-            createThread(quedThread.get(0));
+            MergeWorker lowerThread = quedThread.get(0);
+            MergeWorker higherThread = createThread(lowerThread);
+            ((MergeWorker) MergeWorker.currentThread()).setHigherThread(higherThread);
             quedThread.remove(0);
         }
     }
 
     public static MergeWorker createThread(MergeWorker lowerThread){
-        if (maxThreads>livingThreads){
+        if (maxThreads > livingThreads){
             MergeWorker newThread = new MergeWorker(sortList, chunkList, mainThread, lowerThread, false, counterrefference);
             threads.add(newThread);
             livingThreads++;

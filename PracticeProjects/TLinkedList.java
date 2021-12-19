@@ -168,6 +168,7 @@ public class TLinkedList<T> {
         int i = 0;
         while (i < this.size - 1) {
             if (current.getNextNode() == null) {
+                System.out.println("Length of list: " + (i + 1));
                 return false;
             }
             current = current.getNextNode();
@@ -180,6 +181,7 @@ public class TLinkedList<T> {
         if (testIntegrity()){
             System.out.println("Diese List ist in Ordnung");
         }else{
+            System.out.println(Thread.currentThread().getName());
             System.out.println("Diese List ist nicht heile");
         }
     }
