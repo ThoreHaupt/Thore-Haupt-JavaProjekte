@@ -1,14 +1,14 @@
 package PracticeProjects.Sortingalgorythms.ThreadedMergeSort;
 
-
 import java.util.HashMap;
 
 import PracticeProjects.TLinkedList;
 import PracticeProjects.TNode;
 import PracticeProjects.Sortingalgorythms.Common;
+import PracticeProjects.Sortingalgorythms.MergeSortLinkedII;
 
 public class MergeWorker extends Thread {
-    
+
     public TLinkedList<String> sortList;
     public TLinkedList<Chunk<String>> chunkList;
 
@@ -17,14 +17,14 @@ public class MergeWorker extends Thread {
     TNode<Chunk<String>> currentChunkNode;
 
     Thread mainThread;
-    MergeWorker lowerThread;
-    MergeWorker higherThread = null;
+    private MergeWorker lowerThread;
+    public MergeWorker higherThread = null;
     boolean isFirst;
     boolean running = true;
+    boolean waiting = false;
     int chunksQued = 1;
     int chunkstep = 2;
     int merges;
-    
 
     /**
      * @param sortlist
@@ -32,9 +32,9 @@ public class MergeWorker extends Thread {
      * @param isFirst
      * @param referenceMap
      */
-    public MergeWorker(TLinkedList<String> sortList, TLinkedList<Chunk<String>> ChunkList, Thread mainThread, 
+    public MergeWorker(TLinkedList<String> sortList, TLinkedList<Chunk<String>> ChunkList, Thread mainThread,
             MergeWorker lowerThread, boolean isFirst, HashMap<Character, Integer> referenceMap) {
-        
+
         this.sortList = sortList;
         this.chunkList = ChunkList;
         this.isFirst = isFirst;
@@ -56,71 +56,80 @@ public class MergeWorker extends Thread {
             // Throwing an exception
             System.out.println("Exception is caught");
         }
-        
-        if (!isFirst){
+
+        if (!isFirst) {
             routine();
-        }else{
+        } else {
             createFirstLayerRoutine();
         }
 
     }
 
-    private void createFirstLayerRoutine(){
+    private void createFirstLayerRoutine() {
         int currentIndex = 1;
         int firstChunkIndex = 0;
         TNode<String> currentTNode = sortList.getFirstNode().getNextNode();
         TNode<String> firstNode = sortList.getFirstNode();
-        do{ 
-            //moves over sortlist, until it finds a wrong oder.
-            while(Common.firstStringbool((String)currentTNode.getBeforeNode().getValue(),
-                    (String) currentTNode.getValue(), referenceMap)){
+        do {
+            // moves over sortlist, until it finds a wrong oder.
+            while (Common.firstStringbool((String) currentTNode.getBeforeNode().getValue(),
+                    (String) currentTNode.getValue(), referenceMap)) {
                 currentTNode = currentTNode.getNextNode();
                 currentIndex++;
-                if(currentTNode == null)break;
+                if (currentTNode == null)
+                    break;
             }
-            //create new Chunk out of these elements
-            new Chunk<String>(firstNode, currentTNode, firstChunkIndex, currentIndex, chunkList);           
-            
-            //move bordernodes/indeces along to next chunk
+            // create new Chunk out of these elements
+            new Chunk<String>(firstNode, currentTNode, firstChunkIndex, currentIndex, chunkList);
+
+            // move bordernodes/indeces along to next chunk
             firstNode = currentTNode;
             firstChunkIndex = currentIndex++;
-            if (currentTNode != null)currentTNode = currentTNode.getNextNode();
-            
-            if(higherThread!=null) higherThread.chunksQued++;
-            //creates higher thread at first oppportunity
+            if (currentTNode != null)
+                currentTNode = currentTNode.getNextNode();
+
+            if (higherThread != null)
+                higherThread.chunksQued++;
+            // creates higher thread at first oppportunity
             if (merges == 2) {
                 createHigherThread();
             }
-            if (higherThread != null)
-                higherThread.chunksQued++;
-            if (merges % 2 == 0 && higherThread != null) {
-                synchronized(higherThread){
+            if (higherThread != null && higherThread.waiting && merges % 2 == 0) {
+                synchronized (higherThread) {
                     higherThread.notify();
                 }
             }
             merges++;
-            if (currentTNode == null)break;
+            if (currentTNode == null)
+                break;
 
-        }while((!(chunkList.getLastNode().getValue().upperNode.getNextNode() == null)) && currentTNode != null);
+        } while ((!(chunkList.getLastNode().getValue().upperNode.getNextNode() == null)) && currentTNode != null);
 
-        if (higherThread != null) {
-            System.out.println("Error, higher thread finished before lower Thread");
-            synchronized (higherThread) {
-                higherThread.notify();
+        if (getHigherThread() != null) {
+            System.out.println("Error, lower thread finished with higher thread waiting");
+            getHigherThread().setLowerThread(null);
+            synchronized (getHigherThread()) {
+                if (getHigherThread().waiting)
+                    getHigherThread().notify();
             }
         }
 
-        ThreadedMergeSort.closeThread((MergeWorker)Thread.currentThread());
+        ThreadedMergeSort.closeThread((MergeWorker) Thread.currentThread());
     }
 
-    private synchronized void routine(){ // gets called when the thread is created, which only happens when there are two new chunks
+    private synchronized void routine() { // gets called when the thread is created, which only happens when there are
+                                          // two new chunks
         currentChunkNode = chunkList.getFirstNode();
-        while(running){
-            
+        while (running) {
+
             synchronized (this) {
-                while (chunksQued < 4 && lowerThread.isAlive()) {
+                while (chunksQued < 2 && lowerThread != null) {
                     try {
-                        if(!lowerThread.isAlive())wait();
+                        if (lowerThread != null) {
+                            waiting = true;
+                            wait();
+                            waiting = false;
+                        }
                     } catch (InterruptedException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
@@ -128,54 +137,94 @@ public class MergeWorker extends Thread {
                 }
             }
 
-            Chunk<String> chunk1 = currentChunkNode.getValue();
-            Chunk<String> chunk2 = currentChunkNode.getNextNode().getValue();
+            if (getLowerThread() == null) {
+                if (currentChunkNode.getNextNode() == null) {
+                    if (Common.log(2, chunkList.size()) < 3) {
+                        stoppThreading();
+                    }
+                    break;
+                }
+                if (currentChunkNode.getNextNode().getNextNode() == null) {
+                    if (currentChunkNode.getValue().canMergeNext(0.9)) {
+                        mergeAlgorythms.mergeChunks(currentChunkNode.getValue(),
+                                currentChunkNode.getNextNode().getValue(), referenceMap);
 
-
-            mergeAlgorythms.mergeChunks(chunk1,
-                    chunk2, referenceMap);
+                    } else if (higherThread != null)
+                        getHigherThread().deltaChunksQued(1);
+                    ;
+                    if (Common.log(2, chunkList.size()) < 4) { // bei wenigen Chunks ist es schneller die ohne neue
+                                                               // threads zu sortieren
+                        stoppThreading();
+                    }
+                    break;
+                }
+            }
             
-            chunksQued -= 2;
+            mergeAlgorythms.mergeChunks(currentChunkNode
+                .getValue(),
+                currentChunkNode.getNextNode().getValue(), referenceMap);
+            ((MergeWorker) MergeWorker.currentThread()).deltaChunksQued(-2);
             merges++;
 
             if (merges == 2) {
                 createHigherThread();
             }
-            if (higherThread != null)
-                higherThread.chunksQued++;
-            if (merges % 2 == 0 && higherThread != null) {
-                synchronized (higherThread) {
-                    higherThread.notify();
+            
+            if (getHigherThread() != null) {
+                
+                getHigherThread().deltaChunksQued(1);
+                
+                if (getHigherThread().waiting && getHigherThread().chunksQued > 2) {
+                    synchronized(getHigherThread()){
+                        getHigherThread().notify();
+                    }  
                 }
             }
-            
-            if(currentChunkNode.getNextNode() == null && !lowerThread.isAlive()){
-                System.out.println("last iteration: " + Thread.currentThread().getName());
-                break;
-            }
-            if(currentChunkNode.getNextNode().getNextNode() == null && !lowerThread.isAlive()){
-                if (higherThread != null)
-                    higherThread.chunksQued++;
-                System.out.println("last iteration: " + Thread.currentThread().getName() + "quit with other Chunk " + merges%2);
-                break;
-            }
 
-            currentChunkNode = currentChunkNode.getNextNode();
             
+            
+            if(currentChunkNode.getNextNode()!= null) currentChunkNode = currentChunkNode.getNextNode();
+
         }
-        if(higherThread != null){
-            System.out.println("Error, higher thread finished before lower Thread");
-            synchronized (higherThread) {
-                higherThread.notify();
+        if (getHigherThread() != null) {
+            System.out.println("Error, lower thread finished with higher thread waiting");
+            getHigherThread().setLowerThread(null);
+            synchronized (getHigherThread()) {
+                if (getHigherThread().waiting)getHigherThread().notify();
             }
         }
-        ThreadedMergeSort.closeThread((MergeWorker)Thread.currentThread());    
-        
+        ThreadedMergeSort.closeThread((MergeWorker) Thread.currentThread());
+
     }
-    // when we reach this this layer has terminated
 
-
-    public synchronized void createHigherThread(){
+    public synchronized void createHigherThread() {
         higherThread = ThreadedMergeSort.createThread((MergeWorker) Thread.currentThread());
+    }
+
+    public synchronized MergeWorker getLowerThread() {
+        return lowerThread;
+    }
+
+    public synchronized void setLowerThread(MergeWorker w) {
+        lowerThread = w;
+    }
+    
+    public synchronized MergeWorker getHigherThread() {
+        return higherThread;
+    }
+
+    public synchronized void setHigherThread(MergeWorker w) {
+        higherThread = w;
+    }
+
+    public synchronized void deltaChunksQued(int change){
+        chunksQued += change;
+    }
+
+    public void stoppThreading(){
+        
+        ThreadedMergeSort.stopAllThreads((MergeWorker) MergeWorker.currentThread());
+        MergeSortLinkedII.MergeSortLinkedAlgorythm(sortList, referenceMap);
+        
     }
 }

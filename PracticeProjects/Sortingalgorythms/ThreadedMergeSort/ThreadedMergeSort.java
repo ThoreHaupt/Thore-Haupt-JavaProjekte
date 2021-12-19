@@ -24,7 +24,9 @@ public class ThreadedMergeSort {
 
 
     public static int livingThreads = 0;
-    public static int maxThreads = 3;
+    public static int maxThreads = 5;
+
+    public static Thread mainThread;
 
     public static TLinkedList<String> sortList;
     public static TLinkedList<Chunk<String>> chunkList;
@@ -33,6 +35,9 @@ public class ThreadedMergeSort {
     public static ArrayList<MergeWorker> quedThread;
 
     public static void MergeSortLinkedAlgorythmThreaded(TLinkedList<String> sortList, String elementorderfilepath) {
+        System.out.println("using MergeSortLinkdThreaded");
+        mainThread = Thread.currentThread();
+        ThreadedMergeSort.sortList = sortList;
         chunkList = new TLinkedList<Chunk<String>>(); // list of chunks sorted
         threads = new ArrayList<MergeWorker>();
         quedThread = new ArrayList<MergeWorker>();
@@ -80,7 +85,7 @@ public class ThreadedMergeSort {
 
     public static MergeWorker createThread(MergeWorker lowerThread){
         if (maxThreads>livingThreads){
-            MergeWorker newThread = new MergeWorker(sortList, chunkList, Thread.currentThread(), lowerThread, false, counterrefference);
+            MergeWorker newThread = new MergeWorker(sortList, chunkList, mainThread, lowerThread, false, counterrefference);
             threads.add(newThread);
             livingThreads++;
             newThread.start();
@@ -88,6 +93,14 @@ public class ThreadedMergeSort {
         }else{
             quedThread.add(lowerThread);
             return null;
+        }
+    }
+
+    public static synchronized void stopAllThreads(MergeWorker exept){
+        for (MergeWorker mergeWorker : threads) {
+            if(mergeWorker != exept){
+                mergeWorker.running = false;
+            }
         }
     }
 }

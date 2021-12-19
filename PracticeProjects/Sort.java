@@ -1,6 +1,8 @@
 package PracticeProjects;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 import PracticeProjects.Sortingalgorythms.MergeSortLinked;
 import PracticeProjects.Sortingalgorythms.MergeSortLinkedII;
@@ -111,12 +113,27 @@ public class Sort {
     }
 
 
-    public static String[] MergeSortLinked(String[] Inputarray, String elementorderfilepath){
-        return MergeSortLinked.MergeSortLinkedAlgorythm(Inputarray, elementorderfilepath);
+    public static String[] MergeSortLinkedII(String[] Inputarray, String elementorderfilepath){
+        HashMap<Character, Integer> counterrefference = new HashMap<Character, Integer>(); // The order of characters
+                                                                                           // sorted by
+        {
+            String[] orderinfo = Filemanager.getallLinesFromFile(elementorderfilepath);
+            for (int i = 0; i < orderinfo.length; i++) {
+                for (char charakter : orderinfo[i].toCharArray()) {
+                    // System.out.println("matched charakter:" + charakter + " with Index:" + i);
+                    counterrefference.put(charakter, i);
+                }
+            }
+        }
+
+        TLinkedList<String> sortlist = new TLinkedList<String>(Arrays.asList(Inputarray));
+        MergeSortLinkedII.MergeSortLinkedAlgorythm(sortlist, counterrefference);
+        sortlist.toArray(Inputarray);
+        return Inputarray;
     }
 
-    public static String[] MergeSortLinkedII(String[] Inputarray, String elementorderfilepath){
-        return MergeSortLinkedII.MergeSortLinkedAlgorythm(Inputarray, elementorderfilepath);
+    public static String[] MergeSortLinked(String[] Inputarray, String elementorderfilepath){
+        return MergeSortLinked.MergeSortLinkedAlgorythm(Inputarray, elementorderfilepath);
     }
 
 }

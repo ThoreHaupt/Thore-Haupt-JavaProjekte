@@ -17,14 +17,9 @@ public class MergeSortLinkedII{
      * @param elementorderfilepath
      * @return
      */
-    public static String[] MergeSortLinkedAlgorythm(String[] Inputarray, String elementorderfilepath) {
+    public static TLinkedList<String> MergeSortLinkedAlgorythm(TLinkedList<String> sortlist, HashMap<Character, Integer> counterrefference) {
 
-        TLinkedList<String> sortlist = new TLinkedList<String>(Arrays.asList(Inputarray)); // Arraylistsorted on, this
-                                                                                           // algorithm might be slow,
-                                                                                           // but it only uses this
-                                                                                           // Arralist to do all
-                                                                                           // operations on the
-                                                                                           // Stringorder
+        System.out.println("using MergeSortLinkd");
         ArrayList<Integer> chunklist = new ArrayList<Integer>(); // list of chunks sorted
         ArrayList<TNode<String>> chunklistNodes = new ArrayList<TNode<String>>();
         int[] chunk = new int[] { 0, 0, 0 };
@@ -35,23 +30,12 @@ public class MergeSortLinkedII{
         Progressbart progressbar = new Progressbart("PracticeProjects/Textfiles/Console.txt", "Mergesort Progress:");
         // first index of first chunk, first Index of second chunk, index after second
         // chunk
-        HashMap<Character, Integer> counterrefference = new HashMap<Character, Integer>(); // The order of characters
-                                                                                           // sorted by
-        {
-            String[] orderinfo = Filemanager.getallLinesFromFile(elementorderfilepath);
-            for (int i = 0; i < orderinfo.length; i++) {
-                for (char charakter : orderinfo[i].toCharArray()) {
-                    // System.out.println("matched charakter:" + charakter + " with Index:" + i);
-                    counterrefference.put(charakter, i);
-                }
-            }
-        }
         int mergecount = 0;
-        while (chunk[2] < Inputarray.length) {
+        while (chunk[2] < sortlist.size()) {
             if (!mergeQuiterior(chunklist, 0.9)) {     // add new Chunks of size 1
                 getNextNewChunk(sortlist, counterrefference, true, chunklist, chunklistNodes, chunk, chunkNodes);
             }
-            progressbar.update(chunklist.get(chunklist.size()-1)*100.0 / (Inputarray.length));
+            progressbar.update(chunklist.get(chunklist.size()-1)*100.0 / (sortlist.size()));
             if (mergeQuiterior(chunklist, 0.9)){
                 sortlist = mergeLinkedListe(sortlist, counterrefference, true, chunklist, chunklistNodes, chunk, chunkNodes);
                 mergecount++;
@@ -63,10 +47,10 @@ public class MergeSortLinkedII{
         sortlist = mergeLinkedListe(sortlist, counterrefference, false, chunklist, chunklistNodes, chunk, chunkNodes);
         
         //lastNode = sortlist.getNodeIndex(sortlist.size() - 1);
-        sortlist.toArray(Inputarray);
+        
         Filemanager.printtp("modifications to Link structure", sortlist.modCount());
         Filemanager.printtp("merged chunks:", mergecount);
-        return Inputarray;
+        return sortlist;
 
     }
 

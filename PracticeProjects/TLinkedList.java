@@ -176,6 +176,14 @@ public class TLinkedList<T> {
         return true;
     }
 
+    public void testIntegrityFull(){
+        if (testIntegrity()){
+            System.out.println("Diese List ist in Ordnung");
+        }else{
+            System.out.println("Diese List ist nicht heile");
+        }
+    }
+
     public void toArray(Object[] arr) {
         TNode<T> node = firstNode;
         for (int i = 0; i < arr.length; i++) {
