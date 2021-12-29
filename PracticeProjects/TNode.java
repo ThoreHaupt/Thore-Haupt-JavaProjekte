@@ -63,7 +63,7 @@ public class TNode<T> {
 
     public void removeNode() {
         if (nextNode != null && beforeNode != null){
-            list.testIntegrityFull();
+            //list.testIntegrityFull();
             beforeNode.setNextNode(nextNode);
             nextNode.setBeforeNode(beforeNode);
             
