@@ -665,42 +665,4 @@ ratio (InsertSort 1/MergeSortLinkedII):                68,316235
 
 Saved MergeSort to file 9...
 
------- MergeInsertSort ------------------------
-Mergesort Progress:                       |????????????????????|
-MergeInsertSort time in milliseconds:              265525,527400
-Time per Element:                                       0,442543
-ratio (InsertSort 1/MergeInsertSort):                   0,376612
 
-Saved MergeInsertSort to file 7...
-
------- Radix - Sortingalgorithms -----------------------------I
------- RadixSort ---------------------
-Radixsort Progress:                       |????????????????????|
-RadixSort time in milliseconds:                      4579,147500
-Time per Element:                                       0,007632
-ratio (Insert/radix):                                  21,838126
-Saved radix Sort to file 1...
-
------- radixMergeInsertSort ----------
-load counterreferenceHashMap                            0,500000
-find max:                                              29,950800
-lengthdistribution                                     34,128100
-split into both Arrays                                 24,520300
-radix characteradding                                  88,522000
-radix sort                                           1273,781700
-removing temp chars                                   109,014400
-Mergesort Progress:                       |????????????????????|
-modifications to Link structure                    115644,000000
-sortmerge Arrays                                      288,700000
-MergeSort:                                            406,098900
-radixinsertmerch sort complete:                      1973,087100
-radixMergeInsertSort time in milliseconds:           1977,487800
-Time per Element:                                       0,003296
-ratio (Insert/radixMergeInsertSort):                   50,569212
-Saved RadixInsertSort to file 3...
-
------- Comaprison based - Sortingalgorithms ------------------------I
-Collections time in milliseconds:                     484,174300
-Time per Element:                                       0,000807
-ratio (Insert/TimSort):                               206,537191
------------------------------------------------------------------------------
