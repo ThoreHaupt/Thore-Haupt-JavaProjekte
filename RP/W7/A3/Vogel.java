@@ -9,5 +9,9 @@ public class Vogel extends Tier {
         System.out.println(this + ": Vogel, fliegen");
     }
 
+    public String getAbstammung() {
+        String upper = super.getAbstammung();
+        return "Vogel --> " + upper;
+    }
 
 }

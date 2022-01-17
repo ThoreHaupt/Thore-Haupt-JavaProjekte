@@ -6,6 +6,34 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch AbstammungDemo",
+            "request": "launch",
+            "mainClass": "RP.W7.A3.AbstammungDemo",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch Säugetier",
+            "request": "launch",
+            "mainClass": "RP.W7.A3.Säugetier",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch Tier",
+            "request": "launch",
+            "mainClass": "RP.W7.A3.Tier",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch LöweDemo",
+            "request": "launch",
+            "mainClass": "RP.W7.A3.LöweDemo",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
             "name": "Launch Erntezeit",
             "request": "launch",
             "mainClass": "RP.W7.A2.Erntezeit",
