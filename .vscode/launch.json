@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Erntezeit",
+            "request": "launch",
+            "mainClass": "RP.W7.Erntezeit",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch Hollywood",
+            "request": "launch",
+            "mainClass": "RP.W7.Hollywood",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch SigmaSum",
+            "request": "launch",
+            "mainClass": "PracticeProjects.SigmaSum",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
             "name": "Launch Taskmanager",
             "request": "launch",
             "mainClass": "PracticeProjects.Taskmanager",
