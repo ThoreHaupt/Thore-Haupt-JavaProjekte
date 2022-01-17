@@ -1,7 +1,5 @@
 package RP.alteAufgaben.J1819;
 
-import java.util.Random;
-
 public class Schatz<T extends Number, G> {
     private T code;
     private G geheimnis;

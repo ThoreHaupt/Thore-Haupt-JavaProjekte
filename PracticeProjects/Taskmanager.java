@@ -44,7 +44,7 @@ public class Taskmanager{
     public static void compareSortingalgorithms(){
         /** comapres the speed of my InsertSort algorithm and my Implementation of a Randix sort, both for strings */
         Filemanager.println("\n\nSorting Test of 7 different sorting algorithms: -----------------------------");
-        int AmountOfElementsTobeSorted = 10000;
+        int AmountOfElementsTobeSorted = 600_000;
         Filemanager.printtp("Amount of Items sorted:", AmountOfElementsTobeSorted);
         Filemanager.println("");
         String[] strings = Stringoperations.createRandomStringArray(AmountOfElementsTobeSorted);
@@ -110,13 +110,14 @@ public class Taskmanager{
         Filemanager.println("");
         */
        
-        
+        /*
         // MergeSort 
         Filemanager.println("------ MergeSort ------------------------");
         current = System.nanoTime();
         String[] sortedString3 = MergeSortArrayList.MergeSort(strings.clone(), "PracticeProjects/Textfiles/CharacterOrder.txt"); // <--calling the Algorithm
         double t3 = (System.nanoTime() - current) * Math.pow(10, -6);
 
+        {
         Filemanager.printtp("MergeSort time in milliseconds: ", t3);
         Filemanager.printtp("Time per Element: ", t3 / strings.length);
         Filemanager.printtp("ratio (InsertSort 1/MergeSort): ", (double) (t1 / t3));
@@ -127,7 +128,7 @@ public class Taskmanager{
         Filemanager.println("Saved MergeSort to file 6...");
         
         Filemanager.println("");
-
+        }*/
         // MergeSortLinked
         Filemanager.println("------ MergeSortLinked ----------------");
         current = System.nanoTime();

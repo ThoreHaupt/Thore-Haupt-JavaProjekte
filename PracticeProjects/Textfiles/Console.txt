@@ -625,29 +625,67 @@ Mergesort Progress:                       |                    |
 
 
 Sorting Test of 7 different sorting algorithms: -----------------------------
+<<<<<<< HEAD
+Amount of Items sorted:                            600000,000000
+=======
 Amount of Items sorted:                             10000,000000
+>>>>>>> a22b875ed613d1a053635f91b403a6f29297df29
 
 -----------------------------------------------------------------------------
 ------ Comaprison based - Sortingalgorithms ------------------------I
 ------ MergeSort ------------------------
 Mergesort Progress:                       |????????????????????|
+<<<<<<< HEAD
+MergeSort time in milliseconds:                    302882,119800
+Time per Element:                                       0,504804
+ratio (InsertSort 1/MergeSort):                         0,330161
+=======
 MergeSort time in milliseconds:                       252,527700
 Time per Element:                                       0,025253
 ratio (InsertSort 1/MergeSort):                       395,996162
+>>>>>>> a22b875ed613d1a053635f91b403a6f29297df29
 
 Saved MergeSort to file 6...
 
 ------ MergeSortLinked ----------------
+<<<<<<< HEAD
+Mergesort Progress:                       |?                   |
+
+
+Sorting Test of 7 different sorting algorithms: -----------------------------
+Amount of Items sorted:                            600000,000000
+
+-----------------------------------------------------------------------------
+------ Comaprison based - Sortingalgorithms ------------------------I
+------ MergeSortLinked ----------------
+Mergesort Progress:                       |????????????????????|
+modifications to Link structure                  11156113,000000
+MergeSort time in milliseconds:                      1965,224600
+Time per Element:                                       0,003275
+ratio (InsertSort 1/MergeSortLinked):                  50,884769
+=======
 Mergesort Progress:                       |????????????????????|
 modifications to Link structure                    126549,000000
 MergeSort time in milliseconds:                     42785,981000
 Time per Element:                                       4,278598
 ratio (InsertSort 1/MergeSortLinked):                   2,337214
+>>>>>>> a22b875ed613d1a053635f91b403a6f29297df29
 
 Saved MergeSort to file 8...
 
 ------ MergeSortLinkedII ----------------
 Mergesort Progress:                       |????????????????????|
+<<<<<<< HEAD
+modifications to Link structure                  14478193,000000
+merged chunks:                                     139049,000000
+MergeSort time in milliseconds:                      1463,780900
+Time per Element:                                       0,002440
+ratio (InsertSort 1/MergeSortLinkedII):                68,316235
+
+Saved MergeSort to file 9...
+
+
+=======
 modifications to Link structure                    152697,000000
 merged chunks:                                       2333,000000
 MergeSort time in milliseconds:                     45935,165900
@@ -841,3 +879,4 @@ Collections time in milliseconds:                       6,043600
 Time per Element:                                       0,000604
 ratio (Insert/TimSort):                             16546,429281
 -----------------------------------------------------------------------------
+>>>>>>> a22b875ed613d1a053635f91b403a6f29297df29

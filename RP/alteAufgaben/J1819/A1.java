@@ -9,7 +9,7 @@ public class A1 {
 
         //A2
         int[][] feld = {{4},{5,6,7}};
-
+        System.out.println(feld);
         //A3
 
 
