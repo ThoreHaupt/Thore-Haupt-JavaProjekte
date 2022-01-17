@@ -1,4 +1,4 @@
-package RP.W7;
+package RP.W7.A1;
 
 import java.io.OutputStream;
 

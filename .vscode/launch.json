@@ -8,6 +8,13 @@
             "type": "java",
             "name": "Launch Erntezeit",
             "request": "launch",
+            "mainClass": "RP.W7.A2.Erntezeit",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch Erntezeit",
+            "request": "launch",
             "mainClass": "RP.W7.Erntezeit",
             "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
         },

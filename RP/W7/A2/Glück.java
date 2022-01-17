@@ -1,4 +1,4 @@
-package RP.W7;
+package RP.W7.A2;
 
 public class Glück {
     public static void wetterglück(Bauer bauer){

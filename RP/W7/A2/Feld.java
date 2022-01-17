@@ -1,4 +1,4 @@
-package RP.W7;
+package RP.W7.A2;
 
 public class Feld {
     public int nummer;
@@ -45,10 +45,10 @@ public class Feld {
     @Override
     public String toString(){
         String outputString = "";
-        if (istGeerntet){
-            outputString += (sorte + ": " + ernteMenge);
+        if (!istGeerntet){
+            outputString += ("Feld noch nicht geerntet. " + sorte + ": " + ernteMenge);
         }else{
-            outputString = "Dieses Feld wurde bereits geerntet";
+            outputString = "Dieses Feld wurde bereits geerntet, hier war mal " + sorte + " angepflanzt";
         }
         return outputString;
 
