@@ -10,4 +10,12 @@ public class Wildkatze extends Katze {
         String upper = super.getAbstammung();
         return "Wildkatze --> " + upper;
     }
+
+    public static void main(String[] args) {
+        Wildkatze wildkatze = new Wildkatze();
+        wildkatze.getAb();
+    }
+
+    
+
 }

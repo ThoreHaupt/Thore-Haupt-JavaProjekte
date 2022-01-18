@@ -6,6 +6,48 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch VerketteteListeDemo",
+            "request": "launch",
+            "mainClass": "RP.W8.A3.VerketteteListeDemo",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch ExceptionFangen",
+            "request": "launch",
+            "mainClass": "RP.W8.A2.ExceptionFangen",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch Studiverwaltung",
+            "request": "launch",
+            "mainClass": "RP.W8.A1.Studiverwaltung",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch Tier",
+            "request": "launch",
+            "mainClass": "RP.W7.A3.Tier",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch AbstammungDemo",
+            "request": "launch",
+            "mainClass": "RP.W7.A3.AbstammungDemo",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch Wildkatze",
+            "request": "launch",
+            "mainClass": "RP.W7.A3.Wildkatze",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
             "name": "Launch AbstammungDemo",
             "request": "launch",
             "mainClass": "RP.W7.A3.AbstammungDemo",

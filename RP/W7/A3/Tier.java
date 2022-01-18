@@ -8,7 +8,7 @@ public class Tier {
     
     public String getAbstammung() {
         String upper = "Object";
-        return "Tier --> " + upper;
+        return this.getClass().getSimpleName() + " --> " + upper;
     }
 
     public void fressen(){
@@ -19,5 +19,18 @@ public class Tier {
         System.out.println(this + ": Tier, gibtLaut");
     }
 
+    public void getAb() {
+        //System.out.println(this.getClass().getSuperclass()
+                //.getSuperclass().getSuperclass().getSuperclass().getSuperclass().getSimpleName());
+        //System.out.println(this.getClass().getName());
+        Class<?> stufe = this.getClass();
+        String output = "";
+        while(stufe.getSuperclass().getSuperclass() != null){
+            output += stufe.getSimpleName() + " --> ";
+            stufe = stufe.getSuperclass();
+        }
+        output += stufe.getSuperclass().getSimpleName();
+        System.out.println(output);
+    }
     
 }
