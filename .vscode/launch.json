@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Rommwurschdla",
+            "request": "launch",
+            "mainClass": "RP.W8.A6.Rommwurschdla",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch Schwab_O_Mat",
+            "request": "launch",
+            "mainClass": "RP.W8.A6.Schwab_O_Mat",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
             "name": "Launch PalindromClass",
             "request": "launch",
             "mainClass": "RP.W8.A5.PalindromClass",
