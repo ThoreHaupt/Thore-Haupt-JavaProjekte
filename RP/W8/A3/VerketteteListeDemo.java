@@ -1,10 +1,10 @@
 package RP.W8.A3;
 
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import javax.security.auth.kerberos.DelegationPermission;
 import javax.swing.*;
-
 
 /**
  * Demonstriere eine Liste der Klasse ListeL
@@ -19,37 +19,46 @@ public class VerketteteListeDemo {
 
 	public static void main(String[] args) {
 		Scanner scan = new Scanner(System.in);
-		
+
 		running = true;
-		liste   = new VerketteteListe();
+		liste = new VerketteteListe();
 		System.out.println("Neue int-Liste erstellt.");
 		int length = 0;
 
 		while (running) {
 			System.out.println("Was wollen Sie tun? (a)dd - (d)elete [ -Element ] - (p)rint - (c)lose? ");
-			entry = scan.next();
+			entry = scan.nextLine();
 
 			switch (entry.split(" ")[0]) {
 				case "a":
-				System.out.println("Welcher Wert soll hinzugef�gt werden? ");
-				liste.add(scan.next());
-				System.out.println("Listenausgabe: " + liste);
-				length++;
-				break;
-				case "d":
-					liste.delete(entry.split(" ")[1]);
+					System.out.println("Welcher Wert soll hinzugef�gt werden? ");
+					liste.add(scan.nextLine());
 					System.out.println("Listenausgabe: " + liste);
-                break;
-                case "p":
-			    System.out.println("Listenausgabe: " + liste);
-                break;
-                case "c":
-			    running = false;
-                break;
+					length++;
+					break;
+				case "d":
+					
+					try {
+						liste.delete(entry.split(" ")[1]);
+					} catch (NoSuchElementException e1) {
+						System.out.println("Dieses Element ist nicht Teil der Liste.");
+					} catch (IndexOutOfBoundsException e2) {
+						System.out.println("Bitte geben sie das zu Löschende Element an");
+						break;
+					}
+					
+
+					System.out.println("Listenausgabe: " + liste);
+					break;
+				case "p":
+					System.out.println("Listenausgabe: " + liste);
+					break;
+				case "c":
+					running = false;
+					break;
 				default:
-				System.out.println("Bitte nur g�ltige Werte angeben.");
+					System.out.println("Bitte nur g�ltige Werte angeben.");
 			}
 		}
 	}
 }
-

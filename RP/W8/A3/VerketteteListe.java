@@ -2,18 +2,20 @@ package RP.W8.A3;
 
 import java.util.NoSuchElementException;
 
+import javax.lang.model.element.Element;
+
 public class VerketteteListe {
 	static class ListenElement {
-		private Object element; 
-		private ListenElement next; 
+		private Object element;
+		private ListenElement next;
 
 		public ListenElement(Object o) {
 			element = o;
-			next    = null;
+			next = null;
 		}
 	}
 
-	private ListenElement head; 
+	private ListenElement head;
 	public int length = 0;
 
 	public VerketteteListe() {
@@ -24,16 +26,16 @@ public class VerketteteListe {
 		head = new ListenElement(o);
 	}
 
-	public ListenElement add(Object o) { 
+	public ListenElement add(Object o) {
 		length++;
-		if(head != null){
+		if (head != null) {
 			ListenElement e = head;
 			while (e.next != null) {
 				e = e.next;
 			}
 			e.next = new ListenElement(o);
 			return e.next;
-		}else{
+		} else {
 			head = new ListenElement(o);
 			return head;
 
@@ -41,17 +43,18 @@ public class VerketteteListe {
 
 	}
 
-	public ListenElement getElementfromValue(Object value) {
+	public ListenElement getPredElementfromValue(Object value) {
 		ListenElement e = head;
-		
-		while(!e.next.element.equals(value)){
-			
-			e = e.next;
-			if (e.next == null){
+		if (head.element.equals(value))
+			return null;
+		while (!e.next.element.equals(value)) {
+			if (e.next == null) {
 				throw new NoSuchElementException(value.toString() + " is not en Element of this List");
 			}
+			e = e.next;
 		}
 		return e;
+
 	}
 
 	public ListenElement insert(Object o, ListenElement pred) {
@@ -59,27 +62,37 @@ public class VerketteteListe {
 
 		if (pred == null) {
 			newEl.next = head;
-			head	   = newEl;
+			head = newEl;
 		} else {
 			newEl.next = pred.next;
-			pred.next  = newEl;
+			pred.next = newEl;
 		}
 
 		return newEl;
 	}
 
-	public void delete(Object o) {
-		ListenElement e;
-		try {
-			e = getElementfromValue(o);
-		} catch (NoSuchElementException er) {
+	public void delete(Object o) throws NoSuchElementException {
+		ListenElement e = getPredElementfromValue(o);
+		delete(e);
+	}
+
+	public void delete(ListenElement pred) {
+		if (pred == null) {
+			head = head.next;
+		} else {
+			try {
+				pred.next = pred.next.next;
+			} catch (NullPointerException e) {
+				pred.next = null;
+			}
 			
 		}
-		pred.next = pred.next.next;
+		length--;
 	}
 
 	public String toString() {
 		ListenElement e = head;
+		if (e == null){return "null";}
 		String outputString = "";
 		while (e.next != null) {
 			outputString += e.element.toString() + " | ";
@@ -88,9 +101,7 @@ public class VerketteteListe {
 		return outputString + e.element.toString();
 	}
 
-	public ListenElement getHeadElement()
-	{
+	public ListenElement getHeadElement() {
 		return head;
 	}
 }
-
