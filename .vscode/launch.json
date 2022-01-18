@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch PalindromClass",
+            "request": "launch",
+            "mainClass": "RP.W8.A5.PalindromClass",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch normDensitiyClass",
+            "request": "launch",
+            "mainClass": "RP.W8.A4.normDensitiyClass",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
             "name": "Launch VerketteteListeDemo",
             "request": "launch",
             "mainClass": "RP.W8.A3.VerketteteListeDemo",
