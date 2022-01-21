@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch LamasMitHueten",
+            "request": "launch",
+            "mainClass": "testStuff.Tut9.LamasMitHueten",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch Alan",
+            "request": "launch",
+            "mainClass": "testStuff.Tut9.Alan",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch KonstruktorTets",
+            "request": "launch",
+            "mainClass": "testStuff.KonstruktorTets",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
             "name": "Launch Rommwurschdla",
             "request": "launch",
             "mainClass": "RP.W8.A6.Rommwurschdla",
