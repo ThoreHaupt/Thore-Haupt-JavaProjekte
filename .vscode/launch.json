@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch exceptionstest",
+            "request": "launch",
+            "mainClass": "testStuff.exceptionstest",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch MeiLing",
+            "request": "launch",
+            "mainClass": "testStuff.MeiLing",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch BTree",
+            "request": "launch",
+            "mainClass": "PracticeProjects.BinaryTree.BTree",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
             "name": "Launch enumstuff",
             "request": "launch",
             "mainClass": "PracticeProjects.enumstuff",

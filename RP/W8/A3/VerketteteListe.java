@@ -2,8 +2,6 @@ package RP.W8.A3;
 
 import java.util.NoSuchElementException;
 
-import javax.lang.model.element.Element;
-
 public class VerketteteListe {
 	static class ListenElement {
 		private Object element;
@@ -85,14 +83,16 @@ public class VerketteteListe {
 			} catch (NullPointerException e) {
 				pred.next = null;
 			}
-			
+
 		}
 		length--;
 	}
 
 	public String toString() {
 		ListenElement e = head;
-		if (e == null){return "null";}
+		if (e == null) {
+			return "null";
+		}
 		String outputString = "";
 		while (e.next != null) {
 			outputString += e.element.toString() + " | ";
