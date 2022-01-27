@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch A1",
+            "request": "launch",
+            "mainClass": "testStuff.tut10.A1",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
             "name": "Launch exceptionstest",
             "request": "launch",
             "mainClass": "testStuff.exceptionstest",

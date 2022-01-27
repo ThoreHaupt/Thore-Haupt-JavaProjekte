@@ -41,6 +41,21 @@ public class VerketteteListe {
 
 	}
 
+	public void vertauschen() {
+		ListenElement help = head;
+		ListenElement tail = null;
+
+		while (help.next.next != null) {
+
+			help = help.next;
+		}
+		tail = help.next;
+		tail.next = head.next;
+		help.next = head;
+		head.next = null;
+
+	}
+
 	public ListenElement getPredElementfromValue(Object value) {
 		ListenElement e = head;
 		if (head.element.equals(value))
