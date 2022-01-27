@@ -12,7 +12,7 @@ public class SigmaSum {
 
     public static double sum(String methodName, int start, int end, Double[] params) throws NoSuchMethodException,
             SecurityException, IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-        Class[] parameterTypes = new Class[params.length + 1];
+        Class<?>[] parameterTypes = new Class[params.length + 1];
         parameterTypes[0] = Double.class;
         for (int i = 1; i < params.length; i++) {
             parameterTypes[i] = params[i].getClass();
