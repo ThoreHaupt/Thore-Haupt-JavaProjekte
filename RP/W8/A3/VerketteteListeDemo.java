@@ -3,9 +3,6 @@ package RP.W8.A3;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import javax.security.auth.kerberos.DelegationPermission;
-import javax.swing.*;
-
 /**
  * Demonstriere eine Liste der Klasse ListeL
  *
@@ -37,7 +34,7 @@ public class VerketteteListeDemo {
 					length++;
 					break;
 				case "d":
-					
+
 					try {
 						liste.delete(entry.split(" ")[1]);
 					} catch (NoSuchElementException e1) {
@@ -46,7 +43,6 @@ public class VerketteteListeDemo {
 						System.out.println("Bitte geben sie das zu Löschende Element an");
 						break;
 					}
-					
 
 					System.out.println("Listenausgabe: " + liste);
 					break;
