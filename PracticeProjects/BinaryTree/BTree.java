@@ -33,6 +33,11 @@ public class BTree {
         return root.toString();
     }
 
+    public String traverse() {
+        String output = "(" + root.traverseSubTree() + ")";
+        return output;
+    }
+
     public static String createStringFromList(ArrayList<String> list) {
         int len = list.size();
         String outString = "";
@@ -63,12 +68,15 @@ public class BTree {
     }
 
     public static void main(String[] args) {
-        BTree tree = new BTree(new Integer[] { 1, 2, 3, 4, 5, 2, 1 });
+        BTree tree = new BTree(new Integer[] { 1, 2, 3, 4, 5, 2, 1, 123, 2, 45, 23, 98, 100, 1234 });
         System.out.println(tree);
         System.out.println("-----------");
-        ArrayList<String> liste = new ArrayList<String>(6);
-        tree.root.addToList(liste);
-        System.out.println(createStringFromList(liste));
-
+        /*
+         * ArrayList<String> liste = new ArrayList<String>(6);
+         * tree.root.addToList(liste);
+         * System.out.println(createStringFromList(liste));
+         */
+        System.out.println("-----------");
+        System.out.println(tree.traverse());
     }
 }

@@ -22,6 +22,10 @@ public class enumstuff {
             return this.Stunden;
         }
 
+        public double Sekunden() {
+            return this.Sekunden;
+        }
+
     }
 
     int[] liste = { 1, 2, 3, 4, 5 };

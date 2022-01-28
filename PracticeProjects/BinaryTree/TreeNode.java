@@ -63,6 +63,23 @@ public class TreeNode {
 
     }
 
+    public String traverseSubTree() {
+        String returnString = "";
+        if (leftNode != null) {
+            if (value < leftNode.value) {
+                returnString += value.toString() + ", " + leftNode.traverseSubTree();
+            } else {
+                returnString += leftNode.traverseSubTree() + value.toString() + ", ";
+            }
+        } else {
+            returnString = "" + value.toString() + ", ";
+        }
+        if (rightNode != null) {
+            returnString += rightNode.traverseSubTree();
+        }
+        return returnString;
+    }
+
     @Override
     public String toString() {
         return ("  " + this.value + "  \n" + leftNode + " | " + rightNode);

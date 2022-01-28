@@ -1,0 +1,71 @@
+public class Zahlen extends Eins { // 1 //D41
+    Zwei z = new Eins("Zahlen"); // D42
+    (public Zahlen(){ //D51
+        super(); //Eins() //D521
+    })
+
+    static {
+        System.out.println("Wo bin ich ? "); // B1
+    }
+
+    public static void main(String[] args) {
+        System.out.println("main ( )"); // C1
+        new Drei();// D1
+    }
+}
+
+class Zwei { // 2 //D4111 D4211
+    static Vier vier = new Vier("Acht"); // A1
+
+    public Zwei(String zahl) { // D4114 //D4212("1")
+        System.out.println("Zwei von " + zahl); // D4115 //D4213
+    }
+}
+
+class Eins extends Zwei { // 2 //D411 //D421
+    String zahl = "1"; // D412 //D422
+
+    public Eins() { // D4113 //D511
+        super("Eins"); // D4114 //D511
+        System.out.println(zahl); // D4116
+    }
+
+    public Eins(String zahl) { // D423
+        super(zahl); // 424
+    }
+}
+
+class Drei extends Vier {// D2
+    static {
+        new Zahlen(); // D4
+    }
+
+    public Drei() {
+        this("Drei ");
+        System.out.println("Drei ");
+    }
+
+    public Drei(String zahl) {
+        super(zahl);
+    }
+}
+
+class Vier { // D3
+    public Vier() {
+        System.out.println(" Vier ");
+    }
+
+    public Vier(String zahl) {
+        System.out.println(" Vier von " + zahl); // A2
+    }
+}
+
+// Ausgabe:
+// Vier von Acht (Vier(String))
+// Wo bin ich?
+// main()
+// Zwei von Eins
+// "1"
+// Zwei von Zahlen
+// Vier von Drei
+// Drei

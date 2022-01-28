@@ -2,10 +2,10 @@ package PracticeProjects.Sortingalgorythms;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Set;
+//import java.util.Set;
 
 public class Common {
-    
+
     /**
      * finds the first String in alphabetical order
      * 
@@ -15,14 +15,15 @@ public class Common {
      * @return returns string sorted first in the alphabet
      */
     public static String[] firstString(String s1, String s2) {
-        
+
         // returns the alphabetically higher String
         char[] s1Array = s1.toLowerCase().toCharArray();
         char[] s2Array = s2.toLowerCase().toCharArray();
         int i = 0;
         String[] returnstring = new String[2];
         do {
-            //System.out.println(s1Array[i] + ": " + (int) s1Array[i] + "| " + s2Array[i] + ": " + (int) s2Array[i]);
+            // System.out.println(s1Array[i] + ": " + (int) s1Array[i] + "| " + s2Array[i] +
+            // ": " + (int) s2Array[i]);
             if ((int) s2Array[i] < (int) s1Array[i]) {
                 returnstring[0] = s2;
                 returnstring[1] = s1;
@@ -56,14 +57,15 @@ public class Common {
      * 
      */
     public static boolean firstStringbool(String s1, String s2) {
-        
+
         // returns the alphabetically higher String
         char[] s1Array = s1.strip().toLowerCase().toCharArray();
         char[] s2Array = s2.strip().toLowerCase().toCharArray();
         int i = 0;
         boolean returnbool = false;
         do {
-            //System.out.println(s1Array[i] + ": " + (int) s1Array[i] + "| " + s2Array[i] + ": " + (int) s2Array[i]);
+            // System.out.println(s1Array[i] + ": " + (int) s1Array[i] + "| " + s2Array[i] +
+            // ": " + (int) s2Array[i]);
             if ((int) s2Array[i] < (int) s1Array[i]) {
                 returnbool = false;
                 break;
@@ -89,14 +91,15 @@ public class Common {
 
     /**
      * compares two Strings by their order on a rederence HashMap.
-     * @param s1                first String    
-     * @param s2                second String
-     * @param referencemap      reference HashMap. 
-     * @return                  true, if s1 < s2 --> s1 comes before s2 
+     * 
+     * @param s1           first String
+     * @param s2           second String
+     * @param referencemap reference HashMap.
+     * @return true, if s1 < s2 --> s1 comes before s2
      */
-    public static boolean firstStringbool(String s1, String s2, HashMap<Character, Integer> referencemap){
+    public static boolean firstStringbool(String s1, String s2, HashMap<Character, Integer> referencemap) {
         int i = 0;
-        while(true){
+        while (true) {
             boolean check = referencemap.get(s2.charAt(i)) > referencemap.get(s1.charAt(i));
             if (check) {
                 return true;
@@ -114,9 +117,9 @@ public class Common {
             } else {
                 i++;
             }
-        } 
+        }
     }
-    
+
     /**
      * merges presorted Array chunks.
      * 
@@ -163,21 +166,22 @@ public class Common {
     }
 
     /*
-    public static <T> boolean firstStringbool(T value, T value2, HashMap<String, Integer> referenceMap) {
-        if (value instanceof Set<?>) {
-            Set<?> set = (Set<?>) value;
-            if (set.stream().allMatch(String.class::isInstance)) {
-                return firstStringbool(value, value2, referenceMap);
-            }
-        }
-        else{
-            return false;
-        }
-        return false;
-    }
-    */
+     * public static <T> boolean firstStringbool(T value, T value2, HashMap<String,
+     * Integer> referenceMap) {
+     * if (value instanceof Set<?>) {
+     * Set<?> set = (Set<?>) value;
+     * if (set.stream().allMatch(String.class::isInstance)) {
+     * return firstStringbool(value, value2, referenceMap);
+     * }
+     * }
+     * else{
+     * return false;
+     * }
+     * return false;
+     * }
+     */
 
-    public static double log(double base, double value){
-        return (Math.log(value)/Math.log(base));
+    public static double log(double base, double value) {
+        return (Math.log(value) / Math.log(base));
     }
 }
