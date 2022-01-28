@@ -11,7 +11,7 @@ public class test123 {
     }
 
     public void a() {
-        int[] arr = this.feldSumme(new int[][] { { 2, 2, 2, 2, 2 }, { 3, 3, 3, 3, 3, 3 } }); // 10; 18
+        int[] arr = feldSumme(new int[][] { { 2, 2, 2, 2, 2 }, { 3, 3, 3, 3, 3, 3 } }); // 10; 18
         for (int i : arr) {
             System.out.println(i);
         }
