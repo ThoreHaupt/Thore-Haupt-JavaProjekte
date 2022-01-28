@@ -8,8 +8,10 @@ public class exceptionstest extends RuntimeException {
     public static void main(String[] args) {
         try {
             throw new exceptionstest("DUDE");
+
         } catch (RuntimeException e) {
             System.out.println("test");
+            throw new RuntimeException("thats illigal");
         }
 
     }
