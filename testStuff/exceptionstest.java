@@ -10,6 +10,9 @@ public class exceptionstest extends RuntimeException {
             throw new exceptionstest("DUDE");
         } catch (RuntimeException e) {
             System.out.println("test");
+            throw new exceptionstest("error in catch");
+        } finally {
+            System.out.println("hahaha");
         }
 
     }
