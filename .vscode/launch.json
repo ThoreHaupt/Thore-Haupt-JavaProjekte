@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "testStuff.testPolymorphie.Main",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch test123",
+            "request": "launch",
+            "mainClass": "testStuff.test123",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
             "name": "Launch A1",
             "request": "launch",
             "mainClass": "testStuff.tut10.A1",
