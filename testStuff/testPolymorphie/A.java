@@ -10,4 +10,8 @@ public class A {
         System.out.println("Afoo(B)");
         return;
     }
+
+    void foo(long i) {
+        System.out.println("A_l");
+    }
 }

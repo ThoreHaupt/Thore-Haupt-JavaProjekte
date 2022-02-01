@@ -10,4 +10,8 @@ public class B extends A {
         System.out.println("Bfoo(b)");
         return;
     }
+
+    void foo(int i) {
+        System.out.println("B_i");
+    }
 }

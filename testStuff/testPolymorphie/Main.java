@@ -11,5 +11,6 @@ public class Main {
         b.foo(a2);
         a2.foo(a2);
         a1.foo(b);
+        b.foo(23);
     }
 }
