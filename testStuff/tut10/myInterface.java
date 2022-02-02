@@ -5,6 +5,10 @@ public interface myInterface {
 
     abstract void name();
 
+    public static void getFucked() {
+        System.out.println("fuck");
+    }
+
     public static class test1 {
         public void myMethodC() {
             System.out.println("C");
@@ -16,12 +20,20 @@ public interface myInterface {
             System.out.println("A");
         }
 
+        public static void getFucked() {
+            System.out.println("Fuck");
+        }
+
         public void myMethodB() {
             System.out.println("B");
         }
 
         public static void main(String[] args) {
             myInterface obj = new test2();
+            test2 t = new test2();
+            myInterface.getFucked();
+            t.getFucked();
+            /* obj.getFucked(); */
             obj.myMethodA();
             // obj.myMethodB();
             // obj.myMethodC();
@@ -30,7 +42,7 @@ public interface myInterface {
         @Override
         public void name() {
             // TODO Auto-generated method stub
-
+            System.out.println("hahhasd");
         }
     }
 }

@@ -1,7 +1,5 @@
 package testStuff.tut10;
 
-import testStuff.testPolymorphie.B;
-
 public class Main {
     int d;
 
@@ -24,10 +22,37 @@ public class Main {
     }
 
     void myMethod(int a, String b) {
+        " ".length();
         return;
     }
 
+    public String toJadenCase(String phrase) {
+        // TODO put your code below this comment
+        if (phrase == null || phrase.equals(""))
+            return null;
+        String[] words = phrase.split(" ");
+        for (int i = 0; i < words.length; i++) {
+            // words[i] = +words[i].substring(1, words[i].length());
+        }
+
+        return String.join(" ", words);
+    }
+
     void myMethod(String a, int b) {
+        /*
+         * byte by = 2;
+         * char c = by;
+         * short sh = c;
+         * int in = c;
+         * int i2 = 2L;
+         */
+        Object ba = 123f;
+        int i = 3;
+        Float f = (float) i;
+        String s = 3 + " hallp";
+        System.out.println(s);
+        Math.ceil(123d);
+        // String.valueOf(c)
     }
 
 }

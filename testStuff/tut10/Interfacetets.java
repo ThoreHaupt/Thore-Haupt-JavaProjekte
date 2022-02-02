@@ -14,4 +14,10 @@ public class Interfacetets extends myAbstractClass implements myInterface, myInt
     public void myMethodB() {
 
     }
+
+    @Override
+    public void name() {
+        // TODO Auto-generated method stub
+
+    }
 }
