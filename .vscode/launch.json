@@ -9,6 +9,13 @@
             "name": "Launch TArrayList",
             "request": "launch",
             "mainClass": "PracticeProjects.ArrayListStuff.TArrayList",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch TArrayList",
+            "request": "launch",
+            "mainClass": "PracticeProjects.ArrayListStuff.TArrayList",
             "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
         },
         {
