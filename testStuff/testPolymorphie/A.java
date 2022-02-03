@@ -1,6 +1,15 @@
 package testStuff.testPolymorphie;
 
 public class A {
+    public int a = 4;
+
+    public A() {
+    }
+
+    public A(int f) {
+
+    }
+
     void foo(A a) {
         System.out.println("Afoo(a)");
         return;
