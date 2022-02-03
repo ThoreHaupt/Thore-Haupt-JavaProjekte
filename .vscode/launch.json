@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch TArrayList",
+            "request": "launch",
+            "mainClass": "PracticeProjects.ArrayListStuff.TArrayList",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
             "name": "Launch Aufgabe5",
             "request": "launch",
             "mainClass": "testStuff.Aufgabe5",

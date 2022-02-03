@@ -12,6 +12,7 @@ public class exceptionstest extends RuntimeException {
         } catch (RuntimeException e) {
             System.out.println("test");
             throw new RuntimeException("thats illigal");
+            // System.out.println("jah"); //unreachable code
         }
 
     }
