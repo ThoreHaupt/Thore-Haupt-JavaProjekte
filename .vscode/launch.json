@@ -6,6 +6,41 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Aufgabe5",
+            "request": "launch",
+            "mainClass": "testStuff.Aufgabe5",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch myInterface$test2",
+            "request": "launch",
+            "mainClass": "testStuff.tut10.myInterface$test2",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch myInterface$test",
+            "request": "launch",
+            "mainClass": "testStuff.tut10.myInterface$test",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch Endlosschleifentest",
+            "request": "launch",
+            "mainClass": "testStuff.Endlosschleifentest",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch Main",
+            "request": "launch",
+            "mainClass": "testStuff.tut10.Main",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
             "name": "Launch myClass",
             "request": "launch",
             "mainClass": "RP.W7.A3.myClass",
