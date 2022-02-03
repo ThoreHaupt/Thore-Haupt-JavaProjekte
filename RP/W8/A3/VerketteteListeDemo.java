@@ -28,7 +28,7 @@ public class VerketteteListeDemo {
 
 			switch (entry.split(" ")[0]) {
 				case "a":
-					System.out.println("Welcher Wert soll hinzugef�gt werden? ");
+					System.out.println("Welcher Wert soll hinzugefügt werden? ");
 					liste.add(scan.nextLine());
 					System.out.println("Listenausgabe: " + liste);
 					length++;
@@ -53,8 +53,10 @@ public class VerketteteListeDemo {
 					running = false;
 					break;
 				default:
-					System.out.println("Bitte nur g�ltige Werte angeben.");
+					System.out.println("Bitte nur gültige Werte angeben.");
 			}
 		}
+		System.out.println(length);
+		scan.close();
 	}
 }

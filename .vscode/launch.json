@@ -8,6 +8,27 @@
             "type": "java",
             "name": "Launch myClass",
             "request": "launch",
+            "mainClass": "RP.W7.A3.myClass",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch test3",
+            "request": "launch",
+            "mainClass": "testStuff.test3",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch test2",
+            "request": "launch",
+            "mainClass": "testStuff.test2",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch myClass",
+            "request": "launch",
             "mainClass": "testStuff.interfacetoabstract.myClass",
             "projectName": "SemProg1_9b998420"
         },
