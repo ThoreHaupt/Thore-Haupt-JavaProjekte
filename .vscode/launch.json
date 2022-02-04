@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch SupportingClaculations",
+            "request": "launch",
+            "mainClass": "PracticeProjects.SupportingClaculations",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch CalcTransaktionen",
+            "request": "launch",
+            "mainClass": "projects.GeschenkGeldVerteiler.CalcTransaktionen",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch B",
+            "request": "launch",
+            "mainClass": "testStuff.testPolymorphie.B",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
             "name": "Launch TArrayList",
             "request": "launch",
             "mainClass": "PracticeProjects.ArrayListStuff.TArrayList",

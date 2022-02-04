@@ -3,7 +3,12 @@ package testStuff.testPolymorphie;
 public class A {
     public int a = 4;
 
+    static {
+        System.out.println("Static A");
+    }
+
     public A() {
+        System.out.println("Konstruktor A");
     }
 
     public A(int f) {

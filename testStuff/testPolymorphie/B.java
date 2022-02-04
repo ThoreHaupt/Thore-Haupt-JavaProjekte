@@ -3,8 +3,12 @@ package testStuff.testPolymorphie;
 public class B extends A {
     private int b = 3;
 
-    public B() {
+    static {
+        System.out.println("Static B");
+    }
 
+    public B() {
+        System.out.println("Konstruktor B");
     }
 
     public B(int a) {
@@ -24,5 +28,9 @@ public class B extends A {
 
     void foo(int i) {
         System.out.println("B_i");
+    }
+
+    public static void main(String[] args) {
+        B b = new B();
     }
 }

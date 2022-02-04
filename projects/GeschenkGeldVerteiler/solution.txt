@@ -1,0 +1,12 @@
+Gezahlt =
+Thore 10
+Erja 23.12
+Ben 12
+Drja 16
+Perja 22.123
+Mourice 0
+sesam 100
+Hannah 60
+
+Output =
+
