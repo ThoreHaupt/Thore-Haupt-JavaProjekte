@@ -5,6 +5,9 @@ public interface myInterface {
 
     abstract void name();
 
+    static void kill() {
+    }
+
     public static void getFucked() {
         System.out.println("fuck");
     }
@@ -32,7 +35,7 @@ public interface myInterface {
             myInterface obj = new test2();
             test2 t = new test2();
             myInterface.getFucked();
-            t.getFucked();
+            test2.getFucked();
             /* obj.getFucked(); */
             obj.myMethodA();
             // obj.myMethodB();
