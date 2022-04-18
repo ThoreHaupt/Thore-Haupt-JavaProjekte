@@ -1,5 +1,7 @@
 package PracticeProjects.ArrayListStuff;
 
+import javax.xml.namespace.QName;
+
 public class TArrayList<T> {
     private Object[] array;
     private int arrSize = 0;
@@ -105,16 +107,23 @@ public class TArrayList<T> {
 
     private TArrayList<T> shiftArray(int index, int amount) {
         sizeCheck(amount);
-        Object[] tempArray = new Object[amount];
+        Object[] tempArray = new Object[Math.abs(amount)];
         int tempLoc = 0;
         Object help;
         lastIndex += amount;
-        for (int i = index; i < lastIndex; i++) {
-            tempLoc = (i - index) % amount;
-            help = tempArray[tempLoc];
-            tempArray[tempLoc] = (i >= lastIndex) ? null : array[i];
-            array[i] = help;
+        if (amount > 0) {
+            for (int i = index; i < lastIndex; i++) {
+                tempLoc = (i - index) % amount;
+                help = tempArray[tempLoc];
+                tempArray[tempLoc] = (i >= lastIndex) ? null : array[i];
+                array[i] = help;
+            }
+        } else {
+            for (int i = index; i > lastIndex; i++) {
+                array[i] = array[i + Math.abs(amount)];
+            }
         }
+
         return this;
     }
 
@@ -142,5 +151,9 @@ public class TArrayList<T> {
             returnarray[i] = array[i];
         }
         return (T[]) returnarray;
+    }
+
+    public void remove(int index) {
+        shiftArray(index, -1);
     }
 }
