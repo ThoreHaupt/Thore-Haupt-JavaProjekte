@@ -3,8 +3,14 @@ package PracticeProjects.bbtanclone;
 import PracticeProjects.ArrayListStuff.TArrayList;
 
 public class bbtanField {
-    public static int fieldsizeX = 6;
-    public static int fieldsizeY = 6;
+    public static int fieldBlockSizeX = 6;
+    public static int fieldBlockSizeY = 6;
+    public static int blockSize = 40;
+    public static double blockSizeMargin = .04;
+    static {
+
+    }
+    public static int radius;
 
     private TArrayList<int[]> arr;
 
@@ -21,8 +27,8 @@ public class bbtanField {
     }
 
     public static int[] generateNewRow(int level) {
-        int[] newRow = new int[fieldsizeX];
-        for (int i = 0; i < fieldsizeX; i++) {
+        int[] newRow = new int[fieldBlockSizeX];
+        for (int i = 0; i < fieldBlockSizeX; i++) {
             if (Math.random() < 0.6) {
                 newRow[i] = level;
             } else {

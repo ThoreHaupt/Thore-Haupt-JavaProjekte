@@ -9,5 +9,6 @@ public abstract class abstractClassA implements interfacea {
     }
 
     public static int a = 3;
-    public int b = 3;
+    // public int b = 1;
+
 }

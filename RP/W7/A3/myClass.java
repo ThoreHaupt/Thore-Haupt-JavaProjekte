@@ -7,7 +7,10 @@ public class myClass extends abstractClass {
 
     public static void main(String[] args) {
         myClass c = new myClass();
+        Luchs l = new Luchs();
+
         c.getAb();
+        l.getAb();
     }
 
     public void getAb() {

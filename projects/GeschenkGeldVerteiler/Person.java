@@ -24,6 +24,7 @@ public class Person implements Comparable {
         return balance;
     }
 
+    @Override
     public String toString() {
         return name + ": " + balance;
     }

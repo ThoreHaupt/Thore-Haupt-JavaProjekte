@@ -9,7 +9,7 @@ import PracticeProjects.Filemanager;
 import PracticeProjects.Progressbart;
 
 public class InsertSorts {
-    
+
     /**
      * Insertsort for Strings O(n!) Sortingorder: order of Charakters in ASKI
      * (captalisation is ignored) the randixsortalgorithm is way faster

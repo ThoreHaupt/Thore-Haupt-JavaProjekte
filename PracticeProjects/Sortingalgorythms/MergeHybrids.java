@@ -8,7 +8,7 @@ import PracticeProjects.Filemanager;
 import PracticeProjects.Progressbart;
 
 public class MergeHybrids {
-    
+
     /**
      * Mergesort Algorithm with Insert Elements. Firstlayer sorting done with an
      * Insertsort Algorithm, then chunks are merged.

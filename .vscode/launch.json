@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch myClass",
+            "request": "launch",
+            "mainClass": "RP.W7.A3.myClass",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch myClass",
+            "request": "launch",
+            "mainClass": "testStuff.interfacetoabstract.myClass",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
             "name": "Launch kniffelChancen",
             "request": "launch",
             "mainClass": "PracticeProjects.Kniffel.kniffelChancen",

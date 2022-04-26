@@ -14,7 +14,7 @@ public class Common {
      * 
      * @return returns string sorted first in the alphabet
      */
-    public static String[] firstString(String s1, String s2) {
+    public static final String[] firstString(String s1, String s2) {
 
         // returns the alphabetically higher String
         char[] s1Array = s1.toLowerCase().toCharArray();
@@ -56,7 +56,7 @@ public class Common {
      * @param s2 String 2
      * 
      */
-    public static boolean firstStringbool(String s1, String s2) {
+    public static final boolean firstStringbool(String s1, String s2) {
 
         // returns the alphabetically higher String
         char[] s1Array = s1.strip().toLowerCase().toCharArray();
@@ -97,7 +97,7 @@ public class Common {
      * @param referencemap reference HashMap.
      * @return true, if s1 < s2 --> s1 comes before s2
      */
-    public static boolean firstStringbool(String s1, String s2, HashMap<Character, Integer> referencemap) {
+    public static final boolean firstStringbool(String s1, String s2, HashMap<Character, Integer> referencemap) {
         int i = 0;
         while (true) {
             boolean check = referencemap.get(s2.charAt(i)) > referencemap.get(s1.charAt(i));
@@ -140,7 +140,7 @@ public class Common {
      * 
      * @return (not really nessesary) ArrayList with merged Chunks
      */
-    public static ArrayList<String> mergeArrayListe(ArrayList<String> sortlist,
+    public static final ArrayList<String> mergeArrayListe(ArrayList<String> sortlist,
             HashMap<Character, Integer> referencemap, boolean equalsOnly,
             ArrayList<Integer> chunklist, int[] chunk) {
 
