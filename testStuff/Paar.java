@@ -18,6 +18,7 @@ public class Paar<T, S> {
         return rechts;
     }
 
+    @Override
     public String toString() {
         return "(l,r) = (" + links + "," + rechts + ")";
     }
