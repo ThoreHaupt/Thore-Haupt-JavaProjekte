@@ -6,6 +6,34 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch DatumZeug",
+            "request": "launch",
+            "mainClass": "testStuff.DatumZeug",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch consoledelete",
+            "request": "launch",
+            "mainClass": "testStuff.consoledelete",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch FormattsTest",
+            "request": "launch",
+            "mainClass": "testStuff.FormattsTest",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch iteratortest123",
+            "request": "launch",
+            "mainClass": "testStuff.iteratortest123",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
             "name": "Launch generic",
             "request": "launch",
             "mainClass": "testStuff.generic",
