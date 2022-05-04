@@ -1,10 +1,10 @@
 package ProkSy.RP.RP_01.A1;
 
-public class Metzker {
+public class Metzger {
     private String name;
     private Wursttypen wursttyp;
 
-    public Metzker(String name, Wursttypen wursttyp) {
+    public Metzger(String name, Wursttypen wursttyp) {
         this.name = name;
         this.wursttyp = wursttyp;
     }

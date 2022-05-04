@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch DoublyLinkedListDemo",
+            "request": "launch",
+            "mainClass": "ProkSy.RP.RP_00.A2.DoublyLinkedListDemo",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch Rucksack",
+            "request": "launch",
+            "mainClass": "ProkSy.RP.RP_01.A3.Rucksack",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
             "name": "Launch DatumZeug",
             "request": "launch",
             "mainClass": "testStuff.DatumZeug",

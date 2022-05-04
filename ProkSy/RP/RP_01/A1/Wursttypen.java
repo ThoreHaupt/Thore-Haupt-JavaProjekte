@@ -1,6 +1,6 @@
 package ProkSy.RP.RP_01.A1;
 
-enum Wursttypen {
+public enum Wursttypen {
     LYONER,
     WEISSWURST,
     METTWURST,
