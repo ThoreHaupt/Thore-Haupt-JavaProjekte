@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Fenster",
+            "request": "launch",
+            "mainClass": "ProkSy.Vorlesung.Fenster",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch GraphischeOberflächen",
+            "request": "launch",
+            "mainClass": "ProkSy.Vorlesung.GraphischeOberflächen",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch Punkt",
+            "request": "launch",
+            "mainClass": "ProkSy.Tutorium.T_01.A1_2.Punkt",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
             "name": "Launch DoublyLinkedListDemo",
             "request": "launch",
             "mainClass": "ProkSy.RP.RP_00.A2.DoublyLinkedListDemo",
