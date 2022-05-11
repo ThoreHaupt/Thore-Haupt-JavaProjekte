@@ -9,6 +9,55 @@
             "name": "Launch Fenster",
             "request": "launch",
             "mainClass": "ProkSy.Vorlesung.Fenster",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch TrainingsverwaltungListe",
+            "request": "launch",
+            "mainClass": "ProkSy.RP.RP_002.P2_3.trainingstagebuch.controller.TrainingsverwaltungListe",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch Trainingseinheit",
+            "request": "launch",
+            "mainClass": "ProkSy.RP.RP_002.P2_3.trainingstagebuch.model.Trainingseinheit",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch TrainingsverwaltungSet",
+            "request": "launch",
+            "mainClass": "ProkSy.RP.RP_002.P2_3.trainingstagebuch.controller.TrainingsverwaltungSet",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch Trainingseinheit",
+            "request": "launch",
+            "mainClass": "ProkSy.RP.RP_002.P2_3.Trainingseinheit",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch SortiererMain",
+            "request": "launch",
+            "mainClass": "ProkSy.RP.RP_002.P2_2.SortiererMain",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch DatenStrukturenKlasse",
+            "request": "launch",
+            "mainClass": "ProkSy.RP.RP_002.P2_1.DatenStrukturenKlasse",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch Fenster",
+            "request": "launch",
+            "mainClass": "ProkSy.Vorlesung.Fenster",
             "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
         },
         {

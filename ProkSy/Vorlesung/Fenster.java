@@ -9,12 +9,26 @@ public class Fenster extends JFrame {
     public Fenster() {
         setBasics();
         c = getContentPane();
+        c.setLayout(new BorderLayout());
+
+        JPanel c2 = new JPanel(new BorderLayout());
+        c2.setMinimumSize(new Dimension(200, 300));
+
         JButton b = new JButton();
-        b.setSize(100, 100);
-        c.add(b);
-        Container c2 = new Container();
-        c.add(c2);
-        c2.add(b);
+        c2.add(b, BorderLayout.CENTER);
+        b.setMinimumSize(new Dimension(200, 300));
+        b.setAction(new MyAction());
+        b.setVisible(true);
+        b.setOpaque(true);
+
+        c.add(c2, BorderLayout.NORTH);
+
+        /*
+         * 
+         * c2.setVisible(true);
+         * c2.add(b);
+         * c.add(c2);
+         */
 
     }
 
