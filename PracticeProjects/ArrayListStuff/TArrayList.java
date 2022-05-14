@@ -14,11 +14,11 @@ public class TArrayList<T> {
         list.add("2");
         list.add("3");
         list.insert("element", 1);
-        System.out.println(list.print());
+        System.out.println(list.toString());
         for (int i = 0; i < 20; i++) {
             list.add("" + i);
         }
-        System.out.println(list.print());
+        System.out.println(list.toString());
 
     }
 
@@ -92,7 +92,7 @@ public class TArrayList<T> {
     }
 
     private void sizeCheck(int amount) {
-        if (arrSize + amount < lastIndex - 1) {
+        if (arrSize > lastIndex + amount - 1) {
             return;
         } else {
             Object[] newArray = new Object[arrSize * 2];
@@ -127,7 +127,7 @@ public class TArrayList<T> {
         return this;
     }
 
-    public String print() {
+    public String toString() {
         String out = "(";
         for (int index = 0; index < lastIndex - 1; index++) {
             if (array[index] != null) {
@@ -142,7 +142,7 @@ public class TArrayList<T> {
     }
 
     public int size() {
-        return lastIndex;
+        return lastIndex + 1;
     }
 
     public T[] asArray() {

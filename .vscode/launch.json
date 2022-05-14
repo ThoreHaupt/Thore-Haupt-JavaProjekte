@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch compareArrayLists",
+            "request": "launch",
+            "mainClass": "PracticeProjects.ArrayListStuff.compareArrayLists",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch TArrayList",
+            "request": "launch",
+            "mainClass": "PracticeProjects.ArrayListStuff.TArrayList",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch TArrayList2",
+            "request": "launch",
+            "mainClass": "PracticeProjects.ArrayListStuff.TArrayList2",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
             "name": "Launch Fenster",
             "request": "launch",
             "mainClass": "ProkSy.Vorlesung.Fenster",
