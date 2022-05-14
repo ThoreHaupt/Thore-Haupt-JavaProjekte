@@ -33,8 +33,8 @@ public class TArrayList<T> {
     }
 
     public TArrayList(int startSize) {
-        this.arrSize = startSize;
-        this.array = new Object[startSize];
+        this.arrSize = (startSize != 0) ? startSize : 1;
+        this.array = new Object[arrSize];
         // type = (Class<T>) ((ParameterizedType)
         // getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
@@ -142,7 +142,7 @@ public class TArrayList<T> {
     }
 
     public int size() {
-        return lastIndex + 1;
+        return lastIndex;
     }
 
     public T[] asArray() {
@@ -155,5 +155,12 @@ public class TArrayList<T> {
 
     public void remove(int index) {
         shiftArray(index, -1);
+        lastIndex--;
+    }
+
+    public void clear() {
+        array = new Object[16];
+        arrSize = 16;
+        lastIndex = -1;
     }
 }
