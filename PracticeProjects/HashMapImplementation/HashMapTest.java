@@ -9,14 +9,20 @@ public class HashMapTest {
         map.put(2, 1);
         map.put(2, 2);
 
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 10000; i++) {
             map.put(i, i);
         }
         for (Integer integer : map) {
             l.add(integer);
         }
 
-        System.out.println(l);
+        long t1 = System.nanoTime();
+        for (int i = 0; i < 10000; i++) {
+            map.get(i);
+        }
+        System.out.println(System.nanoTime() - t1);
+
+        // System.out.println(l);
         System.out.println(l.size());
     }
 }
