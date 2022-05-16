@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch findKomplements",
+            "request": "launch",
+            "mainClass": "PracticeProjects.findKomplements",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
             "name": "Launch compareArrayLists",
             "request": "launch",
             "mainClass": "PracticeProjects.ArrayListStuff.compareArrayLists",
