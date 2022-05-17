@@ -41,6 +41,8 @@ public class THashMap<Key, Value> implements Iterable<Value> {
     public Value get(Key key) throws KeyNotFoundException {
         int hash = calculateHash(key);
         int bucketIndex = (hash % buckets.length);
+        if ((buckets[bucketIndex]) == null)
+            return null;
         return buckets[bucketIndex].get(hash);
     }
 

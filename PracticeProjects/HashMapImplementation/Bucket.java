@@ -22,6 +22,8 @@ public class Bucket<Value> implements Iterable<HashNode<Value>> {
         LinkedNode<Value> currentNode = (LinkedNode<Value>) head;
         while (currentNode.hash != hash) {
             currentNode = currentNode.next;
+            if (currentNode == null)
+                return null;
         }
         return currentNode.value;
     }
