@@ -45,6 +45,14 @@ public class THashMap<K, V> implements Iterable<V> {
         return buckets[bucketIndex].get(hash);
     }
 
+    public void remove(K key) {
+        int hash = calculateHash(key);
+        int bucketIndex = calculateBucketIndex(hash, buckets.length);
+        if (buckets[bucketIndex].remove(hash, key)) {
+            size--;
+        }
+    }
+
     private boolean addNodeToBucket(Bucket<K, V>[] bucketArray, int bucketIndex, int hash, K key, V value) {
         if (bucketArray[bucketIndex] == null) {
             bucketArray[bucketIndex] = new Bucket<K, V>(this);

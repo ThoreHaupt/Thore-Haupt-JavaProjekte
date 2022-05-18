@@ -145,6 +145,7 @@ public class TArrayList<T> {
         return lastIndex;
     }
 
+    @SuppressWarnings("unchecked")
     public T[] asArray() {
         Object[] returnarray = new Object[lastIndex];
         for (int i = 0; i < returnarray.length; i++) {
