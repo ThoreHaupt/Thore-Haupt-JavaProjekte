@@ -9,8 +9,9 @@ public class HashMapTest {
         // HashMap<Integer, Integer> mapOff = new HashMap<Integer, Integer>();
         TreeSet<Integer> l = new TreeSet<Integer>();
         TreeSet<Integer> s = new TreeSet<Integer>();
+        int length = 250;
 
-        for (int i = 0; i < 80; i++) {
+        for (int i = 0; i < length; i++) {
             map.put(i, i);
 
         }
@@ -30,7 +31,7 @@ public class HashMapTest {
          */
 
         long t1 = System.nanoTime();
-        for (int i = 0; i < 80; i++) {
+        for (int i = 0; i < length; i++) {
             Integer integer = map.get(Integer.valueOf(i));
             if (integer == null) {
                 int hash = System.identityHashCode(Integer.valueOf(i));
