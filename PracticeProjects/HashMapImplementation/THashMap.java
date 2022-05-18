@@ -34,13 +34,13 @@ public class THashMap<Key, Value> implements Iterable<Value> {
     }
 
     private boolean put(int hash, Value value, Bucket<Value>[] bucketArray, int bucketArraySize) {
-        int bucket = (hash % bucketArraySize);
+        int bucket = (hash % (bucketArraySize - 1));
         return addNodeToBucket(bucketArray, bucket, hash, value);
     }
 
     public Value get(Key key) throws KeyNotFoundException {
         int hash = calculateHash(key);
-        int bucketIndex = (hash % buckets.length);
+        int bucketIndex = (hash % (buckets.length - 1));
         if ((buckets[bucketIndex]) == null)
             return null;
         return buckets[bucketIndex].get(hash);
@@ -77,6 +77,7 @@ public class THashMap<Key, Value> implements Iterable<Value> {
     }
 
     private int calculateHash(Key key) {
+
         return System.identityHashCode(key);
 
     }
