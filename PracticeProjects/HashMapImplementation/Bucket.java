@@ -3,23 +3,23 @@ package PracticeProjects.HashMapImplementation;
 import java.util.Iterator;
 import java.util.List;
 
-public class Bucket<Value> implements Iterable<HashNode<Value>> {
-    THashMap<?, Value> map;
-    HashNode<Value> head = null;
+public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
+    THashMap<K, V> map;
+    HashNode<K, V> head = null;
     int size = 0;
     boolean tree = false;
 
-    public Bucket(THashMap<?, Value> map) {
+    public Bucket(THashMap<K, V> map) {
         this.map = map;
     }
 
-    public Value get(int hash) {
+    public V get(int hash) {
         if (head == null)
             return null;
         if (tree) {
 
         }
-        LinkedNode<Value> currentNode = (LinkedNode<Value>) head;
+        LinkedNode<K, V> currentNode = (LinkedNode<K, V>) head;
         while (currentNode.hash != hash) {
             currentNode = currentNode.next;
             if (currentNode == null)
@@ -30,12 +30,12 @@ public class Bucket<Value> implements Iterable<HashNode<Value>> {
 
     /**
      */
-    public boolean add(int hash, Value value) {
+    public boolean add(int hash, K key, V value) {
         if (tree) {
 
         }
 
-        LinkedNode<Value> newNode = new LinkedNode<Value>(hash, value);
+        LinkedNode<K, V> newNode = new LinkedNode<K, V>(hash, key, value);
 
         if (head == null) {
             head = newNode;
@@ -43,7 +43,7 @@ public class Bucket<Value> implements Iterable<HashNode<Value>> {
             return true;
         }
 
-        LinkedNode<Value> current = (LinkedNode<Value>) head;
+        LinkedNode<K, V> current = (LinkedNode<K, V>) head;
         if (current.hash == hash) {
             current.value = value;
             return false;
@@ -61,12 +61,12 @@ public class Bucket<Value> implements Iterable<HashNode<Value>> {
     }
 
     @Override
-    public Iterator<HashNode<Value>> iterator() {
+    public Iterator<HashNode<K, V>> iterator() {
         if (tree) {
         }
-        Iterator<HashNode<Value>> iterator = new Iterator<HashNode<Value>>() {
+        Iterator<HashNode<K, V>> iterator = new Iterator<HashNode<K, V>>() {
 
-            private LinkedNode<Value> currentNode = (LinkedNode<Value>) head;
+            private LinkedNode<K, V> currentNode = (LinkedNode<K, V>) head;
 
             @Override
             public boolean hasNext() {
@@ -76,8 +76,8 @@ public class Bucket<Value> implements Iterable<HashNode<Value>> {
             }
 
             @Override
-            public HashNode<Value> next() {
-                LinkedNode<Value> outputNode = currentNode;
+            public HashNode<K, V> next() {
+                LinkedNode<K, V> outputNode = currentNode;
                 if (currentNode != null)
                     currentNode = currentNode.next;
                 return outputNode;

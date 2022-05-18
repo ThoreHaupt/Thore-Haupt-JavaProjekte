@@ -1,12 +1,10 @@
 package PracticeProjects.HashMapImplementation;
 
 import java.util.Iterator;
-import java.util.zip.CRC32;
 
-public class THashMap<Key, Value> implements Iterable<Value> {
-    static CRC32 crc32 = new CRC32();
+public class THashMap<K, V> implements Iterable<V> {
 
-    private Bucket<Value>[] buckets;
+    private Bucket<K, V>[] buckets;
     private int currentExponentSize = 4;
     private float loadFactor;
     private int size = 0;
@@ -15,17 +13,18 @@ public class THashMap<Key, Value> implements Iterable<Value> {
         this((int) Math.pow(2, 4), 0.75f);
     }
 
+    @SuppressWarnings("unchecked")
     public THashMap(int starterArraySize, float loadFactor) {
         this.buckets = new Bucket[starterArraySize];
         this.loadFactor = loadFactor;
 
     }
 
-    public void put(Key key, Value value) {
+    public void put(K key, V value) {
         if (key == null)
             new RuntimeException("can't put a null as key for entry");
         int hash = calculateHash(key);
-        if (put(hash, value, buckets, buckets.length)) {
+        if (put(hash, key, value, buckets, buckets.length)) {
             size++;
             if (checkForRehash()) {
                 rehash(1);
@@ -33,12 +32,12 @@ public class THashMap<Key, Value> implements Iterable<Value> {
         }
     }
 
-    private boolean put(int hash, Value value, Bucket<Value>[] bucketArray, int bucketArraySize) {
+    private boolean put(int hash, K key, V value, Bucket<K, V>[] bucketArray, int bucketArraySize) {
         int bucket = calculateBucketIndex(hash, bucketArraySize);
-        return addNodeToBucket(bucketArray, bucket, hash, value);
+        return addNodeToBucket(bucketArray, bucket, hash, key, value);
     }
 
-    public Value get(Key key) throws KeyNotFoundException {
+    public V get(K key) throws KeyNotFoundException {
         int hash = calculateHash(key);
         int bucketIndex = calculateBucketIndex(hash, buckets.length);
         if ((buckets[bucketIndex]) == null)
@@ -46,12 +45,12 @@ public class THashMap<Key, Value> implements Iterable<Value> {
         return buckets[bucketIndex].get(hash);
     }
 
-    private boolean addNodeToBucket(Bucket<Value>[] bucketArray, int bucketIndex, int hash, Value value) {
+    private boolean addNodeToBucket(Bucket<K, V>[] bucketArray, int bucketIndex, int hash, K key, V value) {
         if (bucketArray[bucketIndex] == null) {
-            bucketArray[bucketIndex] = new Bucket<Value>(this);
+            bucketArray[bucketIndex] = new Bucket<K, V>(this);
         }
         // returns true, if a new Element is added and not replaced
-        return bucketArray[bucketIndex].add(hash, value);
+        return bucketArray[bucketIndex].add(hash, key, value);
     }
 
     private boolean checkForRehash() {
@@ -62,23 +61,26 @@ public class THashMap<Key, Value> implements Iterable<Value> {
         return false;
     }
 
+    @SuppressWarnings("unchecked")
     private void rehash(int exponentChange) {
         int tempBucketArraySize = (int) Math.pow(2, currentExponentSize + exponentChange);
         currentExponentSize += exponentChange;
-        Bucket<Value>[] bucketsTemp = new Bucket[tempBucketArraySize];
-        for (Bucket<Value> bucket : buckets) {
+        Bucket<K, V>[] bucketsTemp = new Bucket[tempBucketArraySize];
+        for (Bucket<K, V> bucket : buckets) {
             if (bucket == null || bucket.head == null)
                 continue;
-            for (HashNode<Value> node : bucket) {
-                put(node.hash, node.value, bucketsTemp, tempBucketArraySize);
+            for (HashNode<K, V> node : bucket) {
+                put(node.hash, node.key, node.value, bucketsTemp, tempBucketArraySize);
             }
         }
         this.buckets = bucketsTemp;
     }
 
-    private int calculateHash(Key key) {
+    private int calculateHash(K key) {
 
-        return System.identityHashCode(key);
+        // return System.identityHashCode(key);
+
+        return key.hashCode();
 
     }
 
@@ -108,12 +110,12 @@ public class THashMap<Key, Value> implements Iterable<Value> {
     }
 
     @Override
-    public Iterator<Value> iterator() {
-        Iterator<Value> iterator = new Iterator<Value>() {
+    public Iterator<V> iterator() {
+        Iterator<V> iterator = new Iterator<V>() {
 
             int currentBucket = getNextUsedBucketIndex(-1);
             int lastUsedBucketIndex = getLastUsedBucketIndex();
-            Iterator<HashNode<Value>> currentInterator = buckets[currentBucket].iterator();
+            Iterator<HashNode<K, V>> currentInterator = buckets[currentBucket].iterator();
 
             @Override
             public boolean hasNext() {
@@ -128,7 +130,7 @@ public class THashMap<Key, Value> implements Iterable<Value> {
             }
 
             @Override
-            public Value next() {
+            public V next() {
 
                 if (!currentInterator.hasNext()) {
                     currentBucket = getNextUsedBucketIndex(currentBucket);

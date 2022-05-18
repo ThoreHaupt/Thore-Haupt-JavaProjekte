@@ -1,11 +1,11 @@
 package PracticeProjects.HashMapImplementation;
 
-public class HashNode<T> {
+public class HashNode<K, V> {
     int hash;
-    T value;
-    protected int listlength;
+    K key;
+    V value;
 
-    public HashNode(int hash, T value) {
+    public HashNode(int hash, K key, V value) {
         this.hash = hash;
         this.value = value;
     }

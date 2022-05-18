@@ -13,7 +13,6 @@ public class HashMapTest {
 
         for (int i = 0; i < length; i++) {
             map.put(i, i);
-
         }
 
         /*
@@ -23,7 +22,6 @@ public class HashMapTest {
          * }
          */
 
-        // wenn das da ist, funktioniert die HashMap, wenn nicht, dann nicht. Wired.
         /*
          * for (Integer integer : map) {
          * l.add(integer);
@@ -32,13 +30,7 @@ public class HashMapTest {
 
         long t1 = System.nanoTime();
         for (int i = 0; i < length; i++) {
-            Integer integer = map.get(Integer.valueOf(i));
-            if (integer == null) {
-                int hash = System.identityHashCode(Integer.valueOf(i));
-                System.out.println("somethings i wrong");
-            }
-            if (integer != null)
-                l.add(integer);
+            l.add(map.get(i));
         }
         System.out.println((System.nanoTime() - t1) / 10000);
 
