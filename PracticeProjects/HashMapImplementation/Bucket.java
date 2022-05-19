@@ -10,8 +10,8 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
     int size = 0;
     boolean tree = false;
 
-    private final int TREEIFY_THRESHOLD = 3;
-    private final int UNTREEIFY_THRESHOLD = 2;
+    private final int TREEIFY_THRESHOLD = 9;
+    private final int UNTREEIFY_THRESHOLD = 7;
 
     public Bucket(THashMap<K, V> map) {
         this.map = map;
@@ -59,7 +59,8 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
             head.value = value;
             return false;
         }
-        LinkedHashNode<K, V> current = (LinkedHashNode<K, V>) head;
+
+        LinkedHashNode<K, V> current = head;
         while (current.next != null) {
             if (current.hash == hash) {
                 current.value = value;
@@ -120,7 +121,7 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
     }
 
     private void TREEIFY() {
-        System.out.println("treeify");
+        // System.out.println("treeify");
         LinkedHashNode<K, V> current = head.next;
         root = new TreeHashNode<K, V>(this, head.hash, head.key, head.value);
         while (current != null) {
@@ -131,7 +132,7 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
     }
 
     private void UNTREEIFY() {
-        System.out.println("untreeify");
+        // System.out.println("untreeify");
         size = 0;
         HashNode<K, V> node;
         Iterator<HashNode<K, V>> iterator = preIterator(true);

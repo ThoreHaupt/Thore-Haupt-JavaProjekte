@@ -2,15 +2,13 @@ package PracticeProjects.HashMapImplementation;
 
 import java.util.HashMap;
 import java.util.Random;
-import java.util.TreeSet;
 
 public class HashMapTest {
     public static void main(String[] args) {
-        THashMap<Integer, Integer> map = new THashMap<Integer, Integer>(16, 0.7f);
+        THashMap<Integer, Integer> map = new THashMap<Integer, Integer>();
         HashMap<Integer, Integer> mapOff = new HashMap<Integer, Integer>();
-        TreeSet<Integer> l = new TreeSet<Integer>();
-        TreeSet<Integer> s = new TreeSet<Integer>();
-        int length = 255;
+
+        int length = 20;
         int[] array = new int[length];
 
         for (int i = 0; i < length; i++) {
@@ -19,27 +17,49 @@ public class HashMapTest {
 
         shuffleArray(array);
 
+        long t1 = System.nanoTime();
         for (int i = 0; i < length; i++) {
             map.put(array[i], i);
         }
+        System.out.println("map put:" + (System.nanoTime() - t1) / length);
 
+        long t2 = System.nanoTime();
         for (int i = 0; i < length; i++) {
-            map.put(array[i], i);
+            mapOff.put(array[i], i);
+        }
+        System.out.println("mapOff put:" + (System.nanoTime() - t2) / length);
+
+        long t3 = System.nanoTime();
+        for (int i = 0; i < length; i++) {
+            mapOff.get(i);
+            Integer.toString(i);
+        }
+        System.out.println("mapOff get:" + (System.nanoTime() - t3) / length);
+
+        long t4 = System.nanoTime();
+        /*
+         * for (KeyValuePair<Integer, Integer> KVPair : map.asKeyValuePair()) {
+         * KVPair.toString();
+         * }
+         */
+        for (int i = 0; i < length; i++) {
+            map.get(i);
+            Integer.toString(i);
         }
 
-        for (KeyValuePair<Integer, Integer> KVPair : map.asKeyValuePair()) {
+        System.out.println("map get:" + (System.nanoTime() - t4) / length);
 
-            System.out.println(KVPair.toString());
-        }
-
+        long t5 = System.nanoTime();
         for (int i = 0; i < length; i += 1) {
             map.remove(i);
         }
+        System.out.println("map remove:" + (System.nanoTime() - t5) / length);
 
-        for (KeyValuePair<Integer, Integer> KVPair : map.asKeyValuePair()) {
-
-            System.out.println(KVPair.toString());
+        long t6 = System.nanoTime();
+        for (int i = 0; i < length; i += 1) {
+            mapOff.remove(i);
         }
+        System.out.println("mapOff remove:" + (System.nanoTime() - t6) / length);
 
         /*
          * for (Integer integer : map) {
