@@ -2,15 +2,17 @@ package PracticeProjects.HashMapImplementation;
 
 public class HashNode<K, V> {
     int hash;
+    Bucket<K, V> bucket;
     K key;
     V value;
 
-    public HashNode(int hash, K key, V value) {
+    public HashNode(Bucket<K, V> bucket, int hash, K key, V value) {
         this.hash = hash;
         this.value = value;
+        this.bucket = bucket;
     }
 
-    public void copyNodeToThis(TreeHashNode<K, V> node) {
+    public void overrideThisNode(TreeHashNode<K, V> node) {
         hash = node.hash;
         key = node.key;
         value = node.value;

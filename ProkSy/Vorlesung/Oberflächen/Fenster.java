@@ -1,4 +1,4 @@
-package ProkSy.Vorlesung;
+package ProkSy.Vorlesung.Oberflächen;
 
 import java.awt.*;
 import javax.swing.*;
@@ -11,7 +11,7 @@ public class Fenster extends JFrame {
         c = getContentPane();
         c.setLayout(new BorderLayout());
 
-        JPanel c2 = new JPanel(new BorderLayout());
+        JPanel c2 = new JPanel(new GridLayout());
         c2.setMinimumSize(new Dimension(200, 300));
 
         JButton b = new JButton();

@@ -1,4 +1,4 @@
-package ProkSy.Vorlesung;
+package ProkSy.Vorlesung.Oberflächen;
 
 import java.awt.*;
 import javax.swing.*;

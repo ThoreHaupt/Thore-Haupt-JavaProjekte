@@ -1,9 +1,6 @@
 package PracticeProjects.HashMapImplementation;
 
 import java.util.Iterator;
-import java.util.List;
-
-import javax.management.RuntimeErrorException;
 
 public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
     THashMap<K, V> map;
@@ -12,8 +9,8 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
     int size = 0;
     boolean tree = false;
 
-    private final int TREEIFY_THRESHOLD = 8;
-    private final int UNTREEIFY_THRESHOLD = 6;
+    private final int TREEIFY_THRESHOLD = 2;
+    private final int UNTREEIFY_THRESHOLD = 1;
 
     public Bucket(THashMap<K, V> map) {
         this.map = map;
@@ -40,7 +37,7 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
         if (tree) {
             if (root == null)
                 throw new RuntimeException("There is a tree, but its empty");
-            TreeHashNode<K, V> newNode = new TreeHashNode<K, V>(hash, key, value);
+            TreeHashNode<K, V> newNode = new TreeHashNode<K, V>(this, hash, key, value);
             if (root.add(newNode)) {
                 size++;
                 return true;
@@ -49,7 +46,7 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
             }
         }
 
-        LinkedHashNode<K, V> newNode = new LinkedHashNode<K, V>(hash, key, value);
+        LinkedHashNode<K, V> newNode = new LinkedHashNode<K, V>(this, hash, key, value);
 
         if (head == null) {
             head = newNode;
@@ -76,12 +73,17 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
     }
 
     public boolean remove(int hash, K key) {
-        if (head == null) {
+        if ((!tree && head == null) || (tree && root == null)) {
             // throw new KeyNotFoundException();
             return false;
         }
         if (tree) {
-
+            if (root.remove(hash)) {
+                size--;
+                checkUNTREEIFY();
+                return true;
+            }
+            return false;
         }
         if (head.hash == hash) {
             head = ((LinkedHashNode<K, V>) head).next;
@@ -92,7 +94,6 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
             if (current.next.hash == hash) {
                 current.next = current.next.next;
                 size--;
-                checkUNTREEIFY();
                 return true;
             }
             current = current.next;
@@ -115,16 +116,18 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
     }
 
     private void TREEIFY() {
+        System.out.println("treeify");
         LinkedHashNode<K, V> current = head.next;
-        root = new TreeHashNode<K, V>(head.hash, head.key, head.value);
+        root = new TreeHashNode<K, V>(this, head.hash, head.key, head.value);
         while (current != null) {
-            root.add(new TreeHashNode<K, V>(current.hash, current.key, current.value));
+            root.add(new TreeHashNode<K, V>(this, current.hash, current.key, current.value));
             current = current.next;
         }
         head = null;
     }
 
     private void UNTREEIFY() {
+        System.out.println("untreeify");
         TreeHashNode<K, V> current = root;
         boolean sideLeft = true;
         LinkedHashNode<K, V> newNode;
@@ -139,7 +142,7 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
                 sideLeft = false;
                 continue;
             }
-            newNode = new LinkedHashNode<K, V>(current.hash, current.key, current.value);
+            newNode = new LinkedHashNode<K, V>(this, current.hash, current.key, current.value);
             newNode.next = head;
             head = newNode;
             current = current.parent;

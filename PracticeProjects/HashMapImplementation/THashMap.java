@@ -13,6 +13,10 @@ public class THashMap<K, V> implements Iterable<V> {
         this((int) Math.pow(2, 4), 0.75f);
     }
 
+    public THashMap(float loadFactor) {
+        this((int) Math.pow(2, 4), loadFactor);
+    }
+
     @SuppressWarnings("unchecked")
     public THashMap(int starterArraySize, float loadFactor) {
         this.buckets = new Bucket[starterArraySize];
