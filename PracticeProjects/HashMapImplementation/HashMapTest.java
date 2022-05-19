@@ -22,17 +22,15 @@ public class HashMapTest {
             map.put(array[i], i);
         }
 
-        int i = 0;
-        for (Integer integer : map) {
+        for (KeyValuePair<Integer, Integer> KVPair : map.asKeyValuePair()) {
 
-            System.out.println(integer);
+            System.out.println(KVPair.toString());
         }
 
-        /*
-         * for (int i = 0; i < length; i += 1) {
-         * map.remove(i);
-         * }
-         */
+        for (int i = 0; i < length; i += 1) {
+            map.remove(i);
+        }
+
         System.out.println(map.size());
 
         /*

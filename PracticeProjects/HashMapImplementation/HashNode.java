@@ -10,6 +10,7 @@ public class HashNode<K, V> {
         this.hash = hash;
         this.value = value;
         this.bucket = bucket;
+        this.key = key;
     }
 
     public void overrideThisNode(TreeHashNode<K, V> node) {

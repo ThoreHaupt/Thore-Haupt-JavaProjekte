@@ -159,7 +159,21 @@ public class THashMap<K, V> implements Iterable<V> {
         return iterator;
     }
 
-    public Iterator<KeyValuePair<K, V>> asKeyValuePair() {
+    public class KeyValuePairObj implements Iterable<KeyValuePair<K, V>> {
+
+        @Override
+        public Iterator<KeyValuePair<K, V>> iterator() {
+            return getKeyValuePair();
+        }
+
+    }
+
+    public KeyValuePairObj asKeyValuePair() {
+        KeyValuePairObj obj = new KeyValuePairObj();
+        return obj;
+    }
+
+    public Iterator<KeyValuePair<K, V>> getKeyValuePair() {
         Iterator<KeyValuePair<K, V>> iterator = new Iterator<KeyValuePair<K, V>>() {
 
             int currentBucket = getNextUsedBucketIndex(-1);
