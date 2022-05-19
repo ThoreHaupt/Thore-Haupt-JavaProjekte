@@ -11,4 +11,13 @@ public class KeyValuePair<K, V> {
     public V value() {
         return value;
     }
+
+    /**
+     * @param key
+     * @param value
+     */
+    public KeyValuePair(K key, V value) {
+        this.key = key;
+        this.value = value;
+    }
 }

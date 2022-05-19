@@ -159,8 +159,41 @@ public class THashMap<K, V> implements Iterable<V> {
         return iterator;
     }
 
+    public Iterator<KeyValuePair<K, V>> asKeyValuePair() {
+        Iterator<KeyValuePair<K, V>> iterator = new Iterator<KeyValuePair<K, V>>() {
+
+            int currentBucket = getNextUsedBucketIndex(-1);
+            int lastUsedBucketIndex = getLastUsedBucketIndex();
+            Iterator<HashNode<K, V>> currentInterator = buckets[currentBucket].iterator();
+
+            @Override
+            public boolean hasNext() {
+
+                if (currentBucket < lastUsedBucketIndex && currentBucket != -1) {
+                    return true;
+                }
+                if (currentBucket == -1) {
+                    return false;
+                }
+                return currentInterator.hasNext();
+            }
+
+            @Override
+            public KeyValuePair<K, V> next() {
+
+                if (!currentInterator.hasNext()) {
+                    currentBucket = getNextUsedBucketIndex(currentBucket);
+                    currentInterator = buckets[currentBucket].iterator();
+                }
+                HashNode<K, V> node = currentInterator.next();
+                return new KeyValuePair<K, V>(node.key, node.value);
+            }
+        };
+        return iterator;
+    }
+
     public int size() {
         return size;
     }
 
-}
+} // DiesesPasswortbringtmichinmein1.Fachsemester!

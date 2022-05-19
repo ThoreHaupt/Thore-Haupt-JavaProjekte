@@ -170,10 +170,6 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
         return null;
     }
 
-    public KeyValuePair<K, V> asKeyValuePair() {
-
-    }
-
     @Override
     public Iterator<HashNode<K, V>> iterator() {
         Iterator<HashNode<K, V>> iterator;
