@@ -2,7 +2,6 @@ package PracticeProjects.HashMapImplementation;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Stack;
 
 public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
     THashMap<K, V> map;
@@ -133,30 +132,14 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
 
     private void UNTREEIFY() {
         System.out.println("untreeify");
-        TreeHashNode<K, V> current = root;
-        boolean sideLeft = true;
-        LinkedHashNode<K, V> newNode;
-        while (current.parent != null && current.left == null && current.right == null) {
-            if (current.left != null) {
-                current = current.left;
-                sideLeft = true;
-                continue;
-            }
-            if (current.right != null) {
-                current = current.right;
-                sideLeft = false;
-                continue;
-            }
-            newNode = new LinkedHashNode<K, V>(this, current.hash, current.key, current.value);
-            newNode.next = head;
-            head = newNode;
-            current = current.parent;
-            if (sideLeft) {
-                current.left = null;
-            } else {
-                current.right = null;
-            }
+        size = 0;
+        HashNode<K, V> node;
+        Iterator<HashNode<K, V>> iterator = preIterator(true);
+        while (iterator.hasNext()) {
+            node = iterator.next();
+            add(node.hash, node.key, node.value);
         }
+
     }
 
     public LinkedHashNode<K, V> getNodeByHash(int hash) {
@@ -172,9 +155,13 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
 
     @Override
     public Iterator<HashNode<K, V>> iterator() {
+        return preIterator(tree);
+    }
+
+    public Iterator<HashNode<K, V>> preIterator(boolean ISTREE) {
         Iterator<HashNode<K, V>> iterator;
 
-        if (tree) {
+        if (ISTREE) {
             iterator = new Iterator<HashNode<K, V>>() {
                 ArrayList<HashNode<K, V>> nodeStack = new ArrayList<HashNode<K, V>>();
                 private TreeHashNode<K, V> current = root;
@@ -182,10 +169,20 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
                 private int next = 1;
                 private int nextloop;
                 private boolean loop = true;
+                private int c = 0;
 
                 @Override
                 public boolean hasNext() {
-                    return (!nodeStack.isEmpty() || current.right != null);
+
+                    if (root == null)
+                        return false;
+
+                    if (c < size())
+                        return true;
+
+                    if (!nodeStack.isEmpty())
+                        System.out.println("Der Tree hat nicht alle elemente Wiedergegeben");
+                    return (false);
                 }
 
                 @Override
@@ -225,7 +222,7 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
                         next = nextloop;
 
                     }
-
+                    c++;
                     loop = true;
                     return current;
 

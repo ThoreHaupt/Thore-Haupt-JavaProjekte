@@ -7,10 +7,10 @@ import java.util.TreeSet;
 public class HashMapTest {
     public static void main(String[] args) {
         THashMap<Integer, Integer> map = new THashMap<Integer, Integer>(16, 0.7f);
-        // HashMap<Integer, Integer> mapOff = new HashMap<Integer, Integer>();
+        HashMap<Integer, Integer> mapOff = new HashMap<Integer, Integer>();
         TreeSet<Integer> l = new TreeSet<Integer>();
         TreeSet<Integer> s = new TreeSet<Integer>();
-        int length = 1000;
+        int length = 255;
         int[] array = new int[length];
 
         for (int i = 0; i < length; i++) {
@@ -18,6 +18,11 @@ public class HashMapTest {
         }
 
         shuffleArray(array);
+
+        for (int i = 0; i < length; i++) {
+            map.put(array[i], i);
+        }
+
         for (int i = 0; i < length; i++) {
             map.put(array[i], i);
         }
@@ -31,27 +36,25 @@ public class HashMapTest {
             map.remove(i);
         }
 
-        System.out.println(map.size());
+        for (KeyValuePair<Integer, Integer> KVPair : map.asKeyValuePair()) {
 
-        /*
-         * for (int i = 0; i < 10000; i++) {
-         * mapOff.put(i, i);
-         * 
-         * }
-         */
+            System.out.println(KVPair.toString());
+        }
 
         /*
          * for (Integer integer : map) {
          * l.add(integer);
          * }
          */
+
         /*
          * long t1 = System.nanoTime();
          * for (int i = 0; i < length; i++) {
-         * l.add(map.get(i));
+         * map.get(i);
          * }
          * System.out.println((System.nanoTime() - t1) / 10000);
          */
+
         /*
          * long t2 = System.nanoTime();
          * for (int i = 0; i < 10000; i++) {

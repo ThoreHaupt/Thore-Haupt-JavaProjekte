@@ -58,6 +58,10 @@ public class THashMap<K, V> implements Iterable<V> {
         }
         if (buckets[bucketIndex].remove(hash, key)) {
             size--;
+            /*
+             * if (buckets[bucketIndex].size() == 0)
+             * buckets[bucketIndex] = null;
+             */
         }
     }
 
@@ -79,11 +83,11 @@ public class THashMap<K, V> implements Iterable<V> {
 
     @SuppressWarnings("unchecked")
     private void rehash(int exponentChange) {
-        int tempBucketArraySize = (int) Math.pow(2, currentExponentSize + exponentChange);
         currentExponentSize += exponentChange;
+        int tempBucketArraySize = (int) Math.pow(2, currentExponentSize);
         Bucket<K, V>[] bucketsTemp = new Bucket[tempBucketArraySize];
         for (Bucket<K, V> bucket : buckets) {
-            if (bucket == null || bucket.head == null)
+            if (bucket == null || (bucket.head == null && bucket.root == null))
                 continue;
             for (HashNode<K, V> node : bucket) {
                 put(node.hash, node.key, node.value, bucketsTemp, tempBucketArraySize);
@@ -101,7 +105,7 @@ public class THashMap<K, V> implements Iterable<V> {
     }
 
     private int calculateBucketIndex(int hash, int bucketArraySize) {
-        return (hash % (bucketArraySize));
+        return (hash % (bucketArraySize - 1));
     }
 
     private int getLastUsedBucketIndex() {
@@ -119,19 +123,21 @@ public class THashMap<K, V> implements Iterable<V> {
         while (buckets[i] == null || (buckets[i].head == null && buckets[i].root == null)) {
             i++;
             if (i > buckets.length - 1)
-                return -1;
+                return buckets.length - 1;
         }
         return i;
     }
 
     @Override
     public Iterator<V> iterator() {
-
+        THashMap<K, V> map = this;
         Iterator<V> iterator = new Iterator<V>() {
 
             int currentBucket = getNextUsedBucketIndex(-1);
             int lastUsedBucketIndex = getLastUsedBucketIndex();
-            Iterator<HashNode<K, V>> currentInterator = buckets[currentBucket].iterator();
+            Bucket<K, V> firstBucket = (buckets[currentBucket] != null) ? buckets[currentBucket]
+                    : new Bucket<K, V>(map);
+            Iterator<HashNode<K, V>> currentInterator = firstBucket.iterator();
 
             @Override
             public boolean hasNext() {
@@ -174,11 +180,14 @@ public class THashMap<K, V> implements Iterable<V> {
     }
 
     public Iterator<KeyValuePair<K, V>> getKeyValuePair() {
+        THashMap<K, V> map = this;
         Iterator<KeyValuePair<K, V>> iterator = new Iterator<KeyValuePair<K, V>>() {
 
             int currentBucket = getNextUsedBucketIndex(-1);
             int lastUsedBucketIndex = getLastUsedBucketIndex();
-            Iterator<HashNode<K, V>> currentInterator = buckets[currentBucket].iterator();
+            Bucket<K, V> firstBucket = (buckets[currentBucket] != null) ? buckets[currentBucket]
+                    : new Bucket<K, V>(map);
+            Iterator<HashNode<K, V>> currentInterator = firstBucket.iterator();
 
             @Override
             public boolean hasNext() {
@@ -210,4 +219,25 @@ public class THashMap<K, V> implements Iterable<V> {
         return size;
     }
 
-} // DiesesPasswortbringtmichinmein1.Fachsemester!
+    public void testIntegrity() {
+        int c = 0;
+        for (int i = 0; i < buckets.length; i++) {
+            if (buckets[i] == null)
+                continue;
+            int z = 0;
+            for (HashNode<K, V> node : buckets[i]) {
+                c++;
+                z++;
+                if (calculateBucketIndex(calculateHash(node.key), buckets.length) != i) {
+                    System.out
+                            .println("A Element is not in the correct bucket: (" + node.key + ", " + node.value + ")");
+                }
+            }
+            if (z != buckets[i].size())
+                System.out.println("In Bucket " + i + " fehlen " + (buckets[i].size() - z) + " Elemente");
+            z = 0;
+        }
+        System.out.println("gemessene Anzahl der Elemente in dieser HashMap: " + c);
+    }
+
+}
