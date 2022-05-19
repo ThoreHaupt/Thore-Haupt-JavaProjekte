@@ -1,6 +1,6 @@
 package PracticeProjects.HashMapImplementation;
 
-public class KryValuePair<K, V> {
+public class KeyValuePair<K, V> {
     private K key;
     private V value;
 

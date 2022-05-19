@@ -52,6 +52,10 @@ public class THashMap<K, V> implements Iterable<V> {
     public void remove(K key) {
         int hash = calculateHash(key);
         int bucketIndex = calculateBucketIndex(hash, buckets.length);
+        if (buckets[bucketIndex] == null) {
+            System.out.println("PROBLEM");
+            return;
+        }
         if (buckets[bucketIndex].remove(hash, key)) {
             size--;
         }
@@ -97,10 +101,9 @@ public class THashMap<K, V> implements Iterable<V> {
     }
 
     private int calculateBucketIndex(int hash, int bucketArraySize) {
-        return (hash % (bucketArraySize - 1));
+        return (hash % (bucketArraySize));
     }
 
-    // not needed rn
     private int getLastUsedBucketIndex() {
         int last = -1;
         for (int i = 0; i < buckets.length; i++) {
@@ -113,7 +116,7 @@ public class THashMap<K, V> implements Iterable<V> {
 
     private int getNextUsedBucketIndex(int start) {
         int i = start + 1;
-        while (buckets[i] == null || buckets[i].head == null) {
+        while (buckets[i] == null || (buckets[i].head == null && buckets[i].root == null)) {
             i++;
             if (i > buckets.length - 1)
                 return -1;
@@ -123,6 +126,7 @@ public class THashMap<K, V> implements Iterable<V> {
 
     @Override
     public Iterator<V> iterator() {
+
         Iterator<V> iterator = new Iterator<V>() {
 
             int currentBucket = getNextUsedBucketIndex(-1);
