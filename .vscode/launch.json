@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch MatixCalculation",
+            "request": "launch",
+            "mainClass": "neuralNetTestsIG.CalulationTools.MatixCalculation",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch readdata",
+            "request": "launch",
+            "mainClass": "neuralNetTestsIG.Data.readdata",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
             "name": "Launch HashMapTest",
             "request": "launch",
             "mainClass": "PracticeProjects.HashMapImplementation.HashMapTest",
