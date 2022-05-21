@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import neuralNetTestsIG.CalulationTools.MatixCalculation;
 import neuralNetTestsIG.Data.FileHandiling.FileManager;
 import neuralNetTestsIG.Data.FileHandiling.Pair;
-import testStuff.Paar;
 
 public class NeuralNet {
     ArrayList<float[][]> nodes;
@@ -15,15 +14,52 @@ public class NeuralNet {
     int[] nodeLayerSizes = { imagesize * imagesize, 126, 10 };
     int[] functionTypesPerLayer = { 1, 2 };
 
-    private void initiateWeightes() {
+    float sepSize = .1f;
+    int layerThickness = 1;
+
+    public void calculateResult(int[] image) {
+
+    }
+
+    /**
+     * initiallizes weight-matrixes with random Values between 0 and 1
+     * dimensions : next layer x prior layer ---> weight of a neuron is in a row
+     * corresponding to all other neurons
+     * 
+     */
+    private void initiallizeWeightes() {
         for (int i = 0; i < nodeLayerSizes.length - 1; i++) {
-            weigths.add(new float[nodeLayerSizes[i + 1]][nodeLayerSizes[i]]);
+            float[][] arr = new float[nodeLayerSizes[i + 1]][nodeLayerSizes[i]];
+            for (int j = 0; j < nodeLayerSizes[i + 1]; j++) {
+                for (int k = 0; k < nodeLayerSizes[i]; k++) {
+                    arr[j][k] = (float) Math.random();
+                }
+            }
+            weigths.add(arr);
         }
     }
 
-    private void calculateResultLayer() {
+    private void initiallizeBiases() {
+
+        float scale = .6f;
+        float offSet = -.5f;
+
+        for (int i = 1; i < nodeLayerSizes.length; i++) {
+            float[][] arr = new float[layerThickness][nodeLayerSizes[i]];
+            for (int j = 0; j < layerThickness; j++) {
+                for (int k = 0; k < nodeLayerSizes[i]; k++) {
+                    arr[j][k] = (float) Math.random() * scale + offSet;
+                }
+            }
+            biases.add(arr);
+        }
+    }
+
+    private void calculateOutputLayer() {
         for (int i = 0; i < nodeLayerSizes.length - 1; i++) {
-            float[][] z = MatixCalculation.matrixMultiplikation(weigths.get(i), nodes.get(i));
+            float[][] z = MatixCalculation.maticesAdd(
+                    MatixCalculation.matrixMultiplikation(weigths.get(i), nodes.get(i)),
+                    biases.get(i));
             if (functionTypesPerLayer[i] == 1)
                 z = sigmoid(z);
             if (functionTypesPerLayer[i] == 2)

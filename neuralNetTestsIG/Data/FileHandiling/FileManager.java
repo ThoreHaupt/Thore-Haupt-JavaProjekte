@@ -13,6 +13,20 @@ import java.util.Date;
 
 public class FileManager {
 
+    public static void main(String[] args) {
+        Pair<int[][], byte[]> dataset = loadDataSet("neuralNetTestsIG/Data/Datasets/NIST/train-images",
+                "neuralNetTestsIG/Data/Datasets/NIST/train-labels");
+        int nummer = 0;
+        System.out.println(dataset.b[nummer]);
+        String outputString = "";
+        for (int i = 0; i < 28 * 28; i++) {
+            if (i % 28 == 0)
+                outputString += "\n";
+            outputString += String.format("%3d", dataset.a[nummer][i]);
+        }
+        System.out.println(outputString);
+    }
+
     public static byte[] convertMatricesToByteArray(ArrayList<float[][]> matrixes) {
         byte[][] byteArray = new byte[matrixes.size()][];
         for (int m = 0; m < matrixes.size(); m++) {
@@ -75,7 +89,7 @@ public class FileManager {
         return path.toString();
     }
 
-    public static Pair<int[], ArrayList<float[][]>> getMatricesFromFile(String filePath) {
+    public static Pair<int[], ArrayList<float[][]>> loadMatricesFromFile(String filePath) {
         byte[] arr;
         try {
             arr = Files.readAllBytes(Paths.get(filePath));
@@ -113,5 +127,41 @@ public class FileManager {
         }
         return new Pair<int[], ArrayList<float[][]>>(matricesIntegerpretation, matricesList);
 
+    }
+
+    private static Pair<int[][], byte[]> loadDataSet(String dataPath, String labelPath) { // Pair<byte[][], byte[]>
+        byte[] arrLabels;
+        byte[] arrData;
+        try {
+            arrData = Files.readAllBytes(Paths.get(dataPath));
+            arrLabels = Files.readAllBytes(Paths.get(labelPath));
+        } catch (IOException e) {
+            e.printStackTrace();
+            arrLabels = new byte[0];
+            arrData = new byte[0];
+        }
+        ByteBuffer labelBuffer = ByteBuffer.wrap(arrLabels);
+        ByteBuffer dataBuffer = ByteBuffer.wrap(arrData);
+
+        int num_LABEL = labelBuffer.position(4).getInt();
+        int num_DATA = dataBuffer.position(4).getInt();
+        int image_X = dataBuffer.getInt(); // 28
+        int image_Y = dataBuffer.getInt(); // 28
+        int image_FirstOffset = 16;
+        int label_FirstOffset = 8;
+
+        byte[] label = new byte[num_LABEL];
+        int[][] data = new int[num_DATA][image_X * image_Y];
+
+        for (int i = 0; i < num_LABEL; i++) {
+            label[i] = arrLabels[i + label_FirstOffset];
+        }
+
+        for (int i = 0; i < data.length; i++) {
+            for (int j = 0; j < image_X * image_Y; j++) {
+                data[i][j] = arrData[i * image_X * image_Y + j + image_FirstOffset] & 0xFF;
+            }
+        }
+        return new Pair<int[][], byte[]>(data, label);
     }
 }

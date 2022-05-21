@@ -14,7 +14,7 @@ public class MatixCalculation {
                 .toString(matrixMultiplikation(a, b)[1]));
     }
 
-    public static float[][] matixiesAdd(float[][] a, float[][] b) {
+    public static float[][] maticesAdd(float[][] a, float[][] b) {
         if (a.length == 0 || a[0].length == 0) {
             System.out.println("ERROR, a is not fully initiallized");
             return null;
@@ -39,8 +39,10 @@ public class MatixCalculation {
     }
 
     public static float[][] matrixMultiplikation(float[][] a, float[][] b) {
-        float[][] outputmatrix = new float[b.length][a.length];
-        for (int i = 0; i < a.length; i++) {
+        if (a.length != b[0].length)
+            return null;
+        float[][] outputmatrix = new float[b.length][a[0].length];
+        for (int i = 0; i < a[0].length; i++) { // a[0]
             for (int k = 0; k < b.length; k++) {
                 int s = 0;
                 for (int j = 0; j < a[0].length; j++) { // a[0 oder b[0]
@@ -61,4 +63,14 @@ public class MatixCalculation {
         return layer;
     }
 
+    public static float[][] transposeMatrix(float[][] matrix) {
+        float[][] newMatrix = new float[matrix[0].length][matrix.length];
+        for (int i = 0; i < newMatrix.length; i++) {
+            for (int j = 0; j < newMatrix.length; j++) {
+                newMatrix[j][i] = matrix[i][j];
+            }
+        }
+        // matrix = newMatrix;
+        return newMatrix;
+    }
 }

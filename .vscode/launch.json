@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch FileManager",
+            "request": "launch",
+            "mainClass": "neuralNetTestsIG.Data.FileHandiling.FileManager",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
             "name": "Launch MatixCalculation",
             "request": "launch",
             "mainClass": "neuralNetTestsIG.CalulationTools.MatixCalculation",
