@@ -1,4 +1,4 @@
-package neuralNetTestsIG.Data.FileHandiling;
+package Commons.FileHandiling;
 
 import java.io.IOException;
 import java.nio.ByteBuffer;
@@ -14,7 +14,7 @@ import java.util.Date;
 public class FileManager {
 
     public static void main(String[] args) {
-        Pair<int[][], byte[]> dataset = loadDataSet("neuralNetTestsIG/Data/Datasets/NIST/train-images",
+        Pair<int[][], double[][]> dataset = loadDataSet("neuralNetTestsIG/Data/Datasets/NIST/train-images",
                 "neuralNetTestsIG/Data/Datasets/NIST/train-labels");
         int nummer = 12;
         System.out.println(dataset.b[nummer]);
@@ -27,20 +27,20 @@ public class FileManager {
         System.out.println(outputString);
     }
 
-    public static byte[] convertMatricesToByteArray(ArrayList<float[][]> matrixes) {
+    public static byte[] convertMatricesToByteArray(ArrayList<double[][]> matrixes) {
         byte[][] byteArray = new byte[matrixes.size()][];
         for (int m = 0; m < matrixes.size(); m++) {
-            float[][] matrix = matrixes.get(m);
+            double[][] matrix = matrixes.get(m);
             ByteBuffer buffer = ByteBuffer.allocate(matrix.length * matrix[0].length * 4 + 4 * 3);
 
             // metadata
-            buffer.putFloat(m);
-            buffer.putFloat(matrix.length);
-            buffer.putFloat(matrix[0].length);
+            buffer.putDouble(m);
+            buffer.putDouble(matrix.length);
+            buffer.putDouble(matrix[0].length);
 
             for (int i = 0; i < matrix.length; i++) {
                 for (int j = 0; j < matrix[i].length; j++) {
-                    buffer.putFloat(matrix[i][j]);
+                    buffer.putDouble(matrix[i][j]);
                 }
             }
             byteArray[m] = buffer.array();
@@ -60,10 +60,10 @@ public class FileManager {
         return outputArray;
     }
 
-    public static String storeMatrices(String filePath, Pair<int[], ArrayList<float[][]>> neuralInformation) {
+    public static String storeMatrices(String filePath, Pair<int[], ArrayList<double[][]>> neuralInformation) {
 
         int[] maxtrixInterpretation = neuralInformation.a;
-        ArrayList<float[][]> matrices = neuralInformation.b;
+        ArrayList<double[][]> matrices = neuralInformation.b;
 
         ByteBuffer metadata = ByteBuffer.allocate(4 + maxtrixInterpretation.length * 4);
         metadata.putInt(maxtrixInterpretation.length);
@@ -89,7 +89,7 @@ public class FileManager {
         return path.toString();
     }
 
-    public static Pair<int[], ArrayList<float[][]>> loadMatricesFromFile(String filePath) {
+    public static Pair<int[], ArrayList<double[][]>> loadMatricesFromFile(String filePath) {
         byte[] arr;
         try {
             arr = Files.readAllBytes(Paths.get(filePath));
@@ -106,7 +106,7 @@ public class FileManager {
         for (int i = 0; i < matrixDistributionLength; i++) {
             matricesIntegerpretation[i] = buffer.getInt();
         }
-        ArrayList<float[][]> matricesList = new ArrayList<float[][]>();
+        ArrayList<double[][]> matricesList = new ArrayList<double[][]>();
         for (int i = 0; i < matricesIntegerpretation.length; i++) {
             for (int j = 0; j < matricesIntegerpretation[i]; j++) {
                 if (buffer.getInt() != j) {
@@ -116,20 +116,20 @@ public class FileManager {
                 int matrix_X_length = buffer.getInt();
                 int matrix_Y_length = buffer.getInt();
 
-                float[][] matrix = new float[matrix_X_length][matrix_Y_length];
+                double[][] matrix = new double[matrix_X_length][matrix_Y_length];
                 for (int k = 0; k < matrix_X_length; k++) {
                     for (int k2 = 0; k2 < matrix_Y_length; k2++) {
-                        matrix[k][k2] = buffer.getFloat();
+                        matrix[k][k2] = buffer.getDouble();
                     }
                 }
                 matricesList.add(matrix);
             }
         }
-        return new Pair<int[], ArrayList<float[][]>>(matricesIntegerpretation, matricesList);
+        return new Pair<int[], ArrayList<double[][]>>(matricesIntegerpretation, matricesList);
 
     }
 
-    public static Pair<int[][], byte[]> loadDataSet(String dataPath, String labelPath) { // Pair<byte[][], byte[]>
+    public static Pair<int[][], double[][]> loadDataSet(String dataPath, String labelPath) { // Pair<byte[][], byte[]>
         byte[] arrLabels;
         byte[] arrData;
         try {
@@ -150,11 +150,11 @@ public class FileManager {
         int image_FirstOffset = 16;
         int label_FirstOffset = 8;
 
-        byte[] label = new byte[num_LABEL];
+        double[][] label = new double[num_LABEL][10];
         int[][] data = new int[num_DATA][image_X * image_Y];
 
         for (int i = 0; i < num_LABEL; i++) {
-            label[i] = arrLabels[i + label_FirstOffset];
+            label[i][arrLabels[i + label_FirstOffset]] = 1;
         }
 
         for (int i = 0; i < data.length; i++) {
@@ -162,6 +162,6 @@ public class FileManager {
                 data[i][j] = arrData[i * image_X * image_Y + j + image_FirstOffset] & 0xFF;
             }
         }
-        return new Pair<int[][], byte[]>(data, label);
+        return new Pair<int[][], double[][]>(data, label);
     }
 }

@@ -6,8 +6,8 @@ import java.util.HashMap;
 
 import javax.swing.border.LineBorder;
 
+import Commons.CalulationTools.SupportingCalculations;
 import PracticeProjects.Filemanager;
-import projects.SupportingClaculations;
 
 public class CalcTransaktionen {
     static ArrayList<Person> participants = new ArrayList<Person>();
@@ -36,8 +36,8 @@ public class CalcTransaktionen {
         }
 
         double toContribute = sum / participants.size();
-        String printstring = "Insgesammt Ausgegeben: " + SupportingClaculations.round(sum, 2) + "\n"
-                + "Durchschnittline Kosten: " + SupportingClaculations
+        String printstring = "Insgesammt Ausgegeben: " + SupportingCalculations.round(sum, 2) + "\n"
+                + "Durchschnittline Kosten: " + SupportingCalculations
                         .round(toContribute, 2);
 
         Filemanager.writeToFile("projects/GeschenkGeldVerteiler/solution.txt", printstring, true);

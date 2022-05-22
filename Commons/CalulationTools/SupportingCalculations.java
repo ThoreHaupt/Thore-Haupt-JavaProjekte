@@ -1,9 +1,9 @@
-package projects;
+package Commons.CalulationTools;
 
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class SupportingClaculations {
+public class SupportingCalculations {
     public static double round(double d, int i) {
         return (double) ((int) (d * Math.pow(10, i))) / Math.pow(10, i);
     }

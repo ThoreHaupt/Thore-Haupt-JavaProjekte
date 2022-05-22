@@ -2,7 +2,7 @@ package ProkSy.RP.RP_002.P2_3.trainingstagebuch.model;
 
 import java.util.Date;
 
-import projects.SupportingClaculations;
+import Commons.CalulationTools.SupportingCalculations;
 
 public class Lauftraining extends Trainingseinheit {
     private double distance;
@@ -20,7 +20,7 @@ public class Lauftraining extends Trainingseinheit {
     }
 
     public double getSpeed() {
-        return SupportingClaculations.round((distance / (time)) * 3600, 4);
+        return SupportingCalculations.round((distance / (time)) * 3600, 4);
     }
 
     public double getDistance() {

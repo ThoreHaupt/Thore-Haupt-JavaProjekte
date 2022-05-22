@@ -2,7 +2,7 @@ package ProkSy.Tutorium.T_01.A1_2;
 
 import java.util.Arrays;
 
-import projects.SupportingClaculations;
+import Commons.CalulationTools.SupportingCalculations;
 
 public class Punkt implements Comparable<Punkt> {
     public double x;
@@ -69,8 +69,8 @@ public class Punkt implements Comparable<Punkt> {
 
     @Override
     public String toString() {
-        return "Punkt: (" + SupportingClaculations.round(x, 2) + ":" + SupportingClaculations.round(y, 2) + ")["
-                + SupportingClaculations.round(this.calcualteDistance(), 3) + "]";
+        return "Punkt: (" + SupportingCalculations.round(x, 2) + ":" + SupportingCalculations.round(y, 2) + ")["
+                + SupportingCalculations.round(this.calcualteDistance(), 3) + "]";
     }
 
     /*

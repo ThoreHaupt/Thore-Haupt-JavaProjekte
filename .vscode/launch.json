@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch MatrixCalculation",
+            "request": "launch",
+            "mainClass": "Commons.CalulationTools.MatrixCalculation",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch FileManager",
+            "request": "launch",
+            "mainClass": "Commons.FileHandiling.FileManager",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch MatixCalculation",
+            "request": "launch",
+            "mainClass": "Commons.CalulationTools.MatixCalculation",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
             "name": "Launch NeuralNet",
             "request": "launch",
             "mainClass": "neuralNetTestsIG.TestBasicNeuralNet.NeuralNet",

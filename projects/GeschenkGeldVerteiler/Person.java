@@ -2,7 +2,7 @@ package projects.GeschenkGeldVerteiler;
 
 import java.util.ArrayList;
 
-import projects.SupportingClaculations;
+import Commons.CalulationTools.SupportingCalculations;
 
 public class Person implements Comparable {
     public String name;
@@ -39,7 +39,7 @@ public class Person implements Comparable {
     public Transaction transfer(Transaction t) {
         outgoingTransactions.add(t);
         this.balance += t.amount;
-        balance = SupportingClaculations.round(balance, 4);
+        balance = SupportingCalculations.round(balance, 4);
         return t;
     }
 
@@ -47,7 +47,7 @@ public class Person implements Comparable {
         if (t.recieves != this)
             return false;
         balance -= t.amount;
-        balance = SupportingClaculations.round(balance, 4);
+        balance = SupportingCalculations.round(balance, 4);
         incomingTransactions.add(t);
         return true;
     }

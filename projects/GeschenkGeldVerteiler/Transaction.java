@@ -1,6 +1,6 @@
 package projects.GeschenkGeldVerteiler;
 
-import projects.SupportingClaculations;
+import Commons.CalulationTools.SupportingCalculations;
 
 public class Transaction {
     double amount;
@@ -17,6 +17,6 @@ public class Transaction {
 
     @Override
     public String toString() {
-        return send.name + " >> " + SupportingClaculations.round(this.amount, 2) + " >> " + recieves.name;
+        return send.name + " >> " + SupportingCalculations.round(this.amount, 2) + " >> " + recieves.name;
     }
 }
