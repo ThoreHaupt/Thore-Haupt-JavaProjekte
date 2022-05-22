@@ -16,7 +16,7 @@ public class FileManager {
     public static void main(String[] args) {
         Pair<int[][], byte[]> dataset = loadDataSet("neuralNetTestsIG/Data/Datasets/NIST/train-images",
                 "neuralNetTestsIG/Data/Datasets/NIST/train-labels");
-        int nummer = 0;
+        int nummer = 12;
         System.out.println(dataset.b[nummer]);
         String outputString = "";
         for (int i = 0; i < 28 * 28; i++) {
@@ -129,7 +129,7 @@ public class FileManager {
 
     }
 
-    private static Pair<int[][], byte[]> loadDataSet(String dataPath, String labelPath) { // Pair<byte[][], byte[]>
+    public static Pair<int[][], byte[]> loadDataSet(String dataPath, String labelPath) { // Pair<byte[][], byte[]>
         byte[] arrLabels;
         byte[] arrData;
         try {

@@ -6,9 +6,9 @@ import neuralNetTestsIG.Data.FileHandiling.FileManager;
 import neuralNetTestsIG.Data.FileHandiling.Pair;
 
 public class NeuralNet {
-    ArrayList<float[][]> nodes;
-    ArrayList<float[][]> weigths;
-    ArrayList<float[][]> biases;
+    ArrayList<float[][]> nodes = new ArrayList<>();
+    ArrayList<float[][]> weigths = new ArrayList<>();
+    ArrayList<float[][]> biases = new ArrayList<>();
 
     int imagesize = 28;
     int[] nodeLayerSizes = { imagesize * imagesize, 126, 10 };
@@ -16,6 +16,30 @@ public class NeuralNet {
 
     float sepSize = .1f;
     int layerThickness = 1;
+
+    public static void main(String[] args) {
+        NeuralNet NN = new NeuralNet();
+        Pair<int[][], byte[]> dataset = FileManager.loadDataSet("neuralNetTestsIG/Data/Datasets/NIST/train-images",
+                "neuralNetTestsIG/Data/Datasets/NIST/train-labels");
+
+        float[][] inputLayer = new float[1][dataset.a[0].length];
+        for (int i = 0; i < dataset.a[0].length; i++) {
+            inputLayer[0][i] = (float) dataset.a[0][i];
+        }
+
+        NN.nodes.add(inputLayer);
+        NN.calculateOutputLayer();
+        for (float f : NN.nodes.get(NN.nodes.size() - 1)[0]) {
+            System.out.println(f);
+        }
+    }
+
+    public NeuralNet() {
+
+        initiallizeBiases();
+        initiallizeWeightes();
+
+    }
 
     public void calculateResult(int[] image) {
 
@@ -29,9 +53,9 @@ public class NeuralNet {
      */
     private void initiallizeWeightes() {
         for (int i = 0; i < nodeLayerSizes.length - 1; i++) {
-            float[][] arr = new float[nodeLayerSizes[i + 1]][nodeLayerSizes[i]];
-            for (int j = 0; j < nodeLayerSizes[i + 1]; j++) {
-                for (int k = 0; k < nodeLayerSizes[i]; k++) {
+            float[][] arr = new float[nodeLayerSizes[i]][nodeLayerSizes[i + 1]];
+            for (int j = 0; j < nodeLayerSizes[i]; j++) {
+                for (int k = 0; k < nodeLayerSizes[i + 1]; k++) {
                     arr[j][k] = (float) Math.random();
                 }
             }
