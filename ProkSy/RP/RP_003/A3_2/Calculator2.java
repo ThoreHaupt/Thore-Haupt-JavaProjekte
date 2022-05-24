@@ -4,15 +4,15 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.plaf.ColorUIResource;
 
-public class Calculator extends JFrame {
+public class Calculator2 extends JFrame {
 
     Container contentPain;
 
     public static void main(String[] args) {
-        new Calculator();
+        new Calculator2();
     }
 
-    public Calculator() {
+    public Calculator2() {
 
         contentPain = this.getContentPane();
 
@@ -29,32 +29,36 @@ public class Calculator extends JFrame {
         // Pannel für SOUTH
         JPanel panel_S = new JPanel();
 
-        BorderLayout S_LMR = new BorderLayout();
+        BorderLayout S_LMR = new BorderLayout(2, 2);
         panel_S.setLayout(S_LMR);
 
         // South unterscheiden in East and West
 
         JPanel panel_SW = new JPanel();
         {
-            BorderLayout SW_LMR = new BorderLayout(0, 0);
+            GridBagLayout SW_LMR = new GridBagLayout();
+            GridBagConstraints GBLConstrains = new GridBagConstraints();
+
             panel_SW.setLayout(SW_LMR);
 
             {
                 // SOUTH WEST NORTH ( die kleine graue Box, aber ich mache da einen Knopf rein,
                 // weil ich nicht weiß was das für ein Object sein soll)
                 JPanel panel_SWN = new JPanel();
-                panel_SWN.setMinimumSize(new Dimension(10, 50));
                 panel_SWN.setBackground(new ColorUIResource(255, 0, 0));
-                GridLayout SWN_LMR = new GridLayout(1, 1);
+                GridBagLayout SWN_LMR = new GridBagLayout();
+
                 panel_SWN.setLayout(SWN_LMR);
 
-                Component component = Box.createRigidArea(new Dimension(30, 30));
-                panel_SWN.add(component, 0);
+                JButton button_SWN = new JButton("1");
 
-                // JButton button_SWN = new JButton("");
-                // panel_SWN.add(button_SWN, 0);
+                GBLConstrains.weightx = .5f;
+                GBLConstrains.weighty = .5f;
+                panel_SWN.add(button_SWN, GBLConstrains);
 
-                panel_SW.add(panel_SWN, BorderLayout.NORTH);
+                GBLConstrains.weightx = .5f;
+                GBLConstrains.gridy = 0;
+                panel_SW.add(panel_SWN, GBLConstrains);
             }
             {
                 JPanel panel_SWC = new JPanel();
@@ -67,13 +71,16 @@ public class Calculator extends JFrame {
                     SWS_Buttons[i] = new JButton("" + i);
                     panel_SWC.add(SWS_Buttons[i], i);
                 }
+                GBLConstrains.gridy = 1;
+                panel_SW.add(panel_SWC, GBLConstrains);
 
-                panel_SW.add(panel_SWC, BorderLayout.WEST);
             }
+            panel_S.add(panel_SW, BorderLayout.WEST);
         }
+
         JPanel panel_SC = new JPanel();
         {
-            BorderLayout SC_LMR = new BorderLayout(0, 0);
+            BorderLayout SC_LMR = new BorderLayout(2, 2);
             panel_SC.setLayout(SC_LMR);
             {
                 JPanel panel_SCN = new JPanel();
@@ -101,7 +108,6 @@ public class Calculator extends JFrame {
 
         }
 
-        panel_S.add(panel_SW, BorderLayout.WEST);
         panel_S.add(panel_SC, BorderLayout.CENTER);
         contentPain.add(panel_S, BorderLayout.CENTER);
 

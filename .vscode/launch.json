@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Calculator2",
+            "request": "launch",
+            "mainClass": "ProkSy.RP.RP_003.A3_2.Calculator2",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch Calculator",
+            "request": "launch",
+            "mainClass": "ProkSy.RP.RP_003.A3_2.Calculator",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
             "name": "Launch Calculator",
             "request": "launch",
             "mainClass": "ProkSy.RP.RP_003.A3_2.Calculator",
