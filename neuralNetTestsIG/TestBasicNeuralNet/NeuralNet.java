@@ -48,7 +48,7 @@ public class NeuralNet {
         }
 
         NN.nodes[0] = inputLayer;
-        NN.calculateOutputLayer();
+        NN.fore_prop();
 
         double[][] lastlayer = NN.nodes[NN.nodes.length - 1];
 
@@ -158,7 +158,7 @@ public class NeuralNet {
         }
     }
 
-    private void calculateOutputLayer() {
+    private void fore_prop() {
         // sigmoid(nodes.get(0));
         for (int i = 0; i < nodeLayerSizes.length - 1; i++) {
             double[][] layerWithoutBias = MatrixCalculation.matrixMultiplikation(weights[i], nodes[i]);
