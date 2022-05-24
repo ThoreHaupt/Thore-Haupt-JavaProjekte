@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Calculator",
+            "request": "launch",
+            "mainClass": "ProkSy.RP.RP_003.A3_2.Calculator",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch SwingComponentsDemo",
+            "request": "launch",
+            "mainClass": "ProkSy.RP.RP_003.A3_1.SwingComponentsDemo",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch SwingComponentsDemo",
+            "request": "launch",
+            "mainClass": "ProkSy.RP.RP_003.SwingComponentsDemo",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
             "name": "Launch scannertest",
             "request": "launch",
             "mainClass": "testStuff.scannertest",

@@ -5,6 +5,11 @@ public class WerBinIch_Class<T> {
         dasBinIch(var);
     }
 
+    /**
+     * hallo
+     * 
+     * @param var
+     */
     public void dasBinIch(T var) {
         System.out.println("Ich bin vom Datentyp " + var.getClass());
     }
