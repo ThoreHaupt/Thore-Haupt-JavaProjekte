@@ -43,8 +43,8 @@ public class Calculator extends JFrame {
                 // SOUTH WEST NORTH ( die kleine graue Box, aber ich mache da einen Knopf rein,
                 // weil ich nicht weiß was das für ein Object sein soll)
                 JPanel panel_SWN = new JPanel();
-                panel_SWN.setMinimumSize(new Dimension(10, 50));
-                panel_SWN.setBackground(new ColorUIResource(255, 0, 0));
+                panel_SWN.setMinimumSize(new Dimension(10, 35));
+                panel_SWN.setBackground(new ColorUIResource(200, 200, 200));
                 GridLayout SWN_LMR = new GridLayout(1, 1);
                 panel_SWN.setLayout(SWN_LMR);
 
