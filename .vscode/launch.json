@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch Aufgaben",
+            "request": "launch",
+            "mainClass": "AIFB.Aufgaben",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
             "name": "Launch Calculator2",
             "request": "launch",
             "mainClass": "ProkSy.RP.RP_003.A3_2.Calculator2",
