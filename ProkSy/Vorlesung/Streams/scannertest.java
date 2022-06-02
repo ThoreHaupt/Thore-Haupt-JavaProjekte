@@ -1,4 +1,4 @@
-package testStuff;
+package ProkSy.Vorlesung.Streams;
 
 import java.io.File;
 import java.io.FileInputStream;

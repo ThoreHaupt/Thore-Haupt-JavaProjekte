@@ -6,6 +6,48 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch test2",
+            "request": "launch",
+            "mainClass": "ProkSy.Tutorium.T5.test2",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch inputStreamReaderTest",
+            "request": "launch",
+            "mainClass": "ProkSy.Tutorium.T5.inputStreamReaderTest",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch Umrechner",
+            "request": "launch",
+            "mainClass": "ProkSy.RP.RP_005.A4_4.Umrechner",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch Window",
+            "request": "launch",
+            "mainClass": "ProkSy.RP.RP_005.A4_3.Window",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch Window",
+            "request": "launch",
+            "mainClass": "ProkSy.RP.RP_005.A4_2.Window",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch Uhr",
+            "request": "launch",
+            "mainClass": "ProkSy.RP.RP_005.A4_1.Uhr",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
             "name": "Launch Calculator2",
             "request": "launch",
             "mainClass": "ProkSy.RP.RP_003.A3_2.Calculator2",
