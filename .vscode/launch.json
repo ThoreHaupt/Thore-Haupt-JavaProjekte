@@ -44,7 +44,9 @@
             "name": "Launch Uhr",
             "request": "launch",
             "mainClass": "ProkSy.RP.RP_005.A4_1.Uhr",
-            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
             "name": "Launch Aufgaben",
             "request": "launch",
             "mainClass": "AIFB.Aufgaben",
