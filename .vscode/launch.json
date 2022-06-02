@@ -47,6 +47,7 @@
             "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
         },
         {
+            "type": "java",
             "name": "Launch Aufgaben",
             "request": "launch",
             "mainClass": "AIFB.Aufgaben",
