@@ -12,6 +12,8 @@ public class SortiererMain {
             t1.add(p);
             t2.add(p);
         }
+
+        t2.addAll(t1);
         System.out.println(t1);
         System.out.println(t2);
     }
