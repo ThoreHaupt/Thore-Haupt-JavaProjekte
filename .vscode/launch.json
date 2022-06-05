@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch A2",
+            "request": "launch",
+            "mainClass": "AIFB.A2",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch Aufgaben",
+            "request": "launch",
+            "mainClass": "AIFB.Aufgaben",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
             "name": "Launch test2",
             "request": "launch",
             "mainClass": "ProkSy.Tutorium.T5.test2",
