@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch B03",
+            "request": "launch",
+            "mainClass": "AIFB.B03",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
+            "name": "Launch downloadWebPage",
+            "request": "launch",
+            "mainClass": "ProkSy.Vorlesung.Streams.downloadWebPage",
+            "projectName": "SemProg1_9b998420"
+        },
+        {
+            "type": "java",
             "name": "Launch test2",
             "request": "launch",
             "mainClass": "ProkSy.Tutorium.T5.test2",
