@@ -21,16 +21,16 @@ public class Aufgaben {
         var w9 = a;
         var w10 = Math.pow(Math.E, a / (d + 1) - 2) * b + b;
 
-        System.out.println("hallo1234567" == new String("hallo1234567"));
-
-        System.out.println(w1);
-        System.out.println(w2);
-        System.out.println(w3);
-        System.out.println(w4);
-        System.out.println("w5 " + w5);
-        System.out.println(w6);
-        System.out.println(w7);
-        System.out.println(w10);
+        System.out.println("w1 (boolean): " + w1);
+        System.out.println("w2 (int):     " + w2);
+        System.out.println("w3 (boolean): " + w3);
+        System.out.println("w4 (boolean): " + w4);
+        System.out.println("w5 (int):     " + w5);
+        System.out.println("w6 (boolean): " + w6);
+        System.out.println("w7 (double):  " + w7);
+        System.out.println("w8 (int):     " + w8);
+        System.out.println("w9 (int):     " + w9);
+        System.out.println("w10 (double): " + w10);
 
         System.out.println(Rechnen.rest(5.3, 2));
     }
@@ -73,8 +73,10 @@ class Rechnen {
      * }
      */
 
-    public static int meineMethode(int argument1, int argument2) {
-        return argument1 + argument2;
-    }
+    /*
+     * public static int meineMethode(int argument1, int argument2) {
+     * return argument1 + argument2;
+     * }
+     */
 
 }

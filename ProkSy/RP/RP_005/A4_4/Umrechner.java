@@ -20,6 +20,7 @@ public class Umrechner extends JFrame {
     ConversionLogic CL;
 
     boolean ignoreWrongInput;
+    boolean tausendertrennzeichen;
 
     public static void main(String[] args) {
         ConversionLogic CL = new ConversionLogic();
@@ -95,6 +96,16 @@ public class Umrechner extends JFrame {
 
         });
         Panel_02.add(checkbox1);
+        JCheckBox checkbox2 = new JCheckBox("Tausendertrennzeichen");
+        checkbox2.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tausendertrennzeichen = !tausendertrennzeichen;
+            }
+
+        });
+        Panel_02.add(checkbox2);
 
         JPanel Panel_03 = new JPanel();
         Panel_03.setLayout(new GridLayout(1, 1));
@@ -146,14 +157,20 @@ public class Umrechner extends JFrame {
             JFrame topFrame = (JFrame) SwingUtilities.getWindowAncestor((JButton) e.getSource());
             try {
 
-                NumberFormat format = NumberFormat.getInstance(Locale.GERMANY);
-                Number leftValue = format.parse(leftField.getText());
-                Number rightValue = format.parse(rightField.getText());
+                /*
+                 * NumberFormat format = NumberFormat.getInstance(Locale.GERMANY);
+                 * Number leftValue = format.parse(leftField.getText());
+                 * Number rightValue = format.parse(rightField.getText());
+                 */
 
-                CL.setValue(leftField.isEditable() ? leftValue.doubleValue()
-                        : rightValue.doubleValue());
+                /*
+                 * CL.setValue(leftField.isEditable() ? leftValue.doubleValue()
+                 * : rightValue.doubleValue());
+                 */
+                CL.setValue(leftField.isEditable() ? Double.parseDouble(leftField.getText())
+                        : Double.parseDouble(rightField.getText()));
 
-            } catch (ParseException error) {
+            } catch (NumberFormatException error) {
                 System.out.println(error.getLocalizedMessage());
                 if (!ignoreWrongInput)
                     JOptionPane.showMessageDialog(topFrame, "Dieser Wert ist ungültig", "Fehler",

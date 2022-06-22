@@ -6,6 +6,7 @@
     "configurations": [
         {
             "type": "java",
+<<<<<<< HEAD
             "name": "Launch B03",
             "request": "launch",
             "mainClass": "AIFB.B03",
@@ -17,6 +18,19 @@
             "request": "launch",
             "mainClass": "ProkSy.Vorlesung.Streams.downloadWebPage",
             "projectName": "SemProg1_9b998420"
+=======
+            "name": "Launch A2",
+            "request": "launch",
+            "mainClass": "AIFB.A2",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "Launch Aufgaben",
+            "request": "launch",
+            "mainClass": "AIFB.Aufgaben",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+>>>>>>> cb10ad3a5b55712e15385efd3f3c69c195c6a210
         },
         {
             "type": "java",
