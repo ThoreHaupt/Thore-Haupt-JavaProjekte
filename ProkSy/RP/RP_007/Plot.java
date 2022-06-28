@@ -1,4 +1,4 @@
-package ProkSy.RP.RP_006;
+package ProkSy.RP.RP_007;
 
 import java.awt.*;
 import javax.swing.*;
