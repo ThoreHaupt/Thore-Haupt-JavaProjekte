@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import PracticeProjects.Sortingalgorythms.MergeHybrids;
 import PracticeProjects.Sortingalgorythms.MergeSortArrayList;
+import PracticeProjects.Sortingalgorythms.InsertSorts;
 
 /**
  *
@@ -76,72 +77,69 @@ public class Taskmanager {
         long current;
         double t1 = 100000;
 
-        /*
-         * // Insert Sort my first implementation
-         * Filemanager.println("------ InsertI -------------------------");
-         * current = System.nanoTime();
-         * String[] sortedString1 = Sort.StringInsertSort(strings.clone()); //
-         * <--calling the Algorithm
-         * t1 = (System.nanoTime() - current) * Math.pow(10, -6);
-         * 
-         * Filemanager.printtp("StringInsertSort time in milliseconds: ", t1);
-         * Filemanager.printtp("Time per Element: ", t1 / strings.length);
-         * Filemanager.printtp("ratio (Insert/Insert): ", (double) (t1 / t1));
-         * 
-         * Filemanager.createFile(
-         * "PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert4.txt", true);
-         * Filemanager.writeToFile(
-         * "PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert4.txt",
-         * sortedString1, true);
-         * Filemanager.println("Saved Insert I to file 4...");
-         * 
-         * Filemanager.println("");
-         * 
-         * // InsertII 2. Implementation
-         * Filemanager.println("------ InsertII ------------------------");
-         * current = System.nanoTime();
-         * String[] sortedString2 = Sort.StringInsertSortII(strings.clone()); //
-         * <--calling the Algorithm
-         * double t2 = (System.nanoTime() - current) * Math.pow(10, -6);
-         * 
-         * Filemanager.printtp("StringInsertSort time in milliseconds: ", t2);
-         * Filemanager.printtp("Time per Element: ", t2 / strings.length);
-         * Filemanager.printtp("ratio (Insert/Insert): ", (double) (t1 / t2));
-         * 
-         * Filemanager.createFile(
-         * "PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert5.txt", true);
-         * Filemanager.writeToFile(
-         * "PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert5.txt",
-         * sortedString2, true);
-         * Filemanager.println("Saved Insert II to file 5...");
-         * 
-         * Filemanager.println("");
-         */
+        // Insert Sort my first implementation
+        Filemanager.println("------ InsertI -------------------------");
+        current = System.nanoTime();
+        String[] sortedString1 = InsertSorts.StringInsertSort(strings.clone());
+        //<--calling the Algorithm
+        t1 = (System.nanoTime() - current) * Math.pow(10, -6);
 
-        /*
-         * // MergeSort
-         * Filemanager.println("------ MergeSort ------------------------");
-         * current = System.nanoTime();
-         * String[] sortedString3 = MergeSortArrayList.MergeSort(strings.clone(),
-         * "PracticeProjects/Textfiles/CharacterOrder.txt"); // <--calling the Algorithm
-         * double t3 = (System.nanoTime() - current) * Math.pow(10, -6);
-         * 
-         * {
-         * Filemanager.printtp("MergeSort time in milliseconds: ", t3);
-         * Filemanager.printtp("Time per Element: ", t3 / strings.length);
-         * Filemanager.printtp("ratio (InsertSort 1/MergeSort): ", (double) (t1 / t3));
-         * Filemanager.println("");
-         * 
-         * Filemanager.createFile(
-         * "PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert6.txt", true);
-         * Filemanager.writeToFile(
-         * "PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert6.txt",
-         * sortedString3, true);
-         * Filemanager.println("Saved MergeSort to file 6...");
-         * 
-         * Filemanager.println("");
-         * }
-         */
+        Filemanager.printtp("StringInsertSort time in milliseconds: ", t1);
+        Filemanager.printtp("Time per Element: ", t1 / strings.length);
+        Filemanager.printtp("ratio (Insert/Insert): ", (double) (t1 / t1));
+
+        Filemanager.createFile(
+                "PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert4.txt", true);
+        Filemanager.writeToFile(
+                "PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert4.txt",
+                sortedString1, true);
+        Filemanager.println("Saved Insert I to file 4...");
+
+        Filemanager.println("");
+
+        // InsertII 2. Implementation
+        Filemanager.println("------ InsertII ------------------------");
+        current = System.nanoTime();
+        String[] sortedString2 = InsertSorts.StringInsertSortII(strings.clone());
+        //<--calling the Algorithm
+        double t2 = (System.nanoTime() - current) * Math.pow(10, -6);
+
+        Filemanager.printtp("StringInsertSort time in milliseconds: ", t2);
+        Filemanager.printtp("Time per Element: ", t2 / strings.length);
+        Filemanager.printtp("ratio (Insert/Insert): ", (double) (t1 / t2));
+
+        Filemanager.createFile(
+                "PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert5.txt", true);
+        Filemanager.writeToFile(
+                "PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert5.txt",
+                sortedString2, true);
+        Filemanager.println("Saved Insert II to file 5...");
+
+        Filemanager.println("");
+
+        // MergeSort
+        Filemanager.println("------ MergeSort ------------------------");
+        current = System.nanoTime();
+        String[] sortedString3 = MergeSortArrayList.MergeSort(strings.clone(),
+                "PracticeProjects/Textfiles/CharacterOrder.txt"); // <--calling the Algorithm
+        double t3 = (System.nanoTime() - current) * Math.pow(10, -6);
+
+        {
+            Filemanager.printtp("MergeSort time in milliseconds: ", t3);
+            Filemanager.printtp("Time per Element: ", t3 / strings.length);
+            Filemanager.printtp("ratio (InsertSort 1/MergeSort): ", (double) (t1 / t3));
+            Filemanager.println("");
+
+            Filemanager.createFile(
+                    "PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert6.txt", true);
+            Filemanager.writeToFile(
+                    "PracticeProjects/Textfiles/sortedTextoutputfiles/Sortiert6.txt",
+                    sortedString3, true);
+            Filemanager.println("Saved MergeSort to file 6...");
+
+            Filemanager.println("");
+        }
+
         // MergeSortLinked
         Filemanager.println("------ MergeSortLinked ----------------");
         current = System.nanoTime();
