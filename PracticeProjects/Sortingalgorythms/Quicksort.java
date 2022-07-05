@@ -9,12 +9,17 @@ public class Quicksort {
     static int[] arr;
 
     public static void main(String[] args) {
-        int groeße = 50;
+        int groeße = 100000000;
         List<Integer> l = Stream.generate(Math::random).map(x -> (int) (x * groeße) + 1).limit(groeße)
                 .collect(Collectors.toList());
         arr = l.stream().mapToInt(x -> (int) x).toArray();
+        long t = System.currentTimeMillis();
         quicksort(0, arr.length - 1);
-        System.out.println(Arrays.toString(arr));
+        System.out.println(System.currentTimeMillis() - t);
+        int[] arr2 = l.stream().mapToInt(x -> (int) x).toArray();
+        long t2 = System.currentTimeMillis();
+        Arrays.sort(arr2);
+        System.out.println(System.currentTimeMillis() - t2);
     }
 
     public static void quicksort(int li, int re) {
@@ -24,8 +29,7 @@ public class Quicksort {
 
         if (li == re)
             return;
-
-        System.out.print(li + "-" + re + " :" + Arrays.toString(arr) + " ->");
+        // System.out.print(li + "-" + re + " :" + Arrays.toString(arr) + " ->");
 
         while (i < j) {
             while (arr[i] <= pivot && i < re) {
@@ -42,7 +46,7 @@ public class Quicksort {
         }
 
         switchIndexes(j, li);
-        System.out.println(Arrays.toString(arr));
+        //System.out.println(Arrays.toString(arr));
         if (j > li)
             quicksort(li, j - 1);
         if (i < re - 1)
@@ -53,6 +57,6 @@ public class Quicksort {
         int temp = arr[a];
         arr[a] = arr[b];
         arr[b] = temp;
-        System.out.print(" s(" + a + "," + b + ")");
+        // System.out.print(" s(" + a + "," + b + ")");
     }
 }
