@@ -1,6 +1,10 @@
 package ProkSy.RP.RP_008.A2;
 
 import java.io.*;
+import java.net.MalformedURLException;
+import java.rmi.Naming;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 
 /**
  *
@@ -18,7 +22,27 @@ public class EchoClient {
         boolean isRunning = false;
         BufferedReader in = null;
 
-        es = (EchoService) new EchoServer().getEchoObject();
+        while (es == null) {
+            try {
+                // Referenz des Server-Objekts von Registry besorgen
+                es = (EchoService) Naming.lookup("//172.23.219.33:7779/Echo");
+            } catch (RemoteException e) {
+                // e.printStackTrace();
+            } catch (MalformedURLException e) {
+                // e.printStackTrace();
+            } catch (NotBoundException e) {
+                // e.printStackTrace();
+            }
+            // print and wait until connected
+            if (es == null) {
+                try {
+                    System.out.println("Could not connect to Server.");
+                    Thread.sleep(3000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
 
         try {
             isRunning = true;
