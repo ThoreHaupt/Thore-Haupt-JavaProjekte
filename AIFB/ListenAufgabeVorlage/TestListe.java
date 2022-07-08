@@ -2,23 +2,25 @@ package AIFB.ListenAufgabeVorlage;
 
 import java.util.Scanner;
 
+import AIFB.ArrayListen.ArrayListe;
+
 public class TestListe {
 
     public static void main(String[] args) {
 
         boolean interrupted = false;
-        Liste liste = new Liste();
+        ArrayListe liste = new ArrayListe();
 
         Scanner scanner = new Scanner(System.in);
 
-        for (int i = 0; i < 10; i += 2) {
+        for (int i = 0; i < 30; i += 2) {
             liste.add(i);
         }
 
         System.out.println("Hier können Sie die Liste bearbeiten.");
         System.out.println("end [beendet das Programm]");
         System.out.println("add wert ; rem(ove) index ; get index ; print [druckt die ganze Liste]");
-        System.out.println("Die momentanige Liste : " + liste.print());
+        System.out.println("Die momentanige Liste : " + liste.toString());
 
         while (!interrupted) {
             System.out.print(">>");
@@ -56,12 +58,12 @@ public class TestListe {
                     }
                     break;
                 case "print":
-                    System.out.println(liste.print());
+                    System.out.println(liste.toString());
                     break;
                 case "end":
                     interrupted = true;
                     System.out.println("Das Programm wurde beended. Die Liste war:");
-                    System.out.println(liste.print());
+                    System.out.println(liste.toString());
                     break;
                 default:
                     System.out.println("Dieser Befehl existiert nicht.");

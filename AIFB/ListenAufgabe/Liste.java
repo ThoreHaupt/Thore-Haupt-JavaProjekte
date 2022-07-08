@@ -55,7 +55,7 @@ public class Liste {
 
         // gehe index - 1 mal forwärts. Da der Index nicht null ist, handelt es sich hier immer mindestens um 0.
         for (int i = 0; i < index - 1; i++) {
-            current = head.next;
+            current = current.next;
         }
 
         // lösche das Element von der Liste

@@ -2,8 +2,12 @@ package AIFB.ListenAufgabeVorlage;
 
 public class Liste {
 
-    class Element {
+    Element head;
+    int size = 0;
 
+    class Element {
+        Element next;
+        int value;
     }
 
     /**
@@ -11,6 +15,19 @@ public class Liste {
      * @return
      */
     public int get(int index) {
+
+        try {
+            //Code der eine Exception wirft...
+        } catch (NullPointerException e) {
+            //TODO: handle exception
+        } catch (IndexOutOfBoundsException e) {
+            //TODO: handle exception
+        } catch (RuntimeException e) {
+            //TODO: handle exception
+        } finally {
+            // Was auf jeden Fall noch gemacht werden muss -> bsp. Scanner schließen
+        }
+
         return 0;
     }
 
@@ -33,7 +50,7 @@ public class Liste {
      * @author Thore Haupt
      * @return
      */
-    public String print() {
+    public String toString() {
         String outputString = "(";
         Element current = head;
 

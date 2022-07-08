@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import java.awt.*;
+import java.util.concurrent.Semaphore;
 
 class buttonPanel extends JPanel {
     public static void main(String[] args) {
@@ -23,6 +24,7 @@ class buttonPanel extends JPanel {
 
     Runnable runner;
     Thread thread;
+    final Semaphore block = new Semaphore(0, true);
 
     boolean running = true;
 
@@ -70,18 +72,21 @@ class buttonPanel extends JPanel {
     }
 
     private void intiThread() {
-        thread = new Thread(() -> {
-            synchronized (this) {
-                try {
-                    wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("yeah");
-                maxRandomButton();
-            }
+        runner = () -> {
 
-        });
+            try {
+                synchronized (this) { // funktioniert nicht
+                    Thread.currentThread().wait();
+                }
+
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            System.out.println("yeah");
+            maxRandomButton();
+
+        };
+        thread = new Thread(runner);
         thread.start();
     }
 

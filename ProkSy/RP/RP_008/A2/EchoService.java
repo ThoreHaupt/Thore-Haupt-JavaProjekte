@@ -1,4 +1,4 @@
-package ProkSy.RP.RP_008.A2.LokaleProgrammierung;
+package ProkSy.RP.RP_008.A2;
 
 /**
  *

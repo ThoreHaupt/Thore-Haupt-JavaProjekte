@@ -4,6 +4,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.*;
+import java.util.concurrent.Semaphore;
 
 public class A5 {
 
@@ -24,6 +25,7 @@ public class A5 {
 
         Runnable runner;
         Thread thread;
+        final Semaphore block = new Semaphore(0, true);
 
         boolean running = true;
 
@@ -42,33 +44,27 @@ public class A5 {
         private void initButtons(ButtonPanel b) {
             button1 = new JButton(0 + "");
             button1.addActionListener(e -> {
-                synchronized (thread) {
-                    thread.notify();
-                }
-
+                block.release();
             });
             add(button1);
             buttons[0] = button1;
 
             button2 = new JButton(0 + "");
             button2.addActionListener(e -> {
-                synchronized (thread) {
-                    thread.notify();
-                }
+                block.release();
             });
             add(button2);
             buttons[1] = button2;
 
             button3 = new JButton(0 + "");
             button3.addActionListener(e -> {
-                synchronized (thread) {
-                    thread.notify();
-                }
+                block.release();
             });
             add(button3);
             buttons[2] = button3;
         }
 
+        //oben: final Semaphore block = new Semaphore(0, true);
         private void initThread(ButtonPanel b) {
 
             runner = () -> {
@@ -77,9 +73,11 @@ public class A5 {
 
                 while (true) {
                     try {
-                        synchronized (thread) {
+                        /* // "this" ist ja dann eine referenz zu dem äußeren Objekt. Aber Thread geht hier auch nciht, das Object ist ja noch null;
+                        synchronized (thread) { 
                             wait();
-                        }
+                        } */
+                        block.acquire();
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -88,11 +86,10 @@ public class A5 {
                 }
             };
 
-            /* thread = new ThreadThing(b);
-            thread.start(); */
-
-            thread = new Thread();
+            thread = new Thread(runner);
             thread.start();
+
+            //ExtendedThread thread2 = new ExtendedThread(b);
 
         }
 
@@ -110,10 +107,10 @@ public class A5 {
             }
         }
 
-        private static class ThreadThing extends Thread {
+        private static class ExtendedThread extends Thread {
             ButtonPanel b = null;
 
-            public ThreadThing(ButtonPanel b) {
+            public ExtendedThread(ButtonPanel b) {
                 this.b = b;
             }
 
@@ -130,15 +127,6 @@ public class A5 {
                     }
                 }
             }
-
-            void notifyWithin() {
-                synchronized (this) {
-                    notify();
-                }
-
-            }
         }
-
     }
-
 }
