@@ -5,7 +5,7 @@ import javax.swing.plaf.ColorUIResource;
 import javax.swing.text.ChangedCharSetException;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
 
 public class ColoredButton extends JButton {
 
@@ -33,6 +33,16 @@ public class ColoredButton extends JButton {
         @Override
         public void actionPerformed(ActionEvent e) {
             changeColor();
+        }
+
+    }
+
+    private class onPress2 implements ActionListener {
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // TODO Auto-generated method stub
+
         }
 
     }

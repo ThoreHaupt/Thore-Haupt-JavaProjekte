@@ -2,14 +2,12 @@ package AIFB.ListenAufgabeVorlage;
 
 import java.util.Scanner;
 
-import AIFB.ArrayListen.ArrayListe;
-
 public class TestListe {
 
     public static void main(String[] args) {
 
         boolean interrupted = false;
-        ArrayListe liste = new ArrayListe();
+        Liste liste = new Liste();
 
         Scanner scanner = new Scanner(System.in);
 

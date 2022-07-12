@@ -9,7 +9,7 @@ public class Quicksort {
     static int[] arr;
 
     public static void main(String[] args) {
-        int groeße = 100000000;
+        int groeße = 10;
         List<Integer> l = Stream.generate(Math::random).map(x -> (int) (x * groeße) + 1).limit(groeße)
                 .collect(Collectors.toList());
         arr = l.stream().mapToInt(x -> (int) x).toArray();
@@ -20,6 +20,8 @@ public class Quicksort {
         long t2 = System.currentTimeMillis();
         Arrays.sort(arr2);
         System.out.println(System.currentTimeMillis() - t2);
+        System.out.println(Arrays.toString(arr));
+
     }
 
     public static void quicksort(int li, int re) {
@@ -29,14 +31,16 @@ public class Quicksort {
 
         if (li == re)
             return;
-        // System.out.print(li + "-" + re + " :" + Arrays.toString(arr) + " ->");
-
+        System.out.print(li + "-" + re + " :" + Arrays.toString(arr) + " ->");
+        System.out.print(" (" + i + " " + j + ") ");
         while (i < j) {
             while (arr[i] <= pivot && i < re) {
                 i++;
+                System.out.print(" (" + i + " " + j + ") ");
             }
             while (arr[j] > pivot && j > li) {
                 j--;
+                System.out.print(" (" + i + " " + j + ") ");
             }
             if (i == j && arr[i] == arr[j]) {
                 break;
@@ -46,7 +50,7 @@ public class Quicksort {
         }
 
         switchIndexes(j, li);
-        //System.out.println(Arrays.toString(arr));
+        System.out.println(Arrays.toString(arr));
         if (j > li)
             quicksort(li, j - 1);
         if (i < re - 1)
@@ -57,6 +61,6 @@ public class Quicksort {
         int temp = arr[a];
         arr[a] = arr[b];
         arr[b] = temp;
-        // System.out.print(" s(" + a + "," + b + ")");
+        System.out.print(" s(" + a + "," + b + ")");
     }
 }
