@@ -5,7 +5,7 @@ package PracticeProjects;
  * 
  */
 public class Progressbart {
-    
+
     /**
      * Progressbar that shows up in the conosle file.
      * @param path
@@ -31,34 +31,34 @@ public class Progressbart {
     String prefix;
     int prefixlength;
     String currentline;
-    
+
     /**
      * moves the progressbar up by the specified double. 
      * @param update    Value out of 100.0. If that value is reached the progressbar is full.
      */
-    public void update(double update){
+    public void update(double update) {
         int oldint = progressint;
         progress += update;
         progressint = (int) (progress / 5) + 1;
-        if (progressint != oldint){
-            Filemanager.writeToFileLine(path, line, generateLine());
+        if (progressint != oldint) {
+            //Filemanager.writeToFileLine(path, line, generateLine());
         }
-        
+
     }
 
     /**
      * generates the Progressbar line and returns/ stores it in the currentline instanzvariable
      * @return the current progressbar String
      */
-    public String generateLine(){
+    public String generateLine() {
         String format = "%-" + prefixlength + "s%" + prefixlength + "s";
-        String fillstate = ""; 
+        String fillstate = "";
         for (int i = 0; i < 20; i++) {
-           fillstate +=  i >= progressint ? " " : "□"; // "□"
+            fillstate += i >= progressint ? " " : "□"; // "□"
         }
 
         String bar = "|" + fillstate + "|";
-        currentline = String.format(format, prefix, bar); 
+        currentline = String.format(format, prefix, bar);
         return currentline;
     }
 }
