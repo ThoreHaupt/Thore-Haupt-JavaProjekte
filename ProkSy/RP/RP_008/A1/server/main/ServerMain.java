@@ -1,5 +1,6 @@
 package ProkSy.RP.RP_008.A1.server.main;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -34,6 +35,9 @@ public class ServerMain {
 			// Serversocket erzeugen
 			serverSocket = new ServerSocket(PORT);
 			System.out.println(SERVER_STARTED);
+
+			Boolean.valueOf("true");
+			new File("halla").exists();
 
 			isInterrupted = false;
 			while (!isInterrupted) {

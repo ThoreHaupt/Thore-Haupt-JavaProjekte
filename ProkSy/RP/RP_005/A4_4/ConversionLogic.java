@@ -1,6 +1,7 @@
 package ProkSy.RP.RP_005.A4_4;
 
 import java.util.HashMap;
+import java.util.TreeSet;
 
 public class ConversionLogic {
 
@@ -19,7 +20,7 @@ public class ConversionLogic {
     double value;
 
     public ConversionLogic() {
-
+        TreeSet<Integer> arr = new TreeSet<>();
     }
 
     public String[] getImplementedUnits() {

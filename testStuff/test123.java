@@ -1,5 +1,8 @@
 package testStuff;
 
+import java.util.Arrays;
+import java.util.Collections;
+
 public class test123 {
     public static void main(String[] args) {
         int[] arr = feldSumme(new int[][] { { 2, 2, 2, 2, 2 }, { 3, 3, 3, 3, 3, 3 } }); // 10; 18
@@ -8,6 +11,11 @@ public class test123 {
         }
         test123 a = new test123();
         a.a();
+
+        String[] arr2 = { "Hallo", "hallo", "abend" };
+        arr2 = (String[]) Arrays.stream(arr2).sorted(String.CASE_INSENSITIVE_ORDER).toArray();
+
+        System.out.println(Arrays.toString(arr2));
     }
 
     public void a() {
