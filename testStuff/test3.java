@@ -34,6 +34,12 @@ public class test3 {
         System.out.println((I instanceof Integer));
         test3 b = new test3();
         thing a = b.new thing();
+        short sh = 10;
+        m1(2);
+
+    }
+
+    public static void m1(Integer i) {
 
     }
 }

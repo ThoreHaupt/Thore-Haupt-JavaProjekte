@@ -21,10 +21,14 @@ public class FileReadingTest {
 
         try {
             FileReader fileReader = new FileReader("file");
-
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream("file"));
+            Object i = ois.readObject();
         } catch (FileNotFoundException e) {
             //TODO: handle exception
-        } catch (Exception e) {
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
             e.printStackTrace();
         } finally {
             //fileReader.close();

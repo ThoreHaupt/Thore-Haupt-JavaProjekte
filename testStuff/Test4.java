@@ -5,5 +5,6 @@ public interface Test4 {
 
     public static void main(String[] args) {
         Integer.parseInt("1,4");
+
     }
 }
