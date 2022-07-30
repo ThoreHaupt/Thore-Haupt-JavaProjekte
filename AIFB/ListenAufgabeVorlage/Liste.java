@@ -3,11 +3,17 @@ package AIFB.ListenAufgabeVorlage;
 public class Liste {
 
     Element head;
-    int size = 0;
+    int size;
 
+    // Klasse Element mit Variablen: next und value
     class Element {
-        Element next;
         int value;
+        Element next;
+
+        Element(int value) {
+            this.next = null;
+            this.value = value;
+        }
     }
 
     /**
@@ -15,18 +21,6 @@ public class Liste {
      * @return
      */
     public int get(int index) {
-
-        try {
-            //Code der eine Exception wirft...
-        } catch (NullPointerException e) {
-            //TODO: handle exception
-        } catch (IndexOutOfBoundsException e) {
-            //TODO: handle exception
-        } catch (RuntimeException e) {
-            //TODO: handle exception
-        } finally {
-            // Was auf jeden Fall noch gemacht werden muss -> bsp. Scanner schließen
-        }
 
         return 0;
     }

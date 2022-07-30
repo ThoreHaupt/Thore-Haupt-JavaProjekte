@@ -26,6 +26,7 @@ public class SwingComponentsDemo extends JFrame {
         JMenuItem Item4 = new JMenuItem("JComboBox");
 
         // menu.addSeparator();
+        this.setJMenuBar(menuBar);
         submenu1.add(submenuItem1);
         submenu1.add(submenu2);
         submenu2.add(submenuItem2);
@@ -34,7 +35,6 @@ public class SwingComponentsDemo extends JFrame {
         menu.add(Item3);
         menu.add(Item4);
         menuBar.add(menu);
-        this.setJMenuBar(menuBar);
 
         setBasics();
 

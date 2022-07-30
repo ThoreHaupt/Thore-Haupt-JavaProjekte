@@ -34,7 +34,7 @@ public class Liste {
             throw new IndexOutOfBoundsException();
         }
         for (int i = 0; i < index; i++) {
-            current = head.next;
+            current = current.next;
         }
         return current.value;
     }
