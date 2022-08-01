@@ -8,7 +8,7 @@ public class HashMapTest {
         THashMap<Integer, Integer> map = new THashMap<Integer, Integer>();
         HashMap<Integer, Integer> mapOff = new HashMap<Integer, Integer>();
 
-        int length = 20;
+        int length = 2000000;
         int[] array = new int[length];
 
         for (int i = 0; i < length; i++) {

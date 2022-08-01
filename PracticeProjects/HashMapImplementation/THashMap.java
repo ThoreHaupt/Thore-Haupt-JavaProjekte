@@ -10,7 +10,7 @@ public class THashMap<K, V> implements Iterable<V> {
     private int size = 0;
 
     public THashMap() {
-        this((int) Math.pow(2, 4), 0.75f);
+        this((int) Math.pow(2, 4), 0.8f);
     }
 
     public THashMap(float loadFactor) {
