@@ -30,7 +30,7 @@ public class Dataset {
         for (int i = 0; i < imageLabels.length; i++) {
             for (int j = 0; j < 10; j++) {
                 if (imageLabels[i][j] == 1)
-                    imageLabelsAbsolut[i] = j + 1;
+                    imageLabelsAbsolut[i] = j;
             }
         }
     }
