@@ -94,9 +94,12 @@ public class NeuralNet {
     InputLayer inputLayer;
     HiddenLayer[] hiddenLayers;
     HiddenLayer outputLayer;
+    double learnrate;
 
     public NeuralNet(int[] hiddenLayerSizes, double learnrate, int batchSize, int algorythm, Dataset trainingData,
             Dataset testData) {
+
+        this.learnrate = learnrate;
 
         // one extra layer for the inputs and then one extra layer for the cost, which is a layer in itself
         inputLayer = new InputLayer(trainingData.getImagePixels(), AFsigmoidL);
@@ -118,8 +121,9 @@ public class NeuralNet {
         NeuralNet NN = new NeuralNet(new int[] { 128 }, 0.5, 50, SIGMOID, trainingData, testData);
         NN.train();
         NN.test();
-        System.out.println(trainingData.getImageLabelsAbsolut()[102]);
-        NN.calculateImage(trainingData.getPixelData()[102]);
+        int n = 0;
+        System.out.println(trainingData.getImageLabelsAbsolut()[n]);
+        NN.calculateImage(trainingData.getPixelData()[n]);
     }
 
     private void test() {
@@ -131,10 +135,17 @@ public class NeuralNet {
 
     public double[] calculateImage(int[] pixel) {
         double[][] pixelArray = new double[][] { Arrays.stream(pixel).mapToDouble(x -> (double) x).toArray() };
+
+        printimage(pixel);
         inputLayer.setInputData(pixelArray);
+
+        System.out.println(Arrays.toString(inputLayer.activationValues[0]) + "\n");
+
         for (int i = 0; i < hiddenLayers.length; i++) {
             hiddenLayers[i].calculateActivationValues();
+            System.out.println(Arrays.toString(hiddenLayers[i].activationValues[0]) + "\n");
         }
+
         outputLayer.calculateActivationValues();
         System.out.println(Arrays.toString(outputLayer.activationValues[0]));
         return outputLayer.activationValues[0];
@@ -145,6 +156,16 @@ public class NeuralNet {
     }
 
     public BiConsumer<double[][], double[][]> getActivationFunctionDerivative(int i) {
-        return AFsigmoidL;
+        return AFsigmoidLDerivative;
+    }
+
+    void printimage(int[] pixel) {
+        for (int i = 0; i < 28; i++) {
+            for (int j = 0; j < 28; j++) {
+                //System.out.print(pixel[i * 28 + j]);
+                System.out.print(String.format("%3d", pixel[i * 28 + j]));
+            }
+            System.out.println();
+        }
     }
 }

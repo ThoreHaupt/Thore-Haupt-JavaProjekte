@@ -6,8 +6,8 @@ import Commons.CalulationTools.MatrixCalculation;
 
 public class HiddenLayer extends Layer {
 
-    final double lowerInitValue = -0.5;
-    final double upperInitValue = 0.5;
+    final double lowerInitValue = -0.1;
+    final double upperInitValue = 0.1;
 
     Layer previousLayer;
 
@@ -67,10 +67,11 @@ public class HiddenLayer extends Layer {
     }
 
     void calculateActivationValues() {
-        for (int i = 0; i < activationValues.length; i++) {
-            for (int j = 0; j < previousLayer.activationValues.length; j++) {
-                weightedBiasedInputs[0][i] += previousLayer.activationValues[0][j] * weights[i][j] + biases[0][i];
+        for (int i = 0; i < activationValues[0].length; i++) {
+            for (int j = 0; j < previousLayer.activationValues[0].length; j++) {
+                weightedBiasedInputs[0][i] += previousLayer.activationValues[0][j] * weights[i][j];
             }
+            weightedBiasedInputs[0][i] += biases[0][i];
         }
         activationFunction.accept(weightedBiasedInputs, activationValues);
     }

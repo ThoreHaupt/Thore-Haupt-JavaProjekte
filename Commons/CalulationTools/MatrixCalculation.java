@@ -185,7 +185,7 @@ public class MatrixCalculation {
 
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[i].length; j++) {
-                array[i][j] = Math.random() * distance - center;
+                array[i][j] = (Math.random() - 0.5 + center) * distance;
             }
         }
     }
@@ -195,7 +195,7 @@ public class MatrixCalculation {
         double distance = upper - lower;
 
         for (int i = 0; i < array.length; i++) {
-            array[i] = Math.random() * distance + center;
+            array[i] = (Math.random() - 0.5 + center) * distance;
         }
     }
 

@@ -11,6 +11,6 @@ public class Layer {
     }
 
     public int getNodeAmount() {
-        return activationValues.length;
+        return activationValues[0].length;
     }
 }
