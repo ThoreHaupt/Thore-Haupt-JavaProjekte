@@ -7,11 +7,21 @@ import testStuff.testPolymorphie.A;
 public class MatrixCalculation {
 
     public static void main(String[] args) {
-        double[][] b = { { 1f, 2f, 3f }, { 2, 2, 3, } };
-        double[][] a = { { 1, 1, 0 }, { 2, 2, 0 }, { 1, 1, 1 } };
+        double[][] a = { { 1, 2 }, { 3, 2 } };
+        double[][] b = { { 4, 5, 6 }, { 1, 2, 4 } };
 
-        System.out.println(Arrays.toString(matrixMultiplikation(a, b)[0]) + Arrays
-                .toString(matrixMultiplikation(a, b)[1]));
+        double[][] r = new double[2][3];
+        matrixMultiplikation(a, b, r);
+        System.out.println(Arrays.toString(r[0]));
+        System.out.println(Arrays.toString(r[1]));
+    }
+
+    public static void addtoMatix(double[][] a, double[][] b) {
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a[0].length; j++) {
+                a[i][j] += b[i][j];
+            }
+        }
     }
 
     public static double[][] maticesAdd(double[][] a, double[][] b) {
@@ -100,21 +110,28 @@ public class MatrixCalculation {
      * @return double[][] matrix with dimensions: b x a[0]
      */
     public static double[][] matrixMultiplikation(double[][] a, double[][] b, double[][] result) {
-        if (a.length != b[0].length || result.length != a[0].length || result[0].length != b.length) {
-            System.out.println("Jo Jungs, hier ist was nicht richtig mit den Matrix Multiplication Inputs");
+        if (a[0].length != b.length) {
+            System.out.println("Jo Jungs, input Matrizen Dimensionen falsch");
             return null;
         }
-        double[][] outputmatrix = result;
-        for (int i = 0; i < a[0].length; i++) { // a[0]
-            for (int k = 0; k < b.length; k++) {
-                int s = 0;
-                for (int j = 0; j < a.length; j++) { // a[0 oder b[0]
-                    s += a[j][i] * b[k][j];
+
+        if (result.length != a.length) {
+            System.out.println("Jo Jungs, result höhe ist falsch");
+            return null;
+        }
+        if (result[0].length != b[0].length) {
+            System.out.println("Jo Jungs, result breite ist falsch");
+            return null;
+        }
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < b[0].length; j++) {
+                result[i][j] = 0;
+                for (int k = 0; k < a[0].length; k++) {
+                    result[i][j] += a[i][k] * b[k][j];
                 }
-                outputmatrix[k][i] = s;
             }
         }
-        return outputmatrix;
+        return result;
     }
 
     /**
@@ -173,7 +190,7 @@ public class MatrixCalculation {
 
     public static void hamardProdukt(double[][] a, double[][] b, double[][] result) {
         for (int i = 0; i < result.length; i++) {
-            for (int j = 0; j < result.length; j++) {
+            for (int j = 0; j < result[i].length; j++) {
                 result[i][j] = a[i][j] * b[i][j];
             }
         }
@@ -210,6 +227,28 @@ public class MatrixCalculation {
     public static void initializeArrayValuesWithValue(double[] array, double value) {
         for (int i = 0; i < array.length; i++) {
             array[i] = value;
+        }
+    }
+
+    public static double MatrixSum(double[][] a) {
+        double sum = 0;
+        for (int i = 0; i < a.length; i++) {
+            for (int j = 0; j < a[i].length; j++) {
+                sum += a[i][j];
+            }
+        }
+        return sum;
+    }
+
+    public static void matrixMultiplikationFirstTransposed(double[][] a, double[][] b,
+            double[][] weightGradientBuffer) {
+        for (int i = 0; i < weightGradientBuffer.length; i++) {
+            for (int j = 0; j < weightGradientBuffer[0].length; j++) {
+                weightGradientBuffer[i][j] = 0;
+                for (int j2 = 0; j2 < a.length; j2++) {
+                    weightGradientBuffer[i][j] += a[j2][j] * b[j2][i];
+                }
+            }
         }
     }
 }

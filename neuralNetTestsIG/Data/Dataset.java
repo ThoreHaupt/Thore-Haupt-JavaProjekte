@@ -62,4 +62,8 @@ public class Dataset {
     public int[] getImageLabelsAbsolut() {
         return imageLabelsAbsolut;
     }
+
+    public int getDatasetSize() {
+        return pixelData.length;
+    }
 }
