@@ -2,6 +2,7 @@ package PracticeProjects.HashMapImplementation;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Stack;
 
 public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
     THashMap<K, V> map;
@@ -10,8 +11,8 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
     int size = 0;
     boolean tree = false;
 
-    private final int TREEIFY_THRESHOLD = 9;
-    private final int UNTREEIFY_THRESHOLD = 7;
+    private final int TREEIFY_THRESHOLD = 6;
+    private final int UNTREEIFY_THRESHOLD = 4;
 
     public Bucket(THashMap<K, V> map) {
         this.map = map;
@@ -164,7 +165,7 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
 
         if (ISTREE) {
             iterator = new Iterator<HashNode<K, V>>() {
-                ArrayList<HashNode<K, V>> nodeStack = new ArrayList<HashNode<K, V>>();
+                Stack<HashNode<K, V>> nodeStack = new Stack<HashNode<K, V>>();
                 private TreeHashNode<K, V> current = root;
                 private TreeHashNode<K, V> target;
                 private int next = 1;
@@ -192,7 +193,7 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
 
                         if (next == 1) {
                             while (current.left != null) {
-                                nodeStack.add(current);
+                                nodeStack.push(current);
                                 current = current.left;
 
                             }
@@ -212,11 +213,10 @@ public class Bucket<K, V> implements Iterable<HashNode<K, V>> {
                                 nextloop = 2;
                                 continue;
                             }
-                            target = (TreeHashNode<K, V>) nodeStack.get(nodeStack.size() - 1);
+                            target = (TreeHashNode<K, V>) nodeStack.pop();
                             while (current != target) {
                                 current = current.parent;
                             }
-                            nodeStack.remove(nodeStack.size() - 1);
                             nextloop = 2;
                             loop = false;
                         }

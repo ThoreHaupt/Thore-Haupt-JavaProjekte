@@ -14,7 +14,7 @@ import java.util.Date;
 public class FileManager {
 
     public static void main(String[] args) {
-        Pair<int[][], double[][]> dataset = loadDataSet("neuralNetTestsIG/Data/Datasets/NIST/train-images",
+        Pair<int[][], int[][]> dataset = loadDataSet("neuralNetTestsIG/Data/Datasets/NIST/train-images",
                 "neuralNetTestsIG/Data/Datasets/NIST/train-labels");
         int nummer = 12;
         System.out.println(dataset.b[nummer]);
@@ -129,7 +129,7 @@ public class FileManager {
 
     }
 
-    public static Pair<int[][], double[][]> loadDataSet(String dataPath, String labelPath) { // Pair<byte[][], byte[]>
+    public static Pair<int[][], int[][]> loadDataSet(String dataPath, String labelPath) { // Pair<byte[][], byte[]>
         byte[] arrLabels;
         byte[] arrData;
         try {
@@ -150,7 +150,7 @@ public class FileManager {
         int image_FirstOffset = 16;
         int label_FirstOffset = 8;
 
-        double[][] label = new double[num_LABEL][10];
+        int[][] label = new int[num_LABEL][10];
         int[][] data = new int[num_DATA][image_X * image_Y];
 
         for (int i = 0; i < num_LABEL; i++) {
@@ -162,6 +162,6 @@ public class FileManager {
                 data[i][j] = arrData[i * image_X * image_Y + j + image_FirstOffset] & 0xFF;
             }
         }
-        return new Pair<int[][], double[][]>(data, label);
+        return new Pair<int[][], int[][]>(data, label);
     }
 }

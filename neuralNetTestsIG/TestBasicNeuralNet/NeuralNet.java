@@ -1,258 +1,171 @@
 package neuralNetTestsIG.TestBasicNeuralNet;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.DuplicateFormatFlagsException;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
 
-import Commons.CalulationTools.MatrixCalculation;
-import Commons.CalulationTools.SupportingCalculations;
-import Commons.FileHandiling.FileManager;
-import Commons.FileHandiling.Pair;
+import Commons.LambdaInterfaces.TriConsumer;
+import neuralNetTestsIG.Data.Dataset;
+
+import java.util.function.Consumer;
 
 public class NeuralNet {
 
-    int imagesize = 28;
-    int[] nodeLayerSizes = { imagesize * imagesize, 10, 10 };
-    int[] functionTypesPerLayer = { 2, 3 };
+    final static int SIGMOID = 0;
+    final static int RELU = 1;
 
-    double alpha = .1f;
-    int layerThickness = 1;
+    final Function<Double, Double> sigmoidL = x -> 1 / (1 + Math.exp(-x));
+    final Function<Double, Double> sigmoidLDerivative = x -> {
+        double sigmVal = sigmoidL.apply(x);
+        return (sigmVal * (1 - sigmVal));
+    };
 
-    double[][][] nodes = new double[nodeLayerSizes.length][][];
-    double[][][] weights = new double[nodeLayerSizes.length - 1][][];
-    double[][][] biases = new double[nodeLayerSizes.length - 1][][];
+    final Consumer<double[]> ACsigmoidL = x -> {
+        for (int i = 0; i < x.length; i++)
+            x[i] = 1 / (1 + Math.exp(-x[i]));
+    };
+    final Consumer<double[]> ACsigmoidLDerivative = x -> {
+        for (int i = 0; i < x.length; i++)
+            x[i] = 1 / (1 + Math.exp(-x[i]));
+        for (int i = 0; i < x.length; i++) {
+            x[i] = x[i] * (1 - x[i]);
+        }
+    };
 
-    double[][][] dZs = new double[nodeLayerSizes.length - 1][][];
-    double[][][] dWs = new double[nodeLayerSizes.length - 1][][];
-    double[][][] dBs = new double[nodeLayerSizes.length - 1][][];
+    /**
+     * saves the sigmoidL values of the first Array into the second.
+     */
+    final BiConsumer<double[], double[]> VFsigmoidL = (x, y) -> {
+        // here you might want a check for same size, but I want to save that performance cuz that should never happen.
+        for (int i = 0; i < x.length; i++)
+            y[i] = 1 / (1 + Math.exp(-x[i]));
+    };
 
-    public static void mainn(String[] args) {
-        NeuralNet NN = new NeuralNet();
-        double[][] arr = { { 255, 255, 150 } };
-        NN.sigmoid(arr);
-        System.out.println(Arrays.toString(arr[0]));
+    /**
+     * saves the sigmoidL values of the first Array into the second.
+     */
+    final BiConsumer<double[][], double[][]> AFsigmoidL = (x, y) -> {
+        // here you might want a check for same size, but I want to save that performance cuz that should never happen.
+        for (int i = 0; i < x.length; i++)
+            for (int j = 0; j < y[0].length; j++) {
+                y[i][j] = 1 / (1 + Math.exp(-x[i][j]));
+            }
+    };
 
+    /**
+     * saves the sigmoidL values of the first Array into the second. Of each first element in each Subarray
+     */
+    final BiConsumer<double[][], double[][]> AFsigmoidLDerivative = (x, y) -> {
+        AFsigmoidL.accept(x, y);
+        for (int i = 0; i < x.length; i++) {
+            for (int j = 0; j < x[0].length; j++)
+                y[i][j] = y[i][j] * (1 - y[i][j]);
+        }
+    };
+
+    /**
+     * saves the CostFunction values of the first Array into the second.
+     * Cost Function: (a-o)^2
+     */
+    final TriConsumer<double[][], double[][], double[][]> AFCostFunction = (x, y, z) -> {
+        // here you might want a check for same size, but I want to save that performance cuz that should never happen.
+        for (int i = 0; i < x.length; i++)
+            for (int j = 0; j < y[0].length; j++) {
+                z[i][j] = 2 * (x[i][j] - y[i][j]);
+            }
+    };
+
+    /**
+     * saves the Derivative of the Cost Function with values x,y into Array z
+     * Cost function Derivatie: 2*(a-o)
+     */
+    final TriConsumer<double[][], double[][], double[][]> AFCostFunctionDerivative = (x, y, z) -> {
+        AFsigmoidL.accept(x, y);
+        for (int i = 0; i < x.length; i++) {
+            for (int j = 0; j < x[0].length; j++)
+                z[i][j] = Math.pow((x[i][j] - y[i][j]), 2);
+        }
+    };
+
+    /* 
+    final BiFunction<Double, Double, Double> costFunction = (a, o) -> Math.pow(a - o, 2);
+    final BiFunction<Double, Double, Double> costFunctionDerivative = (a, o) -> 2 * (a - o); */
+
+    InputLayer inputLayer;
+    HiddenLayer[] hiddenLayers;
+    HiddenLayer outputLayer;
+    double learnrate;
+
+    public NeuralNet(int[] hiddenLayerSizes, double learnrate, int batchSize, int algorythm, Dataset trainingData,
+            Dataset testData) {
+
+        this.learnrate = learnrate;
+
+        // one extra layer for the inputs and then one extra layer for the cost, which is a layer in itself
+        inputLayer = new InputLayer(trainingData.getImagePixels(), AFsigmoidL);
+        hiddenLayers = new HiddenLayer[hiddenLayerSizes.length];
+        for (int i = 0; i < hiddenLayerSizes.length; i++) {
+            hiddenLayers[i] = new HiddenLayer(hiddenLayerSizes[i], i == 0 ? inputLayer : hiddenLayers[i - 1],
+                    getActivationFunction(algorythm), getActivationFunctionDerivative(algorythm));
+        }
+        outputLayer = new HiddenLayer(10, hiddenLayers[hiddenLayers.length - 1], getActivationFunction(algorythm),
+                getActivationFunctionDerivative(algorythm));
     }
 
     public static void main(String[] args) {
-        NeuralNet NN = new NeuralNet();
-        Pair<int[][], double[][]> dataset = FileManager.loadDataSet("neuralNetTestsIG/Data/Datasets/NIST/train-images",
+        Dataset trainingData = new Dataset("neuralNetTestsIG/Data/Datasets/NIST/train-images",
                 "neuralNetTestsIG/Data/Datasets/NIST/train-labels");
+        Dataset testData = new Dataset("neuralNetTestsIG/Data/Datasets/NIST/test-images",
+                "neuralNetTestsIG/Data/Datasets/NIST/test-labels");
 
-        int thickness = 1;
-        double[][] inputLayer = new double[thickness][dataset.a[0].length];
-        for (int i = 0; i < thickness; i++) {
-            for (int j = 0; j < dataset.a[0].length; j++) {
-                inputLayer[i][j] = (double) dataset.a[i][j];
+        NeuralNet NN = new NeuralNet(new int[] { 128 }, 0.5, 50, SIGMOID, trainingData, testData);
+        NN.train();
+        NN.test();
+        int n = 0;
+        System.out.println(trainingData.getImageLabelsAbsolut()[n]);
+        NN.calculateImage(trainingData.getPixelData()[n]);
+    }
+
+    private void test() {
+    }
+
+    public void train() {
+
+    }
+
+    public double[] calculateImage(int[] pixel) {
+        double[][] pixelArray = new double[][] { Arrays.stream(pixel).mapToDouble(x -> (double) x).toArray() };
+
+        printimage(pixel);
+        inputLayer.setInputData(pixelArray);
+
+        System.out.println(Arrays.toString(inputLayer.activationValues[0]) + "\n");
+
+        for (int i = 0; i < hiddenLayers.length; i++) {
+            hiddenLayers[i].calculateActivationValues();
+            System.out.println(Arrays.toString(hiddenLayers[i].activationValues[0]) + "\n");
+        }
+
+        outputLayer.calculateActivationValues();
+        System.out.println(Arrays.toString(outputLayer.activationValues[0]));
+        return outputLayer.activationValues[0];
+    }
+
+    public BiConsumer<double[][], double[][]> getActivationFunction(int i) {
+        return AFsigmoidL;
+    }
+
+    public BiConsumer<double[][], double[][]> getActivationFunctionDerivative(int i) {
+        return AFsigmoidLDerivative;
+    }
+
+    void printimage(int[] pixel) {
+        for (int i = 0; i < 28; i++) {
+            for (int j = 0; j < 28; j++) {
+                //System.out.print(pixel[i * 28 + j]);
+                System.out.print(String.format("%3d", pixel[i * 28 + j]));
             }
+            System.out.println();
         }
-
-        NN.nodes[0] = inputLayer;
-        NN.fore_prop();
-
-        double[][] lastlayer = NN.nodes[NN.nodes.length - 1];
-
-        for (int i = 0; i < lastlayer[0].length; i++) {
-            String LayerString = "";
-            for (int j = 0; j < lastlayer.length; j++) {
-                LayerString += String.format("%5f",
-                        SupportingCalculations.round(lastlayer[j][i], 4)) + " ";
-            }
-            System.out.println(LayerString);
-        }
-
-        NN.back_propagation(MatrixCalculation.get_X_Range(dataset.b, 0, 0));
-        NN.applyNudges();
-
-    }
-
-    public NeuralNet() {
-
-        initiallizeBiases();
-        initiallizeWeightes();
-
-    }
-
-    public void calculateResult(int[] image) {
-
-    }
-
-    public void back_propagation(double[][] result) {
-
-        for (int i = nodeLayerSizes.length - 2; i >= 0; i--) {
-            // layerthickness nodeLayerSizes[i]
-
-            if (i == nodeLayerSizes.length - 2) {
-                dZs[i] = MatrixCalculation
-                        .maticesAdd(nodes[nodes.length - 1], MatrixCalculation.scalarMultiplication(-1, result));
-            } else {
-                double[][] factor = switch (functionTypesPerLayer[i]) {
-                    case 1 -> derivativeSigmoid(dZs[i + 1]);
-                    case 2 -> derivativeReLu(dZs[i + 1]);
-                    default -> derivativeReLu(dZs[i + 1]);
-                };
-
-                double[][] u = MatrixCalculation.matrixMultiplikation(MatrixCalculation.transposeMatrix(dWs[i + 1]),
-                        dZs[i + 1]);
-                // calculate chanche to next layer
-                dZs[i] = MatrixCalculation.matrixMultiplikation(MatrixCalculation.transposeMatrix(factor), u);
-            }
-
-            // dW
-            dWs[i] = MatrixCalculation.scalarMultiplication(1 / nodeLayerSizes[i + 1],
-                    MatrixCalculation.matrixMultiplikation(
-                            MatrixCalculation.transposeMatrix(nodes[i + 1]), dZs[i]));
-
-            // db
-            dBs[i] = MatrixCalculation.scalarMultiplication(1 / nodeLayerSizes[i + 1],
-                    MatrixCalculation.matrixMultiplikation(MatrixCalculation.transposeMatrix(dWs[i]),
-                            dWs[i]));
-
-        }
-    }
-
-    private void applyNudges() {
-        for (int i = 0; i < weights.length; i++) {
-            weights[i] = MatrixCalculation.maticesAdd(weights[i],
-                    MatrixCalculation.scalarMultiplication(-1 * alpha, dWs[i]));
-            biases[i] = MatrixCalculation.maticesAdd(biases[i],
-                    MatrixCalculation.scalarMultiplication(-1 * alpha, dWs[i]));
-        }
-    }
-
-    /**
-     * initiallizes weight-matrixes with random Values between 0 and 1
-     * dimensions : next layer x prior layer ---> weight of a neuron is in a row
-     * corresponding to all other neurons
-     * 
-     */
-    private void initiallizeWeightes() {
-
-        double scale = 1f;
-        double offSet = -.5f;
-
-        for (int i = 0; i < nodeLayerSizes.length - 1; i++) {
-            double[][] arr = new double[nodeLayerSizes[i]][nodeLayerSizes[i + 1]];
-            for (int j = 0; j < nodeLayerSizes[i]; j++) {
-                for (int k = 0; k < nodeLayerSizes[i + 1]; k++) {
-                    arr[j][k] = (double) Math.random() * scale + offSet;
-                }
-            }
-            weights[i] = arr;
-        }
-    }
-
-    private void initiallizeBiases() {
-
-        double scale = 0f;
-        double offSet = 0f;
-
-        for (int i = 0; i < biases.length; i++) {
-            double[][] arr = new double[layerThickness][nodeLayerSizes[i + 1]];
-            for (int j = 0; j < layerThickness; j++) {
-                for (int k = 0; k < nodeLayerSizes[i + 1]; k++) {
-                    arr[j][k] = (double) Math.random() * scale + offSet;
-                }
-            }
-            biases[i] = arr;
-        }
-    }
-
-    private void fore_prop() {
-        // sigmoid(nodes.get(0));
-        for (int i = 0; i < nodeLayerSizes.length - 1; i++) {
-            double[][] layerWithoutBias = MatrixCalculation.matrixMultiplikation(weights[i], nodes[i]);
-            double[][] z = MatrixCalculation.maticesAddAll(
-                    layerWithoutBias,
-                    biases[i]);
-            if (functionTypesPerLayer[i] == 1)
-                z = sigmoid(z);
-            if (functionTypesPerLayer[i] == 2)
-                z = reLu(z);
-            if (functionTypesPerLayer[i] == 3)
-                z = softmaxActivationFunction(z);
-            nodes[i + 1] = z;
-        }
-    }
-
-    private double[][] calculateCosts(double[][] correctResultMatrix) {
-        double[][] l = nodes[nodes.length - 1];
-        double[][] costMatrix = new double[correctResultMatrix.length][correctResultMatrix[0].length];
-        for (int i = 0; i < l.length; i++) {
-            for (int j = 0; j < l[i].length; j++) {
-                costMatrix[i][j] = (double) Math.pow(correctResultMatrix[i][j] - l[i][j], 2);
-            }
-        }
-        return costMatrix;
-    }
-
-    // 1
-
-    // (1/ (1 + exp(-x)))' -> (exp(-x)(1+exp(-x)^2))
-    private double[][] sigmoid(double[][] layer) {
-        for (int i = 0; i < layer.length; i++) {
-            for (int j = 0; j < layer[i].length; j++) {
-                layer[i][j] = Math.tanh(layer[i][j]);
-            }
-        }
-        return layer;
-    }
-
-    private double[][] derivativeSigmoid(double[][] layer) {
-        for (int i = 0; i < layer.length; i++) {
-            for (int j = 0; j < layer[i].length; j++) {
-                layer[i][j] = 1 / Math.pow(Math.cos(layer[i][j]), 2);
-            }
-        }
-        return layer;
-
-    }
-
-    // 3
-    private double[][] softmaxActivationFunction(double[][] layer) {
-        double[] sum = new double[layer.length];
-        for (int i = 0; i < layer.length; i++) {
-            for (int j = 0; j < layer[i].length; j++) {
-                sum[i] += Math.pow(layer[i][j], 2);// Math.pow(Math.E, layer[i][j]);
-            }
-        }
-        for (int i = 0; i < layer.length; i++) {
-            for (int j = 0; j < layer[i].length; j++) {
-                layer[i][j] = Math.pow(layer[i][j], 2) / sum[i];
-            }
-        }
-        return layer;
-    }
-
-    // 2
-    private double[][] reLu(double[][] layer) {
-        for (int i = 0; i < layer.length; i++) {
-            for (int j = 0; j < layer[i].length; j++) {
-                layer[i][j] = Math.max(0, layer[i][j]);
-            }
-        }
-        return layer;
-    }
-
-    private double[][] derivativeReLu(double[][] layer) {
-        for (int i = 0; i < layer.length; i++) {
-            for (int j = 0; j < layer[i].length; j++) {
-                layer[i][j] = (layer[i][j] >= 0) ? 1 : 0;
-            }
-        }
-        return layer;
-    }
-
-    public String safeNetwork(String filePath) {
-        ArrayList<double[][]> matrices = new ArrayList<>();
-        for (double[][] weightMatrix : weights) {
-            matrices.add(weightMatrix);
-        }
-        for (double[][] biasMatrix : biases) {
-            matrices.add(biasMatrix);
-        }
-        Pair<int[], ArrayList<double[][]>> neuralInformation = new Pair<int[], ArrayList<double[][]>>(
-                new int[] { weights.length, biases.length }, matrices);
-        return FileManager.storeMatrices(filePath, neuralInformation);
     }
 }
