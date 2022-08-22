@@ -8,6 +8,14 @@ public class test3 {
         };
     }
 
+    public test3(int i) {
+
+    }
+
+    public test3() {
+
+    }
+
     public class thing {
         static {
             method1();
