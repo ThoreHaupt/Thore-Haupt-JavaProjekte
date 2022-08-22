@@ -92,6 +92,32 @@ public class MatrixCalculation {
     }
 
     /**
+     * a == b[0] sein, der Rest ist egal
+     * 
+     * @param a matrix a
+     * @param b matrix b
+     * @param result saves to this matrix. size needs to be: a[0]xb
+     * @return double[][] matrix with dimensions: b x a[0]
+     */
+    public static double[][] matrixMultiplikation(double[][] a, double[][] b, double[][] result) {
+        if (a.length != b[0].length || result.length != a[0].length || result[0].length != b.length) {
+            System.out.println("Jo Jungs, hier ist was nicht richtig mit den Matrix Multiplication Inputs");
+            return null;
+        }
+        double[][] outputmatrix = result;
+        for (int i = 0; i < a[0].length; i++) { // a[0]
+            for (int k = 0; k < b.length; k++) {
+                int s = 0;
+                for (int j = 0; j < a.length; j++) { // a[0 oder b[0]
+                    s += a[j][i] * b[k][j];
+                }
+                outputmatrix[k][i] = s;
+            }
+        }
+        return outputmatrix;
+    }
+
+    /**
      * 
      * @param a
      * @param layer
@@ -145,4 +171,45 @@ public class MatrixCalculation {
         return output;
     }
 
+    public static void hamardProdukt(double[][] a, double[][] b, double[][] result) {
+        for (int i = 0; i < result.length; i++) {
+            for (int j = 0; j < result.length; j++) {
+                result[i][j] = a[i][j] * b[i][j];
+            }
+        }
+    }
+
+    public static void fillMatrixWithRandomValues(double[][] array, double lower, double upper) {
+        double center = (lower + upper) / 2;
+        double distance = upper - lower;
+
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
+                array[i][j] = Math.random() * distance - center;
+            }
+        }
+    }
+
+    public static void fillMatrixWithRandomValues(double[] array, double lower, double upper) {
+        double center = (lower + upper) / 2;
+        double distance = upper - lower;
+
+        for (int i = 0; i < array.length; i++) {
+            array[i] = Math.random() * distance + center;
+        }
+    }
+
+    public static void initializeArrayValuesWithValue(double[][] array, double value) {
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[i].length; j++) {
+                array[i][j] = value;
+            }
+        }
+    }
+
+    public static void initializeArrayValuesWithValue(double[] array, double value) {
+        for (int i = 0; i < array.length; i++) {
+            array[i] = value;
+        }
+    }
 }
