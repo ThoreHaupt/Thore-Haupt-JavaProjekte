@@ -114,7 +114,7 @@ public class HandwritingWindow extends JFrame {
         // update Text
         scoreTextArea.setText(getText(currentImage));
         if (currentImage.isCorrect())
-            scoreTextArea.setForeground(new Color(102, 255, 102));
+            scoreTextArea.setForeground(new Color(0, 204, 0));
         else
             scoreTextArea.setForeground(new Color(255, 51, 0));
     }
