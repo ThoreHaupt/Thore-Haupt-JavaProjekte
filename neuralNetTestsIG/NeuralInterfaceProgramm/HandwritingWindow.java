@@ -2,6 +2,7 @@ package neuralNetTestsIG.NeuralInterfaceProgramm;
 
 import Commons.CalulationTools.SupportingCalculations;
 import Commons.FileHandiling.Pair;
+import neuralNetTestsIG.Data.Dataset;
 import neuralNetTestsIG.TestBasicNeuralNet.ImageApproximation;
 import neuralNetTestsIG.TestBasicNeuralNet.NeuralNet;
 
@@ -23,6 +24,8 @@ public class HandwritingWindow extends JFrame {
     public HandwritingWindow(NeuralNet NN) {
 
         this.NN = NN;
+        NN.setTestData(new Dataset("neuralNetTestsIG/Data/Datasets/NIST/test-images",
+                "neuralNetTestsIG/Data/Datasets/NIST/test-labels"));
 
         int pixelNumX = 28;
         int pixelNumY = 28;

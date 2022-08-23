@@ -21,7 +21,6 @@ public class ThreadBaseLayer extends Layer {
     // values after foreward prop
     double[][] weights;
     double[][] biases;
-    double[][] Z; // (z)
     //double[][] activationValue; already exists in Layer class
 
     // safe gradients for next layers
@@ -47,26 +46,13 @@ public class ThreadBaseLayer extends Layer {
 
         biases = new double[1][nodeAmount];
         weights = new double[nodeAmount][preveousLayer.getNodeAmount()];
-        Z = new double[1][nodeAmount];
-        activationValues = new double[1][nodeAmount];
 
         weightGradient = new double[nodeAmount][previousLayer.getNodeAmount()];
         biasGradient = new double[1][nodeAmount];
 
         // init all the important Arrays that wont be initiated naturally. Like the initial weights and biases (randomly) and set all values in each GradientSum to 0
-        MatrixCalculation.fillMatrixWithRandomValues(weights, lowerInitValue, upperInitValue);
-        MatrixCalculation.fillMatrixWithRandomValues(biases, lowerInitValue, upperInitValue);
-    }
-
-    void calculateActivationValues() {
-        Z = new double[1][activationValues[0].length];
-        for (int i = 0; i < activationValues[0].length; i++) {
-            for (int j = 0; j < previousLayer.activationValues[0].length; j++) {
-                Z[0][i] += previousLayer.activationValues[0][j] * weights[i][j];
-            }
-            Z[0][i] += biases[0][i];
-        }
-        activationFunction.accept(Z, activationValues);
+        /* MatrixCalculation.fillMatrixWithRandomValues(weights, lowerInitValue, upperInitValue);
+        MatrixCalculation.fillMatrixWithRandomValues(biases, lowerInitValue, upperInitValue); */
     }
 
     void applyGradients(double learnrate) {
@@ -79,21 +65,18 @@ public class ThreadBaseLayer extends Layer {
             biases[0][i] -= biasGradient[0][i] * learnrate;
         }
 
-        MatrixCalculation.initializeArrayValuesWithValue(weightGradient, 0);
-        MatrixCalculation.initializeArrayValuesWithValue(biasGradient, 0);
-
-        for (int i = 0; i < trainignLayers.length; i++) {
-            trainignLayers[i].updateVariabels();
-        }
-    }
-
-    public synchronized void addWeightGradientStep(double[][] weightGradientBuffer) {
-        MatrixCalculation.addtoMatix(weightGradient, weightGradientBuffer);
+        weightGradient = new double[weightGradient.length][weightGradient[0].length];
+        biasGradient = new double[biasGradient.length][biasGradient[0].length];
 
     }
 
-    public synchronized void addBiasGradientStep(double[][] z_Gradient) {
-        MatrixCalculation.addtoMatix(biasGradient, z_Gradient);
+    public synchronized void addWeightGradientStep(double[][] weightGradientStep) {
+        MatrixCalculation.addtoMatix(weightGradient, weightGradientStep);
+
+    }
+
+    public synchronized void addBiasGradientStep(double[][] biasGradientStep) {
+        MatrixCalculation.addtoMatix(biasGradient, biasGradientStep);
     }
 
     /**
@@ -101,6 +84,34 @@ public class ThreadBaseLayer extends Layer {
      */
     public void setTrainignLayers(ThreadTrainingLayer[] trainignLayers) {
         this.trainignLayers = trainignLayers;
+    }
+
+    /**
+     * @return the weights
+     */
+    public double[][] getWeights() {
+        return weights;
+    }
+
+    /**
+     * @param weights the weights to set
+     */
+    public void setWeights(double[][] weights) {
+        this.weights = weights;
+    }
+
+    /**
+     * @return the biases
+     */
+    public double[][] getBiases() {
+        return biases;
+    }
+
+    /**
+     * @param biases the biases to set
+     */
+    public void setBiases(double[][] biases) {
+        this.biases = biases;
     }
 
 }

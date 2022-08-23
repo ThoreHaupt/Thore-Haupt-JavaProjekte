@@ -28,14 +28,11 @@ public class ThreadTrainingLayer extends Layer {
     double[][] Z_Gradient;
     double[][] weightGradientBuffer;
 
-    public ThreadTrainingLayer(ThreadBaseLayer baseLayer, ThreadTrainingLayer preveousLayer) {
+    public ThreadTrainingLayer(ThreadBaseLayer baseLayer, Layer preveousLayer) {
         super(baseLayer.nodeAmount);
         this.baseLayer = baseLayer;
         this.previousLayer = preveousLayer;
-
-        // import startingvalues from baseLayer
-        biases = MatrixCalculation.deepCopy(baseLayer.biases);
-        weights = MatrixCalculation.deepCopy(baseLayer.weights);
+        this.nodeAmount = baseLayer.getNodeAmount();
 
         Z = new double[1][nodeAmount];
         activationValues = new double[1][nodeAmount];
@@ -81,11 +78,12 @@ public class ThreadTrainingLayer extends Layer {
         //add weight Gradient
         MatrixCalculation.matrixMultiplikationFirstTransposed(Z_Gradient, previousLayer.activationValues,
                 weightGradientBuffer);
-        //MatrixCalculation.addtoMatix(baseLayer.weightGradient, weightGradientBuffer);
-        baseLayer.addWeightGradientStep(weightGradientBuffer);
+        MatrixCalculation.addtoMatix(weightGradient, weightGradientBuffer);
+        //baseLayer.addWeightGradientStep(weightGradientBuffer);
+
         //add bias Gradient
-        //MatrixCalculation.addtoMatix(biasGradient, Z_Gradient);
-        baseLayer.addBiasGradientStep(Z_Gradient);
+        MatrixCalculation.addtoMatix(biasGradient, Z_Gradient);
+        //baseLayer.addBiasGradientStep(Z_Gradient);
     }
 
     public void calculateGradients(double[][] costDiff, BiConsumer<double[][], double[][]> costFunctionDerivative) {
@@ -96,11 +94,21 @@ public class ThreadTrainingLayer extends Layer {
         calculateGradients(z_Gradient2, weights2, null);
     }
 
+    /**
+     * A little inefficeient, because all threads have to add their weights and biases at 
+     * the same time and only one can go 
+     */
+    public void applyGradientToBaseLayer() {
+        baseLayer.addBiasGradientStep(biasGradient);
+        baseLayer.addWeightGradientStep(weightGradient);
+
+        //set Gradients to 0
+        weightGradient = new double[weightGradient.length][weightGradient[0].length];
+        biasGradient = new double[biasGradient.length][biasGradient[0].length];
+    }
+
     public void updateVariabels() {
         biases = MatrixCalculation.deepCopy(baseLayer.biases);
         weights = MatrixCalculation.deepCopy(baseLayer.weights);
-
-        MatrixCalculation.initializeArrayValuesWithValue(weightGradient, 0);
-        MatrixCalculation.initializeArrayValuesWithValue(biasGradient, 0);
     }
 }

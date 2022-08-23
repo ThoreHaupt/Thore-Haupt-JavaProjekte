@@ -1,37 +1,463 @@
 package neuralNetTestsIG.TestBasicNeuralNet;
 
 import java.util.Arrays;
+import java.util.concurrent.Semaphore;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 import java.util.function.Function;
 
 import Commons.CalulationTools.MatrixCalculation;
 import Commons.CalulationTools.SupportingCalculations;
 import Commons.LambdaInterfaces.TriConsumer;
-import PracticeProjects.test;
 import neuralNetTestsIG.Data.Dataset;
 import neuralNetTestsIG.NeuralInterfaceProgramm.HandwritingWindow;
-
-import java.util.function.Consumer;
 
 public class NeuralNet {
 
     public static void main(String[] args) {
         Dataset trainingData = new Dataset("neuralNetTestsIG/Data/Datasets/NIST/train-images",
                 "neuralNetTestsIG/Data/Datasets/NIST/train-labels");
-        Dataset testData = new Dataset("neuralNetTestsIG/Data/Datasets/NIST/test-images",
-                "neuralNetTestsIG/Data/Datasets/NIST/test-labels");
 
-        NeuralNet NN = new NeuralNet(new int[] { 32, 32 }, 0.2, 100, SIGMOID, SQUAREDISTANCE, trainingData, testData);
+        NeuralNet NN = new NeuralNet(28 * 28, new int[] { 128, 32 }, new String[] { SIGMOID, SIGMOID,
+                SIGMOID, SIGMOID });
 
-        NN.train(40);
+        NN.train(30, 0.15, 500, SQUAREDISTANCE, trainingData, 6);
         new HandwritingWindow(NN);
     }
 
-    final static int SIGMOID = 0;
-    final static int TANH = 1;
-    final static int RELU = 2;
+    final static String SIGMOID = "SIGMOID";
+    final static String TANH = "TANH";
+    final static String RELU = "RELU";
 
     final static int SQUAREDISTANCE = 0;
+
+    int[] hiddenLayerSizes;
+    int hiddenLayerAmount;
+    InputLayer inputLayer;
+
+    //for only working on the main thread
+    WeightedLayer[] hiddenLayers;
+    WeightedLayer outputLayer;
+
+    //when using multithreading one needs baseLayers
+    ThreadBaseLayer[] hiddenBaseLayers;
+    ThreadBaseLayer outputBaseLayer;
+
+    Dataset trainingData;
+    Dataset testData;
+
+    int threadNumber;
+    Semaphore threadManager;
+    trainingThread[] threads;
+
+    int costFunction;
+    String[] activationFunctions;
+
+    double learnrate;
+    int batchSize;
+    double currentBatchCost = 0;
+    double currentEpochCost = 0;
+    double lastCostAverage = 0;
+
+    public NeuralNet(int inputNodesNum, int[] hiddenLayerSizes, String[] activationFunctions) {
+        this.hiddenLayerAmount = hiddenLayerSizes.length;
+        this.hiddenLayerSizes = hiddenLayerSizes;
+        this.activationFunctions = activationFunctions;
+        initiateNormalNeuralLayers(inputNodesNum, hiddenLayerSizes);
+    }
+
+    private void initiateNormalNeuralLayers(int inputNodesNum, int[] hiddenLayerSizes) {
+        // one extra layer for the inputs and then one extra layer for the cost, which is a layer in itself
+        inputLayer = new InputLayer(inputNodesNum, getActivationFunction(activationFunctions[0]));
+        hiddenLayers = new WeightedLayer[hiddenLayerAmount];
+        for (int i = 0; i < hiddenLayerAmount; i++) {
+            hiddenLayers[i] = new WeightedLayer(hiddenLayerSizes[i], i == 0 ? inputLayer : hiddenLayers[i - 1],
+                    getActivationFunction(activationFunctions[i + 1]),
+                    getActivationFunctionDerivative(activationFunctions[i + 1]));
+        }
+        outputLayer = new WeightedLayer(10, hiddenLayers[hiddenLayers.length - 1],
+                getActivationFunction(activationFunctions[hiddenLayerAmount + 1]),
+                getActivationFunctionDerivative(activationFunctions[hiddenLayerAmount + 1]));
+
+    }
+
+    private void initiateThreadNeuralLayers(int[] hiddenLayerSizes) {
+        // one extra layer for the inputs and then one extra layer for the cost, which is a layer in itself
+        hiddenBaseLayers = new ThreadBaseLayer[hiddenLayerAmount];
+        for (int i = 0; i < hiddenLayerAmount; i++) {
+            hiddenBaseLayers[i] = new ThreadBaseLayer(hiddenLayerSizes[i], i == 0 ? inputLayer : hiddenLayers[i - 1],
+                    getActivationFunction(activationFunctions[i + 1]),
+                    getActivationFunctionDerivative(activationFunctions[i + 1]));
+            hiddenBaseLayers[i].setBiases(MatrixCalculation.deepCopy(hiddenLayers[i].getBiases()));
+            hiddenBaseLayers[i].setWeights(MatrixCalculation.deepCopy(hiddenLayers[i].getWeights()));
+        }
+        outputBaseLayer = new ThreadBaseLayer(10, hiddenLayers[hiddenLayers.length - 1],
+                getActivationFunction(activationFunctions[hiddenLayerAmount + 1]),
+                getActivationFunctionDerivative(activationFunctions[hiddenLayerAmount + 1]));
+
+        outputBaseLayer.setBiases(MatrixCalculation.deepCopy(outputLayer.getBiases()));
+        outputBaseLayer.setWeights(MatrixCalculation.deepCopy(outputLayer.getWeights()));
+
+        threadManager = new Semaphore(0);
+        // build the threads that are going to be used for training
+        for (int i = 0; i < threadNumber; i++) {
+
+        }
+    }
+
+    public ImageApproximation testImage(int n) {
+        int[] image = testData.getPixelData()[n];
+
+        propagateInput(image);
+        double[][] prediction = outputLayer.activationValues;
+        double sum = MatrixCalculation.MatrixSum(prediction);
+        double[] scores = MatrixCalculation.scalarMultiplication(1 / sum, prediction)[0];
+        ImageApproximation a = new ImageApproximation(image, scores, testData.getImageLabelsAbsolut()[n]);
+        System.out.println(a.getImageScores().get(0).a);
+        return a;
+    }
+
+    public ImageApproximation testImage(int[] image) {
+        propagateInput(image);
+        //printimage(image);
+        double[][] prediction = outputLayer.activationValues;
+        double sum = MatrixCalculation.MatrixSum(prediction);
+        double[] confidence = MatrixCalculation.scalarMultiplication(1 / sum, prediction)[0];
+        ImageApproximation a = new ImageApproximation(image, confidence, -1);
+        System.out.println(a.getImageScores().get(0).a);
+        return a;
+    }
+
+    private void test(Dataset testData) {
+        this.testData = testData;
+    }
+
+    /**
+     * trains the network by calling the learn batch funktion multible times with the new start index for the next batch
+     * @param epochs
+     */
+    public void train(int epochs,
+            double learnrate,
+            int batchSize,
+            int costFunction,
+            Dataset trainingData,
+            int threadNumber) {
+
+        this.learnrate = learnrate;
+        this.batchSize = batchSize;
+
+        this.costFunction = costFunction;
+        this.trainingData = trainingData;
+
+        this.threadNumber = threadNumber;
+
+        if (threadNumber > 1)
+            initiateThreadNeuralLayers(hiddenLayerSizes);
+
+        threads = new trainingThread[threadNumber];
+        for (int i = 0; i < threadNumber; i++) {
+            threads[i] = new trainingThread(threadManager, this);
+            threads[i].start();
+        }
+
+        ThreadTrainingLayer[][] hiddenTrainingLayersThreadLevel = new ThreadTrainingLayer[hiddenLayerAmount][threadNumber];
+        for (int i = 0; i < hiddenLayerAmount; i++) {
+            for (int j = 0; j < threadNumber; j++) {
+                hiddenTrainingLayersThreadLevel[i][j] = threads[j].getHiddenLayers()[i];
+            }
+        }
+
+        // giving each base layer references to each training layer above them
+        for (int i = 0; i < hiddenBaseLayers.length; i++) {
+            hiddenBaseLayers[i].setTrainignLayers(hiddenTrainingLayersThreadLevel[i]);
+        }
+        ThreadTrainingLayer[] outputLayerTrainingThreadLayers = new ThreadTrainingLayer[threadNumber];
+        for (int i = 0; i < threadNumber; i++) {
+            outputLayerTrainingThreadLayers[i] = threads[i].getOutputLayer();
+        }
+        outputBaseLayer.setTrainignLayers(outputLayerTrainingThreadLayers);
+
+        for (int i = 0; i < epochs; i++) {
+            learnEpoch(batchSize);
+
+            double averageEpochCost = 1 - currentEpochCost / 10 / trainingData.getDatasetSize();
+            currentEpochCost = 0;
+            System.out.println("Epoch: " + i + " - current Cost score: "
+                    + SupportingCalculations.round(averageEpochCost, 6));
+
+            if (averageEpochCost > 0.99)
+                break;
+        }
+        System.out.println("training done. lets have a look.");
+        for (int i = 0; i < threadNumber; i++) {
+            threads[i].retire();
+        }
+        threadManager.release(threadNumber);
+        testImage(trainingData.getPixelData()[1]);
+        testImage(trainingData.getPixelData()[2]);
+        testImage(trainingData.getPixelData()[3]);
+    }
+
+    private void learnEpoch(int batchSize) {
+        if (threadNumber == 1) {
+            learnEpochMainThread(batchSize);
+        } else {
+            learnEpochThreaded(batchSize);
+        }
+    }
+
+    /**
+     * This calls the backpropagation function for each input in the batch. 
+     * then it lets the layers apply their gradients.
+     * and calculates the average cost of this batch
+     * Uses multible threads in order to be faster
+     * @param batchSize
+     */
+    void learnEpochThreaded(int batchSize) {
+
+        int i = 0;
+        while (i < (trainingData.getDatasetSize() - batchSize)) {
+            currentBatchCost = 0;
+            //devide batch into threadNumber different sections on the array
+            int threadBatchSize = batchSize / threadNumber;
+            //set the different ranges for each thread
+            for (int j = 0; j < threadNumber; j++) {
+                threads[j].setLimits(i, i + threadBatchSize);
+                i += threadBatchSize;
+            }
+
+            //give threadManager threadNumber permits. They update their weights and biases from the base layer
+            threadManager.release(threadNumber);
+
+            //join / wait until all threads are done
+            while (threadManager.getQueueLength() < threadNumber) {
+                Thread.yield();
+            }
+
+            //apply bias and weight gradients to base Layers
+            applyGradientStepsBaseLayer();
+
+            // get batchCost from each thread
+            for (int j = 0; j < threadNumber; j++) {
+                currentBatchCost += threads[j].getCurrentBatchCost();
+            }
+
+            lastCostAverage = 1 - (currentBatchCost / threadBatchSize / threadNumber / 10);
+            currentEpochCost += currentBatchCost;
+            //System.out.println(lastCostAverage);
+        }
+        copyBaseLayersValuesToNormalLayers();
+    }
+
+    public synchronized void addBatchCost(double cost) {
+        currentBatchCost += cost;
+    }
+
+    private void copyBaseLayersValuesToNormalLayers() {
+        for (int i = 0; i < hiddenLayerAmount; i++) {
+            hiddenLayers[i].setBiases(MatrixCalculation.deepCopy(hiddenBaseLayers[i].getBiases()));
+            hiddenLayers[i].setWeights(MatrixCalculation.deepCopy(hiddenBaseLayers[i].getWeights()));
+        }
+        outputLayer.setBiases(MatrixCalculation.deepCopy(outputBaseLayer.getBiases()));
+        outputLayer.setWeights(MatrixCalculation.deepCopy(outputBaseLayer.getWeights()));
+    }
+
+    /**
+     * This calls the backpropagation function for each input in the batch. 
+     * then it lets the layers apply their gradients.
+     * and calculates the average cost of this batch
+     * @param startindex
+     * @param batchSize
+     */
+    void learnEpochMainThread(int batchSize) {
+
+        int i = 0;
+        while (i < (trainingData.getDatasetSize() - batchSize) / 1) {
+            currentBatchCost = 0;
+            for (int j = 0; j < batchSize; j++) {
+                backpropagation(trainingData.getPixelData()[i], trainingData.getImageLabels()[i]);
+            }
+            i += batchSize;
+            applyGradientSteps();
+            lastCostAverage = 1 - (currentBatchCost / batchSize / 10);
+            //System.out.println(lastCostAverage);
+        }
+    }
+
+    /**
+     * this propages the input values through the network 
+     * calls the function that calculates the difference in cost to the optimal solution.
+     * passes that matrix and the derivative of the cost function into the outputlayer
+     * then calls each layer backwards to calculate their respective gradients
+     * @param inputArray
+     * @param solution
+     */
+    void backpropagation(int[] inputArray, int[] solution) {
+
+        //forewardPropagation:
+        propagateInput(inputArray);
+
+        //calculating cost:
+        double[][] costDiff = calcCostAndRate(solution);
+
+        //backpropagation:
+        outputLayer.calculateGradients(costDiff, getCostFunctionDerivative(costFunction));
+        for (int i = hiddenLayers.length - 1; i >= 0; i--) {
+            if (i == hiddenLayers.length - 1) {
+                hiddenLayers[i].calculateGradients(outputLayer.Z_Gradient, outputLayer.weights);
+            } else {
+                hiddenLayers[i].calculateGradients(hiddenLayers[i + 1].Z_Gradient, hiddenLayers[i + 1].weights);
+            }
+        }
+    }
+
+    /**
+     * calls the costDiff function, which returns the difference between the optimal outputlayer and the actual activation values of the output layer.
+     * Then it calculates the cost using the cost function
+     * 
+     * it adds the sum of each cost to the cost of the current batch. This will be used to calculate the average cost after training on this batch.
+     * returns the cost diff because the backpropagation needs that to pass it into the derivative of the cost function.
+     * @param solution
+     * @return
+     */
+    double[][] calcCostAndRate(int[] solution) {
+        double[][] solutionMatrix = new double[][] { Arrays.stream(
+                solution).mapToDouble(x -> (double) x).toArray() };
+        double[][] costDiff = calculateCostDiff(outputLayer.activationValues, solutionMatrix);
+        double[][] cost = new double[1][costDiff[0].length];
+        getCostFunction(costFunction).accept(costDiff, cost);
+        double costSum = MatrixCalculation.MatrixSum(cost);
+        currentBatchCost += costSum;
+        //System.out.println(costSum);
+        return costDiff;
+    }
+
+    /**
+     * adds weight/bias gradients stored in each layer to their weight and bias matrices
+     * -= gradient*lernrate
+     */
+    void applyGradientSteps() {
+        outputLayer.applyGradients(learnrate / batchSize);
+        for (int i = 0; i < hiddenLayers.length; i++) {
+            hiddenLayers[i].applyGradients(learnrate / batchSize);
+        }
+    }
+
+    /**
+     * adds weight/bias gradients stored in each layer to their weight and bias matrices
+     * -= gradient*lernrate
+     */
+    void applyGradientStepsBaseLayer() {
+        for (int i = 0; i < hiddenBaseLayers.length; i++) {
+            hiddenBaseLayers[i].applyGradients(learnrate / batchSize);
+        }
+        outputBaseLayer.applyGradients(learnrate / batchSize);
+    }
+
+    public double[] propagateInput(int[] pixel) {
+        double[][] pixelArray = new double[][] { Arrays.stream(pixel).mapToDouble(x -> (double) x).toArray() };
+
+        //printimage(pixel);
+        inputLayer.setInputData(pixelArray);
+
+        //System.out.println(Arrays.toString(inputLayer.activationValues[0]) + "\n");
+
+        for (int i = 0; i < hiddenLayers.length; i++) {
+            hiddenLayers[i].calculateActivationValues();
+            //System.out.println(Arrays.toString(hiddenLayers[i].activationValues[0]) + "\n");
+        }
+
+        outputLayer.calculateActivationValues();
+        System.out.println(Arrays.toString(outputLayer.activationValues[0]));
+        return outputLayer.activationValues[0];
+    }
+
+    public double[][] calculateCostDiff(double[][] activationValuesOutputLayer, double[][] solution) {
+        double[][] costDiff = MatrixCalculation.maticesAdd(
+                activationValuesOutputLayer,
+                MatrixCalculation.scalarMultiplication(-1d, solution));
+        return costDiff;
+    }
+
+    public BiConsumer<double[][], double[][]> getActivationFunction(String i) {
+        return switch (i) {
+            case SIGMOID:
+                yield AFsigmoidL;
+            case TANH:
+                yield AFtanh;
+            case RELU:
+                yield AFrelu;
+            default:
+                yield AFsigmoidL;
+
+        };
+    }
+
+    public BiConsumer<double[][], double[][]> getActivationFunctionDerivative(String i) {
+        return switch (i) {
+            case SIGMOID:
+                yield AFsigmoidLDerivative;
+            case TANH:
+                yield AFtanhDerivative;
+            case RELU:
+                yield AFreluDerivative;
+            default:
+                yield AFsigmoidLDerivative;
+
+        };
+    }
+
+    BiConsumer<double[][], double[][]> getCostFunctionDerivative(int costFunction) {
+        return AFCostFunctionDiffDerivative;
+    }
+
+    BiConsumer<double[][], double[][]> getCostFunction(int costFunction) {
+        return AFCostFunctionDiff;
+    }
+
+    void printimage(int[] pixel) {
+        for (int i = 0; i < 28; i++) {
+            for (int j = 0; j < 28; j++) {
+                //System.out.print(pixel[i * 28 + j]);
+                System.out.print(String.format("%3d", pixel[i * 28 + j]));
+            }
+            System.out.println();
+        }
+    }
+
+    public Dataset getTestDataset() {
+        return testData;
+    }
+
+    public Dataset getTrainingData() {
+        return trainingData;
+    }
+
+    public WeightedLayer[] getHiddenLayers() {
+        return hiddenLayers;
+    }
+
+    public ThreadBaseLayer getHiddenBaseLayer(int i) {
+        return hiddenBaseLayers[i];
+    }
+
+    public ThreadBaseLayer getOutputBaseLayer() {
+        return outputBaseLayer;
+    }
+
+    /**
+    * @return the outputLayer
+    */
+    public WeightedLayer getOutputLayer() {
+        return outputLayer;
+    }
+
+    /**
+     * @return the hiddenBaseLayers
+     */
+    public ThreadBaseLayer[] getHiddenBaseLayers() {
+        return hiddenBaseLayers;
+    }
 
     final Function<Double, Double> sigmoidL = x -> 1 / (1 + Math.exp(-x));
     final Function<Double, Double> sigmoidLDerivative = x -> {
@@ -109,9 +535,9 @@ public class NeuralNet {
     };
 
     /**
-     * saves the CostFunction values of the first Array into the second.
-     * Cost Function: (a-o)^2
-     */
+    * saves the CostFunction values of the first Array into the second.
+    * Cost Function: (a-o)^2
+    */
     final TriConsumer<double[][], double[][], double[][]> AFCostFunction = (x, y, z) -> {
         // here you might want a check for same size, but I want to save that performance cuz that should never happen.
         for (int i = 0; i < x.length; i++)
@@ -156,239 +582,8 @@ public class NeuralNet {
         }
     };
 
-    /* 
-    final BiFunction<Double, Double, Double> costFunction = (a, o) -> Math.pow(a - o, 2);
-    final BiFunction<Double, Double, Double> costFunctionDerivative = (a, o) -> 2 * (a - o); */
-
-    InputLayer inputLayer;
-    WeightedLayer[] hiddenLayers;
-    WeightedLayer outputLayer;
-
-    Dataset trainingData;
-    Dataset testData;
-
-    int costFunction;
-    int activationFunction;
-
-    double learnrate;
-    int batchSize;
-    double currentBatchCost = 0;
-    double lastCostAverage = 0;
-
-    public NeuralNet(int[] hiddenLayerSizes, double learnrate, int batchSize, int activationFunction, int costFunction,
-            Dataset trainingData,
-            Dataset testData) {
-
-        this.learnrate = learnrate;
-        this.batchSize = batchSize;
-
-        this.costFunction = costFunction;
-        this.activationFunction = activationFunction;
-
-        this.trainingData = trainingData;
-        this.testData = testData;
-
-        // one extra layer for the inputs and then one extra layer for the cost, which is a layer in itself
-        inputLayer = new InputLayer(trainingData.getImagePixels(), getActivationFunction(activationFunction));
-        hiddenLayers = new WeightedLayer[hiddenLayerSizes.length];
-        for (int i = 0; i < hiddenLayerSizes.length; i++) {
-            hiddenLayers[i] = new WeightedLayer(hiddenLayerSizes[i], i == 0 ? inputLayer : hiddenLayers[i - 1],
-                    getActivationFunction(activationFunction), getActivationFunctionDerivative(activationFunction));
-        }
-        outputLayer = new WeightedLayer(10, hiddenLayers[hiddenLayers.length - 1],
-                getActivationFunction(activationFunction), getActivationFunctionDerivative(activationFunction));
-    }
-
-    public ImageApproximation testImage(int n) {
-        int[] image = testData.getPixelData()[n];
-
-        propagateInput(image);
-        double[][] prediction = outputLayer.activationValues;
-        double sum = MatrixCalculation.MatrixSum(prediction);
-        double[] scores = MatrixCalculation.scalarMultiplication(1 / sum, prediction)[0];
-        return new ImageApproximation(image, scores, testData.getImageLabelsAbsolut()[n]);
-    }
-
-    public ImageApproximation testImage(int[] image) {
-        propagateInput(image);
-        printimage(image);
-        double[][] prediction = outputLayer.activationValues;
-        double sum = MatrixCalculation.MatrixSum(prediction);
-        double[] confidence = MatrixCalculation.scalarMultiplication(1 / sum, prediction)[0];
-        return new ImageApproximation(image, confidence, -1);
-    }
-
-    private void test() {
-    }
-
-    /**
-     * trains the network by calling the learn batch funktion multible times with the new start index for the next batch
-     * @param epochs
-     */
-    public void train(int epochs) {
-
-        for (int i = 0; i < epochs; i++) {
-            learnEpoch(batchSize);
-            System.out.println("Epoch: " + i + " - current Cost score: "
-                    + SupportingCalculations.round(lastCostAverage, 4));
-
-        }
-    }
-
-    /**
-     * This calls the backpropagation function for each input in the batch. 
-     * then it lets the layers apply their gradients.
-     * and calculates the average cost of this batch
-     * @param startindex
-     * @param batchSize
-     */
-    void learnEpoch(int batchSize) {
-
-        int i = 0;
-        while (i < (trainingData.getDatasetSize() - batchSize) / 1) {
-            currentBatchCost = 0;
-            for (int j = 0; j < batchSize; j++) {
-                backpropagation(trainingData.getPixelData()[i], trainingData.getImageLabels()[i]);
-            }
-            i += batchSize;
-            applyGradientSteps();
-            lastCostAverage = 1 - (currentBatchCost / batchSize / 10);
-            //System.out.println(lastCostAverage);
-        }
-    }
-
-    /**
-     * this propages the input values through the network 
-     * calls the function that calculates the difference in cost to the optimal solution.
-     * passes that matrix and the derivative of the cost function into the outputlayer
-     * then calls each layer backwards to calculate their respective gradients
-     * @param inputArray
-     * @param solution
-     */
-    void backpropagation(int[] inputArray, int[] solution) {
-
-        //forewardPropagation:
-        propagateInput(inputArray);
-
-        //calculating cost:
-        double[][] costDiff = calcCostAndRate(solution);
-
-        //backpropagation:
-        outputLayer.calculateGradients(costDiff, getCostFunctionDerivative(costFunction));
-        for (int i = hiddenLayers.length - 1; i >= 0; i--) {
-            if (i == hiddenLayers.length - 1) {
-                hiddenLayers[i].calculateGradients(outputLayer.Z_Gradient, outputLayer.weights);
-            } else {
-                hiddenLayers[i].calculateGradients(hiddenLayers[i + 1].Z_Gradient, hiddenLayers[i + 1].weights);
-            }
-        }
-    }
-
-    /**
-     * calls the costDiff function, which returns the difference between the optimal outputlayer and the actual activation values of the output layer.
-     * Then it calculates the cost using the cost function
-     * 
-     * it adds the sum of each cost to the cost of the current batch. This will be used to calculate the average cost after training on this batch.
-     * returns the cost diff because the backpropagation needs that to pass it into the derivative of the cost function.
-     * @param solution
-     * @return
-     */
-    double[][] calcCostAndRate(int[] solution) {
-        double[][] solutionMatrix = new double[][] { Arrays.stream(
-                solution).mapToDouble(x -> (double) x).toArray() };
-        double[][] costDiff = calculateCostDiff(outputLayer.activationValues, solutionMatrix);
-        double[][] cost = new double[1][costDiff[0].length];
-        getCostFunction(costFunction).accept(costDiff, cost);
-        double costSum = MatrixCalculation.MatrixSum(cost);
-        currentBatchCost += costSum;
-        //System.out.println(costSum);
-        return costDiff;
-    }
-
-    /**
-     * adds weight/bias gradients stored in each layer to their weight and bias matrices
-     * -= gradient*lernrate
-     */
-    void applyGradientSteps() {
-        outputLayer.applyGradients(learnrate / batchSize);
-        for (int i = 0; i < hiddenLayers.length; i++) {
-            hiddenLayers[i].applyGradients(learnrate / batchSize);
-        }
-    }
-
-    public double[] propagateInput(int[] pixel) {
-        double[][] pixelArray = new double[][] { Arrays.stream(pixel).mapToDouble(x -> (double) x).toArray() };
-
-        //printimage(pixel);
-        inputLayer.setInputData(pixelArray);
-
-        //System.out.println(Arrays.toString(inputLayer.activationValues[0]) + "\n");
-
-        for (int i = 0; i < hiddenLayers.length; i++) {
-            hiddenLayers[i].calculateActivationValues();
-            //System.out.println(Arrays.toString(hiddenLayers[i].activationValues[0]) + "\n");
-        }
-
-        outputLayer.calculateActivationValues();
-        //System.out.println(Arrays.toString(outputLayer.activationValues[0]));
-        return outputLayer.activationValues[0];
-    }
-
-    public double[][] calculateCostDiff(double[][] activationValuesOutputLayer, double[][] solution) {
-        double[][] costDiff = MatrixCalculation.maticesAdd(
-                activationValuesOutputLayer,
-                MatrixCalculation.scalarMultiplication(-1d, solution));
-        return costDiff;
-    }
-
-    public BiConsumer<double[][], double[][]> getActivationFunction(int i) {
-        return switch (i) {
-            case 0:
-                yield AFsigmoidL;
-            case 1:
-                yield AFtanh;
-            case 2:
-                yield AFrelu;
-            default:
-                yield AFsigmoidL;
-
-        };
-    }
-
-    public BiConsumer<double[][], double[][]> getActivationFunctionDerivative(int i) {
-        return switch (i) {
-            case 0:
-                yield AFsigmoidLDerivative;
-            case 1:
-                yield AFtanhDerivative;
-            case 2:
-                yield AFreluDerivative;
-            default:
-                yield AFsigmoidLDerivative;
-
-        };
-    }
-
-    BiConsumer<double[][], double[][]> getCostFunctionDerivative(int costFunction) {
-        return AFCostFunctionDiffDerivative;
-    }
-
-    private BiConsumer<double[][], double[][]> getCostFunction(int costFunction) {
-        return AFCostFunctionDiff;
-    }
-
-    void printimage(int[] pixel) {
-        for (int i = 0; i < 28; i++) {
-            for (int j = 0; j < 28; j++) {
-                //System.out.print(pixel[i * 28 + j]);
-                System.out.print(String.format("%3d", pixel[i * 28 + j]));
-            }
-            System.out.println();
-        }
-    }
-
-    public Dataset getTestDataset() {
-        return testData;
+    public void setTestData(Dataset dataset) {
+        testData = dataset;
     }
 
 }

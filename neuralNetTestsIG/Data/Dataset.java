@@ -50,7 +50,8 @@ public class Dataset {
     }
 
     /**
-     * @return the imageLabels
+     * @return the imageLabels als Arrays. The position of the one is the number in the image.
+     * equals the perfekt result that could be given in the outputlayers activation values
      */
     public int[][] getImageLabels() {
         return imageLabels;

@@ -121,4 +121,32 @@ public class WeightedLayer extends Layer {
     public void calculateGradients(double[][] z_Gradient2, double[][] weights2) {
         calculateGradients(z_Gradient2, weights2, null);
     }
+
+    /**
+     * @param biases the biases to set
+     */
+    public void setBiases(double[][] biases) {
+        this.biases = biases;
+    }
+
+    /**
+     * @return the weights
+     */
+    public double[][] getWeights() {
+        return weights;
+    }
+
+    /**
+     * @return the biases
+     */
+    public double[][] getBiases() {
+        return biases;
+    }
+
+    /**
+     * @param weights the weights to set
+     */
+    public void setWeights(double[][] weights) {
+        this.weights = weights;
+    }
 }
