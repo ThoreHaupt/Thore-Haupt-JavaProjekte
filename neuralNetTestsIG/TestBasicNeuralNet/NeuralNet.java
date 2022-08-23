@@ -5,8 +5,11 @@ import java.util.function.BiConsumer;
 import java.util.function.Function;
 
 import Commons.CalulationTools.MatrixCalculation;
+import Commons.CalulationTools.SupportingCalculations;
 import Commons.LambdaInterfaces.TriConsumer;
+import PracticeProjects.test;
 import neuralNetTestsIG.Data.Dataset;
+import neuralNetTestsIG.NeuralInterfaceProgramm.HandwritingWindow;
 
 import java.util.function.Consumer;
 
@@ -132,6 +135,7 @@ public class NeuralNet {
     /**
      * saves the Derivative of the Cost Function with values x,y into Array z
      * Cost function Derivatie: 2*(a-o)
+     * input x is already (a-o)
      */
     final BiConsumer<double[][], double[][]> AFCostFunctionDiffDerivative = (x, y) -> {
         for (int i = 0; i < x.length; i++) {
@@ -180,7 +184,7 @@ public class NeuralNet {
                     getActivationFunction(activationFunction), getActivationFunctionDerivative(activationFunction));
         }
         outputLayer = new WeightedLayer(10, hiddenLayers[hiddenLayers.length - 1],
-                getActivationFunction(activationFunction), getActivationFunctionDerivative(activationFunction));
+                getActivationFunction(SIGMOID), getActivationFunctionDerivative(SIGMOID));
     }
 
     public static void main(String[] args) {
@@ -189,66 +193,115 @@ public class NeuralNet {
         Dataset testData = new Dataset("neuralNetTestsIG/Data/Datasets/NIST/test-images",
                 "neuralNetTestsIG/Data/Datasets/NIST/test-labels");
 
-        NeuralNet NN = new NeuralNet(new int[] { 128, 32 }, 0.3, 100, SIGMOID, SQUAREDISTANCE, trainingData, testData);
-        int n = 4;
+        NeuralNet NN = new NeuralNet(new int[] { 32 }, 0.3, 100, TANH, SQUAREDISTANCE, trainingData, testData);
+
         /* NN.train();
         NN.test();
         System.out.println(trainingData.getImageLabelsAbsolut()[n]);
         NN.calculateImage(trainingData.getPixelData()[n]); */
         //NN.backpropagation(trainingData.getPixelData()[n], trainingData.getImageLabels()[n]);
 
-        NN.train(1000);
+        NN.train(1);
 
-        for (int i = 0; i < 10; i++) {
+        HandwritingWindow h = new HandwritingWindow(NN);
+
+        /* for (int i = 0; i < 10; i++) {
             NN.testExampel(i);
-        }
+        } */
+
+        /* NN.testExampel(5);
+        NN.backpropagation(testData.getPixelData()[5], testData.getImageLabels()[5]);
+        NN.testExampel(5); */
     }
 
+    /**
+     * this method can test the network on the ith datapoint in the test set
+     * @param i
+     */
     private void testExampel(int i) {
         int[] image = testData.getPixelData()[i];
         printimage(image);
-        calculateImage(image);
+        propagateInput(image);
+
+        double[][] diff = calcCostAndRate(testData.getImageLabels()[i]);
+        getCostFunction(costFunction).accept(diff, diff);
         System.out.println("correct Number: " + testData.getImageLabelsAbsolut()[i]);
+        System.out.println("Cost: " + MatrixCalculation.MatrixSum(diff));
+        System.out.println("Cost Array: " + Arrays.toString(diff[0]));
         double outputSum = MatrixCalculation.MatrixSum(outputLayer.activationValues);
         System.out.println("Sum: " + outputSum);
         System.out.println(Arrays.toString(outputLayer.activationValues[0]));
         for (int j = 0; j < outputLayer.activationValues[0].length; j++) {
-            System.out.print(j + ": " + (outputLayer.activationValues[0][j] / outputSum));
-            System.out.println(" (" + outputLayer.activationValues[0][j] + ") + " + testData.getImageLabels()[i][j]);
+            System.out
+                    .print(j + ": " + SupportingCalculations.round(outputLayer.activationValues[0][j] / outputSum, 2));
+            System.out.println(" (" + SupportingCalculations.round(outputLayer.activationValues[0][j], 2) + ") + "
+                    + testData.getImageLabels()[i][j]);
         }
+    }
+
+    public ImageApproximation testImage(int n) {
+        int[] image = testData.getPixelData()[n];
+
+        propagateInput(image);
+        double[][] diff = calcCostAndRate(testData.getImageLabels()[n]);
+        getCostFunction(costFunction).accept(diff, diff);
+        double sum = MatrixCalculation.MatrixSum(diff);
+        double[] scores = MatrixCalculation.scalarMultiplication(1 / sum, diff)[0];
+
+        return new ImageApproximation(image, scores, testData.getImageLabelsAbsolut()[n]);
     }
 
     private void test() {
     }
 
+    /**
+     * trains the network by calling the learn batch funktion multible times with the new start index for the next batch
+     * @param epochs
+     */
     public void train(int epochs) {
+
+        for (int i = 0; i < epochs; i++) {
+            learnEpoch(batchSize);
+            System.out.println("Epoch: " + i + " - current Cost score: "
+                    + SupportingCalculations.round(lastCostAverage, 4));
+
+        }
+    }
+
+    /**
+     * This calls the backpropagation function for each input in the batch. 
+     * then it lets the layers apply their gradients.
+     * and calculates the average cost of this batch
+     * @param startindex
+     * @param batchSize
+     */
+    void learnEpoch(int batchSize) {
+
         int i = 0;
-        int c = 0;
-        while (c < epochs) {
-            if (i + batchSize >= trainingData.getDatasetSize())
-                i = 0;
-            learnBatch(i, batchSize);
+        while (i < trainingData.getDatasetSize() - batchSize) {
+            currentBatchCost = 0;
+            for (int j = 0; j < batchSize; j++) {
+                backpropagation(trainingData.getPixelData()[i], trainingData.getImageLabels()[i]);
+            }
             i += batchSize;
-            c++;
-            if (c % 100 == 0)
-                System.out.println(c);
+            applyGradientSteps();
+            lastCostAverage = 1 - (currentBatchCost / batchSize / 10);
+            //System.out.println(lastCostAverage);
         }
     }
 
-    void learnBatch(int startindex, int batchSize) {
-        for (int i = startindex; i < startindex + batchSize; i++) {
-            backpropagation(trainingData.getPixelData()[i], trainingData.getImageLabels()[i]);
-        }
-        applyGradientSteps();
-        lastCostAverage = 1 - (currentBatchCost / batchSize / 10);
-        System.out.println(lastCostAverage);
-        currentBatchCost = 0;
-    }
-
-    void backpropagation(int[] pixel, int[] solution) {
+    /**
+     * this propages the input values through the network 
+     * calls the function that calculates the difference in cost to the optimal solution.
+     * passes that matrix and the derivative of the cost function into the outputlayer
+     * then calls each layer backwards to calculate their respective gradients
+     * @param inputArray
+     * @param solution
+     */
+    void backpropagation(int[] inputArray, int[] solution) {
 
         //forewardPropagation:
-        calculateImage(pixel);
+        propagateInput(inputArray);
 
         //calculating cost:
         double[][] costDiff = calcCostAndRate(solution);
@@ -264,6 +317,15 @@ public class NeuralNet {
         }
     }
 
+    /**
+     * calls the costDiff function, which returns the difference between the optimal outputlayer and the actual activation values of the output layer.
+     * Then it calculates the cost using the cost function
+     * 
+     * it adds the sum of each cost to the cost of the current batch. This will be used to calculate the average cost after training on this batch.
+     * returns the cost diff because the backpropagation needs that to pass it into the derivative of the cost function.
+     * @param solution
+     * @return
+     */
     double[][] calcCostAndRate(int[] solution) {
         double[][] solutionMatrix = new double[][] { Arrays.stream(
                 solution).mapToDouble(x -> (double) x).toArray() };
@@ -276,6 +338,10 @@ public class NeuralNet {
         return costDiff;
     }
 
+    /**
+     * adds weight/bias gradients stored in each layer to their weight and bias matrices
+     * -= gradient*lernrate
+     */
     void applyGradientSteps() {
         outputLayer.applyGradients(learnrate / batchSize);
         for (int i = 0; i < hiddenLayers.length; i++) {
@@ -283,7 +349,7 @@ public class NeuralNet {
         }
     }
 
-    public double[] calculateImage(int[] pixel) {
+    public double[] propagateInput(int[] pixel) {
         double[][] pixelArray = new double[][] { Arrays.stream(pixel).mapToDouble(x -> (double) x).toArray() };
 
         //printimage(pixel);
@@ -352,5 +418,9 @@ public class NeuralNet {
             }
             System.out.println();
         }
+    }
+
+    public Dataset getTestDataset() {
+        return testData;
     }
 }

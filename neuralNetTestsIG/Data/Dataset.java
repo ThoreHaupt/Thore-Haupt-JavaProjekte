@@ -66,4 +66,12 @@ public class Dataset {
     public int getDatasetSize() {
         return pixelData.length;
     }
+
+    public int getImagePixel_X() {
+        return imageXsize;
+    }
+
+    public int getImagePixel_Y() {
+        return 0;
+    }
 }

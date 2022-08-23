@@ -6,6 +6,10 @@ import Commons.CalulationTools.MatrixCalculation;
 
 public class WeightedLayer extends Layer {
 
+    public static void main(String[] args) {
+
+    }
+
     final double lowerInitValue = -0.5;
     final double upperInitValue = 0.5;
 
@@ -18,7 +22,7 @@ public class WeightedLayer extends Layer {
     double[][] weights;
     double[][] biases;
     double[][] Z; // (z)
-    //double[] activationValue; already exists in Layer class
+    //double[][] activationValue; already exists in Layer class
 
     // safe gradients for next layers
     // this is what accumulates all the notches in the batch. gets applied at the end. -> exists once when there is more than one thread doing backprob
@@ -60,13 +64,10 @@ public class WeightedLayer extends Layer {
         // init all the important Arrays that wont be initiated naturally. Like the initial weights and biases (randomly) and set all values in each GradientSum to 0
         MatrixCalculation.fillMatrixWithRandomValues(weights, lowerInitValue, upperInitValue);
         MatrixCalculation.fillMatrixWithRandomValues(biases, lowerInitValue, upperInitValue);
-
-        MatrixCalculation.initializeArrayValuesWithValue(weightGradient, 0);
-        MatrixCalculation.initializeArrayValuesWithValue(biasGradient, 0);
-        MatrixCalculation.initializeArrayValuesWithValue(Z, 0);
     }
 
     void calculateActivationValues() {
+        Z = new double[1][activationValues[0].length];
         for (int i = 0; i < activationValues[0].length; i++) {
             for (int j = 0; j < previousLayer.activationValues[0].length; j++) {
                 Z[0][i] += previousLayer.activationValues[0][j] * weights[i][j];
@@ -80,7 +81,7 @@ public class WeightedLayer extends Layer {
             double[][] nextLayer_Weights,
             BiConsumer<double[][], double[][]> costFuntionDerivative) {
 
-        //Derive dc/dz+1 (given) to dc/da (matrix product with weights matrix)
+        // Derive dc/dz+1 (given) to dc/da (matrix product with weights matrix of the next layer)
         // when this is the last layer(outputlayer) then use the derivative of the cost funtion
         if (costFuntionDerivative == null)
             MatrixCalculation.matrixMultiplikation(nextLayer_Z_Gradient, nextLayer_Weights, activation_Gradient);
@@ -92,7 +93,7 @@ public class WeightedLayer extends Layer {
         MatrixCalculation.hamardProdukt(Z_Gradient, activation_Gradient, Z_Gradient);
 
         //add weight Gradient
-        MatrixCalculation.matrixMultiplikationFirstTransposed(previousLayer.activationValues, Z_Gradient,
+        MatrixCalculation.matrixMultiplikationFirstTransposed(Z_Gradient, previousLayer.activationValues,
                 weightGradientBuffer);
         MatrixCalculation.addtoMatix(weightGradient, weightGradientBuffer);
         //add bias Gradient

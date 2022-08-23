@@ -7,15 +7,25 @@ import testStuff.testPolymorphie.A;
 public class MatrixCalculation {
 
     public static void main(String[] args) {
-        double[][] a = { { 1, 2 }, { 3, 2 } };
-        double[][] b = { { 4, 5, 6 }, { 1, 2, 4 } };
+        double[][] a = { { 1 }, { 2 }, { 3 } };
+        //double[][] a = { { 1, 2, 3 } };
 
-        double[][] r = new double[2][3];
+        double[][] b = { { 4, 5, 6 } };
+
+        double[][] r = new double[3][3];
+
+        //matrixMultiplikationFirstTransposed(a, b, r);
         matrixMultiplikation(a, b, r);
         System.out.println(Arrays.toString(r[0]));
         System.out.println(Arrays.toString(r[1]));
+        System.out.println(Arrays.toString(r[2]));
     }
 
+    /**
+     * adds all values from the second matrix to the first matrix
+     * @param a
+     * @param b
+     */
     public static void addtoMatix(double[][] a, double[][] b) {
         for (int i = 0; i < a.length; i++) {
             for (int j = 0; j < a[0].length; j++) {
@@ -44,7 +54,6 @@ public class MatrixCalculation {
                 outputmatrix[i][j] = a[i][j] + b[i][j];
             }
         }
-
         return outputmatrix;
     }
 
@@ -69,7 +78,7 @@ public class MatrixCalculation {
         double[][] outputmatrix = new double[a.length][a[0].length];
         for (int i = 0; i < a.length; i++) {
             for (int j = 0; j < a[0].length; j++) {
-                outputmatrix[i][j] = a[i][j] + b[0][j];
+                outputmatrix[j][i] = a[i][j] + b[0][j];
             }
         }
 
@@ -242,11 +251,12 @@ public class MatrixCalculation {
 
     public static void matrixMultiplikationFirstTransposed(double[][] a, double[][] b,
             double[][] weightGradientBuffer) {
-        for (int i = 0; i < weightGradientBuffer.length; i++) {
-            for (int j = 0; j < weightGradientBuffer[0].length; j++) {
+        for (int i = 0; i < a[0].length; i++) {
+            for (int j = 0; j < b[0].length; j++) {
                 weightGradientBuffer[i][j] = 0;
-                for (int j2 = 0; j2 < a.length; j2++) {
-                    weightGradientBuffer[i][j] += a[j2][j] * b[j2][i];
+                for (int k = 0; k < a.length; k++) {
+                    weightGradientBuffer[i][j] += a[k][i] * b[k][j];
+                    //[i][j] += a[i][k] * b[k][j];
                 }
             }
         }
