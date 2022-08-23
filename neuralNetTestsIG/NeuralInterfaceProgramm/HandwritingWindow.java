@@ -8,6 +8,7 @@ import neuralNetTestsIG.TestBasicNeuralNet.NeuralNet;
 import javax.swing.*;
 import java.awt.*;
 import java.util.jar.JarEntry;
+import java.awt.event.*;
 
 public class HandwritingWindow extends JFrame {
     Container contentPain;
@@ -16,6 +17,8 @@ public class HandwritingWindow extends JFrame {
     ImageApproximation currentImage;
     JPanel imagePanel;
     JTextArea scoreTextArea;
+
+    boolean drawingEnabled = false;
 
     public HandwritingWindow(NeuralNet NN) {
 
@@ -43,6 +46,35 @@ public class HandwritingWindow extends JFrame {
             }
         }
 
+        imagePanel.addMouseMotionListener(new MouseMotionAdapter() {
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                if (drawingEnabled) {
+                    int xPos = e.getX() / 20;
+                    int yPos = e.getY() / 20;
+
+                    for (int i = xPos - 1; i < xPos + 1; i++) {
+                        for (int j = yPos - 1; j < yPos + 1; j++) {
+                            if (!(i < 0 || j < 0 || i > 28 || j > 28)) {
+                                pixel[j][i].setBackground(new Color(0, 0, 0));
+                            }
+                        }
+                    }
+                }
+                int[] image = new int[28 * 28];
+                for (int i = 0; i < pixel.length; i++) {
+                    for (int j = 0; j < pixel[i].length; j++) {
+                        image[28 * i + j] = 255 - pixel[i][j].getBackground().getBlue();
+                    }
+                }
+
+                currentImage = NN.testImage(image);
+                setNewParameters();
+            }
+
+        });
+
         JPanel InfoActionPanel = new JPanel();
         GridBagLayout gb = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
@@ -61,7 +93,7 @@ public class HandwritingWindow extends JFrame {
 
         InfoActionPanel.add(infoPanel);
 
-        JPanel buttonPanel = new JPanel(new GridLayout(2, 1));
+        JPanel buttonPanel = new JPanel(new GridLayout(3, 1));
         JButton newImageButton = new JButton("test new Random Image from test-Set");
         newImageButton.addActionListener(e -> {
             int n = (int) (Math.random() * NN.getTestDataset().getDatasetSize());
@@ -86,6 +118,14 @@ public class HandwritingWindow extends JFrame {
         newFalseImageButton.setBackground(new Color(255, 51, 0));
         buttonPanel.add(newFalseImageButton);
 
+        JButton drawOwnImageButton = new JButton("Draw A Number yourself");
+        drawOwnImageButton.addActionListener(e -> {
+            clearCanvas();
+            drawingEnabled = true;
+        });
+        drawOwnImageButton.setBackground(new Color(255, 51, 0));
+        buttonPanel.add(drawOwnImageButton);
+
         c.gridx = 4;
         InfoActionPanel.add(buttonPanel);
 
@@ -97,6 +137,16 @@ public class HandwritingWindow extends JFrame {
         contentPain.add(panel);
         setBasics();
 
+    }
+
+    private void clearCanvas() {
+        for (int i = 0; i < pixel.length; i++) {
+            for (int j = 0; j < pixel[i].length; j++) {
+                JPanel p = pixel[i][j];
+                int pw = 255;
+                p.setBackground(new Color(pw, pw, pw));
+            }
+        }
     }
 
     void setNewImage() {
@@ -112,15 +162,23 @@ public class HandwritingWindow extends JFrame {
         }
         imagePanel.repaint();
         // update Text
+        setNewParameters();
+    }
+
+    private void setNewParameters() {
         scoreTextArea.setText(getText(currentImage));
         if (currentImage.isCorrect())
             scoreTextArea.setForeground(new Color(0, 204, 0));
-        else
+        else if (currentImage.getActualNumber() != -1)
             scoreTextArea.setForeground(new Color(255, 51, 0));
+        else
+            scoreTextArea.setForeground(new Color(0, 0, 0));
     }
 
     String getText(ImageApproximation image) {
-        String predictionScorestest = "Actual Number = " + currentImage.getActualNumber() + "\n";
+        String predictionScorestest = "";
+        if (currentImage.getActualNumber() != -1)
+            predictionScorestest += "Actual Number = " + currentImage.getActualNumber() + "\n";
         for (Pair<Integer, Double> i : currentImage.getImageScores()) {
             predictionScorestest += i.a.toString() + ": " + SupportingCalculations.round(i.b.doubleValue(), 4) + "\n";
         }

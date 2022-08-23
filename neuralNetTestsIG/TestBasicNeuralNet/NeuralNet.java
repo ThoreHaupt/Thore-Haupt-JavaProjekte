@@ -15,6 +15,18 @@ import java.util.function.Consumer;
 
 public class NeuralNet {
 
+    public static void main(String[] args) {
+        Dataset trainingData = new Dataset("neuralNetTestsIG/Data/Datasets/NIST/train-images",
+                "neuralNetTestsIG/Data/Datasets/NIST/train-labels");
+        Dataset testData = new Dataset("neuralNetTestsIG/Data/Datasets/NIST/test-images",
+                "neuralNetTestsIG/Data/Datasets/NIST/test-labels");
+
+        NeuralNet NN = new NeuralNet(new int[] { 32, 32 }, 0.2, 100, SIGMOID, SQUAREDISTANCE, trainingData, testData);
+
+        NN.train(40);
+        new HandwritingWindow(NN);
+    }
+
     final static int SIGMOID = 0;
     final static int TANH = 1;
     final static int RELU = 2;
@@ -177,78 +189,33 @@ public class NeuralNet {
         this.testData = testData;
 
         // one extra layer for the inputs and then one extra layer for the cost, which is a layer in itself
-        inputLayer = new InputLayer(trainingData.getImagePixels(), AFsigmoidL);
+        inputLayer = new InputLayer(trainingData.getImagePixels(), getActivationFunction(activationFunction));
         hiddenLayers = new WeightedLayer[hiddenLayerSizes.length];
         for (int i = 0; i < hiddenLayerSizes.length; i++) {
             hiddenLayers[i] = new WeightedLayer(hiddenLayerSizes[i], i == 0 ? inputLayer : hiddenLayers[i - 1],
                     getActivationFunction(activationFunction), getActivationFunctionDerivative(activationFunction));
         }
         outputLayer = new WeightedLayer(10, hiddenLayers[hiddenLayers.length - 1],
-                getActivationFunction(SIGMOID), getActivationFunctionDerivative(SIGMOID));
-    }
-
-    public static void main(String[] args) {
-        Dataset trainingData = new Dataset("neuralNetTestsIG/Data/Datasets/NIST/train-images",
-                "neuralNetTestsIG/Data/Datasets/NIST/train-labels");
-        Dataset testData = new Dataset("neuralNetTestsIG/Data/Datasets/NIST/test-images",
-                "neuralNetTestsIG/Data/Datasets/NIST/test-labels");
-
-        NeuralNet NN = new NeuralNet(new int[] { 32 }, 0.3, 100, TANH, SQUAREDISTANCE, trainingData, testData);
-
-        /* NN.train();
-        NN.test();
-        System.out.println(trainingData.getImageLabelsAbsolut()[n]);
-        NN.calculateImage(trainingData.getPixelData()[n]); */
-        //NN.backpropagation(trainingData.getPixelData()[n], trainingData.getImageLabels()[n]);
-
-        NN.train(10);
-
-        HandwritingWindow h = new HandwritingWindow(NN);
-
-        /* for (int i = 0; i < 10; i++) {
-            NN.testExampel(i);
-        } */
-
-        /* NN.testExampel(5);
-        NN.backpropagation(testData.getPixelData()[5], testData.getImageLabels()[5]);
-        NN.testExampel(5); */
-    }
-
-    /**
-     * this method can test the network on the ith datapoint in the test set
-     * @param i
-     */
-    private void testExampel(int i) {
-        int[] image = testData.getPixelData()[i];
-        printimage(image);
-        propagateInput(image);
-
-        double[][] diff = calcCostAndRate(testData.getImageLabels()[i]);
-        getCostFunction(costFunction).accept(diff, diff);
-        System.out.println("correct Number: " + testData.getImageLabelsAbsolut()[i]);
-        System.out.println("Cost: " + MatrixCalculation.MatrixSum(diff));
-        System.out.println("Cost Array: " + Arrays.toString(diff[0]));
-        double outputSum = MatrixCalculation.MatrixSum(outputLayer.activationValues);
-        System.out.println("Sum: " + outputSum);
-        System.out.println(Arrays.toString(outputLayer.activationValues[0]));
-        for (int j = 0; j < outputLayer.activationValues[0].length; j++) {
-            System.out
-                    .print(j + ": " + SupportingCalculations.round(outputLayer.activationValues[0][j] / outputSum, 2));
-            System.out.println(" (" + SupportingCalculations.round(outputLayer.activationValues[0][j], 2) + ") + "
-                    + testData.getImageLabels()[i][j]);
-        }
+                getActivationFunction(activationFunction), getActivationFunctionDerivative(activationFunction));
     }
 
     public ImageApproximation testImage(int n) {
         int[] image = testData.getPixelData()[n];
 
         propagateInput(image);
-        double[][] diff = calcCostAndRate(testData.getImageLabels()[n]);
-        getCostFunction(costFunction).accept(diff, diff);
-        double sum = MatrixCalculation.MatrixSum(diff);
-        double[] scores = MatrixCalculation.scalarMultiplication(1 / sum, diff)[0];
-
+        double[][] prediction = outputLayer.activationValues;
+        double sum = MatrixCalculation.MatrixSum(prediction);
+        double[] scores = MatrixCalculation.scalarMultiplication(1 / sum, prediction)[0];
         return new ImageApproximation(image, scores, testData.getImageLabelsAbsolut()[n]);
+    }
+
+    public ImageApproximation testImage(int[] image) {
+        propagateInput(image);
+        printimage(image);
+        double[][] prediction = outputLayer.activationValues;
+        double sum = MatrixCalculation.MatrixSum(prediction);
+        double[] confidence = MatrixCalculation.scalarMultiplication(1 / sum, prediction)[0];
+        return new ImageApproximation(image, confidence, -1);
     }
 
     private void test() {
@@ -278,7 +245,7 @@ public class NeuralNet {
     void learnEpoch(int batchSize) {
 
         int i = 0;
-        while (i < trainingData.getDatasetSize() - batchSize) {
+        while (i < (trainingData.getDatasetSize() - batchSize) / 1) {
             currentBatchCost = 0;
             for (int j = 0; j < batchSize; j++) {
                 backpropagation(trainingData.getPixelData()[i], trainingData.getImageLabels()[i]);
@@ -402,7 +369,7 @@ public class NeuralNet {
         };
     }
 
-    private BiConsumer<double[][], double[][]> getCostFunctionDerivative(int costFunction) {
+    BiConsumer<double[][], double[][]> getCostFunctionDerivative(int costFunction) {
         return AFCostFunctionDiffDerivative;
     }
 
@@ -423,4 +390,5 @@ public class NeuralNet {
     public Dataset getTestDataset() {
         return testData;
     }
+
 }

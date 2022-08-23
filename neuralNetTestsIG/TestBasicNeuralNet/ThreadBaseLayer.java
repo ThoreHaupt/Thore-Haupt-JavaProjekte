@@ -4,7 +4,7 @@ import java.util.function.BiConsumer;
 
 import Commons.CalulationTools.MatrixCalculation;
 
-public class WeightedLayer extends Layer {
+public class ThreadBaseLayer extends Layer {
 
     public static void main(String[] args) {
 
@@ -29,15 +29,12 @@ public class WeightedLayer extends Layer {
     double[][] weightGradient;
     double[][] biasGradient;
 
-    // should exist more than once, for each thread
-    double[][] activation_Gradient;
-    double[][] Z_Gradient;
-    double[][] weightGradientBuffer;
-
     BiConsumer<double[][], double[][]> activationFunction;
     BiConsumer<double[][], double[][]> activationFunctionDerivative;
 
-    public WeightedLayer(int nodeAmount, Layer preveousLayer,
+    ThreadTrainingLayer[] trainignLayers;
+
+    public ThreadBaseLayer(int nodeAmount, Layer preveousLayer,
             BiConsumer<double[][], double[][]> activationFunction,
             BiConsumer<double[][], double[][]> activationFunctionDerivative) {
         super(nodeAmount);
@@ -56,11 +53,6 @@ public class WeightedLayer extends Layer {
         weightGradient = new double[nodeAmount][previousLayer.getNodeAmount()];
         biasGradient = new double[1][nodeAmount];
 
-        // should exist more than once, for each thread
-        activation_Gradient = new double[1][nodeAmount];
-        Z_Gradient = new double[1][nodeAmount];
-        weightGradientBuffer = new double[nodeAmount][previousLayer.getNodeAmount()];
-
         // init all the important Arrays that wont be initiated naturally. Like the initial weights and biases (randomly) and set all values in each GradientSum to 0
         MatrixCalculation.fillMatrixWithRandomValues(weights, lowerInitValue, upperInitValue);
         MatrixCalculation.fillMatrixWithRandomValues(biases, lowerInitValue, upperInitValue);
@@ -77,30 +69,7 @@ public class WeightedLayer extends Layer {
         activationFunction.accept(Z, activationValues);
     }
 
-    void calculateGradients(double[][] nextLayer_Z_Gradient,
-            double[][] nextLayer_Weights,
-            BiConsumer<double[][], double[][]> costFuntionDerivative) {
-
-        // Derive dc/dz+1 (given) to dc/da (matrix product with weights matrix of the next layer)
-        // when this is the last layer(outputlayer) then use the derivative of the cost funtion
-        if (costFuntionDerivative == null)
-            MatrixCalculation.matrixMultiplikation(nextLayer_Z_Gradient, nextLayer_Weights, activation_Gradient);
-        else
-            costFuntionDerivative.accept(nextLayer_Z_Gradient, activation_Gradient);
-
-        //weightedInputValue Gradient dc/da -> dc/dz (S'(z) hamardProduct with the activation_Gradient)
-        activationFunctionDerivative.accept(Z, Z_Gradient);
-        MatrixCalculation.hamardProdukt(Z_Gradient, activation_Gradient, Z_Gradient);
-
-        //add weight Gradient
-        MatrixCalculation.matrixMultiplikationFirstTransposed(Z_Gradient, previousLayer.activationValues,
-                weightGradientBuffer);
-        MatrixCalculation.addtoMatix(weightGradient, weightGradientBuffer);
-        //add bias Gradient
-        MatrixCalculation.addtoMatix(biasGradient, Z_Gradient);
-    }
-
-    synchronized void applyGradients(double learnrate) {
+    void applyGradients(double learnrate) {
         for (int i = 0; i < weightGradient.length; i++) {
             for (int j = 0; j < weightGradient[0].length; j++) {
                 weights[i][j] -= weightGradient[i][j] * learnrate;
@@ -112,13 +81,26 @@ public class WeightedLayer extends Layer {
 
         MatrixCalculation.initializeArrayValuesWithValue(weightGradient, 0);
         MatrixCalculation.initializeArrayValuesWithValue(biasGradient, 0);
+
+        for (int i = 0; i < trainignLayers.length; i++) {
+            trainignLayers[i].updateVariabels();
+        }
     }
 
-    public void calculateGradients(double[][] costDiff, BiConsumer<double[][], double[][]> costFunctionDerivative) {
-        calculateGradients(costDiff, null, costFunctionDerivative);
+    public synchronized void addWeightGradientStep(double[][] weightGradientBuffer) {
+        MatrixCalculation.addtoMatix(weightGradient, weightGradientBuffer);
+
     }
 
-    public void calculateGradients(double[][] z_Gradient2, double[][] weights2) {
-        calculateGradients(z_Gradient2, weights2, null);
+    public synchronized void addBiasGradientStep(double[][] z_Gradient) {
+        MatrixCalculation.addtoMatix(biasGradient, z_Gradient);
     }
+
+    /**
+     * @param trainignLayers the trainignLayers to set
+     */
+    public void setTrainignLayers(ThreadTrainingLayer[] trainignLayers) {
+        this.trainignLayers = trainignLayers;
+    }
+
 }

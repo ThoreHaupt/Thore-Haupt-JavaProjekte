@@ -261,4 +261,15 @@ public class MatrixCalculation {
             }
         }
     }
+
+    public static double[][] deepCopy(double[][] a) {
+        double[][] deepCopy = new double[a.length][];
+        for (int i = 0; i < a.length; i++) {
+            deepCopy[i] = new double[a[i].length];
+            for (int j = 0; j < deepCopy.length; j++) {
+                deepCopy[i][j] = a[i][j];
+            }
+        }
+        return deepCopy;
+    }
 }
