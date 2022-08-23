@@ -53,7 +53,7 @@ public class HandwritingWindow extends JFrame {
         InfoActionPanel.setLayout(gb);
 
         JPanel infoPanel = new JPanel(new BorderLayout());
-        JLabel title = new JLabel(" Information on the image");
+        JLabel title = new JLabel(" Information (Confidence)");
         infoPanel.add(title, BorderLayout.NORTH);
         scoreTextArea = new JTextArea();
         scoreTextArea.setEditable(false);

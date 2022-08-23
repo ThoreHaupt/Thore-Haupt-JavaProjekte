@@ -201,7 +201,7 @@ public class NeuralNet {
         NN.calculateImage(trainingData.getPixelData()[n]); */
         //NN.backpropagation(trainingData.getPixelData()[n], trainingData.getImageLabels()[n]);
 
-        NN.train(1);
+        NN.train(10);
 
         HandwritingWindow h = new HandwritingWindow(NN);
 
