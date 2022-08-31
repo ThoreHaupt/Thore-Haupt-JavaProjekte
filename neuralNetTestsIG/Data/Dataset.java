@@ -73,6 +73,6 @@ public class Dataset {
     }
 
     public int getImagePixel_Y() {
-        return 0;
+        return imageYsize;
     }
 }

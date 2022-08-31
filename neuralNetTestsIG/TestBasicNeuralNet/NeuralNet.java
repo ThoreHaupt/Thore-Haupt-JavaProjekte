@@ -6,6 +6,8 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import java.io.Serializable;
+
 import Commons.CalulationTools.MatrixCalculation;
 import Commons.CalulationTools.SupportingCalculations;
 import Commons.LambdaInterfaces.TriConsumer;
@@ -14,56 +16,59 @@ import neuralNetTestsIG.NeuralInterfaceProgramm.HandwritingWindow;
 
 public class NeuralNet {
 
-    public static void main(String[] args) {
-        Dataset trainingData = new Dataset("neuralNetTestsIG/Data/Datasets/NIST/train-images",
-                "neuralNetTestsIG/Data/Datasets/NIST/train-labels");
+    final public static String SIGMOID = "SIGMOID";
+    final public static String TANH = "TANH";
+    final public static String RELU = "RELU";
 
-        NeuralNet NN = new NeuralNet(28 * 28, new int[] { 128, 32 }, new String[] { SIGMOID, SIGMOID,
-                SIGMOID, SIGMOID });
+    final public static int SQUAREDISTANCE = 0;
 
-        NN.train(30, 0.15, 500, SQUAREDISTANCE, trainingData, 6);
-        new HandwritingWindow(NN);
-    }
-
-    final static String SIGMOID = "SIGMOID";
-    final static String TANH = "TANH";
-    final static String RELU = "RELU";
-
-    final static int SQUAREDISTANCE = 0;
-
-    int[] hiddenLayerSizes;
-    int hiddenLayerAmount;
-    InputLayer inputLayer;
+    private int[] hiddenLayerSizes;
+    private int hiddenLayerAmount;
+    private InputLayer inputLayer;
 
     //for only working on the main thread
-    WeightedLayer[] hiddenLayers;
-    WeightedLayer outputLayer;
+    private WeightedLayer[] hiddenLayers;
+    private WeightedLayer outputLayer;
 
     //when using multithreading one needs baseLayers
-    ThreadBaseLayer[] hiddenBaseLayers;
-    ThreadBaseLayer outputBaseLayer;
+    private ThreadBaseLayer[] hiddenBaseLayers;
+    private ThreadBaseLayer outputBaseLayer;
 
-    Dataset trainingData;
-    Dataset testData;
+    private Dataset trainingData;
+    private Dataset testData;
 
-    int threadNumber;
-    Semaphore threadManager;
-    trainingThread[] threads;
+    private int threadNumber;
+    private Semaphore threadManager;
+    private trainingThread[] threads;
 
-    int costFunction;
-    String[] activationFunctions;
+    private int costFunction;
+    private String[] activationFunctions;
 
-    double learnrate;
-    int batchSize;
-    double currentBatchCost = 0;
-    double currentEpochCost = 0;
-    double lastCostAverage = 0;
+    private double learnrate;
+    private int batchSize;
+    private double currentBatchCost = 0;
+    private double currentEpochCost = 0;
+    private double lastCostAverage = 0;
 
     public NeuralNet(int inputNodesNum, int[] hiddenLayerSizes, String[] activationFunctions) {
         this.hiddenLayerAmount = hiddenLayerSizes.length;
         this.hiddenLayerSizes = hiddenLayerSizes;
         this.activationFunctions = activationFunctions;
         initiateNormalNeuralLayers(inputNodesNum, hiddenLayerSizes);
+    }
+
+    public NeuralNet(WeightedLayer[] hiddenLayers, WeightedLayer outputLayer, String[] activationFunctions) {
+        inputLayer = new InputLayer(hiddenLayers[0].getWeights()[0].length,
+                getActivationFunction(activationFunctions[0]));
+        this.hiddenLayers = hiddenLayers;
+        this.outputLayer = outputLayer;
+        this.activationFunctions = activationFunctions;
+        this.hiddenLayerAmount = hiddenLayers.length;
+        this.hiddenLayerSizes = new int[hiddenLayerAmount];
+        for (int i = 0; i < activationFunctions.length; i++) {
+            hiddenLayerSizes[i] = hiddenLayers[i].nodeAmount;
+        }
+
     }
 
     private void initiateNormalNeuralLayers(int inputNodesNum, int[] hiddenLayerSizes) {
@@ -459,6 +464,14 @@ public class NeuralNet {
         return hiddenBaseLayers;
     }
 
+    public String[] getActivationFunctions() {
+        return activationFunctions;
+    }
+
+    public int getCostFunction() {
+        return costFunction;
+    }
+
     final Function<Double, Double> sigmoidL = x -> 1 / (1 + Math.exp(-x));
     final Function<Double, Double> sigmoidLDerivative = x -> {
         double sigmVal = sigmoidL.apply(x);
@@ -489,7 +502,8 @@ public class NeuralNet {
     /**
      * saves the sigmoidL values of the first Array into the second.
      */
-    final BiConsumer<double[][], double[][]> AFsigmoidL = (x, y) -> {
+    final BiConsumer<double[][], double[][]> AFsigmoidL = (BiConsumer<double[][], double[][]> & Serializable) (x,
+            y) -> {
         // here you might want a check for same size, but I want to save that performance cuz that should never happen.
         for (int i = 0; i < x.length; i++)
             for (int j = 0; j < x[0].length; j++) {
@@ -500,7 +514,8 @@ public class NeuralNet {
     /**
      * saves the sigmoidL values of the first Array into the second. Of each first element in each Subarray
      */
-    final BiConsumer<double[][], double[][]> AFsigmoidLDerivative = (x, y) -> {
+    final BiConsumer<double[][], double[][]> AFsigmoidLDerivative = (BiConsumer<double[][], double[][]> & Serializable) (
+            x, y) -> {
         AFsigmoidL.accept(x, y);
         for (int i = 0; i < x.length; i++) {
             for (int j = 0; j < x[0].length; j++)
@@ -562,7 +577,8 @@ public class NeuralNet {
      * saves the CostFunction values of the first Array into the second.
      * Cost Function: (a-o)^2
      */
-    final BiConsumer<double[][], double[][]> AFCostFunctionDiff = (x, y) -> {
+    final BiConsumer<double[][], double[][]> AFCostFunctionDiff = (BiConsumer<double[][], double[][]> & Serializable) (
+            x, y) -> {
         // here you might want a check for same size, but I want to save that performance cuz that should never happen.
         for (int i = 0; i < x.length; i++)
             for (int j = 0; j < x[0].length; j++) {

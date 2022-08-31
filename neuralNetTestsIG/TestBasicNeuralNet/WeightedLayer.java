@@ -1,5 +1,6 @@
 package neuralNetTestsIG.TestBasicNeuralNet;
 
+import java.io.Serializable;
 import java.util.function.BiConsumer;
 
 import Commons.CalulationTools.MatrixCalculation;
