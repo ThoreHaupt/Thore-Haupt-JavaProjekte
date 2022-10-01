@@ -3,29 +3,27 @@ package neuralNetTestsIG.NeuralInterfaceProgramm;
 import Commons.CalulationTools.SupportingCalculations;
 import Commons.FileHandiling.Pair;
 import Commons.UIElements.FileChooserInterface;
+import Commons.UIElements.InputTextfield;
+import Commons.UIElements.technicalUIElements.DocumentNumberFilter;
 import neuralNetTestsIG.Data.Dataset;
 import neuralNetTestsIG.TestBasicNeuralNet.ImageApproximation;
+import neuralNetTestsIG.TestBasicNeuralNet.NetworkFunctionCollection;
 import neuralNetTestsIG.TestBasicNeuralNet.NeuralNet;
 import neuralNetTestsIG.TestBasicNeuralNet.StoredNet;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.PrimitiveIterator.OfInt;
-import java.util.jar.JarEntry;
 import java.awt.event.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class HandwritingWindow extends JFrame {
 
-    final public static String SIGMOID = NeuralNet.SIGMOID;
+    final public static String SIGMOID = NetworkFunctionCollection.SIGMOID;
 
     public static void main(String[] args) {
         new HandwritingWindow();
@@ -60,7 +58,7 @@ public class HandwritingWindow extends JFrame {
         NN.setTestData(new Dataset("neuralNetTestsIG/Data/Datasets/NIST/test-images",
                 "neuralNetTestsIG/Data/Datasets/NIST/test-labels"));
 
-        NN.train(0, 0.15, 500, NeuralNet.SQUAREDISTANCE, trainingData, 6);
+        NN.train(0, 0.15, 500, NetworkFunctionCollection.SQUAREDISTANCE, trainingData, 6);
 
         pixel = new JPanel[pixelNumY][pixelNumX];
 
@@ -116,60 +114,32 @@ public class HandwritingWindow extends JFrame {
         JPanel InfoActionPanel = new JPanel();
         GridBagLayout gb = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
-        c.gridwidth = 4;
-        c.gridx = 3;
+        c.gridwidth = 1;
+        c.gridheight = 4;
+        c.gridy = 3;
         c.fill = 2;
-        c.weightx = 0.25;
+        c.weighty = 0.25;
         InfoActionPanel.setLayout(gb);
 
         JPanel loadSaveTrainPanel = new JPanel(new GridLayout(4, 1));
 
         JButton loadNetWorkButton = new JButton("load network");
-        loadNetWorkButton.addActionListener(e -> {
-            JFileChooser loader = new JFileChooser();
-            loader.setCurrentDirectory(
-                    new File(
-                            "C:/Users/torer/Desktop/Code/Java/repoitories/https---github.com-ThoreHaupt-SortingAlgorithmProject/neuralNetTestsIG/Data/trainedDNN"));
-            loader.showOpenDialog(null);
-            StoredNet newNN = null;
-            try {
-                ObjectInputStream oInStream;
-                oInStream = new ObjectInputStream(new FileInputStream(loader.getSelectedFile()));
-                newNN = (StoredNet) oInStream.readObject();
-                oInStream.close();
-            } catch (ClassNotFoundException | IOException e1) {
-                System.out.println("MaybeFileNotFound");
-                e1.printStackTrace();
-            }
-            if (newNN == null) {
-                System.out.println("Some Error");
-                return;
-            }
-            NN = newNN.restoreNet();
-        });
+        loadNetWorkButton.addActionListener(e -> loadNetworkFromFile());
         loadSaveTrainPanel.add(loadNetWorkButton);
 
         //Save the network to a file
         JButton saveCurrentNetworkButton = new JButton("save as");
-
-        saveCurrentNetworkButton.addActionListener(e -> {
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setCurrentDirectory(
-                    new File(
-                            "C:/Users/torer/Desktop/Code/Java/repoitories/https---github.com-ThoreHaupt-SortingAlgorithmProject/neuralNetTestsIG/Data/trainedDNN"));
-            fileChooser.showOpenDialog(null);
-            File destination = fileChooser.getSelectedFile();
-            storeNN(destination, NN);
-        });
+        saveCurrentNetworkButton.addActionListener(e -> saveCurrentNetwork());
         loadSaveTrainPanel.add(saveCurrentNetworkButton);
 
         JButton trainCurrentNetworkButoon = new JButton("continue training");
+        trainCurrentNetworkButoon.addActionListener(e -> trainCurrentNetwork());
         loadSaveTrainPanel.add(trainCurrentNetworkButoon);
 
         JButton newNetworkButton = new JButton("create new Network");
         newNetworkButton.addActionListener(e -> createNewNet());
         loadSaveTrainPanel.add(newNetworkButton);
-        c.gridx = 0;
+        c.gridy = 0;
         InfoActionPanel.add(loadSaveTrainPanel);
 
         JPanel infoPanel = new JPanel(new BorderLayout());
@@ -214,17 +184,77 @@ public class HandwritingWindow extends JFrame {
         drawOwnImageButton.setBackground(new Color(255, 51, 0));
         buttonPanel.add(drawOwnImageButton);
 
-        c.gridx = 4;
+        c.gridy = 4;
         InfoActionPanel.add(buttonPanel);
 
         currentImage = NN.testImage(6969);
         setNewImage();
 
-        panel.add(imagePanel, BorderLayout.NORTH);
+        panel.add(imagePanel, BorderLayout.WEST);
         panel.add(InfoActionPanel, BorderLayout.CENTER);
         contentPain.add(panel);
         setBasics();
 
+    }
+
+    private void trainCurrentNetwork() {
+        int epochAmount = 0;
+        // create dialoge to set the amount of epochs to train;
+        JDialog createNNDialoagWindow = new JDialog(this, true);
+        createNNDialoagWindow.setSize(new Dimension(300, 400));
+        Container contentPane = createNNDialoagWindow.getContentPane();
+
+        JPanel mainPanel = new JPanel();
+
+        GridBagLayout gbl = new GridBagLayout();
+        GridBagConstraints c = new GridBagConstraints();
+
+        mainPanel.setLayout(gbl);
+
+        mainPanel.add(new InputTextfield("Epochs:", new DocumentNumberFilter(), new Dimension(250, 50),
+                new Dimension(70, 50)));
+
+        contentPane.removeAll();
+        contentPane.add(mainPanel);
+        createNNDialoagWindow.setVisible(true);
+
+        // call the train Method of NN
+        NN.train(epochAmount);
+    }
+
+    private void loadNetworkFromFile() {
+        JFileChooser loader = new JFileChooser();
+        loader.setCurrentDirectory(
+                new File(
+                        "C:/Users/torer/Desktop/Code/Java/repoitories/https---github.com-ThoreHaupt-SortingAlgorithmProject/neuralNetTestsIG/Data/trainedDNN"));
+        loader.showOpenDialog(null);
+        StoredNet newNN = null;
+        try {
+            ObjectInputStream oInStream;
+            oInStream = new ObjectInputStream(new FileInputStream(loader.getSelectedFile()));
+            newNN = (StoredNet) oInStream.readObject();
+            oInStream.close();
+        } catch (ClassNotFoundException | IOException e1) {
+            System.out.println("MaybeFileNotFound");
+            e1.printStackTrace();
+        }
+        if (newNN == null) {
+            System.out.println("Some Error");
+            return;
+        }
+        NN = newNN.restoreNet();
+    }
+
+    private void saveCurrentNetwork() {
+        if (NN == null)
+            return;
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(
+                new File(
+                        "C:/Users/torer/Desktop/Code/Java/repoitories/https---github.com-ThoreHaupt-SortingAlgorithmProject/neuralNetTestsIG/Data/trainedDNN"));
+        fileChooser.showOpenDialog(null);
+        File destination = fileChooser.getSelectedFile();
+        storeNN(destination, NN);
     }
 
     private void clearCanvas() {
@@ -279,7 +309,7 @@ public class HandwritingWindow extends JFrame {
 
     private void setBasics() {
         this.setTitle("NN-Images");
-        this.setSize(560, 700);
+        this.setSize(700, 560);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -296,6 +326,7 @@ public class HandwritingWindow extends JFrame {
      */
     private void createNewNet() {
         JDialog createNNDialoagWindow = new JDialog(this, true);
+        createNNDialoagWindow.setPreferredSize(new Dimension(300, 400));
         Container contentPane = createNNDialoagWindow.getContentPane();
 
         JPanel mainPanel = new JPanel();
@@ -315,12 +346,12 @@ public class HandwritingWindow extends JFrame {
 
     public void storeNN(File f, NeuralNet DNN) {
         try {
+            StoredNet SDNN = new StoredNet(DNN);
             f.createNewFile();
             ObjectOutputStream objOutStream = new ObjectOutputStream(new FileOutputStream(f));
-            objOutStream.writeObject(new StoredNet(DNN));
+            objOutStream.writeObject(SDNN);
             objOutStream.close();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 

@@ -16,12 +16,6 @@ import neuralNetTestsIG.NeuralInterfaceProgramm.HandwritingWindow;
 
 public class NeuralNet {
 
-    final public static String SIGMOID = "SIGMOID";
-    final public static String TANH = "TANH";
-    final public static String RELU = "RELU";
-
-    final public static int SQUAREDISTANCE = 0;
-
     private int[] hiddenLayerSizes;
     private int hiddenLayerAmount;
     private InputLayer inputLayer;
@@ -59,7 +53,7 @@ public class NeuralNet {
 
     public NeuralNet(WeightedLayer[] hiddenLayers, WeightedLayer outputLayer, String[] activationFunctions) {
         inputLayer = new InputLayer(hiddenLayers[0].getWeights()[0].length,
-                getActivationFunction(activationFunctions[0]));
+                activationFunctions[0]);
         this.hiddenLayers = hiddenLayers;
         this.outputLayer = outputLayer;
         this.activationFunctions = activationFunctions;
@@ -73,16 +67,17 @@ public class NeuralNet {
 
     private void initiateNormalNeuralLayers(int inputNodesNum, int[] hiddenLayerSizes) {
         // one extra layer for the inputs and then one extra layer for the cost, which is a layer in itself
-        inputLayer = new InputLayer(inputNodesNum, getActivationFunction(activationFunctions[0]));
+        inputLayer = new InputLayer(inputNodesNum,
+                activationFunctions[0]);
         hiddenLayers = new WeightedLayer[hiddenLayerAmount];
         for (int i = 0; i < hiddenLayerAmount; i++) {
             hiddenLayers[i] = new WeightedLayer(hiddenLayerSizes[i], i == 0 ? inputLayer : hiddenLayers[i - 1],
-                    getActivationFunction(activationFunctions[i + 1]),
-                    getActivationFunctionDerivative(activationFunctions[i + 1]));
+                    activationFunctions[i + 1],
+                    activationFunctions[i + 1]);
         }
         outputLayer = new WeightedLayer(10, hiddenLayers[hiddenLayers.length - 1],
-                getActivationFunction(activationFunctions[hiddenLayerAmount + 1]),
-                getActivationFunctionDerivative(activationFunctions[hiddenLayerAmount + 1]));
+                activationFunctions[hiddenLayerAmount + 1],
+                activationFunctions[hiddenLayerAmount + 1]);
 
     }
 
@@ -91,14 +86,15 @@ public class NeuralNet {
         hiddenBaseLayers = new ThreadBaseLayer[hiddenLayerAmount];
         for (int i = 0; i < hiddenLayerAmount; i++) {
             hiddenBaseLayers[i] = new ThreadBaseLayer(hiddenLayerSizes[i], i == 0 ? inputLayer : hiddenLayers[i - 1],
-                    getActivationFunction(activationFunctions[i + 1]),
-                    getActivationFunctionDerivative(activationFunctions[i + 1]));
+                    NetworkFunctionCollection.getActivationFunction(activationFunctions[i + 1]),
+                    NetworkFunctionCollection.getActivationFunctionDerivative(activationFunctions[i + 1]));
             hiddenBaseLayers[i].setBiases(MatrixCalculation.deepCopy(hiddenLayers[i].getBiases()));
             hiddenBaseLayers[i].setWeights(MatrixCalculation.deepCopy(hiddenLayers[i].getWeights()));
         }
         outputBaseLayer = new ThreadBaseLayer(10, hiddenLayers[hiddenLayers.length - 1],
-                getActivationFunction(activationFunctions[hiddenLayerAmount + 1]),
-                getActivationFunctionDerivative(activationFunctions[hiddenLayerAmount + 1]));
+                NetworkFunctionCollection
+                        .getActivationFunction(activationFunctions[hiddenLayerAmount + 1]),
+                NetworkFunctionCollection.getActivationFunctionDerivative(activationFunctions[hiddenLayerAmount + 1]));
 
         outputBaseLayer.setBiases(MatrixCalculation.deepCopy(outputLayer.getBiases()));
         outputBaseLayer.setWeights(MatrixCalculation.deepCopy(outputLayer.getWeights()));
@@ -306,7 +302,7 @@ public class NeuralNet {
         double[][] costDiff = calcCostAndRate(solution);
 
         //backpropagation:
-        outputLayer.calculateGradients(costDiff, getCostFunctionDerivative(costFunction));
+        outputLayer.calculateGradients(costDiff, costFunction);
         for (int i = hiddenLayers.length - 1; i >= 0; i--) {
             if (i == hiddenLayers.length - 1) {
                 hiddenLayers[i].calculateGradients(outputLayer.Z_Gradient, outputLayer.weights);
@@ -330,7 +326,7 @@ public class NeuralNet {
                 solution).mapToDouble(x -> (double) x).toArray() };
         double[][] costDiff = calculateCostDiff(outputLayer.activationValues, solutionMatrix);
         double[][] cost = new double[1][costDiff[0].length];
-        getCostFunction(costFunction).accept(costDiff, cost);
+        NetworkFunctionCollection.getCostFunction(costFunction).accept(costDiff, cost);
         double costSum = MatrixCalculation.MatrixSum(cost);
         currentBatchCost += costSum;
         //System.out.println(costSum);
@@ -382,42 +378,6 @@ public class NeuralNet {
                 activationValuesOutputLayer,
                 MatrixCalculation.scalarMultiplication(-1d, solution));
         return costDiff;
-    }
-
-    public BiConsumer<double[][], double[][]> getActivationFunction(String i) {
-        return switch (i) {
-            case SIGMOID:
-                yield AFsigmoidL;
-            case TANH:
-                yield AFtanh;
-            case RELU:
-                yield AFrelu;
-            default:
-                yield AFsigmoidL;
-
-        };
-    }
-
-    public BiConsumer<double[][], double[][]> getActivationFunctionDerivative(String i) {
-        return switch (i) {
-            case SIGMOID:
-                yield AFsigmoidLDerivative;
-            case TANH:
-                yield AFtanhDerivative;
-            case RELU:
-                yield AFreluDerivative;
-            default:
-                yield AFsigmoidLDerivative;
-
-        };
-    }
-
-    BiConsumer<double[][], double[][]> getCostFunctionDerivative(int costFunction) {
-        return AFCostFunctionDiffDerivative;
-    }
-
-    BiConsumer<double[][], double[][]> getCostFunction(int costFunction) {
-        return AFCostFunctionDiff;
     }
 
     void printimage(int[] pixel) {
@@ -472,134 +432,12 @@ public class NeuralNet {
         return costFunction;
     }
 
-    final Function<Double, Double> sigmoidL = x -> 1 / (1 + Math.exp(-x));
-    final Function<Double, Double> sigmoidLDerivative = x -> {
-        double sigmVal = sigmoidL.apply(x);
-        return (sigmVal * (1 - sigmVal));
-    };
-
-    final Consumer<double[]> ACsigmoidL = x -> {
-        for (int i = 0; i < x.length; i++)
-            x[i] = 1 / (1 + Math.exp(-x[i]));
-    };
-    final Consumer<double[]> ACsigmoidLDerivative = x -> {
-        for (int i = 0; i < x.length; i++)
-            x[i] = 1 / (1 + Math.exp(-x[i]));
-        for (int i = 0; i < x.length; i++) {
-            x[i] = x[i] * (1 - x[i]);
-        }
-    };
-
-    /**
-     * saves the sigmoidL values of the first Array into the second.
-     */
-    final BiConsumer<double[], double[]> VFsigmoidL = (x, y) -> {
-        // here you might want a check for same size, but I want to save that performance cuz that should never happen.
-        for (int i = 0; i < x.length; i++)
-            y[i] = 1 / (1 + Math.exp(-x[i]));
-    };
-
-    /**
-     * saves the sigmoidL values of the first Array into the second.
-     */
-    final BiConsumer<double[][], double[][]> AFsigmoidL = (BiConsumer<double[][], double[][]> & Serializable) (x,
-            y) -> {
-        // here you might want a check for same size, but I want to save that performance cuz that should never happen.
-        for (int i = 0; i < x.length; i++)
-            for (int j = 0; j < x[0].length; j++) {
-                y[i][j] = 1 / (1 + Math.exp(-x[i][j]));
-            }
-    };
-
-    /**
-     * saves the sigmoidL values of the first Array into the second. Of each first element in each Subarray
-     */
-    final BiConsumer<double[][], double[][]> AFsigmoidLDerivative = (BiConsumer<double[][], double[][]> & Serializable) (
-            x, y) -> {
-        AFsigmoidL.accept(x, y);
-        for (int i = 0; i < x.length; i++) {
-            for (int j = 0; j < x[0].length; j++)
-                y[i][j] = y[i][j] * (1 - y[i][j]);
-        }
-    };
-
-    final BiConsumer<double[][], double[][]> AFtanh = (x, y) -> {
-        for (int i = 0; i < x.length; i++) {
-            for (int j = 0; j < x[0].length; j++)
-                y[i][j] = Math.tanh(x[i][j]);
-        }
-    };
-    final BiConsumer<double[][], double[][]> AFtanhDerivative = (x, y) -> {
-        for (int i = 0; i < x.length; i++) {
-            for (int j = 0; j < x[0].length; j++)
-                y[i][j] = 1 - Math.pow(Math.tanh(x[i][j]), 2);
-        }
-    };
-
-    final BiConsumer<double[][], double[][]> AFrelu = (x, y) -> {
-        for (int i = 0; i < x.length; i++) {
-            for (int j = 0; j < x[0].length; j++)
-                y[i][j] = y[i][j] > 0 ? y[i][j] : 0;
-        }
-    };
-    final BiConsumer<double[][], double[][]> AFreluDerivative = (x, y) -> {
-        for (int i = 0; i < x.length; i++) {
-            for (int j = 0; j < x[0].length; j++)
-                y[i][j] = y[i][j] > 0 ? 1 : 0;
-        }
-    };
-
-    /**
-    * saves the CostFunction values of the first Array into the second.
-    * Cost Function: (a-o)^2
-    */
-    final TriConsumer<double[][], double[][], double[][]> AFCostFunction = (x, y, z) -> {
-        // here you might want a check for same size, but I want to save that performance cuz that should never happen.
-        for (int i = 0; i < x.length; i++)
-            for (int j = 0; j < y[0].length; j++) {
-                z[i][j] = Math.pow((x[i][j] - y[i][j]), 2);
-
-            }
-    };
-
-    /**
-     * saves the Derivative of the Cost Function with values x,y into Array z
-     * Cost function Derivatie: 2*(a-o)
-     */
-    final TriConsumer<double[][], double[][], double[][]> AFCostFunctionDerivative = (x, y, z) -> {
-        for (int i = 0; i < x.length; i++) {
-            for (int j = 0; j < x[0].length; j++)
-                z[i][j] = 2 * (x[i][j] - y[i][j]);
-        }
-    };
-
-    /**
-     * saves the CostFunction values of the first Array into the second.
-     * Cost Function: (a-o)^2
-     */
-    final BiConsumer<double[][], double[][]> AFCostFunctionDiff = (BiConsumer<double[][], double[][]> & Serializable) (
-            x, y) -> {
-        // here you might want a check for same size, but I want to save that performance cuz that should never happen.
-        for (int i = 0; i < x.length; i++)
-            for (int j = 0; j < x[0].length; j++) {
-                y[i][j] = Math.pow((x[i][j]), 2);
-            }
-    };
-
-    /**
-     * saves the Derivative of the Cost Function with values x,y into Array z
-     * Cost function Derivatie: 2*(a-o)
-     * input x is already (a-o)
-     */
-    final BiConsumer<double[][], double[][]> AFCostFunctionDiffDerivative = (x, y) -> {
-        for (int i = 0; i < x.length; i++) {
-            for (int j = 0; j < x[0].length; j++)
-                y[i][j] = 2 * (x[i][j]);
-        }
-    };
-
     public void setTestData(Dataset dataset) {
         testData = dataset;
+    }
+
+    public void train(int epochAmount) {
+        train(epochAmount, learnrate, batchSize, costFunction, trainingData, threadNumber);
     }
 
 }
