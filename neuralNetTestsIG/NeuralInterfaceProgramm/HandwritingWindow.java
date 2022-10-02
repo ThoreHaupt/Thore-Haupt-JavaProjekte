@@ -4,12 +4,15 @@ import Commons.CalulationTools.SupportingCalculations;
 import Commons.FileHandiling.Pair;
 import Commons.UIElements.FileChooserInterface;
 import Commons.UIElements.InputTextfield;
+import Commons.UIElements.Progressbar;
 import Commons.UIElements.technicalUIElements.DocumentNumberFilter;
 import neuralNetTestsIG.Data.Dataset;
 import neuralNetTestsIG.TestBasicNeuralNet.ImageApproximation;
 import neuralNetTestsIG.TestBasicNeuralNet.NetworkFunctionCollection;
 import neuralNetTestsIG.TestBasicNeuralNet.NeuralNet;
 import neuralNetTestsIG.TestBasicNeuralNet.StoredNet;
+
+import com.formdev.flatlaf.FlatDarkLaf;
 
 import javax.swing.*;
 import java.awt.*;
@@ -44,6 +47,8 @@ public class HandwritingWindow extends JFrame {
     boolean currentNetworkSaved = false;
 
     public HandwritingWindow() {
+
+        FlatDarkLaf.setup();
 
         Dataset trainingData = new Dataset("neuralNetTestsIG/Data/Datasets/NIST/train-images",
                 "neuralNetTestsIG/Data/Datasets/NIST/train-labels");
@@ -113,21 +118,21 @@ public class HandwritingWindow extends JFrame {
 
         JPanel InfoActionPanel = new JPanel();
         GridBagLayout gb = new GridBagLayout();
+        InfoActionPanel.setLayout(gb);
         GridBagConstraints c = new GridBagConstraints();
         c.gridwidth = 1;
-        c.gridheight = 4;
-        c.gridy = 3;
-        c.fill = 2;
-        c.weighty = 0.25;
-        InfoActionPanel.setLayout(gb);
+        //c.gridheight = 3;
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 0;
+        //c.anchor = GridBagConstraints.NORTH;
 
+        // Buttons to load safe train and create a NN
         JPanel loadSaveTrainPanel = new JPanel(new GridLayout(4, 1));
 
         JButton loadNetWorkButton = new JButton("load network");
         loadNetWorkButton.addActionListener(e -> loadNetworkFromFile());
         loadSaveTrainPanel.add(loadNetWorkButton);
 
-        //Save the network to a file
         JButton saveCurrentNetworkButton = new JButton("save as");
         saveCurrentNetworkButton.addActionListener(e -> saveCurrentNetwork());
         loadSaveTrainPanel.add(saveCurrentNetworkButton);
@@ -139,22 +144,30 @@ public class HandwritingWindow extends JFrame {
         JButton newNetworkButton = new JButton("create new Network");
         newNetworkButton.addActionListener(e -> createNewNet());
         loadSaveTrainPanel.add(newNetworkButton);
-        c.gridy = 0;
-        InfoActionPanel.add(loadSaveTrainPanel);
 
+        c.gridy = 0;
+        c.weighty = 0.15;
+        InfoActionPanel.add(loadSaveTrainPanel, c);
+
+        // InfoPanel on current Displayed Image
         JPanel infoPanel = new JPanel(new BorderLayout());
+        infoPanel.setPreferredSize(new Dimension(340, 400));
         JLabel title = new JLabel(" Information (Confidence)");
         infoPanel.add(title, BorderLayout.NORTH);
         scoreTextArea = new JTextArea();
+        //scoreTextArea.setForeground(new Color(255, 255, 255));
         scoreTextArea.setEditable(false);
         infoPanel.add(scoreTextArea, BorderLayout.CENTER);
 
-        InfoActionPanel.add(infoPanel);
+        c.gridy = 1;
+        c.weighty = 0.40;
+        InfoActionPanel.add(infoPanel, c);
 
         JPanel buttonPanel = new JPanel(new GridLayout(3, 1));
         JButton newImageButton = new JButton("test new Random Image from test-Set");
         newImageButton.addActionListener(e -> {
             int n = (int) (Math.random() * NN.getTestDataset().getDatasetSize());
+            System.out.println(n);
             currentImage = NN.testImage(n);
             setNewImage();
         });
@@ -184,8 +197,9 @@ public class HandwritingWindow extends JFrame {
         drawOwnImageButton.setBackground(new Color(255, 51, 0));
         buttonPanel.add(drawOwnImageButton);
 
-        c.gridy = 4;
-        InfoActionPanel.add(buttonPanel);
+        c.gridy = 2;
+        c.weighty = 0.20;
+        InfoActionPanel.add(buttonPanel, c);
 
         currentImage = NN.testImage(6969);
         setNewImage();
@@ -210,24 +224,71 @@ public class HandwritingWindow extends JFrame {
         GridBagConstraints c = new GridBagConstraints();
 
         mainPanel.setLayout(gbl);
+        c.fill = GridBagConstraints.HORIZONTAL;
 
-        mainPanel.add(new InputTextfield("Epochs:", new DocumentNumberFilter(), new Dimension(250, 50),
-                new Dimension(70, 50)));
+        InputTextfield epochField = new InputTextfield("Epochs:", new DocumentNumberFilter(), new Dimension(250, 50),
+                new Dimension(70, 50));
+        epochField.setText("2");
+        c.gridy = 0;
+        mainPanel.add(epochField, c);
+        InputTextfield learnrateField = new InputTextfield("Learnrate [%]:", new DocumentNumberFilter(),
+                new Dimension(250, 50),
+                new Dimension(70, 50));
+        learnrateField.setText("25");
+        c.gridy++;
+        mainPanel.add(learnrateField, c);
+        InputTextfield batchsizeField = new InputTextfield("Batchsize:", new DocumentNumberFilter(),
+                new Dimension(250, 50),
+                new Dimension(70, 50));
+        batchsizeField.setText("500");
+        c.gridy++;
+        mainPanel.add(batchsizeField, c);
+        InputTextfield threadNUMField = new InputTextfield("Batchsize:", new DocumentNumberFilter(),
+                new Dimension(250, 50),
+                new Dimension(70, 50));
+        threadNUMField.setText("6");
+        c.gridy++;
+        mainPanel.add(threadNUMField, c);
+
+        JButton start = new JButton("train");
+        start.addActionListener(e -> {
+
+            int epochNUM = Integer.parseInt(epochField.getText());
+            double learnrate = Integer.parseInt(learnrateField.getText()) / 100.0;
+            int batchSize = Integer.parseInt(batchsizeField.getText());
+            int threadNUM = Integer.parseInt(threadNUMField.getText());
+            trainNetworkPanelManager(mainPanel, epochNUM, learnrate, batchSize, threadNUM, c);
+        });
+
+        start.setBackground(new Color(26, 117, 255));
+        c.gridy++;
+        mainPanel.add(start, c);
 
         contentPane.removeAll();
         contentPane.add(mainPanel);
         createNNDialoagWindow.setVisible(true);
+    }
 
-        // call the train Method of NN
-        NN.train(epochAmount);
+    private void trainNetworkPanelManager(JPanel backpanel, int epochNUM, double learnRate, int batchSize,
+            int threadNUM,
+            GridBagConstraints c) {
+
+        Progressbar pbar = new Progressbar(epochNUM);
+        backpanel.removeAll();
+        c.gridy = 0;
+        backpanel.add(pbar);
+        backpanel.revalidate();
+        backpanel.repaint();
+        NN.train(epochNUM, learnRate, batchSize, threadNUM, pbar);
     }
 
     private void loadNetworkFromFile() {
         JFileChooser loader = new JFileChooser();
         loader.setCurrentDirectory(
                 new File(
-                        "C:/Users/torer/Desktop/Code/Java/repoitories/https---github.com-ThoreHaupt-SortingAlgorithmProject/neuralNetTestsIG/Data/trainedDNN"));
-        loader.showOpenDialog(null);
+                        "neuralNetTestsIG/Data/trainedDNN"));
+        if (loader.showOpenDialog(null) != JFileChooser.APPROVE_OPTION)
+            return;
         StoredNet newNN = null;
         try {
             ObjectInputStream oInStream;
@@ -243,6 +304,8 @@ public class HandwritingWindow extends JFrame {
             return;
         }
         NN = newNN.restoreNet();
+        NN.setTestData(new Dataset("neuralNetTestsIG/Data/Datasets/NIST/test-images",
+                "neuralNetTestsIG/Data/Datasets/NIST/test-labels"));
     }
 
     private void saveCurrentNetwork() {
@@ -294,7 +357,7 @@ public class HandwritingWindow extends JFrame {
         else if (currentImage.getActualNumber() != -1)
             scoreTextArea.setForeground(new Color(255, 51, 0));
         else
-            scoreTextArea.setForeground(new Color(0, 0, 0));
+            scoreTextArea.setForeground(new Color(255, 255, 255));
     }
 
     String getText(ImageApproximation image) {
@@ -309,7 +372,7 @@ public class HandwritingWindow extends JFrame {
 
     private void setBasics() {
         this.setTitle("NN-Images");
-        this.setSize(700, 560);
+        this.setSize(800, 560);
         this.setVisible(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }

@@ -28,4 +28,12 @@ public class InputTextfield extends JPanel {
         add(textField, BorderLayout.EAST);
     }
 
+    public String getText() {
+        return textField.getText();
+    }
+
+    public void setText(String string) {
+        textField.setText(string);
+    }
+
 }

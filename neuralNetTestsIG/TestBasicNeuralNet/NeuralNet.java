@@ -6,11 +6,14 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
+import javax.swing.SwingUtilities;
+
 import java.io.Serializable;
 
 import Commons.CalulationTools.MatrixCalculation;
 import Commons.CalulationTools.SupportingCalculations;
 import Commons.LambdaInterfaces.TriConsumer;
+import Commons.UIElements.Progressbar;
 import neuralNetTestsIG.Data.Dataset;
 import neuralNetTestsIG.NeuralInterfaceProgramm.HandwritingWindow;
 
@@ -43,6 +46,7 @@ public class NeuralNet {
     private double currentBatchCost = 0;
     private double currentEpochCost = 0;
     private double lastCostAverage = 0;
+    private Progressbar pbar;
 
     public NeuralNet(int inputNodesNum, int[] hiddenLayerSizes, String[] activationFunctions) {
         this.hiddenLayerAmount = hiddenLayerSizes.length;
@@ -59,10 +63,9 @@ public class NeuralNet {
         this.activationFunctions = activationFunctions;
         this.hiddenLayerAmount = hiddenLayers.length;
         this.hiddenLayerSizes = new int[hiddenLayerAmount];
-        for (int i = 0; i < activationFunctions.length; i++) {
+        for (int i = 0; i < hiddenLayers.length; i++) {
             hiddenLayerSizes[i] = hiddenLayers[i].nodeAmount;
         }
-
     }
 
     private void initiateNormalNeuralLayers(int inputNodesNum, int[] hiddenLayerSizes) {
@@ -108,7 +111,6 @@ public class NeuralNet {
 
     public ImageApproximation testImage(int n) {
         int[] image = testData.getPixelData()[n];
-
         propagateInput(image);
         double[][] prediction = outputLayer.activationValues;
         double sum = MatrixCalculation.MatrixSum(prediction);
@@ -180,7 +182,10 @@ public class NeuralNet {
 
         for (int i = 0; i < epochs; i++) {
             learnEpoch(batchSize);
-
+            if (pbar != null) {
+                Runnable updatePBar = () -> pbar.advance(1);
+                SwingUtilities.invokeLater(updatePBar);
+            }
             double averageEpochCost = 1 - currentEpochCost / 10 / trainingData.getDatasetSize();
             currentEpochCost = 0;
             System.out.println("Epoch: " + i + " - current Cost score: "
@@ -436,8 +441,12 @@ public class NeuralNet {
         testData = dataset;
     }
 
-    public void train(int epochAmount) {
-        train(epochAmount, learnrate, batchSize, costFunction, trainingData, threadNumber);
+    public void train(int epochAmount, double learnrate, int batchSize, int threadNumber, Progressbar pbar) {
+        this.pbar = pbar;
+        Dataset trainingData = new Dataset("neuralNetTestsIG/Data/Datasets/NIST/train-images",
+                "neuralNetTestsIG/Data/Datasets/NIST/train-labels");
+        System.out.println(batchSize);
+        Runnable trainThread = () -> train(epochAmount, learnrate, batchSize, costFunction, trainingData, threadNumber);
+        new Thread(trainThread).start();
     }
-
 }
