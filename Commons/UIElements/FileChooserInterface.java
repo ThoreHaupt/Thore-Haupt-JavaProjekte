@@ -49,7 +49,6 @@ public class FileChooserInterface extends JPanel {
 
     private void buildInterface() {
 
-        setPreferredSize(new Dimension(500, 30));
         GridBagLayout gbl = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
@@ -57,7 +56,7 @@ public class FileChooserInterface extends JPanel {
         c.gridwidth = 3;
         this.setLayout(gbl);
 
-        tagLabel = new JLabel(tag);
+        tagLabel = new JLabel(tag + " ");
         c.weightx = 0.3;
         add(tagLabel);
 
@@ -89,7 +88,7 @@ public class FileChooserInterface extends JPanel {
         c.gridx = 1;
         add(pathTextField);
 
-        openFile = new JButton("browse");
+        openFile = new JButton(" browse");
         openFile.addActionListener(e -> {
             if (!currentPath.equals(defualtPath)) {
                 fileChooser.setCurrentDirectory(new File(currentPath));

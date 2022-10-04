@@ -389,18 +389,44 @@ public class HandwritingWindow extends JFrame {
      */
     private void createNewNet() {
         JDialog createNNDialoagWindow = new JDialog(this, true);
-        createNNDialoagWindow.setPreferredSize(new Dimension(300, 400));
+        createNNDialoagWindow.setSize(new Dimension(500, 300));
         Container contentPane = createNNDialoagWindow.getContentPane();
 
         JPanel mainPanel = new JPanel();
 
         GridBagLayout gbl = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
+        c.fill = GridBagConstraints.HORIZONTAL;
 
         FileChooserInterface NNFileLocation = new FileChooserInterface(JFileChooser.FILES_ONLY,
                 "neuralNetTestsIG/Data/trainedDNN", "location");
+        mainPanel.add(NNFileLocation, c);
 
-        mainPanel.add(NNFileLocation);
+        FileChooserInterface TrainingDataLocation = new FileChooserInterface(JFileChooser.FILES_ONLY,
+                "neuralNetTestsIG/Data/trainedDNN", "TrainingData");
+        c.gridy++;
+        mainPanel.add(TrainingDataLocation, c);
+
+        FileChooserInterface TestDataCreation = new FileChooserInterface(JFileChooser.FILES_ONLY,
+                "neuralNetTestsIG/Data/trainedDNN", "TestData");
+        c.gridy++;
+        mainPanel.add(TestDataCreation, c);
+
+        InputTextfield imageSizeTF = new InputTextfield("ImageSize:", new DocumentNumberFilter(),
+                new Dimension(250, 50),
+                new Dimension(70, 50));
+        imageSizeTF.setText("28");
+        c.gridy++;
+        mainPanel.add(imageSizeTF, c);
+
+        JButton createButton = new JButton("create");
+        createButton.setBackground(new Color(26, 117, 255));
+        createButton.addActionListener(e -> {
+            System.out.println("createNewNN");
+        });
+
+        c.gridy++;
+        mainPanel.add(createButton);
 
         contentPane.removeAll();
         contentPane.add(mainPanel);
