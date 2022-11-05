@@ -11,8 +11,9 @@ import Commons.FileHandiling.Pair;
 
 public class NeuralNet {
 
-    int imagesize = 28;
-    int[] nodeLayerSizes = { imagesize * imagesize, 10, 10 };
+    int imagesizeX = 28;
+    int imagesizeY = 28;
+    int[] nodeLayerSizes = { imagesizeX * imagesizeY, 10, 10 };
     int[] functionTypesPerLayer = { 2, 3 };
 
     double alpha = .1f;

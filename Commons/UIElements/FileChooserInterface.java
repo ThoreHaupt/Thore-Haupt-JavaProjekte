@@ -52,7 +52,7 @@ public class FileChooserInterface extends JPanel {
         GridBagLayout gbl = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
-        c.fill = GridBagConstraints.HORIZONTAL;
+        //c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 3;
         this.setLayout(gbl);
 

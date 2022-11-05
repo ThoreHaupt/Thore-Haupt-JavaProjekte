@@ -108,7 +108,7 @@ public class trainingThread extends Thread {
         //backpropagation itself:
         // calculating the gradinents in reversed order for each layer
         outputLayer.calculateGradients(costDiff,
-                NetworkFunctionCollection.getCostFunctionDerivative(NN.getCostFunction()));
+                NeuralNet.getCostFunctionDerivative(NN.getCostFunction()));
         for (int i = hiddenLayers.length - 1; i >= 0; i--) {
             if (i == hiddenLayers.length - 1) {
                 hiddenLayers[i].calculateGradients(outputLayer.Z_Gradient, outputLayer.weights);
@@ -132,7 +132,7 @@ public class trainingThread extends Thread {
                 solution).mapToDouble(x -> (double) x).toArray() };
         double[][] costDiff = calculateCostDiff(outputLayer.activationValues, solutionMatrix);
         double[][] cost = new double[1][costDiff[0].length];
-        NetworkFunctionCollection.getCostFunction(NN.getCostFunction()).accept(costDiff, cost);
+        NeuralNet.getCostFunction(NN.getCostFunction()).accept(costDiff, cost);
         double costSum = MatrixCalculation.MatrixSum(cost);
         currentBatchCost += costSum;
         //System.out.println(costSum);

@@ -72,7 +72,7 @@ public class WeightedLayer extends Layer {
             }
             Z[0][i] += biases[0][i];
         }
-        NetworkFunctionCollection.getActivationFunction(activationFunction).accept(Z, activationValues);
+        NeuralNet.getActivationFunction(activationFunction).accept(Z, activationValues);
     }
 
     void calculateGradients(double[][] nextLayer_Z_Gradient,
@@ -81,14 +81,14 @@ public class WeightedLayer extends Layer {
 
         // Derive dc/dz+1 (given) to dc/da (matrix product with weights matrix of the next layer)
         // when this is the last layer(outputlayer) then use the derivative of the cost funtion
-        if (costFuntionDerivative == NetworkFunctionCollection.NOCOSTFUNCTION)
+        if (costFuntionDerivative == NeuralNet.NOCOSTFUNCTION)
             MatrixCalculation.matrixMultiplikation(nextLayer_Z_Gradient, nextLayer_Weights, activation_Gradient);
         else
-            NetworkFunctionCollection.getCostFunctionDerivative(costFuntionDerivative).accept(nextLayer_Z_Gradient,
+            NeuralNet.getCostFunctionDerivative(costFuntionDerivative).accept(nextLayer_Z_Gradient,
                     activation_Gradient);
 
         //weightedInputValue Gradient dc/da -> dc/dz (S'(z) hamardProduct with the activation_Gradient)
-        NetworkFunctionCollection.getActivationFunctionDerivative(activationFunction).accept(Z, Z_Gradient);
+        NeuralNet.getActivationFunctionDerivative(activationFunction).accept(Z, Z_Gradient);
         MatrixCalculation.hamardProdukt(Z_Gradient, activation_Gradient, Z_Gradient);
 
         //add weight Gradient
@@ -118,7 +118,7 @@ public class WeightedLayer extends Layer {
     }
 
     public void calculateGradients(double[][] z_Gradient2, double[][] weights2) {
-        calculateGradients(z_Gradient2, weights2, NetworkFunctionCollection.NOCOSTFUNCTION);
+        calculateGradients(z_Gradient2, weights2, NeuralNet.NOCOSTFUNCTION);
     }
 
     /**

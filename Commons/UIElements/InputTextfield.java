@@ -17,7 +17,8 @@ public class InputTextfield extends JPanel {
 
     public InputTextfield(String text, DocumentFilter df, Dimension size, Dimension textFieldSize) {
         describtor.setText(text);
-        ((PlainDocument) textField.getDocument()).setDocumentFilter(df);
+        if (df != null)
+            ((PlainDocument) textField.getDocument()).setDocumentFilter(df);
 
         setLayout(new BorderLayout());
 

@@ -8,7 +8,7 @@ import Commons.UIElements.Progressbar;
 import Commons.UIElements.technicalUIElements.DocumentNumberFilter;
 import neuralNetTestsIG.Data.Dataset;
 import neuralNetTestsIG.TestBasicNeuralNet.ImageApproximation;
-import neuralNetTestsIG.TestBasicNeuralNet.NetworkFunctionCollection;
+import neuralNetTestsIG.TestBasicNeuralNet.NeuralNet;
 import neuralNetTestsIG.TestBasicNeuralNet.NeuralNet;
 import neuralNetTestsIG.TestBasicNeuralNet.StoredNet;
 
@@ -26,7 +26,7 @@ import java.io.ObjectOutputStream;
 
 public class HandwritingWindow extends JFrame {
 
-    final public static String SIGMOID = NetworkFunctionCollection.SIGMOID;
+    final public static String SIGMOID = NeuralNet.SIGMOID;
 
     public static void main(String[] args) {
         new HandwritingWindow();
@@ -46,6 +46,12 @@ public class HandwritingWindow extends JFrame {
 
     boolean currentNetworkSaved = false;
 
+    int imageXSize;
+    int imageYSize;
+
+    final String defaultPath = "neuralNetTestsIG/Data/trainedDNN";
+    String currentNNPath = defaultPath;
+
     public HandwritingWindow() {
 
         FlatDarkLaf.setup();
@@ -63,7 +69,7 @@ public class HandwritingWindow extends JFrame {
         NN.setTestData(new Dataset("neuralNetTestsIG/Data/Datasets/NIST/test-images",
                 "neuralNetTestsIG/Data/Datasets/NIST/test-labels"));
 
-        NN.train(0, 0.15, 500, NetworkFunctionCollection.SQUAREDISTANCE, trainingData, 6);
+        NN.train(0, 0.15, 500, NeuralNet.SQUAREDISTANCE, trainingData, 6);
 
         pixel = new JPanel[pixelNumY][pixelNumX];
 
@@ -226,6 +232,18 @@ public class HandwritingWindow extends JFrame {
         mainPanel.setLayout(gbl);
         c.fill = GridBagConstraints.HORIZONTAL;
 
+        FileChooserInterface trainDataLocation = new FileChooserInterface(JFileChooser.FILES_ONLY,
+                "neuralNetTestsIG/Data/Datasets/NIST/train-images", "TrainingData");
+        trainDataLocation.setPreferredSize(new Dimension(450, 40));
+        c.gridy++;
+        mainPanel.add(trainDataLocation, c);
+
+        FileChooserInterface trainLabelLocation = new FileChooserInterface(JFileChooser.FILES_ONLY,
+                "neuralNetTestsIG/Data/Datasets/NIST/train-labels", "TrainingLabel");
+        trainLabelLocation.setPreferredSize(new Dimension(450, 40));
+        c.gridy++;
+        mainPanel.add(trainLabelLocation, c);
+
         InputTextfield epochField = new InputTextfield("Epochs:", new DocumentNumberFilter(), new Dimension(250, 50),
                 new Dimension(70, 50));
         epochField.setText("2");
@@ -284,9 +302,7 @@ public class HandwritingWindow extends JFrame {
 
     private void loadNetworkFromFile() {
         JFileChooser loader = new JFileChooser();
-        loader.setCurrentDirectory(
-                new File(
-                        "neuralNetTestsIG/Data/trainedDNN"));
+        loader.setCurrentDirectory(new File(defaultPath));
         if (loader.showOpenDialog(null) != JFileChooser.APPROVE_OPTION)
             return;
         StoredNet newNN = null;
@@ -312,9 +328,7 @@ public class HandwritingWindow extends JFrame {
         if (NN == null)
             return;
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setCurrentDirectory(
-                new File(
-                        "C:/Users/torer/Desktop/Code/Java/repoitories/https---github.com-ThoreHaupt-SortingAlgorithmProject/neuralNetTestsIG/Data/trainedDNN"));
+        fileChooser.setCurrentDirectory(new File(currentNNPath));
         fileChooser.showOpenDialog(null);
         File destination = fileChooser.getSelectedFile();
         storeNN(destination, NN);
@@ -389,7 +403,7 @@ public class HandwritingWindow extends JFrame {
      */
     private void createNewNet() {
         JDialog createNNDialoagWindow = new JDialog(this, true);
-        createNNDialoagWindow.setSize(new Dimension(500, 300));
+        createNNDialoagWindow.setSize(new Dimension(450, 500));
         Container contentPane = createNNDialoagWindow.getContentPane();
 
         JPanel mainPanel = new JPanel();
@@ -397,34 +411,62 @@ public class HandwritingWindow extends JFrame {
         GridBagLayout gbl = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridwidth = 1;
 
         FileChooserInterface NNFileLocation = new FileChooserInterface(JFileChooser.FILES_ONLY,
                 "neuralNetTestsIG/Data/trainedDNN", "location");
+        NNFileLocation.setPreferredSize(new Dimension(450, 40));
         mainPanel.add(NNFileLocation, c);
 
-        FileChooserInterface TrainingDataLocation = new FileChooserInterface(JFileChooser.FILES_ONLY,
-                "neuralNetTestsIG/Data/trainedDNN", "TrainingData");
-        c.gridy++;
-        mainPanel.add(TrainingDataLocation, c);
+        //Dataset Paths:
 
-        FileChooserInterface TestDataCreation = new FileChooserInterface(JFileChooser.FILES_ONLY,
-                "neuralNetTestsIG/Data/trainedDNN", "TestData");
-        c.gridy++;
-        mainPanel.add(TestDataCreation, c);
+        FileChooserInterface testDataLocation = new FileChooserInterface(JFileChooser.FILES_ONLY,
+                "neuralNetTestsIG/Data/Datasets/NIST/test-images", "TestData");
 
-        InputTextfield imageSizeTF = new InputTextfield("ImageSize:", new DocumentNumberFilter(),
-                new Dimension(250, 50),
-                new Dimension(70, 50));
-        imageSizeTF.setText("28");
+        testDataLocation.setPreferredSize(new Dimension(450, 40));
         c.gridy++;
-        mainPanel.add(imageSizeTF, c);
+        mainPanel.add(testDataLocation, c);
+
+        FileChooserInterface testLabelLocation = new FileChooserInterface(JFileChooser.FILES_ONLY,
+                "neuralNetTestsIG/Data/Datasets/NIST/test-labels", "TestLabel");
+        testLabelLocation.setPreferredSize(new Dimension(450, 40));
+        c.gridy++;
+        mainPanel.add(testLabelLocation, c);
+
+        InputTextfield hiddenLayerSizesTF = new InputTextfield("LayerSizes:", null,
+                new Dimension(430, 40),
+                new Dimension(250, 40));
+        hiddenLayerSizesTF.setText("{784,32,32}");
+        c.gridy++;
+        mainPanel.add(hiddenLayerSizesTF, c);
+
+        InputTextfield activationFunctionsTF = new InputTextfield("ActivationFunctions:", null,
+                new Dimension(430, 40),
+                new Dimension(250, 40));
+        activationFunctionsTF.setText("{sigmoid, sigmoid, sigmoid}");
+        c.gridy++;
+        mainPanel.add(activationFunctionsTF, c);
+
+        InputTextfield costFunctionTF = new InputTextfield("costFunction:", new DocumentNumberFilter(),
+                new Dimension(430, 40),
+                new Dimension(250, 40));
+        costFunctionTF.setText("squaredDistanceFunction");
+        c.gridy++;
+        mainPanel.add(costFunctionTF, c);
 
         JButton createButton = new JButton("create");
         createButton.setBackground(new Color(26, 117, 255));
         createButton.addActionListener(e -> {
             System.out.println("createNewNN");
+            String filelocation = NNFileLocation.getCurrentPath();
+            String testDataFile = testDataLocation.getCurrentPath();
+            String testLabelFile = testDataLocation.getCurrentPath();
+            //save old NN ?
+            NN = new NeuralNet(ABORT, null, null);
+            NN.setTestData(new Dataset(testDataFile, testLabelFile));
         });
 
+        c.gridy++;
         c.gridy++;
         mainPanel.add(createButton);
 
@@ -445,4 +487,5 @@ public class HandwritingWindow extends JFrame {
         }
 
     }
+
 }

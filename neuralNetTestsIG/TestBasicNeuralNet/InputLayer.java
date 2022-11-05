@@ -12,6 +12,6 @@ public class InputLayer extends Layer {
     }
 
     public void setInputData(double[][] inputValues) {
-        NetworkFunctionCollection.getActivationFunction(activationFunction).accept(inputValues, activationValues);
+        NeuralNet.getActivationFunction(activationFunction).accept(inputValues, activationValues);
     }
 }
