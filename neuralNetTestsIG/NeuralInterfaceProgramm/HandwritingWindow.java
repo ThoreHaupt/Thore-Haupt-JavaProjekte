@@ -9,7 +9,6 @@ import Commons.UIElements.technicalUIElements.DocumentNumberFilter;
 import neuralNetTestsIG.Data.Dataset;
 import neuralNetTestsIG.TestBasicNeuralNet.ImageApproximation;
 import neuralNetTestsIG.TestBasicNeuralNet.NeuralNet;
-import neuralNetTestsIG.TestBasicNeuralNet.NeuralNet;
 import neuralNetTestsIG.TestBasicNeuralNet.StoredNet;
 
 import com.formdev.flatlaf.FlatDarkLaf;
@@ -23,6 +22,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.Arrays;
 
 public class HandwritingWindow extends JFrame {
 
@@ -402,6 +402,7 @@ public class HandwritingWindow extends JFrame {
      * 
      */
     private void createNewNet() {
+        System.out.println("opening createNewNN Context Menu");
         JDialog createNNDialoagWindow = new JDialog(this, true);
         createNNDialoagWindow.setSize(new Dimension(450, 500));
         Container contentPane = createNNDialoagWindow.getContentPane();
@@ -409,12 +410,16 @@ public class HandwritingWindow extends JFrame {
         JPanel mainPanel = new JPanel();
 
         GridBagLayout gbl = new GridBagLayout();
+        mainPanel.setLayout(gbl);
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 1;
 
+        System.out.println("got here1");
+
         FileChooserInterface NNFileLocation = new FileChooserInterface(JFileChooser.FILES_ONLY,
                 "neuralNetTestsIG/Data/trainedDNN", "location");
+
         NNFileLocation.setPreferredSize(new Dimension(450, 40));
         mainPanel.add(NNFileLocation, c);
 
@@ -454,22 +459,47 @@ public class HandwritingWindow extends JFrame {
         c.gridy++;
         mainPanel.add(costFunctionTF, c);
 
+        System.out.println("got here2");
+
         JButton createButton = new JButton("create");
         createButton.setBackground(new Color(26, 117, 255));
         createButton.addActionListener(e -> {
             System.out.println("createNewNN");
+
+            // System.out.println(saving old one to its location)
+            //save old NN ?
+
             String filelocation = NNFileLocation.getCurrentPath();
             String testDataFile = testDataLocation.getCurrentPath();
             String testLabelFile = testDataLocation.getCurrentPath();
-            //save old NN ?
-            NN = new NeuralNet(ABORT, null, null);
+
+            String hiddenLayerSizesInputString = hiddenLayerSizesTF.getText();
+            String activationFunctionInputString = activationFunctionsTF.getText();
+            String costFunctionInputString = costFunctionTF.getText();
+
+            if (!confirmsStaticArrayInitStandarts(hiddenLayerSizesInputString) || confirmsStaticArrayInitStandarts(
+                    activationFunctionInputString)) {
+                // usually we would want to show an error message here, but for now it will just do nothing
+                return;
+            }
+
+            hiddenLayerSizesInputString = hiddenLayerSizesInputString.substring(1,
+                    hiddenLayerSizesInputString.length() - 1);
+            activationFunctionInputString = activationFunctionInputString.substring(1,
+                    activationFunctionInputString.length() - 1);
+
+            int[] hiddenLayerSizes = Arrays.stream(hiddenLayerSizesInputString.split(", ")).mapToInt(Integer::parseInt)
+                    .toArray();
+            String[] activationFunctions = activationFunctionInputString.split(", ");
+
+            // This is still a literal, needs to be replaced, when this is actually usable with other data.
+            NN = new NeuralNet(26 * 26, hiddenLayerSizes, activationFunctions);
             NN.setTestData(new Dataset(testDataFile, testLabelFile));
         });
 
         c.gridy++;
         c.gridy++;
-        mainPanel.add(createButton);
-
+        mainPanel.add(createButton, c);
         contentPane.removeAll();
         contentPane.add(mainPanel);
         createNNDialoagWindow.setVisible(true);
@@ -486,6 +516,13 @@ public class HandwritingWindow extends JFrame {
             e.printStackTrace();
         }
 
+    }
+
+    public boolean confirmsStaticArrayInitStandarts(String s) {
+        if (!s.substring(0, 1).equals("{") ||
+                !s.substring(s.length() - 1, s.length()).equals("{"))
+            return false;
+        return true;
     }
 
 }

@@ -11,6 +11,12 @@ import java.io.File;
 import java.io.IOException;
 
 public class FileChooserInterface extends JPanel {
+
+    public static void main(String[] args) {
+        JFileChooser l = new JFileChooser();
+        System.out.println("hellpo");
+    }
+
     String defualtPath = "";
     String currentPath = "";
     String tag = "";
@@ -34,8 +40,14 @@ public class FileChooserInterface extends JPanel {
         this.currentPath = defaultPath;
         this.tag = tag;
 
+        System.out.println("got here3");
+
         fileChooser = new JFileChooser();
-        fileChooser.setCurrentDirectory(defaultPath == "" ? null : new File(defaultPath));
+
+        System.out.println("got here4");
+        fileChooser.setCurrentDirectory(defaultPath.equals("") ? null : new File(defaultPath));
+
+        System.out.println("got here2");
 
         buildInterface();
     }
