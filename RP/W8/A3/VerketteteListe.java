@@ -60,6 +60,9 @@ public class VerketteteListe {
 		ListenElement e = head;
 		if (head.element.equals(value))
 			return null;
+		if (e.next == null) {
+			throw new NoSuchElementException(value.toString() + " is not en Element of this List");
+		}
 		while (!e.next.element.equals(value)) {
 			if (e.next == null) {
 				throw new NoSuchElementException(value.toString() + " is not en Element of this List");
@@ -67,7 +70,6 @@ public class VerketteteListe {
 			e = e.next;
 		}
 		return e;
-
 	}
 
 	public ListenElement insert(Object o, ListenElement pred) {
