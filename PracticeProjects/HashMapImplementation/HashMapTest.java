@@ -3,6 +3,8 @@ package PracticeProjects.HashMapImplementation;
 import java.util.HashMap;
 import java.util.Random;
 
+import javax.sound.midi.Synthesizer;
+
 public class HashMapTest {
     public static void main(String[] args) {
         THashMap<Integer, Integer> map = new THashMap<Integer, Integer>();
