@@ -52,6 +52,10 @@ public class ImageApproximation {
         return actualNumber == imageScores.get(0).a.intValue();
     }
 
+    public void setActualNumber(int i) {
+        actualNumber = i;
+    }
+
     Comparator<Pair<Integer, Double>> sortScores = (o1, o2) -> -Double.compare(o1.b, o2.b);
 
 }

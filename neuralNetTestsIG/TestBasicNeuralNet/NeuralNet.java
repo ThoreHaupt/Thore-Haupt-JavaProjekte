@@ -48,6 +48,8 @@ public class NeuralNet {
     private double lastCostAverage = 0;
     private Progressbar pbar;
 
+    boolean dbg = false;
+
     public NeuralNet(int inputNodesNum, int[] hiddenLayerSizes, String[] activationFunctions) {
         this.hiddenLayerAmount = hiddenLayerSizes.length;
         this.hiddenLayerSizes = hiddenLayerSizes;
@@ -55,17 +57,22 @@ public class NeuralNet {
         initiateNormalNeuralLayers(inputNodesNum, hiddenLayerSizes);
     }
 
-    public NeuralNet(WeightedLayer[] hiddenLayers, WeightedLayer outputLayer, String[] activationFunctions) {
-        inputLayer = new InputLayer(hiddenLayers[0].getWeights()[0].length,
+    public NeuralNet(WeightedLayer[] hidden_Layers, WeightedLayer outputLayer, String[] activationFunctions) {
+        inputLayer = new InputLayer(hidden_Layers[0].getWeights()[0].length,
                 activationFunctions[0]);
-        this.hiddenLayers = hiddenLayers;
+        this.hiddenLayers = hidden_Layers;
         this.outputLayer = outputLayer;
         this.activationFunctions = activationFunctions;
-        this.hiddenLayerAmount = hiddenLayers.length;
+        this.hiddenLayerAmount = hidden_Layers.length;
         this.hiddenLayerSizes = new int[hiddenLayerAmount];
-        for (int i = 0; i < hiddenLayers.length; i++) {
-            hiddenLayerSizes[i] = hiddenLayers[i].nodeAmount;
+        for (int i = 0; i < hidden_Layers.length; i++) {
+            hiddenLayerSizes[i] = hidden_Layers[i].nodeAmount;
         }
+        hidden_Layers[0].previousLayer = inputLayer;
+        for (int i = 1; i < hidden_Layers.length; i++) {
+            hidden_Layers[1].previousLayer = hidden_Layers[i];
+        }
+        outputLayer.previousLayer = hidden_Layers[hidden_Layers.length - 1];
     }
 
     private void initiateNormalNeuralLayers(int inputNodesNum, int[] hiddenLayerSizes) {
@@ -111,23 +118,16 @@ public class NeuralNet {
 
     public ImageApproximation testImage(int n) {
         int[] image = testData.getPixelData()[n];
-        propagateInput(image);
-        double[][] prediction = outputLayer.activationValues;
-        double sum = MatrixCalculation.MatrixSum(prediction);
-        double[] scores = MatrixCalculation.scalarMultiplication(1 / sum, prediction)[0];
-        ImageApproximation a = new ImageApproximation(image, scores, testData.getImageLabelsAbsolut()[n]);
-        System.out.println(a.getImageScores().get(0).a);
-        return a;
+        return testImage(image);
     }
 
     public ImageApproximation testImage(int[] image) {
         propagateInput(image);
-        //printimage(image);
         double[][] prediction = outputLayer.activationValues;
         double sum = MatrixCalculation.MatrixSum(prediction);
         double[] confidence = MatrixCalculation.scalarMultiplication(1 / sum, prediction)[0];
         ImageApproximation a = new ImageApproximation(image, confidence, -1);
-        System.out.println(a.getImageScores().get(0).a);
+        //System.out.println(a.getImageScores().get(0).a);
         return a;
     }
 
@@ -363,18 +363,30 @@ public class NeuralNet {
     public double[] propagateInput(int[] pixel) {
         double[][] pixelArray = new double[][] { Arrays.stream(pixel).mapToDouble(x -> (double) x).toArray() };
 
+        if (dbg) {
+            System.out.println("Propagate Input:");
+            System.out.println("IL IV: " + MatrixCalculation.MatrixSum(pixelArray));
+        }
+
         //printimage(pixel);
         inputLayer.setInputData(pixelArray);
+
+        if (dbg) {
+            System.out.println("IL AV: " + MatrixCalculation.MatrixSum(inputLayer.activationValues));
+        }
 
         //System.out.println(Arrays.toString(inputLayer.activationValues[0]) + "\n");
 
         for (int i = 0; i < hiddenLayers.length; i++) {
             hiddenLayers[i].calculateActivationValues();
-            //System.out.println(Arrays.toString(hiddenLayers[i].activationValues[0]) + "\n");
+            if (dbg)
+                System.out
+                        .println("HL AV [" + i + "] :" + MatrixCalculation.MatrixSum(hiddenLayers[i].activationValues));
         }
 
         outputLayer.calculateActivationValues();
-        System.out.println(Arrays.toString(outputLayer.activationValues[0]));
+        if (dbg)
+            System.out.println(Arrays.toString(outputLayer.activationValues[0]));
         return outputLayer.activationValues[0];
     }
 
@@ -622,4 +634,8 @@ public class NeuralNet {
                 y[i][j] = 2 * (x[i][j]);
         }
     };
+
+    public Dataset getTestData() {
+        return testData;
+    }
 }

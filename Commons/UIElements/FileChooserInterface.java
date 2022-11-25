@@ -40,15 +40,10 @@ public class FileChooserInterface extends JPanel {
         this.currentPath = defaultPath;
         this.tag = tag;
 
-        System.out.println("got here3");
-
         fileChooser = new JFileChooser();
-
-        System.out.println("got here4");
         fileChooser.setCurrentDirectory(defaultPath.equals("") ? null : new File(defaultPath));
 
-        System.out.println("got here2");
-
+        setPreferredSize(new Dimension(400, 50));
         buildInterface();
     }
 
@@ -64,7 +59,8 @@ public class FileChooserInterface extends JPanel {
         GridBagLayout gbl = new GridBagLayout();
         GridBagConstraints c = new GridBagConstraints();
         c.gridx = 0;
-        //c.fill = GridBagConstraints.HORIZONTAL;
+        c.anchor = GridBagConstraints.CENTER;
+        c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 3;
         this.setLayout(gbl);
 

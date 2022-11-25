@@ -75,4 +75,8 @@ public class Dataset {
     public int getImagePixel_Y() {
         return imageYsize;
     }
+
+    public int getAbsolutValueByIndex(int index) {
+        return imageLabelsAbsolut[index];
+    }
 }

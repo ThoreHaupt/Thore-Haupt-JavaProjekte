@@ -16,6 +16,7 @@ import com.formdev.flatlaf.FlatDarkLaf;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.beans.PropertyChangeListener;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -69,7 +70,7 @@ public class HandwritingWindow extends JFrame {
         NN.setTestData(new Dataset("neuralNetTestsIG/Data/Datasets/NIST/test-images",
                 "neuralNetTestsIG/Data/Datasets/NIST/test-labels"));
 
-        NN.train(0, 0.15, 500, NeuralNet.SQUAREDISTANCE, trainingData, 6);
+        //NN.train(0, 0.15, 500, NeuralNet.SQUAREDISTANCE, trainingData, 6);
 
         pixel = new JPanel[pixelNumY][pixelNumX];
 
@@ -115,8 +116,10 @@ public class HandwritingWindow extends JFrame {
                         image[28 * i + j] = 255 - pixel[i][j].getBackground().getBlue();
                     }
                 }
-
-                currentImage = NN.testImage(image);
+                if (NN != null) {
+                    currentImage = NN.testImage(image);
+                } else
+                    System.out.println("currently there is no NN loaded");
                 setNewParameters();
             }
 
@@ -173,13 +176,15 @@ public class HandwritingWindow extends JFrame {
         JButton newImageButton = new JButton("test new Random Image from test-Set");
         newImageButton.addActionListener(e -> {
             int n = (int) (Math.random() * NN.getTestDataset().getDatasetSize());
-            System.out.println(n);
+            //System.out.println(n);
             currentImage = NN.testImage(n);
+            currentImage.setActualNumber(NN.getTestData().getAbsolutValueByIndex(n));
             setNewImage();
         });
         newImageButton.setBackground(new Color(0, 153, 255));
         buttonPanel.add(newImageButton);
-        JButton newFalseImageButton = new JButton("test new Random Image from test-Set");
+
+        JButton newFalseImageButton = new JButton("test new Image from test-Set false");
         newFalseImageButton.addActionListener(e -> {
             int i = 0;
             while (currentImage.isCorrect()) {
@@ -207,8 +212,9 @@ public class HandwritingWindow extends JFrame {
         c.weighty = 0.20;
         InfoActionPanel.add(buttonPanel, c);
 
-        currentImage = NN.testImage(6969);
-        setNewImage();
+        // currentImage = NN.testImage(6969);
+        // setNewImage();
+        clearCanvas();
 
         panel.add(imagePanel, BorderLayout.WEST);
         panel.add(InfoActionPanel, BorderLayout.CENTER);
@@ -221,7 +227,7 @@ public class HandwritingWindow extends JFrame {
         int epochAmount = 0;
         // create dialoge to set the amount of epochs to train;
         JDialog createNNDialoagWindow = new JDialog(this, true);
-        createNNDialoagWindow.setSize(new Dimension(300, 400));
+        createNNDialoagWindow.setSize(new Dimension(500, 400));
         Container contentPane = createNNDialoagWindow.getContentPane();
 
         JPanel mainPanel = new JPanel();
@@ -240,14 +246,14 @@ public class HandwritingWindow extends JFrame {
 
         FileChooserInterface trainLabelLocation = new FileChooserInterface(JFileChooser.FILES_ONLY,
                 "neuralNetTestsIG/Data/Datasets/NIST/train-labels", "TrainingLabel");
-        trainLabelLocation.setPreferredSize(new Dimension(450, 40));
+        trainLabelLocation.setPreferredSize(new Dimension(400, 40));
         c.gridy++;
         mainPanel.add(trainLabelLocation, c);
 
         InputTextfield epochField = new InputTextfield("Epochs:", new DocumentNumberFilter(), new Dimension(250, 50),
                 new Dimension(70, 50));
         epochField.setText("2");
-        c.gridy = 0;
+        c.gridy++;
         mainPanel.add(epochField, c);
         InputTextfield learnrateField = new InputTextfield("Learnrate [%]:", new DocumentNumberFilter(),
                 new Dimension(250, 50),
@@ -275,7 +281,8 @@ public class HandwritingWindow extends JFrame {
             double learnrate = Integer.parseInt(learnrateField.getText()) / 100.0;
             int batchSize = Integer.parseInt(batchsizeField.getText());
             int threadNUM = Integer.parseInt(threadNUMField.getText());
-            trainNetworkPanelManager(mainPanel, epochNUM, learnrate, batchSize, threadNUM, c);
+            trainNetworkPanelManager(mainPanel, epochNUM, learnrate, batchSize, threadNUM, c, createNNDialoagWindow);
+
         });
 
         start.setBackground(new Color(26, 117, 255));
@@ -289,15 +296,22 @@ public class HandwritingWindow extends JFrame {
 
     private void trainNetworkPanelManager(JPanel backpanel, int epochNUM, double learnRate, int batchSize,
             int threadNUM,
-            GridBagConstraints c) {
+            GridBagConstraints c, JDialog NNDialoagWindow) {
 
         Progressbar pbar = new Progressbar(epochNUM);
+        pbar.getBar().addChangeListener(e -> {
+            JProgressBar comp = (JProgressBar) e.getSource();
+            if (comp.getValue() >= comp.getMaximum()) {
+                NNDialoagWindow.dispose();
+            }
+        });
         backpanel.removeAll();
         c.gridy = 0;
         backpanel.add(pbar);
         backpanel.revalidate();
         backpanel.repaint();
         NN.train(epochNUM, learnRate, batchSize, threadNUM, pbar);
+        System.out.println("started Training!");
     }
 
     private void loadNetworkFromFile() {
@@ -322,6 +336,8 @@ public class HandwritingWindow extends JFrame {
         NN = newNN.restoreNet();
         NN.setTestData(new Dataset("neuralNetTestsIG/Data/Datasets/NIST/test-images",
                 "neuralNetTestsIG/Data/Datasets/NIST/test-labels"));
+
+        System.out.println("loaded Network from File: " + loader.getSelectedFile().getName());
     }
 
     private void saveCurrentNetwork() {
@@ -404,7 +420,7 @@ public class HandwritingWindow extends JFrame {
     private void createNewNet() {
         System.out.println("opening createNewNN Context Menu");
         JDialog createNNDialoagWindow = new JDialog(this, true);
-        createNNDialoagWindow.setSize(new Dimension(450, 500));
+        createNNDialoagWindow.setSize(new Dimension(500, 400));
         Container contentPane = createNNDialoagWindow.getContentPane();
 
         JPanel mainPanel = new JPanel();
@@ -414,8 +430,7 @@ public class HandwritingWindow extends JFrame {
         GridBagConstraints c = new GridBagConstraints();
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 1;
-
-        System.out.println("got here1");
+        c.gridy = 0;
 
         FileChooserInterface NNFileLocation = new FileChooserInterface(JFileChooser.FILES_ONLY,
                 "neuralNetTestsIG/Data/trainedDNN", "location");
@@ -441,25 +456,25 @@ public class HandwritingWindow extends JFrame {
         InputTextfield hiddenLayerSizesTF = new InputTextfield("LayerSizes:", null,
                 new Dimension(430, 40),
                 new Dimension(250, 40));
-        hiddenLayerSizesTF.setText("{784,32,32}");
+        hiddenLayerSizesTF.setText("{784, 128, 32}");
         c.gridy++;
         mainPanel.add(hiddenLayerSizesTF, c);
 
         InputTextfield activationFunctionsTF = new InputTextfield("ActivationFunctions:", null,
                 new Dimension(430, 40),
                 new Dimension(250, 40));
-        activationFunctionsTF.setText("{sigmoid, sigmoid, sigmoid}");
+        activationFunctionsTF
+                .setText("{" + NeuralNet.SIGMOID + ", " + NeuralNet.SIGMOID + ", " + NeuralNet.SIGMOID + ", "
+                        + NeuralNet.SIGMOID + "}");
         c.gridy++;
         mainPanel.add(activationFunctionsTF, c);
 
-        InputTextfield costFunctionTF = new InputTextfield("costFunction:", new DocumentNumberFilter(),
+        /* InputTextfield costFunctionTF = new InputTextfield("costFunction:", new DocumentNumberFilter(),
                 new Dimension(430, 40),
                 new Dimension(250, 40));
         costFunctionTF.setText("squaredDistanceFunction");
         c.gridy++;
-        mainPanel.add(costFunctionTF, c);
-
-        System.out.println("got here2");
+        mainPanel.add(costFunctionTF, c); */
 
         JButton createButton = new JButton("create");
         createButton.setBackground(new Color(26, 117, 255));
@@ -471,15 +486,21 @@ public class HandwritingWindow extends JFrame {
 
             String filelocation = NNFileLocation.getCurrentPath();
             String testDataFile = testDataLocation.getCurrentPath();
-            String testLabelFile = testDataLocation.getCurrentPath();
+            String testLabelFile = testLabelLocation.getCurrentPath();
 
             String hiddenLayerSizesInputString = hiddenLayerSizesTF.getText();
             String activationFunctionInputString = activationFunctionsTF.getText();
-            String costFunctionInputString = costFunctionTF.getText();
+            // String costFunctionInputString = costFunctionTF.getText();
 
-            if (!confirmsStaticArrayInitStandarts(hiddenLayerSizesInputString) || confirmsStaticArrayInitStandarts(
-                    activationFunctionInputString)) {
+            if (!confirmsStaticArrayInitStandarts(hiddenLayerSizesInputString)) {
                 // usually we would want to show an error message here, but for now it will just do nothing
+                System.out.println("illegal input in arraySizes");
+                return;
+            }
+
+            if (!confirmsStaticArrayInitStandarts(activationFunctionInputString)) {
+                // usually we would want to show an error message here, but for now it will just do nothing
+                System.out.println("illegal input in activation Functions");
                 return;
             }
 
@@ -488,13 +509,26 @@ public class HandwritingWindow extends JFrame {
             activationFunctionInputString = activationFunctionInputString.substring(1,
                     activationFunctionInputString.length() - 1);
 
-            int[] hiddenLayerSizes = Arrays.stream(hiddenLayerSizesInputString.split(", ")).mapToInt(Integer::parseInt)
+            int[] hiddenLayerSizes_ = Arrays.stream(hiddenLayerSizesInputString.split(", ")).mapToInt(Integer::parseInt)
                     .toArray();
+            int[] hiddenLayerSizes = new int[hiddenLayerSizes_.length - 1];
             String[] activationFunctions = activationFunctionInputString.split(", ");
 
+            if (hiddenLayerSizes_.length + 1 != activationFunctions.length) {
+                System.out.println("you always need one extra Activation function for the output Layer.");
+                return;
+            }
+            for (int i = 1; i < hiddenLayerSizes_.length; i++) {
+                hiddenLayerSizes[i - 1] = hiddenLayerSizes_[i];
+            }
+
             // This is still a literal, needs to be replaced, when this is actually usable with other data.
-            NN = new NeuralNet(26 * 26, hiddenLayerSizes, activationFunctions);
+            NN = new NeuralNet(hiddenLayerSizes_[0], hiddenLayerSizes, activationFunctions);
+            //System.out.println(testDataFile);
+            //System.out.println(testLabelFile);
             NN.setTestData(new Dataset(testDataFile, testLabelFile));
+            System.out.println("initiated new Neural Net and set given Data as default");
+            createNNDialoagWindow.dispose();
         });
 
         c.gridy++;
@@ -520,7 +554,7 @@ public class HandwritingWindow extends JFrame {
 
     public boolean confirmsStaticArrayInitStandarts(String s) {
         if (!s.substring(0, 1).equals("{") ||
-                !s.substring(s.length() - 1, s.length()).equals("{"))
+                !s.substring(s.length() - 1, s.length()).equals("}"))
             return false;
         return true;
     }

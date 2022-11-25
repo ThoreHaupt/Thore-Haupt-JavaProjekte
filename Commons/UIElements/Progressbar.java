@@ -1,5 +1,6 @@
 package Commons.UIElements;
 
+import javax.swing.AbstractButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
@@ -54,5 +55,9 @@ public class Progressbar extends JPanel {
         bar.setValue(progress);
         label2.setText(" " + progress + "/" + max);
 
+    }
+
+    public JProgressBar getBar() {
+        return bar;
     }
 }

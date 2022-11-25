@@ -2,6 +2,8 @@ package neuralNetTestsIG.TestBasicNeuralNet;
 
 import java.io.Serializable;
 
+import neuralNetTestsIG.Data.Dataset;
+
 public class StoredNet implements Serializable {
     WeightedLayer[] hiddenLayers;
     WeightedLayer outputLayer;
