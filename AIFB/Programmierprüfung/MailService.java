@@ -8,6 +8,7 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.MessagingException;
 
 public class MailService {
+
     public static void main(String[] args) {
         try {
             sendMail(new User(), "uhrga@student.kit.edu", "test");
