@@ -95,7 +95,7 @@ public class ThreadTrainingLayer extends Layer {
     }
 
     /**
-     * A little inefficeient, because all threads have to add their weights and biases at 
+     * A little inefficient, because all threads have to add their weights and biases at 
      * the same time and only one can go 
      */
     public void applyGradientToBaseLayer() {
