@@ -26,6 +26,7 @@ public class CodeStyleBeispiel {
         int summe = 0; // besser
 
         summe = summe % 3 + 1; // immer ein Leerzeichen um Operatoren
+        summe++;
 
         // For-Schleifen:
         // nach if/for/while/ switch() .. immer, wenn ein neuer Code Block kommt, den ihr in Klammern tut, rückt ihn ein
@@ -38,8 +39,8 @@ public class CodeStyleBeispiel {
         // vier Indentionen tief
         // --> sieht unübersichtlich aus
         for (int i = 0; i < 15; i++) {
-            if (i < 5) {
-                if (i > 12) {
+            if (i > 5) {
+                if (i < 12) {
                     if (i % 2 == 0) {
                         System.out.println(i);
                     }
