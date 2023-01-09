@@ -1,5 +1,7 @@
 package OR.lib;
 
+import java.util.Arrays;
+
 public class Restriction {
 
     public static final int SMALLEREQUAL = 0;
@@ -10,7 +12,7 @@ public class Restriction {
 
     int variables;
     int type = -1;
-    double[] weights;
+    double[] coefficients;
     double constant;
 
     public Restriction(String s) {
@@ -22,6 +24,7 @@ public class Restriction {
             split = s.split(comperators[i]);
             if (split.length == 2) {
                 type = i;
+                break;
             }
         }
 
@@ -30,49 +33,32 @@ public class Restriction {
         }
 
         // {"3x1 + 3x3 - 5x7", "5"}
-        split[0].strip();
-
-        String[] positiveTerms = split[0].split("+");
-        int negatives = (int) split[0].chars().filter(x -> x == '-').count();
-        String[] negativeTerms = new String[negatives];
-        int c = 0;
-        for (int i = 0; i < positiveTerms.length; i++) {
-            String[] subterms = positiveTerms[i].split("-");
-            if (subterms.length > 1) {
-                for (int j = 1; j < subterms.length; j++) {
-                    negativeTerms[c++] = subterms[j];
-                }
-            }
-        }
-        // get the index of the largest argument
-        int highest = 0;
-        for (int i = 0; i < positiveTerms.length; i++) {
-            String[] part = positiveTerms[i].split("x");
-            highest = Math.max(highest, Integer.parseInt(part[1]));
-        }
-        for (int i = 0; i < negativeTerms.length; i++) {
-            String[] part = negativeTerms[i].split("x");
-            highest = Math.max(highest, Integer.parseInt(part[1]));
-        }
-        weights = new double[highest];
-
-        for (int i = 0; i < positiveTerms.length; i++) {
-            String[] part = positiveTerms[i].split("x");
-            weights[Integer.parseInt(part[1]) - 1] += Double.parseDouble(part[0]);
-        }
-        for (int i = 0; i < negativeTerms.length; i++) {
-            String[] part = negativeTerms[i].split("x");
-            weights[Integer.parseInt(part[1]) - 1] -= Double.parseDouble(part[0]);
-        }
-
+        split[0] = split[0].strip().replace(" ", "");
+        coefficients = TermLogic.stringToArray(split[0]);
         constant = Double.parseDouble(split[1]);
     }
 
+    private Restriction(Restriction r) {
+        this.constant = r.constant;
+        this.type = r.type;
+        this.variables = r.variables;
+        this.coefficients = coefficients.clone();
+    }
+
     public int getBaseVariableAmount() {
-        return weights.length;
+        return coefficients.length;
     }
 
     public int getType() {
         return type;
+    }
+
+    public void flipWeights() {
+        coefficients = Arrays.stream(coefficients).map(x -> x * -1).toArray();
+        constant *= -1;
+    }
+
+    public Restriction clone() {
+        return new Restriction(this);
     }
 }
