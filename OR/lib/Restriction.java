@@ -61,4 +61,8 @@ public class Restriction {
     public Restriction clone() {
         return new Restriction(this);
     }
+
+    public double getConstant() {
+        return constant;
+    }
 }

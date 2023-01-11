@@ -20,14 +20,15 @@ public class TargetFunction {
         String result = "";
         for (int j = 0; j < targetCoefficients.length; j++) {
             if (targetCoefficients[j] != 0) {
-                result += (targetCoefficients[j] > 0 ? "+" : "") + String.format("%f4.2", targetCoefficients[j]) + "x"
-                        + String.format("%f2.0", j + 1);
+                result += (targetCoefficients[j] > 0 && j > 0 ? "+" : "")
+                        + String.format("%5.2f", targetCoefficients[j]) + " x"
+                        + String.format("%-2d", j + 1);
             } else {
-                result += String.format("%s6", " ");
+                result += String.format("%9s", " ");
             }
 
         }
-        return (isMaximizationProblem ? "max" : "min") + result;
+        return (isMaximizationProblem ? "max" : "min") + " " + result;
     }
 
     public void flipWeights() {

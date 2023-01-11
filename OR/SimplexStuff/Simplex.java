@@ -1,6 +1,7 @@
 package OR.SimplexStuff;
 
 import java.rmi.ConnectIOException;
+import java.util.concurrent.ArrayBlockingQueue;
 
 import OR.lib.LinearProblem;
 import OR.lib.Restriction;
@@ -12,13 +13,16 @@ public class Simplex {
     public static Solution solve(LinearProblem lp) {
 
         lp.standardize();
+        Solution solution = null;
+
+        int iterationStep = 0;
 
         // Simplex tablo
-        double[][] problemMatrix = lp.getProblemMatruix();
+        double[][] problemMatrix = Commons.CalulationTools.MatrixCalculation.transposeMatrix(lp.getProblemMatruix());
         double[] targetCoefficients = lp.getTargetFunctionCoefficients();
-        double[] constants = lp.getConstants();
+        double[] constants = lp.getConstants_st();
 
-        int numBaseVariables = lp.getBaseVariableAmount();
+        int numBaseVariables = lp.getBaseVariableAmount_st();
         // num restrictions is the amount of nonBaseVariables
         int numNonBaseVariables = lp.getRestrictionAmount();
 
@@ -34,17 +38,24 @@ public class Simplex {
             nonBaseVars[i] = i + numBaseVariables;
         }
 
+        // flip signs of target function coeficcients
+        for (int i = 0; i < targetCoefficients.length; i++) {
+            targetCoefficients[i] *= -1;
+        }
+
         while (true) {
+            iterationStep++;
             // select pivot element
 
             int pivotColum = getPivotColum(lp);
 
             if (pivotColum == -1) {
+                solution = new Solution(false);
                 break;
             }
             int pivotRow = getPivotRow(lp, pivotColum);
             if (pivotRow == -1) {
-                currentSolution(null);
+                solution = new Solution(false);
                 break;
             }
 
@@ -92,10 +103,12 @@ public class Simplex {
             baseVars[pivotColum] = nonBaseVars[pivotRow];
             nonBaseVars[pivotRow] = help;
 
-            System.out.println("iteratrionsschritt gemacht");
+            System.out.println("Iteratrionsschritt gemacht");
 
         }
-        return currentSolution(lp);
+        return solution == null
+                ? currentSolution(targetCoefficients, nonBaseVars, constants, numBaseVariables + numNonBaseVariables)
+                : solution;
     }
 
     private static int getPivotColum(LinearProblem lp) {
@@ -117,7 +130,7 @@ public class Simplex {
     }
 
     private static int getPivotRow(LinearProblem lp, int colum) {
-        double[] b = lp.getConstants();
+        double[] b = lp.getConstants_st();
         double[][] problemMatrix = lp.getProblemMatruix();
         int currentSmallest = -1;
         double smallestValue = Double.MAX_VALUE;
@@ -137,9 +150,19 @@ public class Simplex {
         return 0;
     }
 
-    private static Solution currentSolution(LinearProblem lp) {
-        if (lp == null)
-            return new Solution();
-        return new Solution(lp);
+    private static Solution currentSolution(double[] targetCoefficients, int[] nonBaseVars, double[] constants,
+            int varAmount) {
+        double[] solution = new double[varAmount];
+        double targetValue = 0;
+
+        for (int i = 0; i < nonBaseVars.length; i++) {
+            solution[nonBaseVars[i]] = constants[i];
+            if (nonBaseVars[i] >= targetCoefficients.length) {
+                continue;
+            }
+            targetValue += targetCoefficients[nonBaseVars[i]] * constants[i];
+        }
+
+        return new Solution(solution, targetValue);
     }
 }

@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 import OR.lib.LinearProblem;
 import OR.lib.Restriction;
+import OR.lib.Solution;
 import OR.lib.TargetFunction;
 import OR.SimplexStuff.Simplex;
 
@@ -19,11 +20,13 @@ public class OptimisationCalculator {
         LinearProblem lp = new LinearProblem(null, null);
         int c = 0;
         String[] initOrders = {
-                "addR 1x1 + 2x3 - 4x3 + 2 x4 <= 30",
-                "addR 3x1 + 2x3  <= 40",
-                "addR 1x1 - 6x2 + 2 x4 <= 23",
-                "setTF max x1 + 4x2",
-                "print"
+                "addR -1x1 + 1x2 <= 4",
+                "addR -2x1 + 1x2  <= 2",
+                "setTF max 1x1 + 2x2",
+                "print n",
+                "standardize",
+                "print",
+                "solve"
         };
 
         while (!stopped) {
@@ -33,7 +36,7 @@ public class OptimisationCalculator {
             wordEnd = (wordEnd != -1) ? wordEnd : inp.length();
             String command = inp.substring(0, wordEnd);
             String arg = inp.substring(wordEnd, inp.length());
-
+            arg = arg.strip();
             switch (command) {
                 case "shutdown":
                     stopped = true;
@@ -51,12 +54,21 @@ public class OptimisationCalculator {
                     break;
 
                 case "print":
-                    System.out.println(lp);
+                    if (arg.equals("n"))
+                        System.out.println(lp.problemToString());
+                    else
+                        System.out.println(lp.problemToString_st());
                     break;
 
                 case "solve":
-                    Simplex.solve(lp);
+                    Solution s = Simplex.solve(lp);
+                    System.out.println(s);
                     break;
+
+                case "standardize":
+                    lp.standardize();
+                    break;
+
                 default:
                     break;
             }
