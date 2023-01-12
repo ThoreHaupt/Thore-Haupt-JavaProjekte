@@ -4,19 +4,34 @@ public class TermLogic {
     public static double[] stringToArray(String s) {
         s = s.strip().replace(" ", "");
         double[] coefficient;
-        String[] positiveTerms = s.split("\\+");
-        int negatives = (int) s.chars().filter(x -> x == '-').count();
-        String[] negativeTerms = new String[negatives];
-        int c = 0;
-        for (int i = 0; i < positiveTerms.length; i++) {
-            String[] subterms = positiveTerms[i].split("-");
-            if (subterms.length > 1) {
-                for (int j = 1; j < subterms.length; j++) {
-                    negativeTerms[c++] = subterms[j];
+        int numNeg = (int) s.chars().filter(x -> x == '-').count();
+        int numPos = (int) s.chars().filter(x -> x == '+').count();
+        if (s.charAt(0) != '-')
+            numPos++;
+        String[] positiveTerms = new String[numPos];
+        String[] negativeTerms = new String[numNeg];
+
+        int currentIndex = 1;
+        int currentSubstringStart = 0;
+        int posIndex = 0;
+        int negIndex = 0;
+
+        while (currentIndex < s.length()) {
+
+            if (s.charAt(currentIndex) == '+' || s.charAt(currentIndex) == '-' || currentIndex + 1 == s.length()) {
+                if (currentIndex + 1 == s.length())
+                    currentIndex++;
+                if (s.charAt(currentSubstringStart) == '-') {
+                    negativeTerms[negIndex++] = s.substring(currentSubstringStart, currentIndex);
+                    currentSubstringStart = currentIndex;
+                } else {
+                    positiveTerms[posIndex++] = s.substring(currentSubstringStart + 1, currentIndex);
+                    currentSubstringStart = currentIndex;
                 }
-                positiveTerms[i] = subterms[0];
             }
+            currentIndex++;
         }
+
         // get the index of the largest argument
         int highest = 0;
         for (int i = 0; i < positiveTerms.length; i++) {

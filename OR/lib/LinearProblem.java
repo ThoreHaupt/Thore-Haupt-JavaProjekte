@@ -5,28 +5,41 @@ import java.util.Stack;
 
 public class LinearProblem {
 
+    public static void main(String[] args) {
+
+        String p = "aa*aaabb";
+        int pIndex = 4;
+        int shift = 3;
+        p = p.substring(0, pIndex - 1) + p.substring(pIndex + shift - 1, p.length());
+        System.out.println(p);
+    }
+
     ArrayList<Restriction> restrictions;
     ArrayList<Restriction> standartizedRestrictions;
     TargetFunction tf;
 
+    double[][] problemMatrix_st;
+    double[] constants_st;
+    int baseVariableAmount_st = 0;
+
     double[][] problemMatrix;
     double[] constants;
-
     int baseVariableAmount = 0;
 
-    boolean standarized = false;
+    boolean standarizedUpdated = false;
 
     public LinearProblem(ArrayList<Restriction> restrictions, TargetFunction tf) {
         this.restrictions = (restrictions != null ? restrictions : new ArrayList<>());
+        this.standartizedRestrictions = new ArrayList<>();
         this.tf = tf;
 
         for (Restriction r : this.restrictions) {
-            baseVariableAmount = Math.max(baseVariableAmount, r.getBaseVariableAmount());
+            baseVariableAmount_st = Math.max(baseVariableAmount_st, r.getBaseVariableAmount());
         }
     }
 
     public void standardize() {
-        if (standarized) {
+        if (standarizedUpdated) {
             return;
         }
         //standardize targetFunction
@@ -74,45 +87,75 @@ public class LinearProblem {
 
         // fix variables that do not have the nonnegativity restriction
 
-        standarized = true;
-        updateMatrixFromResctrictions();
-        System.out.println(this);
+        standarizedUpdated = true;
+        updateFromResctrictions();
     }
 
-    private void updateMatrixFromResctrictions() {
-        problemMatrix = new double[standartizedRestrictions.size()][baseVariableAmount];
-        constants = new double[standartizedRestrictions.size()];
-        for (int i = 0; i < standartizedRestrictions.size(); i++) {
-            for (int j = 0; j < standartizedRestrictions.get(i).coefficients.length; j++) {
-                problemMatrix[i][j] = standartizedRestrictions.get(i).coefficients[j];
+    private void updateFromResctrictions() {
+        updateBaseVariableAmount();
+
+        problemMatrix = restrictionsToMatrix(restrictions);
+        constants = restrictionsToConstants(restrictions);
+
+        problemMatrix_st = restrictionsToMatrix(standartizedRestrictions);
+        constants_st = restrictionsToConstants(standartizedRestrictions);
+    }
+
+    private double[] restrictionsToConstants(ArrayList<Restriction> restrictions) {
+
+        double[] constants = new double[restrictions.size()];
+        for (int i = 0; i < restrictions.size(); i++) {
+            constants[i] = restrictions.get(i).getConstant();
+        }
+        return constants;
+    }
+
+    private double[][] restrictionsToMatrix(ArrayList<Restriction> restrictions) {
+        int baseVarAmount = getBaseVariableAmountFromRestrictions(restrictions);
+        double[][] matrix = new double[restrictions.size()][baseVarAmount];
+        for (int i = 0; i < restrictions.size(); i++) {
+            for (int j = 0; j < restrictions.get(i).coefficients.length; j++) {
+                matrix[i][j] = restrictions.get(i).coefficients[j];
             }
         }
+        return matrix;
+    }
+
+    private int getBaseVariableAmountFromRestrictions(ArrayList<Restriction> restrictions) {
+        int amount = 0;
+        for (Restriction r : restrictions) {
+            amount = Math.max(amount, r.getBaseVariableAmount());
+        }
+        return amount;
     }
 
     private void updateBaseVariableAmount() {
         // update base variable amount
-        for (Restriction r : standartizedRestrictions) {
-            baseVariableAmount = Math.max(baseVariableAmount, r.getBaseVariableAmount());
-        }
+        baseVariableAmount_st = getBaseVariableAmountFromRestrictions(standartizedRestrictions);
+        baseVariableAmount = getBaseVariableAmountFromRestrictions(restrictions);
+
     }
 
     public void addRestriction(Restriction restriction) {
-        standarized = false;
+        standarizedUpdated = false;
         restrictions.add(restriction);
     }
 
-    public String matrixToString() {
-        String result = "Problem:";
+    private String problemToString(double[][] matrix, double[] constants) {
+        String result = "\nProblem:\n";
 
-        result += tf.toString();
+        result += tf.toString() + " s.t.\n";
 
-        for (int i = 0; i < problemMatrix.length; i++) {
-            for (int j = 0; j < baseVariableAmount; j++) {
-                if (problemMatrix[i][j] != 0) {
-                    result += String.format("%f4.2", problemMatrix[i][j]) + "x"
-                            + String.format("%f2.0", j + 1);
+        for (int i = 0; i < matrix.length; i++) {
+            for (int j = 0; j < matrix[0].length; j++) {
+                if (matrix[i][j] != 0) {
+                    result += (matrix[i][j] > 0 && j > 0 ? "+" : "-")
+                            + String.format("%5.2f", Math.abs(
+                                    matrix[i][j]))
+                            + " x"
+                            + String.format("%-2d", j + 1);
                 } else {
-                    result += String.format("%s6", " ");
+                    result += String.format("%10s", " ");
                 }
 
             }
@@ -122,12 +165,22 @@ public class LinearProblem {
     }
 
     public String toString() {
-        return matrixToString();
+        return problemToString_st();
     }
 
-    public int getBaseVariableAmount() {
+    public String problemToString_st() {
+        updateFromResctrictions();
+        return problemToString(problemMatrix_st, constants_st);
+    }
+
+    public String problemToString() {
+        updateFromResctrictions();
+        return problemToString(problemMatrix, constants);
+    }
+
+    public int getBaseVariableAmount_st() {
         updateBaseVariableAmount();
-        return baseVariableAmount;
+        return baseVariableAmount_st;
     }
 
     public int getRestrictionAmount() {
@@ -135,15 +188,28 @@ public class LinearProblem {
     }
 
     public double[] getTargetFunctionCoefficients() {
-        return tf.targetCoefficients;
+        double[] targetCoefficientsComplete = new double[baseVariableAmount];
+        for (int i = 0; i < tf.targetCoefficients.length; i++) {
+            targetCoefficientsComplete[i] = tf.targetCoefficients[i];
+        }
+        tf.targetCoefficients = targetCoefficientsComplete;
+        return targetCoefficientsComplete;
     }
 
-    public double[] getConstants() {
-        return constants;
+    public double[] getConstants_st() {
+        return constants_st;
     }
 
     public double[][] getProblemMatruix() {
-        return problemMatrix;
+        return problemMatrix_st;
+    }
+
+    public double[][] getProblemMatruix(boolean stand) {
+        if (stand) {
+            return restrictionsToMatrix(standartizedRestrictions);
+        } else {
+            return restrictionsToMatrix(restrictions);
+        }
     }
 
     public void setTF(TargetFunction tf) {
