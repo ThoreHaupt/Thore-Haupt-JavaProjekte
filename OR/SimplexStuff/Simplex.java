@@ -1,10 +1,6 @@
 package OR.SimplexStuff;
 
-import java.rmi.ConnectIOException;
-
 import OR.lib.LinearProblem;
-import OR.lib.Restriction;
-import OR.lib.TargetFunction;
 import OR.lib.Solution;
 
 public class Simplex {
