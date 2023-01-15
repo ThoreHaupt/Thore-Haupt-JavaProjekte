@@ -4,8 +4,6 @@ import java.rmi.ConnectIOException;
 import java.util.concurrent.ArrayBlockingQueue;
 
 import OR.lib.LinearProblem;
-import OR.lib.Restriction;
-import OR.lib.TargetFunction;
 import OR.lib.Solution;
 
 public class Simplex {
