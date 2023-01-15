@@ -42,7 +42,13 @@ public class LinearProblem {
         if (standarizedUpdated) {
             return;
         }
+
+        System.out.println("standartizing...");
         //standardize targetFunction
+        if (!tf.isMaximizationProblem) {
+            tf.flipWeights();
+            tf.isMaximizationProblem = true;
+        }
 
         //standardize restrictions
         Stack<Restriction> toStandartize = new Stack<Restriction>();
@@ -112,10 +118,11 @@ public class LinearProblem {
 
     private double[][] restrictionsToMatrix(ArrayList<Restriction> restrictions) {
         int baseVarAmount = getBaseVariableAmountFromRestrictions(restrictions);
-        double[][] matrix = new double[restrictions.size()][baseVarAmount];
-        for (int i = 0; i < restrictions.size(); i++) {
-            for (int j = 0; j < restrictions.get(i).coefficients.length; j++) {
-                matrix[i][j] = restrictions.get(i).coefficients[j];
+        double[][] matrix = new double[baseVarAmount][restrictions.size()];
+        for (int i = 0; i < baseVarAmount; i++) {
+            for (int j = 0; j < restrictions.size(); j++) {
+                if (restrictions.get(j).coefficients.length > j)
+                    matrix[i][j] = restrictions.get(j).coefficients[i];
             }
         }
         return matrix;
@@ -200,7 +207,7 @@ public class LinearProblem {
         return constants_st;
     }
 
-    public double[][] getProblemMatruix() {
+    public double[][] getProblemMatrix() {
         return problemMatrix_st;
     }
 

@@ -50,7 +50,7 @@ public class TermLogic {
         }
         for (int i = 0; i < negativeTerms.length; i++) {
             String[] part = negativeTerms[i].split("x");
-            coefficient[Integer.parseInt(part[1]) - 1] -= Double.parseDouble(part[0] != "" ? part[0] : "1");
+            coefficient[Integer.parseInt(part[1]) - 1] += Double.parseDouble(part[0] != "" ? part[0] : "1");
         }
         return coefficient;
     }

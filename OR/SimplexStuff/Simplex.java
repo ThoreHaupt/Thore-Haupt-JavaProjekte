@@ -18,7 +18,14 @@ public class Simplex {
         int iterationStep = 0;
 
         // Simplex tablo
-        double[][] problemMatrix = Commons.CalulationTools.MatrixCalculation.transposeMatrix(lp.getProblemMatruix());
+        double[][] problemMatrix = lp.getProblemMatrix();
+        /* double[][] problemMatrix = new double[problemMatrixTransp[0].length][problemMatrixTransp.length];
+        for (int i = 0; i < problemMatrixTransp[0].length; i++) {
+            for (int j = 0; j < problemMatrixTransp.length; j++) {
+                problemMatrix[i][j] = problemMatrixTransp[j][i];
+            }
+        } */
+
         double[] targetCoefficients = lp.getTargetFunctionCoefficients();
         double[] constants = lp.getConstants_st();
 
@@ -47,13 +54,12 @@ public class Simplex {
             iterationStep++;
             // select pivot element
 
-            int pivotColum = getPivotColum(lp);
+            int pivotColum = getPivotColum(targetCoefficients);
 
             if (pivotColum == -1) {
-                solution = new Solution(false);
                 break;
             }
-            int pivotRow = getPivotRow(lp, pivotColum);
+            int pivotRow = getPivotRow(constants, problemMatrix, pivotColum);
             if (pivotRow == -1) {
                 solution = new Solution(false);
                 break;
@@ -94,6 +100,7 @@ public class Simplex {
                     continue;
                 problemMatrix[pivotColum][j] /= -pivotElement;
             }
+            targetCoefficients[pivotColum] /= -pivotElement;
 
             // change pivot Element
             problemMatrix[pivotColum][pivotRow] = 1 / pivotElement;
@@ -103,18 +110,18 @@ public class Simplex {
             baseVars[pivotColum] = nonBaseVars[pivotRow];
             nonBaseVars[pivotRow] = help;
 
-            System.out.println("Iteratrionsschritt gemacht");
+            System.out.println("Iteratrionsschritt gemacht:");
 
         }
+
         return solution == null
                 ? currentSolution(targetCoefficients, nonBaseVars, constants, numBaseVariables + numNonBaseVariables)
                 : solution;
     }
 
-    private static int getPivotColum(LinearProblem lp) {
+    private static int getPivotColum(double[] targetCoefficients) {
         int currentSmallest = -1;
         double smallestValue = Double.MAX_VALUE;
-        double[] targetCoefficients = lp.getTargetFunctionCoefficients();
         for (int i = 0; i < targetCoefficients.length; i++) {
             if (targetCoefficients[i] < smallestValue) {
                 currentSmallest = i;
@@ -129,9 +136,7 @@ public class Simplex {
 
     }
 
-    private static int getPivotRow(LinearProblem lp, int colum) {
-        double[] b = lp.getConstants_st();
-        double[][] problemMatrix = lp.getProblemMatruix();
+    private static int getPivotRow(double[] b, double[][] problemMatrix, int colum) {
         int currentSmallest = -1;
         double smallestValue = Double.MAX_VALUE;
         for (int i = 0; i < b.length; i++) {
@@ -147,7 +152,7 @@ public class Simplex {
         if (currentSmallest == -1) {
             return -1;
         }
-        return 0;
+        return currentSmallest;
     }
 
     private static Solution currentSolution(double[] targetCoefficients, int[] nonBaseVars, double[] constants,
