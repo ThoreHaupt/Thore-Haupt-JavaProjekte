@@ -20,9 +20,10 @@ public class OptimisationCalculator {
         LinearProblem lp = new LinearProblem(null, null);
         int c = 0;
         String[] initOrders = {
-                "addR 5x1 + 4.6x2  <= 3000",
-                "addR 3x1 + 2x2 <= 1200",
-                "setTF max 1x1 + 2x2",
+                "addR 3x1 + 3x2 + 3x3 + 5x1 <= 1200",
+                "addR 5x1 + 1x2  <= 3000",
+                "addR x5  <= 5000",
+                "setTF max 1x1 + 2x2 + 3x5",
                 "print n",
                 "standardize",
                 "print",

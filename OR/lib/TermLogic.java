@@ -25,7 +25,7 @@ public class TermLogic {
                     negativeTerms[negIndex++] = s.substring(currentSubstringStart, currentIndex);
                     currentSubstringStart = currentIndex;
                 } else {
-                    positiveTerms[posIndex++] = s.substring(currentSubstringStart + 1, currentIndex);
+                    positiveTerms[posIndex++] = s.substring(currentSubstringStart, currentIndex).replace("+", "");
                     currentSubstringStart = currentIndex;
                 }
             }
