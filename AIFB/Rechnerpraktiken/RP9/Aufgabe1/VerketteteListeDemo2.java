@@ -1,4 +1,4 @@
-package RP.W8.A3;
+package AIFB.Rechnerpraktiken.RP9.Aufgabe1;
 
 import java.util.NoSuchElementException;
 import java.util.Scanner;
@@ -9,8 +9,8 @@ import java.util.Scanner;
  * @version 1.0
  * @author Hans Wiwi
  */
-public class VerketteteListeDemo {
-	private static VerketteteListe liste;
+public class VerketteteListeDemo2 {
+	private static Warteschlange liste;
 	private static boolean running;
 	private static String entry;
 
@@ -18,7 +18,7 @@ public class VerketteteListeDemo {
 		Scanner scan = new Scanner(System.in);
 
 		running = true;
-		liste = new VerketteteListe();
+		liste = new Warteschlange();
 		System.out.println("Neue int-Liste erstellt.");
 		int length = 0;
 
@@ -28,7 +28,7 @@ public class VerketteteListeDemo {
 
 			switch (entry.split(" ")[0]) {
 				case "a":
-					liste.add(entry.split(" ")[1]);
+					liste.addFirst(new Student());
 					System.out.println("Listenausgabe: " + liste);
 					length++;
 					break;
@@ -36,9 +36,11 @@ public class VerketteteListeDemo {
 
 					try {
 						if (entry.split(" ")[1].length() > 1) {
-							liste.delete(entry.split(" ")[1]);
-						} else
-							liste.clear();
+							liste.delete(liste.getHeadElement());
+						} else {
+
+						}
+						//liste.clear();
 					} catch (NoSuchElementException e1) {
 						System.out.println("Dieses Element ist nicht Teil der Liste.");
 					} catch (IndexOutOfBoundsException e2) {

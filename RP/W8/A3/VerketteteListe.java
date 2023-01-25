@@ -2,6 +2,8 @@ package RP.W8.A3;
 
 import java.util.NoSuchElementException;
 
+import javax.print.attribute.Size2DSyntax;
+
 public class VerketteteListe {
 	static class ListenElement {
 		private Object element;
@@ -120,5 +122,10 @@ public class VerketteteListe {
 
 	public ListenElement getHeadElement() {
 		return head;
+	}
+
+	public void clear() {
+		head = null;
+		length = 0;
 	}
 }
