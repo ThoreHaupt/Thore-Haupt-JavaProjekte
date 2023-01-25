@@ -119,10 +119,13 @@ public class LinearProblem {
     private double[][] restrictionsToMatrix(ArrayList<Restriction> restrictions) {
         int baseVarAmount = getBaseVariableAmountFromRestrictions(restrictions);
         double[][] matrix = new double[baseVarAmount][restrictions.size()];
+        Restriction r;
         for (int i = 0; i < baseVarAmount; i++) {
             for (int j = 0; j < restrictions.size(); j++) {
-                if (restrictions.get(j).coefficients.length > j)
-                    matrix[i][j] = restrictions.get(j).coefficients[i];
+                if (restrictions.get(j).coefficients.length > j) {
+                    r = restrictions.get(j);
+                    matrix[i][j] = r.coefficients.length > i ? r.coefficients[i] : 0;
+                }
             }
         }
         return matrix;
@@ -140,7 +143,8 @@ public class LinearProblem {
         // update base variable amount
         baseVariableAmount_st = getBaseVariableAmountFromRestrictions(standartizedRestrictions);
         baseVariableAmount = getBaseVariableAmountFromRestrictions(restrictions);
-
+        baseVariableAmount_st = Math.max(baseVariableAmount_st, tf.targetCoefficients.length);
+        baseVariableAmount = Math.max(baseVariableAmount, tf.targetCoefficients.length);
     }
 
     public void addRestriction(Restriction restriction) {
@@ -153,12 +157,12 @@ public class LinearProblem {
 
         result += tf.toString() + " s.t.\n";
 
-        for (int i = 0; i < matrix.length; i++) {
-            for (int j = 0; j < matrix[0].length; j++) {
-                if (matrix[i][j] != 0) {
-                    result += (matrix[i][j] > 0 && j > 0 ? "+" : "-")
+        for (int i = 0; i < matrix[0].length; i++) {
+            for (int j = 0; j < matrix.length; j++) {
+                if (matrix[j][i] != 0) {
+                    result += (matrix[j][i] > 0 ? j > 0 ? "+" : " " : "-")
                             + String.format("%5.2f", Math.abs(
-                                    matrix[i][j]))
+                                    matrix[j][i]))
                             + " x"
                             + String.format("%-2d", j + 1);
                 } else {
@@ -208,6 +212,16 @@ public class LinearProblem {
     }
 
     public double[][] getProblemMatrix() {
+        if (tf != null && problemMatrix_st.length < tf.targetCoefficients.length) {
+            double[][] temp = new double[tf.targetCoefficients.length][problemMatrix_st[0].length];
+            for (int i = 0; i < problemMatrix_st.length; i++) {
+                temp[i] = problemMatrix_st[i];
+            }
+            for (int i = problemMatrix_st.length; i < temp.length; i++) {
+                temp[i] = new double[problemMatrix_st[0].length];
+            }
+            problemMatrix_st = temp;
+        }
         return problemMatrix_st;
     }
 
