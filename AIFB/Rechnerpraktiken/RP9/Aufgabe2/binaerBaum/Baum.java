@@ -114,7 +114,6 @@ public class Baum {
      * @return String
      */
     public String print(String order) {
-
         /* HIER CODE EINFÜGEN !!! */
         if (order.equals("in"))
             return (links != null ? (links.print("in") + ", ")
