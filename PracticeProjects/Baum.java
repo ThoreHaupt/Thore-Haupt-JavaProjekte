@@ -14,12 +14,9 @@ public class Baum {
         if (baum.wert == 0)
             return true;
         if (baum.links != null) {
-            /*
-             * if (suche(baum.links)) {
-             * return true;
-             * }
-             */
-            return suche(baum.links);
+            if (suche(baum.links)) {
+                return true;
+            }
         }
         if (baum.rechts != null) {
             if (suche(baum.rechts)) {

@@ -37,7 +37,6 @@ public class TreeNode {
             node.level = this.level + 1;
         } else {
             node.insert(value);
-
         }
         return node;
     }
