@@ -31,8 +31,12 @@ class Kino extends Haus {
     Kampf instanzKampf = new Kampf(" Kino (IV)");
 
     public Kino(String von) {
-        super(von);
+        this(von, 3);
         System.out.println(" Kino von " + von);
+    }
+
+    public Kino(String von, int i) {
+        super(von);
     }
 }
 
