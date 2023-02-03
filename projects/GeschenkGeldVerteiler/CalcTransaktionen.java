@@ -1,4 +1,4 @@
-package projects.GeschenkGeldVerteiler;
+package Projects.GeschenkGeldVerteiler;
 
 import java.util.ArrayList;
 import java.util.Arrays;
