@@ -6,6 +6,7 @@
         "AIFB\\Programmierprüfung\\javax.mail.jar",
         "Commons/UIResources/flatlaf-2.3.jar",
         "c:\\Users\\torer\\Downloads\\jaf-1_0_2-upd2\\jaf-1.0.2\\activation.jar",
-        "Projects/Programmierprüfung/javax.mail.jar"
+        "Projects/ProgrammierprüfungErgebnisVerteilung/javax.mail.jar",
+        "Commons/ExternalLibraris/javax.mail.jar"
     ]
 }
