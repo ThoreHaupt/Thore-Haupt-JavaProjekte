@@ -1,4 +1,4 @@
-package AIFB.Programmierprüfung;
+package Projects.Programmierprüfung;
 
 public class Student {
     String uKuerzel;

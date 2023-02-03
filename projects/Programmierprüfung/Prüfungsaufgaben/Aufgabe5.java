@@ -1,4 +1,4 @@
-package AIFB.Programmierprüfung.Prüfungsaufgaben;
+package Projects.Programmierprüfung.Prüfungsaufgaben;
 
 public class Aufgabe5 {
     public static int quersumme(int i) {

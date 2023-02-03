@@ -1,4 +1,4 @@
-package AIFB.Programmierprüfung;
+package Projects.Programmierprüfung;
 
 import java.util.Properties;
 import javax.mail.*;

@@ -1,4 +1,4 @@
-package AIFB.Programmierprüfung.Korrektur;
+package Projects.Programmierprüfung.Korrektur;
 
 public class tet1 {
     public static void main(String[] args) {

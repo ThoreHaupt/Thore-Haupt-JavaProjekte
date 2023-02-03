@@ -1,4 +1,4 @@
-package AIFB.Programmierprüfung.Korrektur.Lilly;
+package Projects.Programmierprüfung.Korrektur.Lilly;
 
 public class Aufgabe2 {
 

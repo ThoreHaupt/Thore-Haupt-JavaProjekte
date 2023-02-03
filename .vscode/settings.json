@@ -4,8 +4,8 @@
         "C:/Program Files/Eclipse Adoptium/other/junit-platform-console-standalone-1.7.0-M1.jar",
         "C:/Program Files/Eclipse Foundation/other/junit-platform-console-standalone-1.7.0-M1.jar",
         "AIFB\\Programmierprüfung\\javax.mail.jar",
-        "AIFB/Programmierprüfung/javax.mail.jar",
         "Commons/UIResources/flatlaf-2.3.jar",
-        "c:\\Users\\torer\\Downloads\\jaf-1_0_2-upd2\\jaf-1.0.2\\activation.jar"
+        "c:\\Users\\torer\\Downloads\\jaf-1_0_2-upd2\\jaf-1.0.2\\activation.jar",
+        "Projects/Programmierprüfung/javax.mail.jar"
     ]
 }

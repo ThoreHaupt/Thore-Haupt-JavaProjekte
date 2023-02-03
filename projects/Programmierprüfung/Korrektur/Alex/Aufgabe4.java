@@ -1,4 +1,4 @@
-package AIFB.Programmierprüfung.Korrektur.Alex;
+package Projects.Programmierprüfung.Korrektur.Alex;
 
 public class Aufgabe4 {
 
