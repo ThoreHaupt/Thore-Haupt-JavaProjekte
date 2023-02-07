@@ -46,9 +46,7 @@ public class BitOperationStuff {
         while (currentLength < 14) {
             if ((bitMask & appMask) != 0) {
                 //remove stuff
-
                 appMaskD = appMask;
-
                 // remove values from in front of the chunk
                 while (true) {
                     appMask = 1 << (arr[currentLastIndex++] - 97);
@@ -56,15 +54,13 @@ public class BitOperationStuff {
                         break;
                     } else {
                         // remove char before border
-                        bitMask = bitMask ^ appMask;
+                        bitMask ^= appMask;
                         currentLength--;
                     }
                 }
-                // add values unitl we reach currentIndex
-                // if new double then set
             } else {
-                // add appMask and 
-                bitMask = bitMask ^ appMask;
+                // add appMask and bitMask
+                bitMask ^= appMask;
                 currentLength++;
             }
 

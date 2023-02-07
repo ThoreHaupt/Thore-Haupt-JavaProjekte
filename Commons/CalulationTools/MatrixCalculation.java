@@ -2,7 +2,7 @@ package Commons.CalulationTools;
 
 import java.util.Arrays;
 
-import testStuff.testPolymorphie.A;
+import CodingClasses.testStuff.testPolymorphie.A;
 
 public class MatrixCalculation {
 
