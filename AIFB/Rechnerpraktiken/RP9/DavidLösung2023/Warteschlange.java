@@ -80,6 +80,8 @@ public class Warteschlange {
             // die Referenz auf NewEl beim neuen Nachfolger muss dann natürlich auch noch gesetzt werden. (wenn der Nachfolger != null ist)
             if (newEl.next != null)
                 newEl.next.pred = newEl;
+            else
+                tail = newEl;
 
         }
         return newEl;

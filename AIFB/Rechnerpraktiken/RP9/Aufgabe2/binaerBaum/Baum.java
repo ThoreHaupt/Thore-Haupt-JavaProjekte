@@ -100,7 +100,10 @@ public class Baum {
 
     // Inorder-Traversierung (LWR)
     public String toString() {
-
+        float f = 23.23f;
+        short s = 12;
+        int v = s + s;
+        char c = (char) f;
         /* HIER CODE EINFÜGEN !!! */
         return print("in");
 
