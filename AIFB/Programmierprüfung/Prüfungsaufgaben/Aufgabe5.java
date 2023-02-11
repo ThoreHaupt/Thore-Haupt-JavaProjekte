@@ -1,4 +1,4 @@
-package Projects.ProgrammierprüfungErgebnisVerteilung.Prüfungsaufgaben;
+package projects.ProgrammierprüfungErgebnisVerteilung.Prüfungsaufgaben;
 
 public class Aufgabe5 {
     public static int quersumme(int i) {
