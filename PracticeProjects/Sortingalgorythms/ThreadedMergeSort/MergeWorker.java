@@ -69,8 +69,8 @@ public class MergeWorker extends Thread {
     private void createFirstLayerRoutine() {
         int currentIndex = 1;
         int firstChunkIndex = 0;
-        TNode<String> currentTNode = sortList.getFirstNode().getNextNode();
-        TNode<String> firstNode = sortList.getFirstNode();
+        TNode<String> currentTNode = sortList.getHead().getNextNode();
+        TNode<String> firstNode = sortList.getHead();
         do {
             // moves over sortlist, until it finds a wrong oder.
             while (Common.firstStringbool((String) currentTNode.getBeforeNode().getValue(),
@@ -108,7 +108,7 @@ public class MergeWorker extends Thread {
             if (currentTNode == null)
                 break;
 
-        } while ((!(chunkList.getLastNode().getValue().upperNode.getNextNode() == null)) && currentTNode != null);
+        } while ((!(chunkList.getTail().getValue().upperNode.getNextNode() == null)) && currentTNode != null);
 
         if (getHigherThread() != null) {
             System.out.println("Error, lower thread finished with higher thread waiting");
@@ -124,7 +124,7 @@ public class MergeWorker extends Thread {
 
     private synchronized void routine() { // gets called when the thread is created, which only happens when there are
                                           // 3 new chunks
-        currentChunkNode = chunkList.getFirstNode();
+        currentChunkNode = chunkList.getHead();
         while (running) {
 
             synchronized (this) {
@@ -181,7 +181,7 @@ public class MergeWorker extends Thread {
                 ((MergeWorker) MergeWorker.currentThread()).deltaChunksQued(-1);
                 if (Common.log(2, chunkList.size()) < 4) { // bei wenigen Chunks ist es schneller die ohne neue
                                                            // threads zu sortieren
-                    // stoppThreading();
+                                                           // stoppThreading();
                 }
                 if (getLowerThread() == null) {
                     sortList.testIntegrityFull();
@@ -202,7 +202,7 @@ public class MergeWorker extends Thread {
             }
 
             mergeAlgorythms.mergeChunks(currentChunkNode // merge the next two chunks, extend the first chunk to full
-                                                         // size and delete the second chunk
+                    // size and delete the second chunk
                     .getValue(),
                     currentChunkNode.getNextNode().getValue(), referenceMap);
             ((MergeWorker) MergeWorker.currentThread()).deltaChunksQued(-2); // reduce the Chunks in que by one

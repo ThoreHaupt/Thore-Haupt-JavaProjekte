@@ -25,9 +25,9 @@ public class MergeSortLinkedII {
         ArrayList<TNode<String>> chunklistNodes = new ArrayList<TNode<String>>();
         int[] chunk = new int[] { 0, 0, 0 };
         ArrayList<TNode<String>> chunkNodes = new ArrayList<TNode<String>>(); // got to supress that unchecked warning
-        chunkNodes.add(sortlist.getFirstNode());
-        chunkNodes.add(sortlist.getFirstNode());
-        chunkNodes.add(sortlist.getFirstNode());
+        chunkNodes.add(sortlist.getHead());
+        chunkNodes.add(sortlist.getHead());
+        chunkNodes.add(sortlist.getHead());
         Progressbart progressbar = new Progressbart("PracticeProjects/Textfiles/Console.txt", "Mergesort Progress:");
         // first index of first chunk, first Index of second chunk, index after second
         // chunk
