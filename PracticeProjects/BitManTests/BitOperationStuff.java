@@ -10,7 +10,7 @@ public class BitOperationStuff {
         System.out.println(bitVals(i));
         i = i << cval;
         System.out.println(bitVals(i)); */
-        char[] arr = new char[60];
+        /*  char[] arr = new char[60];
         for (int j = 0; j < 34; j++) {
             arr[j] = (char) (j % 13 + 97);
         }
@@ -21,14 +21,35 @@ public class BitOperationStuff {
         System.out.println(findSubstring(arr));
         char[] arr2 = new char[14];
         System.arraycopy(arr, findSubstring(arr) - 14, arr2, 0, 14);
-        System.out.println(Arrays.toString(arr2));
+        System.out.println(Arrays.toString(arr2)); */
+
+        Double d = Double.valueOf(0d);
+
+        System.out.println(bitVals(d));
+        System.out.println(bitVals(Double.MAX_VALUE));
+        System.out.println(bitVals(Double.valueOf(-1d)));
+        System.out.println(bitVals(Double.valueOf(0.5d)));
     }
 
     public static String bitVals(int i) {
         String o = "";
         for (int j = 0; j < 32; j++) {
-            o = Math.abs(i % 2) + o;
+            o = Math.abs(i % 2) + o;  
             i = i >>> 1;
+        }
+        return o;
+    }
+
+    public static String bitVals(double i) {
+        String o = "";
+        long l = Double.doubleToLongBits(12);
+        System.out.print(l + ": ");
+        for (int j = 0; j < 64; j++) {
+            o = Math.abs(l % 2) + o;
+            l = l >>> 1;
+            if (j == 51 || j == 62) {
+                o = " " + o;
+            }
         }
         return o;
     }
