@@ -8,16 +8,16 @@ import PracticeProjects.TNode;
 public class Chunk<T> {
     TNode<T> firstNode;
     TNode<T> upperNode;
-    
+
     private int firstIndex;
     private int upperIndex;
-    
+
     public TLinkedList<Chunk<T>> chunkList;
     TNode<Chunk<T>> selfNode;
     public boolean locked = false;
     private int size;
-        
-    public Chunk(TNode<T> firstNode, TNode<T> upperNode, int firstIndex, int upperIndex, 
+
+    public Chunk(TNode<T> firstNode, TNode<T> upperNode, int firstIndex, int upperIndex,
             TLinkedList<Chunk<T>> chunkList) {
         this.firstNode = firstNode;
         this.upperNode = upperNode;
@@ -26,18 +26,18 @@ public class Chunk<T> {
         size = upperIndex - firstIndex;
         this.chunkList = chunkList;
         chunkList.add(this);
-        selfNode = chunkList.getLastNode();
+        selfNode = chunkList.getTail();
     }
 
-    public synchronized void setSelfNode(){
-        selfNode = chunkList.getLastNode();
+    public synchronized void setSelfNode() {
+        selfNode = chunkList.getTail();
     }
 
-    public int[] getIndexChunk(){
-        return new int[]{firstIndex, upperIndex};
+    public int[] getIndexChunk() {
+        return new int[] { firstIndex, upperIndex };
     }
 
-    public ArrayList<TNode<T>> getNodeChunk(){
+    public ArrayList<TNode<T>> getNodeChunk() {
         ArrayList<TNode<T>> list = new ArrayList<TNode<T>>();
         list.add(firstNode);
         list.add(upperNode);
@@ -70,16 +70,16 @@ public class Chunk<T> {
         size = upperIndex - firstIndex;
     }
 
-    public int getSize(){
+    public int getSize() {
         return size;
     }
 
-    public void extend(boolean upper, int amount, TNode<T> newEdgeNode){
-        if (upper){
+    public void extend(boolean upper, int amount, TNode<T> newEdgeNode) {
+        if (upper) {
             size += amount;
             upperIndex += amount;
             upperNode = newEdgeNode;
-        }else{
+        } else {
             size += amount;
             firstIndex -= amount;
             firstNode = newEdgeNode;
@@ -87,13 +87,13 @@ public class Chunk<T> {
 
     }
 
-    public void setUpperNode(TNode<T> node){
+    public void setUpperNode(TNode<T> node) {
         this.upperNode = node;
     }
 
-    public void setFirstNode(TNode<T> node){
+    public void setFirstNode(TNode<T> node) {
         TNode<Chunk<T>> beforeNode = this.selfNode.getBeforeNode();
-        if (beforeNode!= null) {
+        if (beforeNode != null) {
             Chunk<T> beforechunk = beforeNode.getValue();
             if (beforechunk != null)
                 beforechunk.setUpperNode(node);
@@ -101,16 +101,17 @@ public class Chunk<T> {
         this.firstNode = node;
     }
 
-    public boolean canMergeNext(double ratio){
-        if (selfNode.getNextNode() == null)return false;
+    public boolean canMergeNext(double ratio) {
+        if (selfNode.getNextNode() == null)
+            return false;
         int s1 = (int) this.size;
         int s2 = (int) selfNode.getNextNode().getValue().getSize();
         if ((s2 >= s1) || (Math.abs(s2 - s1) / s1) > (ratio))
             return true;
-        return false; 
+        return false;
     }
 
-    public synchronized void remove(){
+    public synchronized void remove() {
         chunkList.remove(selfNode);
     }
 }

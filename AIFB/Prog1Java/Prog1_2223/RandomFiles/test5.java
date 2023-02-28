@@ -16,6 +16,7 @@ public class test5 {
         byte b = 0;
         char c = 'g';
         //m(i, b, c);
+        int u = 1 / 0;
         test5 f = new b();
         //f.g();
     }
@@ -27,7 +28,7 @@ class b extends test5 {
     }
 }
 
-interface inter {
+abstract interface inter {
     static int i = 0;
     int a = 0;
     final int b = 0;
@@ -40,6 +41,6 @@ interface inter {
         System.out.println("looser");
     }
 
-    abstract void methode3();
+    public abstract void methode3();
 
 }

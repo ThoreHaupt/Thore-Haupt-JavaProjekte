@@ -1,5 +1,7 @@
 package AIFB.Prog1Java.Prog1_2223.ListenAufgabe;
 
+import org.w3c.dom.ElementTraversal;
+
 public class Liste {
     Element head;
     int size = 0;
@@ -77,4 +79,5 @@ public class Liste {
         outputString += ")";
         return outputString;
     }
+
 }

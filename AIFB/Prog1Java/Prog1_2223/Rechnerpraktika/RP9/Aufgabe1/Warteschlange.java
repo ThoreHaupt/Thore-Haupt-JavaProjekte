@@ -164,4 +164,14 @@ public class Warteschlange {
                 + student.getMatrikelNr() + " getauscht.");
 
     }
+
+    public boolean istPalindrom(Wartende start, Wartende end) {
+        if (start == end) {
+            return true;
+        } else if ((start != null && end == null) || (start == null && end != null)) {
+            return false;
+        } else {
+            return istPalindrom(start.next, end.pred);
+        }
+    }
 }

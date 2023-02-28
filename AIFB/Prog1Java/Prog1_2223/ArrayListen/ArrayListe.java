@@ -55,8 +55,7 @@ public class ArrayListe {
         if (lastIndex > array.length * 0.8) {
             neuesArray();
         }
-        array[lastIndex + 1] = wert;
-        lastIndex++;
+        array[++lastIndex] = wert;
         size++;
     }
 

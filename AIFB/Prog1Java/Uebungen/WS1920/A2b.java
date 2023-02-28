@@ -1,4 +1,4 @@
-package AIFB.Prog1Java.Altklausuren.WS1920;
+package AIFB.Prog1Java.Uebungen.WS1920;
 
 import com.formdev.flatlaf.util.SystemInfo;
 

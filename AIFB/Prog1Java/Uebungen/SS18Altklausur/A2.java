@@ -1,4 +1,4 @@
-package AIFB.Prog1Java.Altklausuren.SS18Altklausur;
+package AIFB.Prog1Java.Uebungen.SS18Altklausur;
 
 public class A2 {
 
