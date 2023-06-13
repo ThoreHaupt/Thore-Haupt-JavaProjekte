@@ -1,9 +1,13 @@
 package PracticeProjects.ArrayListStuff;
 
+import java.util.Arrays;
+import java.util.Comparator;
+
 public class TArrayList2<T> {
     private Object[] array;
     private int arrSize = 0;
     private int lastIndex = -1;
+    private Comparator<T> comparator;
     // final Class<T> type;
 
     public static void main(String[] args) {
@@ -86,6 +90,7 @@ public class TArrayList2<T> {
         }
     }
 
+    @SuppressWarnings("unchecked")
     public T get(int index) throws IndexOutOfBoundsException {
         return (T) array[index];
     }
@@ -190,5 +195,9 @@ public class TArrayList2<T> {
 
     public void remove(int index) {
         shiftArray(index, -1);
+    }
+
+    public void sort() {
+        Arrays.sort(array);
     }
 }
