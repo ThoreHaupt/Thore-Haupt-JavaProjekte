@@ -47,7 +47,7 @@ public class Taskmanager {
          * Randix sort, both for strings
          */
         Filemanager.println("\n\nSorting Test of 7 different sorting algorithms: -----------------------------");
-        int AmountOfElementsTobeSorted = 60_000;
+        int AmountOfElementsTobeSorted = 50_000;
         Filemanager.printtp("Amount of Items sorted:", AmountOfElementsTobeSorted);
         Filemanager.println("");
         String[] strings = Stringoperations.createRandomStringArray(AmountOfElementsTobeSorted);

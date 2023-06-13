@@ -1,16 +1,20 @@
 package AIFB;
 
-public class test2 {
-    private int i = 0;
-}
+import java.util.Comparator;
 
-class test3 extends test2 {
+public class test2 implements Comparable<test2>, Comparator<test2> {
+    private int i = 0;
+
     public static void main(String[] args) {
-        test3 t = new test3();
-        System.out.println(t.geti());
+        System.out.println();
     }
 
-    public int geti() {
+    public int compareTo(test2 other) {
+        return 0;
+    }
+
+    public int compare(test2 o1, test2 o2) {
         return i;
     }
+
 }
