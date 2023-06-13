@@ -23,6 +23,7 @@ public class DoublyLinkedListDemo {
 
 		running = true;
 		liste = new DoublyLinkedList();
+		liste.add(new int[] { 1, 2, 3, 4, 6, 7, 8 });
 		System.out.println("Neue int-Liste erstellt.");
 
 		while (running) {
@@ -48,6 +49,17 @@ public class DoublyLinkedListDemo {
 				case "m":
 					liste.reverseList();
 					System.out.println("Listenausgabe: " + liste);
+					break;
+				case "i":
+					System.out.println("Index:");
+					int index = scan.nextInt();
+					if (index >= liste.getSize()) {
+						System.out.println("Index out of Bounds try again.");
+						break;
+					}
+					System.out.println("Value");
+					Integer val = scan.nextInt();
+					liste.insert(val, index);
 					break;
 				case "c":
 					running = false;

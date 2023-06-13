@@ -1,20 +1,16 @@
 package AIFB;
 
-import java.util.Comparator;
-
-public class test2 implements Comparable<test2>, Comparator<test2> {
-    private int i = 0;
-
+public class test2 implements test3 {
     public static void main(String[] args) {
-        System.out.println();
+        test2 t = new test2();
+        t.bau();
     }
 
-    public int compareTo(test2 other) {
-        return 0;
-    }
+    private int i = 0;
+}
 
-    public int compare(test2 o1, test2 o2) {
-        return i;
-    }
+interface test3 {
+    default void bau() {
 
+    }
 }

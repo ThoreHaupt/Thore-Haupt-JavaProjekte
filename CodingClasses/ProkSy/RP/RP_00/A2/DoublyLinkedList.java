@@ -9,6 +9,8 @@ package CodingClasses.ProkSy.RP.RP_00.A2;
 
 public class DoublyLinkedList {
 
+	int size = 0;
+
 	/**
 	 * Innere Klasse
 	 * Repräsentiert ein Listenelement der Liste
@@ -56,25 +58,21 @@ public class DoublyLinkedList {
 		tail = head;
 	}
 
+	public void add(int[] arr) {
+		for (int i = 0; i < arr.length; i++) {
+			add(Integer.valueOf(arr[i]));
+		}
+	}
+
 	/**
-	 * F�gt ein Objekt am Anfang der Liste ein.
+	 * Fügt ein Objekt am Anfang der Liste ein.
 	 * 
 	 * @param o Objekt, das eingefügt werden soll
 	 * @return Liefert das ListElement zurück, das die Referenz auf das eingefügte
 	 *         Objekt enthält
 	 */
 	public ListElement add(Object o) {
-		ListElement newEl = new ListElement(o);
-
-		if (head != null) {
-			head.previous = newEl;
-		} else {
-			tail = newEl;
-		}
-		newEl.next = head;
-		head = newEl;
-
-		return newEl;
+		return insert(o, null);
 	}
 
 	/**
@@ -86,13 +84,22 @@ public class DoublyLinkedList {
 	 *         Objekt enthält
 	 */
 	public ListElement insert(Object o, ListElement pred) {
+		size++;
 		// Diese Methode soll ein neues Element nach dem übergebenen Element pred
 		// hinzufügen
 		// Falls pred eine null-Referenz ist, soll das neue Element an den Anfang der
 		// Liste gesetzt werden
 		ListElement newEl = new ListElement(o);
 		if (pred == null) {
-			return add(o);
+			if (head != null) {
+				head.previous = newEl;
+			} else {
+				tail = newEl;
+			}
+			newEl.next = head;
+			head = newEl;
+
+			return newEl;
 		}
 		if (pred.next != null) {
 			newEl.previous = pred;
@@ -109,19 +116,33 @@ public class DoublyLinkedList {
 
 	}
 
+	public ListElement insert(Object o, int index) {
+		ListElement pred = getElementByIndex(index);
+		return insert(o, pred);
+	}
+
 	/**
 	 * Löscht das übergebene ListElement aus der Liste
 	 * 
 	 * @param element ListElement, das gelöscht werden soll
 	 */
 	public void delete(ListElement element) {
+		size--;
 		// Diese Methode soll das ListElement element löschen
-		ListElement help = head;
-		while (help != element) {
-			help = help.next;
+		if (element.previous != null) {
+			element.previous.next = element.next;
+		} else {
+			head = element.next;
+			if (head != null)
+				head.previous = null;
 		}
-		element.previous.next = element.next;
-		element.next.previous = element.previous;
+		if (element.next != null) {
+			element.next.previous = element.previous;
+		} else {
+			tail = element.previous;
+			if (tail != null)
+				tail.next = null;
+		}
 
 	}
 
@@ -179,7 +200,7 @@ public class DoublyLinkedList {
 		}
 		help2 = head;
 		head = tail;
-		tail = help;
+		tail = help2;
 	}
 
 	public ListElement getHeadElement() {
@@ -188,5 +209,20 @@ public class DoublyLinkedList {
 
 	public ListElement getTailElement() {
 		return tail;
+	}
+
+	public ListElement getElementByIndex(int index) {
+		ListElement current = head;
+		for (int i = 0; i < index; i++) {
+			if (current == null) {
+				throw new IndexOutOfBoundsException(index);
+			}
+			current = current.next;
+		}
+		return current;
+	}
+
+	public int getSize() {
+		return size;
 	}
 }
