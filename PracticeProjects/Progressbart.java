@@ -41,7 +41,7 @@ public class Progressbart {
         progress += update;
         progressint = (int) (progress / 5) + 1;
         if (progressint != oldint) {
-            //Filemanager.writeToFileLine(path, line, generateLine());
+            Filemanager.writeToFileLine(path, line, generateLine());
         }
 
     }
