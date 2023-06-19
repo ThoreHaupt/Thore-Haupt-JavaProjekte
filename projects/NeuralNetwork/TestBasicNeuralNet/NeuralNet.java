@@ -493,6 +493,7 @@ public class NeuralNet {
     final public static String TANH = "TANH";
     final public static String RELU = "RELU";
     final public static String LINEAR = "LINEAR";
+    final public static String SOFTMAX = "SOFTMAX";
 
     final public static int NOCOSTFUNCTION = 0;
     final public static int SQUAREDISTANCE = 1;
@@ -507,6 +508,8 @@ public class NeuralNet {
                 yield NeuralNet.AFrelu;
             case LINEAR:
                 yield NeuralNet.AFlinear;
+            case SOFTMAX:
+                yield NeuralNet.AFsoftmax;
             default:
                 yield NeuralNet.AFsigmoidL;
 
@@ -523,6 +526,8 @@ public class NeuralNet {
                 yield NeuralNet.AFreluDerivative;
             case LINEAR:
                 yield NeuralNet.AFlinearDerivative;
+            case SOFTMAX:
+                yield NeuralNet.AFsoftmaxDerivatie;
             default:
                 yield NeuralNet.AFsigmoidLDerivative;
 
@@ -568,18 +573,6 @@ public class NeuralNet {
      * saves the sigmoidL values of the first Array into the second.
      */
 
-    final transient static BiConsumer<double[][], double[][]> AFsigmoidL = (x,
-            y) -> {
-        // here you might want a check for same size, but I want to save that performance cuz that should never happen.
-        for (int i = 0; i < x.length; i++)
-            for (int j = 0; j < x[0].length; j++) {
-                y[i][j] = 1 / (1 + Math.exp(-x[i][j]));
-            }
-    };
-    /**
-     * saves the sigmoidL values of the first Array into the second.
-     */
-
     final transient static BiConsumer<double[][], double[][]> AFlinear = (x,
             y) -> {
         // here you might want a check for same size, but I want to save that performance cuz that should never happen.
@@ -592,23 +585,72 @@ public class NeuralNet {
     /**
      * saves the sigmoidL values of the first Array into the second. Of each first element in each Subarray
      */
+    final transient static BiConsumer<double[][], double[][]> AFlinearDerivative = (
+            x, y) -> {
+        for (int i = 0; i < x.length; i++) {
+            for (int j = 0; j < x[0].length; j++)
+                y[i][j] = 1;
+        }
+    };
+
+    /**
+     * saves the sigmoidL values of the first Array into the second.
+     */
+
+    final transient static BiConsumer<double[][], double[][]> AFsoftmax = (x,
+            y) -> {
+        double sum = 0;
+        double min = MatrixCalculation.min(x);
+        double max = MatrixCalculation.max(x);
+        double d = (max + min) / 2;
+        for (int i = 0; i < x.length; i++)
+            for (int j = 0; j < x[0].length; j++) {
+                sum += Math.exp(x[i][j] - d);
+            }
+        for (int i = 0; i < x.length; i++)
+            for (int j = 0; j < x[0].length; j++) {
+                y[i][j] += Math.exp(x[i][j] - d) / sum;
+            }
+
+    };
+
+    /**
+     * saves the sigmoidL values of the first Array into the second. Of each first element in each Subarray
+     */
+    final transient static BiConsumer<double[][], double[][]> AFsoftmaxDerivatie = (
+            x, y) -> {
+        AFsoftmax.accept(x, y);
+        for (int i = 0; i < x.length; i++) {
+            for (int j = 0; j < x[0].length; j++) {
+                if (Math.abs(y[i][j]) > 10000)
+                    System.out.println(y[i][j]);
+                y[i][j] = y[i][j] - Math.pow(y[i][j], 2);
+            }
+        }
+    };
+
+    /**
+     * saves the sigmoidL values of the first Array into the second.
+     */
+
+    final transient static BiConsumer<double[][], double[][]> AFsigmoidL = (x,
+            y) -> {
+        // here you might want a check for same size, but I want to save that performance cuz that should never happen.
+        for (int i = 0; i < x.length; i++)
+            for (int j = 0; j < x[0].length; j++) {
+                y[i][j] = 1 / (1 + Math.exp(-x[i][j]));
+            }
+    };
+
+    /**
+     * saves the sigmoidL values of the first Array into the second. Of each first element in each Subarray
+     */
     final transient static BiConsumer<double[][], double[][]> AFsigmoidLDerivative = (
             x, y) -> {
         AFsigmoidL.accept(x, y);
         for (int i = 0; i < x.length; i++) {
             for (int j = 0; j < x[0].length; j++)
                 y[i][j] = y[i][j] * (1 - y[i][j]);
-        }
-    };
-
-    /**
-     * saves the sigmoidL values of the first Array into the second. Of each first element in each Subarray
-     */
-    final transient static BiConsumer<double[][], double[][]> AFlinearDerivative = (
-            x, y) -> {
-        for (int i = 0; i < x.length; i++) {
-            for (int j = 0; j < x[0].length; j++)
-                y[i][j] = 1;
         }
     };
 

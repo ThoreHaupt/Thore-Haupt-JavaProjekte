@@ -272,4 +272,28 @@ public class MatrixCalculation {
         }
         return deepCopy;
     }
+
+    public static double min(double[] ds) {
+        return 0;
+    }
+
+    public static double min(double[][] x) {
+        double min = Double.MAX_VALUE;
+        for (int i = 0; i < x.length; i++) {
+            for (int j = 0; j < x[i].length; j++) {
+                min = Math.max(min, x[i][j]);
+            }
+        }
+        return min;
+    }
+
+    public static double max(double[][] x) {
+        double max = Double.MIN_VALUE;
+        for (int i = 0; i < x.length; i++) {
+            for (int j = 0; j < x[i].length; j++) {
+                max = Math.max(max, x[i][j]);
+            }
+        }
+        return max;
+    }
 }
