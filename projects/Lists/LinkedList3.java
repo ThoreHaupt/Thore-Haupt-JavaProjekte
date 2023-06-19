@@ -2,8 +2,6 @@ package Projects.Lists;
 
 import java.util.Comparator;
 
-import javax.swing.text.html.parser.Element;
-
 public class LinkedList3<T> {
 
     public static void main(String[] args) {

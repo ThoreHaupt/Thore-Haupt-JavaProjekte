@@ -1,5 +1,11 @@
 package Projects.NeuralNetwork.Data;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+
+import AIFB.Prog1Java.Prog1_2223.KlausurKorrektur.LinkedList;
 import Commons.FileHandiling.FileManager;
 import Commons.FileHandiling.Pair;
 
@@ -78,5 +84,15 @@ public class Dataset {
 
     public int getAbsolutValueByIndex(int index) {
         return imageLabelsAbsolut[index];
+    }
+
+    public void shuffle() {
+        Random r = new Random((long) (Math.random() * 10000000));
+        List<int[]> pixelList = Arrays.stream(pixelData).toList();
+        List<int[]> labelList = Arrays.stream(imageLabels).toList();
+        Collections.shuffle(pixelList, r);
+        Collections.shuffle(labelList, r);
+        pixelData = pixelList.toArray(new int[pixelData.length][pixelData[0].length]);
+        imageLabels = labelList.toArray(new int[imageLabels.length][imageLabels[0].length]);
     }
 }
