@@ -29,8 +29,16 @@ public class LinkedSortedList<T> implements Iterable<T> {
             list.putStart(i);
             System.out.println(list);
         }
-        list.insertionSortForeward();
+        //list.insertionSortForeward();
+        //System.out.println(list);
+        for (Integer integer : list) {
+            System.out.println(integer);
+        }
+
+        System.out.println(list.remove(30));
+        System.out.println(list.contains(30));
         System.out.println(list);
+
     }
 
     private Element<T> head;
@@ -158,7 +166,7 @@ public class LinkedSortedList<T> implements Iterable<T> {
         while (current != null && comparator.compare(current.val(), val) != 0) {
             current = current.next();
         }
-        if (current != null)
+        if (current == null)
             return false;
         else {
             removeEl(current);
@@ -250,13 +258,14 @@ public class LinkedSortedList<T> implements Iterable<T> {
 
             @Override
             public boolean hasNext() {
-                return head.next() != null;
+                return current != null;
             }
 
             @Override
             public T next() {
+                T val = current.val();
                 current = current.next();
-                return current.val();
+                return val;
             }
 
         };
@@ -271,6 +280,7 @@ public class LinkedSortedList<T> implements Iterable<T> {
         while (current != null) {
             if (comparator.compare(current.val(), o) == 0)
                 return true;
+            current = current.next();
         }
         return false;
     }

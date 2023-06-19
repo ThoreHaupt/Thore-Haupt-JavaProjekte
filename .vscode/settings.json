@@ -8,5 +8,6 @@
         "c:\\Users\\torer\\Downloads\\jaf-1_0_2-upd2\\jaf-1.0.2\\activation.jar",
         "Projects/ProgrammierprüfungErgebnisVerteilung/javax.mail.jar",
         "Commons/ExternalLibraris/javax.mail.jar"
-    ]
+    ],
+    "java.debug.settings.onBuildFailureProceed": true
 }
