@@ -10,6 +10,7 @@ public class ImageApproximation {
     int[] pixel;
     ArrayList<Pair<Integer, Double>> imageScores;
     int actualNumber;
+    boolean correctGuess = false;
 
     /**
      * @param pixel
@@ -25,6 +26,7 @@ public class ImageApproximation {
             imageScores.add(new Pair<Integer, Double>(i, imageScoresDoubleValOrdered[i]));
         }
         Collections.sort(imageScores, sortScores);
+        correctGuess = isCorrect();
     }
 
     /**

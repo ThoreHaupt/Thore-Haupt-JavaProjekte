@@ -50,15 +50,15 @@ public class HandwritingWindow extends JFrame {
     int imageXSize;
     int imageYSize;
 
-    final String defaultPath = "neuralNetTestsIG/Data/trainedDNN";
+    final String defaultPath = "Projects/NeuralNetwork/Data/trainedDNN";
     String currentNNPath = defaultPath;
 
     public HandwritingWindow() {
 
         FlatDarkLaf.setup();
 
-        Dataset trainingData = new Dataset("neuralNetTestsIG/Data/Datasets/NIST/train-images",
-                "neuralNetTestsIG/Data/Datasets/NIST/train-labels");
+        Dataset trainingData = new Dataset("Projects/NeuralNetwork/Data/Datasets/NIST/train-images",
+                "Projects/NeuralNetwork/Data/Datasets/NIST/train-labels");
 
         int pixelNumX = trainingData.getImagePixel_X();
         int pixelNumY = trainingData.getImagePixel_Y();
@@ -67,8 +67,8 @@ public class HandwritingWindow extends JFrame {
                 SIGMOID,
                 SIGMOID, SIGMOID });
 
-        NN.setTestData(new Dataset("neuralNetTestsIG/Data/Datasets/NIST/test-images",
-                "neuralNetTestsIG/Data/Datasets/NIST/test-labels"));
+        NN.setTestData(new Dataset("Projects/NeuralNetwork/Data/Datasets/NIST/test-images",
+                "Projects/NeuralNetwork/Data/Datasets/NIST/test-labels"));
 
         //NN.train(0, 0.15, 500, NeuralNet.SQUAREDISTANCE, trainingData, 6);
 
@@ -239,13 +239,13 @@ public class HandwritingWindow extends JFrame {
         c.fill = GridBagConstraints.HORIZONTAL;
 
         FileChooserInterface trainDataLocation = new FileChooserInterface(JFileChooser.FILES_ONLY,
-                "neuralNetTestsIG/Data/Datasets/NIST/train-images", "TrainingData");
+                "Projects/NeuralNetwork/Data/Datasets/NIST/train-images", "TrainingData");
         trainDataLocation.setPreferredSize(new Dimension(450, 40));
         c.gridy++;
         mainPanel.add(trainDataLocation, c);
 
         FileChooserInterface trainLabelLocation = new FileChooserInterface(JFileChooser.FILES_ONLY,
-                "neuralNetTestsIG/Data/Datasets/NIST/train-labels", "TrainingLabel");
+                "Projects/NeuralNetwork/Data/Datasets/NIST/train-labels", "TrainingLabel");
         trainLabelLocation.setPreferredSize(new Dimension(400, 40));
         c.gridy++;
         mainPanel.add(trainLabelLocation, c);
@@ -255,19 +255,25 @@ public class HandwritingWindow extends JFrame {
         epochField.setText("2");
         c.gridy++;
         mainPanel.add(epochField, c);
-        InputTextfield learnrateField = new InputTextfield("Learnrate [%]:", new DocumentNumberFilter(),
+        InputTextfield learnrateField = new InputTextfield("Learnrate [%%]:", new DocumentNumberFilter(),
                 new Dimension(250, 50),
                 new Dimension(70, 50));
-        learnrateField.setText("25");
+        learnrateField.setText("1000");
         c.gridy++;
         mainPanel.add(learnrateField, c);
+        InputTextfield momentumRateField = new InputTextfield("Momentumrate [%%]:", new DocumentNumberFilter(),
+                new Dimension(250, 50),
+                new Dimension(70, 50));
+        momentumRateField.setText("500");
+        c.gridy++;
+        mainPanel.add(momentumRateField, c);
         InputTextfield batchsizeField = new InputTextfield("Batchsize:", new DocumentNumberFilter(),
                 new Dimension(250, 50),
                 new Dimension(70, 50));
-        batchsizeField.setText("500");
+        batchsizeField.setText("100");
         c.gridy++;
         mainPanel.add(batchsizeField, c);
-        InputTextfield threadNUMField = new InputTextfield("Batchsize:", new DocumentNumberFilter(),
+        InputTextfield threadNUMField = new InputTextfield("Threadcount:", new DocumentNumberFilter(),
                 new Dimension(250, 50),
                 new Dimension(70, 50));
         threadNUMField.setText("6");
@@ -278,10 +284,12 @@ public class HandwritingWindow extends JFrame {
         start.addActionListener(e -> {
 
             int epochNUM = Integer.parseInt(epochField.getText());
-            double learnrate = Integer.parseInt(learnrateField.getText()) / 100.0;
+            double learnrate = Integer.parseInt(learnrateField.getText()) / 10000.0;
+            double momentumRate = Integer.parseInt(momentumRateField.getText()) / 10000.0;
             int batchSize = Integer.parseInt(batchsizeField.getText());
             int threadNUM = Integer.parseInt(threadNUMField.getText());
-            trainNetworkPanelManager(mainPanel, epochNUM, learnrate, batchSize, threadNUM, c, createNNDialoagWindow);
+            trainNetworkPanelManager(mainPanel, epochNUM, learnrate, momentumRate, batchSize, threadNUM, c,
+                    createNNDialoagWindow);
 
         });
 
@@ -294,7 +302,8 @@ public class HandwritingWindow extends JFrame {
         createNNDialoagWindow.setVisible(true);
     }
 
-    private void trainNetworkPanelManager(JPanel backpanel, int epochNUM, double learnRate, int batchSize,
+    private void trainNetworkPanelManager(JPanel backpanel, int epochNUM, double learnRate, double momentumRate,
+            int batchSize,
             int threadNUM,
             GridBagConstraints c, JDialog NNDialoagWindow) {
 
@@ -310,7 +319,7 @@ public class HandwritingWindow extends JFrame {
         backpanel.add(pbar);
         backpanel.revalidate();
         backpanel.repaint();
-        NN.train(epochNUM, learnRate, batchSize, threadNUM, pbar);
+        NN.train(epochNUM, learnRate, momentumRate, batchSize, threadNUM, pbar);
         System.out.println("started Training!");
     }
 
@@ -334,8 +343,8 @@ public class HandwritingWindow extends JFrame {
             return;
         }
         NN = newNN.restoreNet();
-        NN.setTestData(new Dataset("neuralNetTestsIG/Data/Datasets/NIST/test-images",
-                "neuralNetTestsIG/Data/Datasets/NIST/test-labels"));
+        NN.setTestData(new Dataset("Projects/NeuralNetwork/Data/Datasets/NIST/test-images",
+                "Projects/NeuralNetwork/Data/Datasets/NIST/test-labels"));
 
         System.out.println("loaded Network from File: " + loader.getSelectedFile().getName());
     }
@@ -433,7 +442,7 @@ public class HandwritingWindow extends JFrame {
         c.gridy = 0;
 
         FileChooserInterface NNFileLocation = new FileChooserInterface(JFileChooser.FILES_ONLY,
-                "neuralNetTestsIG/Data/trainedDNN", "location");
+                "Projects/NeuralNetwork/Data/trainedDNN", "location");
 
         NNFileLocation.setPreferredSize(new Dimension(450, 40));
         mainPanel.add(NNFileLocation, c);
@@ -441,14 +450,14 @@ public class HandwritingWindow extends JFrame {
         //Dataset Paths:
 
         FileChooserInterface testDataLocation = new FileChooserInterface(JFileChooser.FILES_ONLY,
-                "neuralNetTestsIG/Data/Datasets/NIST/test-images", "TestData");
+                "Projects/NeuralNetwork/Data/Datasets/NIST/test-images", "TestData");
 
         testDataLocation.setPreferredSize(new Dimension(450, 40));
         c.gridy++;
         mainPanel.add(testDataLocation, c);
 
         FileChooserInterface testLabelLocation = new FileChooserInterface(JFileChooser.FILES_ONLY,
-                "neuralNetTestsIG/Data/Datasets/NIST/test-labels", "TestLabel");
+                "Projects/NeuralNetwork/Data/Datasets/NIST/test-labels", "TestLabel");
         testLabelLocation.setPreferredSize(new Dimension(450, 40));
         c.gridy++;
         mainPanel.add(testLabelLocation, c);

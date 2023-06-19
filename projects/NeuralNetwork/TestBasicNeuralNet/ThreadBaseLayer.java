@@ -28,6 +28,9 @@ public class ThreadBaseLayer extends Layer {
     double[][] weightGradient;
     double[][] biasGradient;
 
+    double[][] lastWeightGradient;
+    double[][] lastBiasGradient;
+
     BiConsumer<double[][], double[][]> activationFunction;
     BiConsumer<double[][], double[][]> activationFunctionDerivative;
 
@@ -50,19 +53,26 @@ public class ThreadBaseLayer extends Layer {
         weightGradient = new double[nodeAmount][previousLayer.getNodeAmount()];
         biasGradient = new double[1][nodeAmount];
 
+        lastWeightGradient = new double[nodeAmount][previousLayer.getNodeAmount()];
+        lastBiasGradient = new double[1][nodeAmount];
+
         // init all the important Arrays that wont be initiated naturally. Like the initial weights and biases (randomly) and set all values in each GradientSum to 0
         /* MatrixCalculation.fillMatrixWithRandomValues(weights, lowerInitValue, upperInitValue);
         MatrixCalculation.fillMatrixWithRandomValues(biases, lowerInitValue, upperInitValue); */
     }
 
-    void applyGradients(double learnrate) {
+    void applyGradients(double learnrate, double momentumRate) {
         for (int i = 0; i < weightGradient.length; i++) {
             for (int j = 0; j < weightGradient[0].length; j++) {
-                weights[i][j] -= weightGradient[i][j] * learnrate;
+                double v = -weightGradient[i][j] * learnrate + lastWeightGradient[i][j] * momentumRate;
+                lastWeightGradient[i][j] = v;
+                weights[i][j] += v;
             }
         }
         for (int i = 0; i < activationValues.length; i++) {
-            biases[0][i] -= biasGradient[0][i] * learnrate;
+            double v = -biasGradient[0][i] * learnrate + lastBiasGradient[0][i] * momentumRate;
+            lastBiasGradient[0][i] = v;
+            biases[0][i] += v;
         }
 
         weightGradient = new double[weightGradient.length][weightGradient[0].length];

@@ -42,6 +42,7 @@ public class NeuralNet {
     private String[] activationFunctions;
 
     private double learnrate;
+    private double momentumRate = 0.1;
     private int batchSize;
     private double currentBatchCost = 0;
     private double currentEpochCost = 0;
@@ -70,7 +71,7 @@ public class NeuralNet {
         }
         hidden_Layers[0].previousLayer = inputLayer;
         for (int i = 1; i < hidden_Layers.length; i++) {
-            hidden_Layers[1].previousLayer = hidden_Layers[i];
+            hidden_Layers[i].previousLayer = hidden_Layers[i - 1];
         }
         outputLayer.previousLayer = hidden_Layers[hidden_Layers.length - 1];
     }
@@ -116,9 +117,28 @@ public class NeuralNet {
         }
     }
 
+    public ImageApproximation testRandomImage() {
+        return testImage((int) (Math.random() * testData.getDatasetSize()));
+    }
+
     public ImageApproximation testImage(int n) {
         int[] image = testData.getPixelData()[n];
-        return testImage(image);
+        ImageApproximation res = testImage(image);
+        res.actualNumber = testData.getAbsolutValueByIndex(n);
+        return res;
+    }
+
+    /**
+     * tests random images from test set and returns fraction that is correct
+     * @param num
+     * @return
+     */
+    public double evalCurrentModel(int num) {
+        int correct = 0;
+        for (int i = 0; i < num; i++) {
+            correct += testRandomImage().isCorrect() ? 1 : 0;
+        }
+        return (double) correct / num;
     }
 
     public ImageApproximation testImage(int[] image) {
@@ -127,7 +147,6 @@ public class NeuralNet {
         double sum = MatrixCalculation.MatrixSum(prediction);
         double[] confidence = MatrixCalculation.scalarMultiplication(1 / sum, prediction)[0];
         ImageApproximation a = new ImageApproximation(image, confidence, -1);
-        //System.out.println(a.getImageScores().get(0).a);
         return a;
     }
 
@@ -141,12 +160,14 @@ public class NeuralNet {
      */
     public void train(int epochs,
             double learnrate,
+            double momentumRate,
             int batchSize,
             int costFunction,
             Dataset trainingData,
             int threadNumber) {
 
         this.learnrate = learnrate;
+        this.momentumRate = momentumRate;
         this.batchSize = batchSize;
 
         this.costFunction = costFunction;
@@ -186,10 +207,11 @@ public class NeuralNet {
                 Runnable updatePBar = () -> pbar.advance(1);
                 SwingUtilities.invokeLater(updatePBar);
             }
-            double averageEpochCost = 1 - currentEpochCost / 10 / trainingData.getDatasetSize();
+            // double averageEpochCost = 1 - currentEpochCost / 10 / trainingData.getDatasetSize();
+            double averageEpochCost = evalCurrentModel(1000);
             currentEpochCost = 0;
             System.out.println("Epoch: " + i + " - current Cost score: "
-                    + SupportingCalculations.round(averageEpochCost, 6));
+                    + SupportingCalculations.round(averageEpochCost, 5));
 
             if (averageEpochCost > 0.99)
                 break;
@@ -278,6 +300,7 @@ public class NeuralNet {
     void learnEpochMainThread(int batchSize) {
 
         int i = 0;
+        trainingData.shuffle();
         while (i < (trainingData.getDatasetSize() - batchSize) / 1) {
             currentBatchCost = 0;
             for (int j = 0; j < batchSize; j++) {
@@ -355,9 +378,10 @@ public class NeuralNet {
      */
     void applyGradientStepsBaseLayer() {
         for (int i = 0; i < hiddenBaseLayers.length; i++) {
-            hiddenBaseLayers[i].applyGradients(learnrate / batchSize);
+            hiddenBaseLayers[i].applyGradients(learnrate / batchSize, momentumRate);
         }
-        outputBaseLayer.applyGradients(learnrate / batchSize);
+        outputBaseLayer.applyGradients(learnrate / batchSize, momentumRate);
+
     }
 
     public double[] propagateInput(int[] pixel) {
@@ -453,18 +477,23 @@ public class NeuralNet {
         testData = dataset;
     }
 
-    public void train(int epochAmount, double learnrate, int batchSize, int threadNumber, Progressbar pbar) {
+    public void train(int epochAmount, double learnrate, double momentumRate, int batchSize, int threadNumber,
+            Progressbar pbar) {
         this.pbar = pbar;
-        Dataset trainingData = new Dataset("neuralNetTestsIG/Data/Datasets/NIST/train-images",
-                "neuralNetTestsIG/Data/Datasets/NIST/train-labels");
+        Dataset trainingData = new Dataset("Projects/NeuralNetwork/Data/Datasets/NIST/train-images",
+                "Projects/NeuralNetwork/Data/Datasets/NIST/train-labels");
         System.out.println(batchSize);
-        Runnable trainThread = () -> train(epochAmount, learnrate, batchSize, costFunction, trainingData, threadNumber);
+        Runnable trainThread = () -> train(epochAmount, learnrate,
+                momentumRate, batchSize, costFunction, trainingData,
+                threadNumber);
         new Thread(trainThread).start();
     }
 
     final public static String SIGMOID = "SIGMOID";
     final public static String TANH = "TANH";
     final public static String RELU = "RELU";
+    final public static String LINEAR = "LINEAR";
+    final public static String SOFTMAX = "SOFTMAX";
 
     final public static int NOCOSTFUNCTION = 0;
     final public static int SQUAREDISTANCE = 1;
@@ -477,6 +506,10 @@ public class NeuralNet {
                 yield NeuralNet.AFtanh;
             case RELU:
                 yield NeuralNet.AFrelu;
+            case LINEAR:
+                yield NeuralNet.AFlinear;
+            case SOFTMAX:
+                yield NeuralNet.AFsoftmax;
             default:
                 yield NeuralNet.AFsigmoidL;
 
@@ -491,6 +524,10 @@ public class NeuralNet {
                 yield NeuralNet.AFtanhDerivative;
             case RELU:
                 yield NeuralNet.AFreluDerivative;
+            case LINEAR:
+                yield NeuralNet.AFlinearDerivative;
+            case SOFTMAX:
+                yield NeuralNet.AFsoftmaxDerivatie;
             default:
                 yield NeuralNet.AFsigmoidLDerivative;
 
@@ -530,6 +567,66 @@ public class NeuralNet {
         // here you might want a check for same size, but I want to save that performance cuz that should never happen.
         for (int i = 0; i < x.length; i++)
             y[i] = 1 / (1 + Math.exp(-x[i]));
+    };
+
+    /**
+     * saves the sigmoidL values of the first Array into the second.
+     */
+
+    final transient static BiConsumer<double[][], double[][]> AFlinear = (x,
+            y) -> {
+        // here you might want a check for same size, but I want to save that performance cuz that should never happen.
+        for (int i = 0; i < x.length; i++)
+            for (int j = 0; j < x[0].length; j++) {
+                y[i][j] = x[i][j];
+            }
+    };
+
+    /**
+     * saves the sigmoidL values of the first Array into the second. Of each first element in each Subarray
+     */
+    final transient static BiConsumer<double[][], double[][]> AFlinearDerivative = (
+            x, y) -> {
+        for (int i = 0; i < x.length; i++) {
+            for (int j = 0; j < x[0].length; j++)
+                y[i][j] = 1;
+        }
+    };
+
+    /**
+     * saves the sigmoidL values of the first Array into the second.
+     */
+
+    final transient static BiConsumer<double[][], double[][]> AFsoftmax = (x,
+            y) -> {
+        double sum = 0;
+        double min = MatrixCalculation.min(x);
+        double max = MatrixCalculation.max(x);
+        double d = (max + min) / 2;
+        for (int i = 0; i < x.length; i++)
+            for (int j = 0; j < x[0].length; j++) {
+                sum += Math.exp(x[i][j] - d);
+            }
+        for (int i = 0; i < x.length; i++)
+            for (int j = 0; j < x[0].length; j++) {
+                y[i][j] += Math.exp(x[i][j] - d) / sum;
+            }
+
+    };
+
+    /**
+     * saves the sigmoidL values of the first Array into the second. Of each first element in each Subarray
+     */
+    final transient static BiConsumer<double[][], double[][]> AFsoftmaxDerivatie = (
+            x, y) -> {
+        AFsoftmax.accept(x, y);
+        for (int i = 0; i < x.length; i++) {
+            for (int j = 0; j < x[0].length; j++) {
+                if (Math.abs(y[i][j]) > 10000)
+                    System.out.println(y[i][j]);
+                y[i][j] = y[i][j] - Math.pow(y[i][j], 2);
+            }
+        }
     };
 
     /**
