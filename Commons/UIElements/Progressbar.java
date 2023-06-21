@@ -16,6 +16,7 @@ public class Progressbar extends JPanel {
 
     JLabel label1;
     JLabel label2;
+    JLabel infoLabel;
 
     public Progressbar(int max) {
         this.max = max;
@@ -48,6 +49,11 @@ public class Progressbar extends JPanel {
         label2 = new JLabel("0/" + max);
         add(label2, c);
 
+        c.gridy++;
+        c.gridx = 0;
+        c.weightx = 1;
+        infoLabel = new JLabel("");
+        add(infoLabel);
     }
 
     public void advance(int i) {
@@ -59,5 +65,9 @@ public class Progressbar extends JPanel {
 
     public JProgressBar getBar() {
         return bar;
+    }
+
+    public void setInfoLabel(String text) {
+        infoLabel.setText(text);
     }
 }

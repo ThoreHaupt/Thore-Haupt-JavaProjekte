@@ -49,7 +49,7 @@ public class NeuralNet {
     private double lastCostAverage = 0;
     private Progressbar pbar;
 
-    boolean dbg = false;
+    final boolean dbg = false;
 
     public NeuralNet(int inputNodesNum, int[] hiddenLayerSizes, String[] activationFunctions) {
         this.hiddenLayerAmount = hiddenLayerSizes.length;
@@ -204,14 +204,18 @@ public class NeuralNet {
         for (int i = 0; i < epochs; i++) {
             learnEpoch(batchSize);
             if (pbar != null) {
-                Runnable updatePBar = () -> pbar.advance(1);
-                SwingUtilities.invokeLater(updatePBar);
+                SwingUtilities.invokeLater(() -> pbar.advance(1));
             }
             // double averageEpochCost = 1 - currentEpochCost / 10 / trainingData.getDatasetSize();
             double averageEpochCost = evalCurrentModel(1000);
             currentEpochCost = 0;
             System.out.println("Epoch: " + i + " - current Cost score: "
                     + SupportingCalculations.round(averageEpochCost, 5));
+
+            if (pbar != null) {
+                SwingUtilities.invokeLater(
+                        () -> pbar.setInfoLabel("score: " + SupportingCalculations.round(averageEpochCost, 5)));
+            }
 
             if (averageEpochCost > 0.99)
                 break;
@@ -609,7 +613,7 @@ public class NeuralNet {
             }
         for (int i = 0; i < x.length; i++)
             for (int j = 0; j < x[0].length; j++) {
-                y[i][j] += Math.exp(x[i][j] - d) / sum;
+                y[i][j] = Math.exp(x[i][j] - d) / sum;
             }
 
     };
