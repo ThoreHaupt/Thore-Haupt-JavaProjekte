@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 import CodingClasses.testStuff.abstractClass;
+import Projects.MensaFoodTracker.View.MealTablePanel.MensaMealEntry;
 import edu.kit.aifb.atks.mensascraper.lib.MensaLine;
 import edu.kit.aifb.atks.mensascraper.lib.MensaMeal;
 import edu.kit.aifb.atks.mensascraper.lib.MensaMealType;
@@ -13,6 +14,8 @@ import edu.kit.aifb.atks.mensascraper.lib.MensaMealType;
 public class MensaMealWrapper implements Comparable<MensaMealWrapper> {
     MensaMeal m;
     LocalDate date;
+
+    MensaMealEntry entry;
     private final int ARGNUM = 12;
     private final long ID = System.nanoTime();
 
@@ -143,5 +146,17 @@ public class MensaMealWrapper implements Comparable<MensaMealWrapper> {
     @Override
     public int compareTo(MensaMealWrapper o) {
         return ID == o.ID ? 0 : getDateMealComparator().compare(this, o);
+    }
+
+    public void setEntry(MensaMealEntry mensaMealEntry) {
+        entry = mensaMealEntry;
+    }
+
+    public float getSugar() {
+        return m.getSugar();
+    }
+
+    public MensaMealEntry getEntry() {
+        return entry;
     }
 }

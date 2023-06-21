@@ -131,14 +131,31 @@ public class MealTablePanel extends JPanel {
         return panel;
     }
 
-    class MensaMealEntry extends JButton {
+    public static class MensaMealEntry extends JButton {
         private JCheckBox b = new JCheckBox();
         private MensaMealWrapper m;
+        JButton button;
 
         public MensaMealEntry(MensaMealWrapper m) {
             super();
-            setLayout(new BorderLayout());
             this.m = m;
+            /* if (m.getEntry() == null) {
+                buildEntry();
+                m.setEntry(this);
+            } */
+
+            buildEntry();
+            m.setEntry(this);
+        }
+
+        private JCheckBox getJCheckBox() {
+            return b;
+        }
+
+        private void buildEntry() {
+            setLayout(new BorderLayout());
+            JPanel infoPanel = new JPanel(new BorderLayout());
+
             Dimension d = getPreferredSize();
             d.height = 30;
             setPreferredSize(d);
@@ -147,7 +164,33 @@ public class MealTablePanel extends JPanel {
             addActionListener(e -> {
                 b.setSelected(!b.isSelected());
             });
-            add(new JLabel(m.getName() + " | " + m.getDate().toString()), BorderLayout.WEST);
+            JPanel ingPanel = new JPanel(new GridLayout(1, 4, 5, 5));
+            /* JPanel ingPanel = new JPanel();
+            ingPanel.setLayout(new BoxLayout(ingPanel, BoxLayout.X_AXIS)); */
+            ingPanel.setBackground(Color.WHITE);
+
+            Dimension boxSize = new Dimension(20, 20);
+            JPanel KcalInfo = new JPanel(new BorderLayout());
+            KcalInfo.add(new JLabel("" + m.getKcal()), BorderLayout.CENTER);
+            KcalInfo.setBackground(Color.RED);
+            KcalInfo.setPreferredSize(boxSize);
+            JPanel fatInfo = new JPanel(new BorderLayout());
+            fatInfo.add(new JLabel("" + m.getFat()), BorderLayout.CENTER);
+            fatInfo.setBackground(Color.YELLOW);
+            fatInfo.setPreferredSize(boxSize);
+            JPanel sugarInfo = new JPanel(new BorderLayout());
+            sugarInfo.add(new JLabel("" + m.getSugar()), BorderLayout.CENTER);
+            sugarInfo.setBackground(Color.GREEN);
+            sugarInfo.setPreferredSize(boxSize);
+
+            ingPanel.add(KcalInfo);
+            ingPanel.add(fatInfo);
+            ingPanel.add(sugarInfo);
+            ingPanel.add(Box.createRigidArea(boxSize));
+
+            infoPanel.add(ingPanel, BorderLayout.EAST);
+            infoPanel.add(new JLabel(m.getName()), BorderLayout.WEST);
+            add(infoPanel, BorderLayout.CENTER);
             add(b, BorderLayout.EAST);
         }
 
