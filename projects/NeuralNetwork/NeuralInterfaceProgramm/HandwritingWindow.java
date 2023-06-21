@@ -346,6 +346,9 @@ public class HandwritingWindow extends JFrame {
                 "Projects/NeuralNetwork/Data/Datasets/NIST/test-labels"));
 
         System.out.println("loaded Network from File: " + loader.getSelectedFile().getName());
+        System.out.println("network Layer s: " + Arrays.toString(NN.getLayersSizes()));
+        System.out.println("network Layer a: " + Arrays.toString(NN.getActivationFunctions()));
+
     }
 
     private void saveCurrentNetwork() {

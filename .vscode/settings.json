@@ -7,7 +7,8 @@
         "Commons/UIResources/flatlaf-2.3.jar",
         "c:\\Users\\torer\\Downloads\\jaf-1_0_2-upd2\\jaf-1.0.2\\activation.jar",
         "Projects/ProgrammierprüfungErgebnisVerteilung/javax.mail.jar",
-        "Commons/ExternalLibraris/javax.mail.jar"
+        "Commons/ExternalLibraris/javax.mail.jar",
+        "Projects\\MensaFoodTracker\\mensascraper-lib-1.1.3.jar"
     ],
     "java.debug.settings.onBuildFailureProceed": true
 }
