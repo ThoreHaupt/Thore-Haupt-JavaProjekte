@@ -735,4 +735,14 @@ public class NeuralNet {
     public Dataset getTestData() {
         return testData;
     }
+
+    public int[] getLayersSizes() {
+        int[] out = new int[hiddenLayerAmount + 2];
+        out[0] = inputLayer.getNodeAmount();
+        for (int i = 1; i < hiddenLayerSizes.length + 1; i++) {
+            out[i] = hiddenLayerSizes[i - 1];
+        }
+        out[out.length - 1] = outputLayer.nodeAmount;
+        return out;
+    }
 }
