@@ -21,6 +21,11 @@ public class MensaTracerController {
 
     public MensaTracerController(MensaTrackerModel model) {
         this.model = model;
+        Thread closeModelHook = new Thread(() -> {
+            model.closeModel();
+            System.out.println("shutDown VM");
+        });
+        Runtime.getRuntime().addShutdownHook(closeModelHook);
     }
 
     public void setMensaTrackerFrame(MensaTrackerFrame frame) {
@@ -32,8 +37,7 @@ public class MensaTracerController {
             DateEditor editor = (DateEditor) cal.getEditor();
             String spinnerInp = editor.getFormat().format(cal.getValue());
             LocalDate ld = LocalDate.parse(MensaTrackerModel.parseDateFormatToNormal(spinnerInp));
-            //ld.compareTo(LocalDate.now()) == -1 ? ld : LocalDate.now()
-            model.setDate(ld);
+            model.setDate(ld.compareTo(LocalDate.now()) == -1 ? ld : LocalDate.now());
             frame.rebuildSelectionPanelList();
         };
         return al;
@@ -60,7 +64,6 @@ public class MensaTracerController {
             @Override
             public void windowClosing(WindowEvent windowEvent) {
                 model.closeModel();
-                System.out.println("close adapter fired");
             }
         };
     }

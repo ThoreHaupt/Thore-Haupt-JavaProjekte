@@ -1,6 +1,5 @@
 package Projects.MensaFoodTracker.View;
 
-import javax.annotation.processing.SupportedOptions;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -50,7 +49,6 @@ public class MensaTrackerFrame extends JFrame {
         buildSlectionPanel();
         c.add(buildMainPanel());
         setToCenterPanel(selectionPanel);
-        addWindowListener(controller.getWindowCloseAdapterImp());
         setBasics();
     }
 
@@ -77,18 +75,20 @@ public class MensaTrackerFrame extends JFrame {
     private JPanel buildHistoryPanel() {
         JPanel panel = new JPanel(new BorderLayout());
         JPanel statsBackground = new JPanel(new BorderLayout());
+        JPanel optionPanel = new JPanel();
 
         MensaStatistic ms = model.calculateHistoryStatistics();
         JPanel stats = new JPanel(new GridLayout(ms.getStatNum(), 1));
         statsBackground.add(stats, BorderLayout.NORTH);
         for (Entry<String, Float> stat : ms) {
             JPanel statPanel = new JPanel(new BorderLayout());
-            statPanel.add(new JLabel(stat.getKey()), BorderLayout.WEST);
-            statPanel.add(new JLabel("" + stat.getValue()), BorderLayout.EAST);
+            statPanel.add(new JLabel(stat.getKey() + "  "), BorderLayout.WEST);
+            statPanel.add(new JLabel(" " + stat.getValue()), BorderLayout.EAST);
             stats.add(statPanel);
         }
 
         MealTablePanel listPanel = new MealTablePanel(model.getMealHistory());
+        optionPanel.add(buildSortSettingPanel(listPanel));
 
         JButton deleteFromHistoryButton = new JButton("Auswahl von Historie löschen");
         deleteFromHistoryButton.addActionListener(controller.getDeleteFromHistoryActionListener(listPanel));
@@ -96,6 +96,7 @@ public class MensaTrackerFrame extends JFrame {
         panel.add(stats, BorderLayout.WEST);
         panel.add(listPanel, BorderLayout.CENTER);
         panel.add(deleteFromHistoryButton, BorderLayout.SOUTH);
+        panel.add(optionPanel, BorderLayout.NORTH);
         panel.setBackground(new Color(100, 0, 0));
         historyPanel = panel;
         return panel;
@@ -172,8 +173,8 @@ public class MensaTrackerFrame extends JFrame {
             sortedPanel.rebuildList();
         });
         panel.add(cb);
-        JCheckBox accendingSelector = new JCheckBox("accending");
-        accendingSelector.setSelected(true);
+        JCheckBox accendingSelector = new JCheckBox("aufsteigend");
+        accendingSelector.setSelected(false);
         accendingSelector.addActionListener(e -> {
             sortedPanel.setAccending(accendingSelector.isSelected());
             sortedPanel.rebuildList();

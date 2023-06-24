@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
-import Projects.MensaFoodTracker.Model.MensaMealWrapper.SortOrder;
 import edu.kit.aifb.atks.mensascraper.lib.KITMensaScraper;
 import edu.kit.aifb.atks.mensascraper.lib.MensaLocation;
+import edu.kit.aifb.atks.mensascraper.lib.MensaMealType;
 import edu.kit.aifb.atks.mensascraper.lib.MensaScraperException;
 
 public class MensaTrackerModel {
@@ -21,7 +21,7 @@ public class MensaTrackerModel {
     ArrayList<MensaMealWrapper> selection = new ArrayList<>();
     LocalDate date = LocalDate.now();
 
-    final String HISTORYFILEPATH = "Projects/MensaFoodTracker/historyData.csv";
+    final String HISTORYFILEPATH = "Projects\\MensaFoodTracker\\historyData.csv";
 
     public MensaTrackerModel() {
         selection = getMealSelection(LocalDate.now());
@@ -56,10 +56,12 @@ public class MensaTrackerModel {
         try {
             File f = new File(HISTORYFILEPATH);
             if (!f.exists()) {
+                System.out.println("Warning: File not found");
                 return formerHistory;
             }
             FileReader fr = new FileReader(f);
             BufferedReader br = new BufferedReader(fr, 100);
+            String header = br.readLine();
             String line = "";
             while ((line = br.readLine()) != null) {
                 try {
@@ -76,7 +78,7 @@ public class MensaTrackerModel {
     }
 
     private void safeHistoryData() throws IOException {
-        String s = "";
+        String s = MensaMealWrapper.getHeaderString() + "\n";
         for (int i = 0; i < history.size(); i++) {
             s += history.get(i).toSafeString() + "\n";
         }
@@ -96,6 +98,8 @@ public class MensaTrackerModel {
     }
 
     public void setDate(LocalDate date) {
+        if (this.date.compareTo(date) == 0)
+            return;
         this.date = date;
         selection = getMealSelection(date);
     }
@@ -129,6 +133,7 @@ public class MensaTrackerModel {
         float fat = 0;
         float proteins = 0;
         float kohlen = 0;
+        float sugar = 0;
 
         for (MensaMealWrapper meal : history) {
             cost += meal.getPrice();
@@ -136,19 +141,20 @@ public class MensaTrackerModel {
             fat += meal.getFat();
             proteins += meal.getProteins();
             kohlen += meal.getKcal();
+            sugar += meal.getSugar();
         }
 
         HashMap<String, Float> stats = new HashMap<>();
         stats.put("Kosten:", cost);
         stats.put("Kalorien", carbs);
         stats.put("Fett", fat);
+        stats.put("sugar", sugar);
         stats.put("Proteine", proteins);
         stats.put("Kohlenhydrate", kohlen);
         return new MensaStatistic(stats);
     }
 
     public static String parseDateFormatToNormal(String s) {
-        return s.substring(6, s.length()) + "-" + s.substring(3, 5) + "-"
-                + s.substring(0, 2);
+        return s.split("-")[2] + "-" + s.split("-")[1] + "-" + s.split("-")[0];
     }
 }

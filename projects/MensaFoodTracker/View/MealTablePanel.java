@@ -3,6 +3,7 @@ package Projects.MensaFoodTracker.View;
 import javax.swing.*;
 
 import Projects.MensaFoodTracker.Model.MensaMealWrapper;
+import Projects.MensaFoodTracker.Model.MensaTrackerModel;
 import Projects.MensaFoodTracker.Model.MensaMealWrapper.SortOrder;
 import edu.kit.aifb.atks.mensascraper.lib.MensaLine;
 
@@ -30,7 +31,6 @@ public class MealTablePanel extends JPanel {
 
         JScrollPane scrollPane = new JScrollPane(scrolledPanel,
                 JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         return scrollPane;
     }
@@ -47,7 +47,7 @@ public class MealTablePanel extends JPanel {
         JPanel panel = new JPanel(new GridLayout(mealList.size(), 1));
         Collections.sort(mealList, order.getComp(sortAccending));
         for (MensaMealWrapper m : mealList) {
-            MensaMealEntry mEntry = new MensaMealEntry(m);
+            MensaMealEntry mEntry = MensaMealEntry.MensaMealEntryBuilder(m);
             panel.add(mEntry);
             entries.add(mEntry);
         }
@@ -55,12 +55,22 @@ public class MealTablePanel extends JPanel {
     }
 
     public JPanel buildListPanelSubdevided(ArrayList<MensaMealWrapper> mealList) {
-        ArrayList<JPanel> dateGroupPanels = new ArrayList<>();
         Collections.sort(mealList, SortOrder.DATE.getComp(sortAccending));
         ArrayList<MensaMealWrapper> localMealList = new ArrayList<MensaMealWrapper>();
         localMealList.addAll(mealList);
         // HashMap with lists for each Line.
         HashMap<MensaLine, ArrayList<MensaMealWrapper>> lineWrapper = new HashMap<>();
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridBagLayout());
+        GridBagConstraints panelConstraints = new GridBagConstraints();
+        panelConstraints.fill = GridBagConstraints.HORIZONTAL;
+        panelConstraints.weightx = 1;
+        panelConstraints.weighty = 1;
+        panelConstraints.gridheight = 1;
+        panelConstraints.gridwidth = 1;
+        panelConstraints.gridy = 0;
+        panelConstraints.gridx = 0;
 
         while (localMealList.size() > 0) {
             lineWrapper.clear();
@@ -72,61 +82,70 @@ public class MealTablePanel extends JPanel {
             for (MensaMealWrapper meal : sameDate) {
                 lineWrapper.get(meal.getLine()).add(meal);
             }
-            int diffLines = 0;
-            for (ArrayList<MensaMealWrapper> line : lineWrapper.values()) {
-                diffLines += Math.min(line.size(), 1);
-            }
-            JPanel dayPanel = new JPanel(new GridLayout(diffLines, 1));
-            dayPanel.setBackground(Color.WHITE);
-            if (diffLines == 1) {
-                ArrayList<MensaMealWrapper> usedLine = new ArrayList<>();
-                MensaLine usedLineName = MensaLine.UNKNOWN;
-                for (Entry<MensaLine, ArrayList<MensaMealWrapper>> entry : lineWrapper.entrySet()) {
-                    if (entry.getValue().size() != 0) {
-                        usedLine = entry.getValue();
-                        usedLineName = entry.getKey();
-                        break;
-                    }
-                }
-                JPanel linePanel = new JPanel(new GridLayout(usedLine.size(), 1));
+            ArrayList<Entry<MensaLine, ArrayList<MensaMealWrapper>>> lineList = new ArrayList<Entry<MensaLine, ArrayList<MensaMealWrapper>>>(
+                    lineWrapper.entrySet().stream().filter(e -> e.getValue().size() > 0).toList());
+            //when lineList has only 1 element -> combine Line and Date Border
+            if (lineList.size() == 1) {
+                Entry<MensaLine, ArrayList<MensaMealWrapper>> entry = lineList.get(0);
+
+                JPanel linePanel = new JPanel(new GridLayout(entry.getValue().size(), 1));
                 linePanel.setBackground(Color.WHITE);
 
-                String borderText = usedLine.get(0).getDate().toString() + " - " + usedLineName.toString();
-                dayPanel.setBorder(BorderFactory.createTitledBorder(borderText));
-                for (MensaMealWrapper meal : usedLine) {
-                    MensaMealEntry mEntry = new MensaMealEntry(meal);
+                String borderText = MensaTrackerModel
+                        .parseDateFormatToNormal(entry.getValue().get(0).getDate().toString()) + " - "
+                        + entry.getKey().toString();
+
+                for (MensaMealWrapper meal : entry.getValue()) {
+                    MensaMealEntry mEntry = MensaMealEntry.MensaMealEntryBuilder(meal);
                     linePanel.add(mEntry);
                     entries.add(mEntry);
                 }
-                dayPanel.add(linePanel);
+                JPanel dayPanel = new JPanel(new BorderLayout());
+                dayPanel.setBorder(BorderFactory.createTitledBorder(borderText));
+                dayPanel.add(linePanel, BorderLayout.CENTER);
+                dayPanel.setBackground(Color.WHITE);
+                dayPanel.add(Box.createRigidArea(new Dimension(5, 2)), BorderLayout.EAST);
+
+                panelConstraints.gridheight = entry.getValue().size();
+                panel.add(dayPanel, panelConstraints);
+                panelConstraints.gridy += entry.getValue().size();
                 continue;
             }
-            System.out.println(lineWrapper.values().size());
-            for (Entry<MensaLine, ArrayList<MensaMealWrapper>> entry : lineWrapper.entrySet()) {
-                if (entry.getValue().size() == 0)
-                    continue;
+            JPanel dayPanel = new JPanel(new GridBagLayout());
+            dayPanel.setBackground(Color.WHITE);
+            int dayLen = 0;
+            GridBagConstraints dayPanelConstraints = new GridBagConstraints();
+            dayPanelConstraints.fill = GridBagConstraints.HORIZONTAL;
+            dayPanelConstraints.weightx = 1;
+            dayPanelConstraints.weighty = 1;
+            dayPanelConstraints.gridheight = 1;
+            dayPanelConstraints.gridwidth = 1;
+            dayPanelConstraints.gridy = 0;
+            dayPanelConstraints.gridx = 0;
+
+            Collections.sort(lineList, MensaMealWrapper.getLineComparator());
+            for (Entry<MensaLine, ArrayList<MensaMealWrapper>> entry : lineList) {
                 JPanel linePanel = new JPanel(new GridLayout(entry.getValue().size(), 1));
                 linePanel.setBackground(Color.WHITE);
                 linePanel.setBorder(BorderFactory.createTitledBorder(entry.getKey().toString()));
+                /*   */
                 for (MensaMealWrapper meal : entry.getValue()) {
-                    MensaMealEntry mEntry = new MensaMealEntry(meal);
+                    MensaMealEntry mEntry = MensaMealEntry.MensaMealEntryBuilder(meal);
                     linePanel.add(mEntry);
                     entries.add(mEntry);
+                    dayLen++;
                 }
                 dayPanel.setBorder(
-                        BorderFactory.createTitledBorder(entry.getValue().get(0).getDate().toString()));
-                dayPanel.add(linePanel);
+                        BorderFactory.createTitledBorder(
+                                MensaTrackerModel
+                                        .parseDateFormatToNormal(entry.getValue().get(0).getDate().toString())));
+                dayPanelConstraints.gridheight = entry.getValue().size();
+                dayPanel.add(linePanel, dayPanelConstraints);
+                dayPanelConstraints.gridy += entry.getValue().size();
             }
-            dateGroupPanels.add(dayPanel);
-        }
-        //dateGroupPanels.size(), 1
-        JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        /* FlowLayout fl = new FlowLayout();
-        panel.setLayout(fl);
-        panel.setComponentOrientation(ComponentOrientation.); */
-        for (JPanel block : dateGroupPanels) {
-            panel.add(block);
+            panelConstraints.gridheight = dayLen;
+            panel.add(dayPanel, panelConstraints);
+            panelConstraints.gridy += dayLen;
         }
         return panel;
     }
@@ -136,26 +155,28 @@ public class MealTablePanel extends JPanel {
         private MensaMealWrapper m;
         JButton button;
 
+        static MensaMealEntry MensaMealEntryBuilder(MensaMealWrapper m) {
+            if (m.getUnusedEntry() == null) {
+                return new MensaMealEntry(m);
+            } else {
+                return m.getUnusedEntry();
+            }
+
+        }
+
         public MensaMealEntry(MensaMealWrapper m) {
             super();
             this.m = m;
-            /* if (m.getEntry() == null) {
-                buildEntry();
-                m.setEntry(this);
-            } */
-
             buildEntry();
             m.setEntry(this);
         }
 
-        private JCheckBox getJCheckBox() {
-            return b;
-        }
-
         private void buildEntry() {
+            b.setBackground(Color.WHITE);
             setLayout(new BorderLayout());
             JPanel infoPanel = new JPanel(new BorderLayout());
-
+            infoPanel.setBackground(Color.WHITE);
+            setBackground(Color.WHITE);
             Dimension d = getPreferredSize();
             d.height = 30;
             setPreferredSize(d);
@@ -164,32 +185,33 @@ public class MealTablePanel extends JPanel {
             addActionListener(e -> {
                 b.setSelected(!b.isSelected());
             });
-            JPanel ingPanel = new JPanel(new GridLayout(1, 4, 5, 5));
-            /* JPanel ingPanel = new JPanel();
-            ingPanel.setLayout(new BoxLayout(ingPanel, BoxLayout.X_AXIS)); */
+            JPanel ingPanel = new JPanel(new GridLayout(1, 5, 5, 20));
             ingPanel.setBackground(Color.WHITE);
 
-            Dimension boxSize = new Dimension(20, 20);
-            JPanel KcalInfo = new JPanel(new BorderLayout());
-            KcalInfo.add(new JLabel("" + m.getKcal()), BorderLayout.CENTER);
+            Dimension boxSize = new Dimension(100, 30);
+            JTextArea KcalInfo = new JTextArea("" + (int) m.getKcal() + " Kcal");
             KcalInfo.setBackground(Color.RED);
             KcalInfo.setPreferredSize(boxSize);
-            JPanel fatInfo = new JPanel(new BorderLayout());
-            fatInfo.add(new JLabel("" + m.getFat()), BorderLayout.CENTER);
-            fatInfo.setBackground(Color.YELLOW);
+            JTextArea fatInfo = new JTextArea("" + (int) m.getFat() + " g");
+            fatInfo.setBackground(Color.CYAN);
             fatInfo.setPreferredSize(boxSize);
-            JPanel sugarInfo = new JPanel(new BorderLayout());
-            sugarInfo.add(new JLabel("" + m.getSugar()), BorderLayout.CENTER);
-            sugarInfo.setBackground(Color.GREEN);
+            JTextArea sugarInfo = new JTextArea("" + (int) m.getSugar() + " g");
+            sugarInfo.setBackground(Color.ORANGE);
+            sugarInfo.setPreferredSize(boxSize);
+            JTextArea priceInfo = new JTextArea("" + m.getPrice() + " €");
+            sugarInfo.setBackground(Color.gray);
             sugarInfo.setPreferredSize(boxSize);
 
+            ingPanel.add(priceInfo);
+            ingPanel.add(Box.createRigidArea(boxSize));
             ingPanel.add(KcalInfo);
             ingPanel.add(fatInfo);
             ingPanel.add(sugarInfo);
-            ingPanel.add(Box.createRigidArea(boxSize));
+            ingPanel.setPreferredSize(new Dimension(270, 30));
 
             infoPanel.add(ingPanel, BorderLayout.EAST);
             infoPanel.add(new JLabel(m.getName()), BorderLayout.WEST);
+
             add(infoPanel, BorderLayout.CENTER);
             add(b, BorderLayout.EAST);
         }
@@ -227,7 +249,7 @@ public class MealTablePanel extends JPanel {
     }
 
     public void setAccending(boolean selected) {
-        sortAccending = selected ? 1 : -1;
+        sortAccending = selected ? -1 : 1;
     }
 
     public void setSortedOrder(SortOrder selectedItem) {

@@ -2,20 +2,24 @@ package Projects.MensaFoodTracker.Model;
 
 import java.time.LocalDate;
 import java.time.chrono.ChronoLocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Map.Entry;
+import java.util.NoSuchElementException;
 
-import CodingClasses.testStuff.abstractClass;
 import Projects.MensaFoodTracker.View.MealTablePanel.MensaMealEntry;
 import edu.kit.aifb.atks.mensascraper.lib.MensaLine;
 import edu.kit.aifb.atks.mensascraper.lib.MensaMeal;
 import edu.kit.aifb.atks.mensascraper.lib.MensaMealType;
 
 public class MensaMealWrapper implements Comparable<MensaMealWrapper> {
+    private static final String HEADERSTRING = "NAME;DATE;LINE;PRICE;TYPE;CARBS;KCAL;FAT;SALT;PROTEINS;SUGAR;ADDITIVES";
     MensaMeal m;
     LocalDate date;
 
-    MensaMealEntry entry;
+    ArrayList<MensaMealEntry> entries = new ArrayList<MensaMealEntry>();
+
     private final int ARGNUM = 12;
     private final long ID = System.nanoTime();
 
@@ -61,6 +65,10 @@ public class MensaMealWrapper implements Comparable<MensaMealWrapper> {
         return m.getKcal();
     }
 
+    public MensaMealType getType() {
+        return MensaMealType.valueOf("");
+    }
+
     public String toSafeString() {
         String s = "";
         s += m.getName() + ";" + date.toString()
@@ -69,7 +77,7 @@ public class MensaMealWrapper implements Comparable<MensaMealWrapper> {
                 + ";" + m.getSugar()
                 + ";" + m.getAdditives().toString();
         return s;
-    }
+    } // NAME;DATE;LINE;PRICE;TYPE;CARBS;KCAL;FAT;SALT;PROTEINS;SUGAR;ADDITIVES
 
     @Override
     public String toString() {
@@ -120,6 +128,12 @@ public class MensaMealWrapper implements Comparable<MensaMealWrapper> {
         };
     }
 
+    public static Comparator<Entry<MensaLine, ArrayList<MensaMealWrapper>>> getLineComparator() {
+        return (w1, w2) -> {
+            return CharSequence.compare(w1.getKey().name(), w2.getKey().name());
+        };
+    }
+
     public static enum SortOrder {
         DATE("Datum", getDateMealComparator()),
         PRICE("Preis", getPriceMealComparator()),
@@ -149,14 +163,22 @@ public class MensaMealWrapper implements Comparable<MensaMealWrapper> {
     }
 
     public void setEntry(MensaMealEntry mensaMealEntry) {
-        entry = mensaMealEntry;
+        entries.add(mensaMealEntry);
     }
 
     public float getSugar() {
         return m.getSugar();
     }
 
-    public MensaMealEntry getEntry() {
-        return entry;
+    public static String getHeaderString() {
+        return HEADERSTRING;
+    }
+
+    public MensaMealEntry getUnusedEntry() {
+        try {
+            return entries.stream().filter(e -> !e.isVisible()).findAny().get();
+        } catch (NoSuchElementException e) {
+            return null;
+        }
     }
 }
