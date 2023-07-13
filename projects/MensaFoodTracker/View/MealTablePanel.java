@@ -30,7 +30,7 @@ public class MealTablePanel extends JPanel {
         JPanel scrolledPanel = buildListPanel(mealListe);
 
         JScrollPane scrollPane = new JScrollPane(scrolledPanel,
-                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+                JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         return scrollPane;
     }
@@ -92,7 +92,7 @@ public class MealTablePanel extends JPanel {
                 linePanel.setBackground(Color.WHITE);
 
                 String borderText = MensaTrackerModel
-                        .parseDateFormatToNormal(entry.getValue().get(0).getDate().toString()) + " - "
+                        .reverseDateFormat(entry.getValue().get(0).getDate().toString(), "-") + " - "
                         + entry.getKey().toString();
 
                 for (MensaMealWrapper meal : entry.getValue()) {
@@ -138,7 +138,7 @@ public class MealTablePanel extends JPanel {
                 dayPanel.setBorder(
                         BorderFactory.createTitledBorder(
                                 MensaTrackerModel
-                                        .parseDateFormatToNormal(entry.getValue().get(0).getDate().toString())));
+                                        .reverseDateFormat(entry.getValue().get(0).getDate().toString(), "-")));
                 dayPanelConstraints.gridheight = entry.getValue().size();
                 dayPanel.add(linePanel, dayPanelConstraints);
                 dayPanelConstraints.gridy += entry.getValue().size();
@@ -192,15 +192,19 @@ public class MealTablePanel extends JPanel {
             JTextArea KcalInfo = new JTextArea("" + (int) m.getKcal() + " Kcal");
             KcalInfo.setBackground(Color.RED);
             KcalInfo.setPreferredSize(boxSize);
+            KcalInfo.setEditable(false);
             JTextArea fatInfo = new JTextArea("" + (int) m.getFat() + " g");
             fatInfo.setBackground(Color.CYAN);
             fatInfo.setPreferredSize(boxSize);
+            fatInfo.setEditable(false);
             JTextArea sugarInfo = new JTextArea("" + (int) m.getSugar() + " g");
             sugarInfo.setBackground(Color.ORANGE);
             sugarInfo.setPreferredSize(boxSize);
+            sugarInfo.setEditable(false);
             JTextArea priceInfo = new JTextArea("" + m.getPrice() + " €");
-            sugarInfo.setBackground(Color.gray);
-            sugarInfo.setPreferredSize(boxSize);
+            priceInfo.setBackground(Color.gray);
+            priceInfo.setPreferredSize(boxSize);
+            priceInfo.setEditable(false);
 
             ingPanel.add(priceInfo);
             ingPanel.add(Box.createRigidArea(boxSize));
@@ -232,6 +236,7 @@ public class MealTablePanel extends JPanel {
     }
 
     public MensaMealWrapper[] getActiveMeals() {
+        // nur die wrapper zurückgeben, die eine aktive Checkbox haben
         return entries.stream().filter(b -> b.isSelected()).map(e -> e.setJCheckBox(false).getMeal())
                 .toArray(MensaMealWrapper[]::new);
     }

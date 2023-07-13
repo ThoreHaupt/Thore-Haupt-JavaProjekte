@@ -4,9 +4,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.time.LocalDate;
+import java.util.stream.Collectors;
+
 import javax.swing.JSpinner;
 import javax.swing.JSpinner.DateEditor;
-import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import Projects.MensaFoodTracker.Model.MensaMealWrapper;
@@ -36,8 +37,15 @@ public class MensaTracerController {
         ActionListener al = e -> {
             DateEditor editor = (DateEditor) cal.getEditor();
             String spinnerInp = editor.getFormat().format(cal.getValue());
-            LocalDate ld = LocalDate.parse(MensaTrackerModel.parseDateFormatToNormal(spinnerInp));
-            model.setDate(ld.compareTo(LocalDate.now()) == -1 ? ld : LocalDate.now());
+
+            //tauscht alles, was nicht ne zahl ist gegen ein "-" aus
+            String eddited = spinnerInp.chars().mapToObj(c -> Character.isDigit(c) ? "" + (char) c : "-")
+                    .collect(Collectors.joining(""));
+
+            LocalDate ld = eddited.split("-").length == 3
+                    ? LocalDate.parse(MensaTrackerModel.reverseDateFormat(eddited, "-"))
+                    : model.getSelectedDate();
+            model.setDate(ld.compareTo(LocalDate.now()) > 0 ? ld : LocalDate.now());
             frame.rebuildSelectionPanelList();
         };
         return al;
@@ -68,24 +76,24 @@ public class MensaTracerController {
         };
     }
 
+    /**
+     * depreciated
+     */
     public ChangeListener getSetDateChangeListener(JSpinner cal) {
-        return new ChangeListener() {
+        return e -> {
+            DateEditor editor = (DateEditor) cal.getEditor();
+            String spinnerInp = editor.getFormat().format(cal.getValue());
 
-            @Override
-            public void stateChanged(ChangeEvent e) {
-                DateEditor editor = (DateEditor) cal.getEditor();
-                /* if (cal.getComponent(0).hasFocus()) {
-                    return;
-                } */
-                String spinnerInp = editor.getFormat().format(cal.getValue());
-                if (spinnerInp.equals(""))
-                    return;
-                String dateF = spinnerInp.substring(6, spinnerInp.length()) + "-" + spinnerInp.substring(3, 5) + "-"
-                        + spinnerInp.substring(0, 2);
-                LocalDate ld = LocalDate.parse(dateF);
-                model.setDate(ld.compareTo(LocalDate.now()) == -1 ? ld : LocalDate.now());
-                frame.rebuildSelectionPanelList();
-            }
+            //tauscht alles, was nicht ne zahl ist gegen ein "-" aus
+            String eddited = spinnerInp.chars().mapToObj(c -> Character.isDigit(c) ? "" + (char) c : "-")
+                    .collect(Collectors.joining(""));
+
+            LocalDate ld = eddited.split("-").length == 3
+                    ? LocalDate.parse(MensaTrackerModel.reverseDateFormat(eddited, "-"))
+                    : model.getSelectedDate();
+            model.setDate(ld.compareTo(LocalDate.now()) > 0 ? ld : LocalDate.now());
+            frame.rebuildSelectionPanelList();
+
         };
     }
 }

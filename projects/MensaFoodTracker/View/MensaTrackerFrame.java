@@ -108,7 +108,7 @@ public class MensaTrackerFrame extends JFrame {
         JPanel optionPanel = new JPanel(new GridLayout(1, 3));
         JPanel dateSelectionPanel = new JPanel();
         JSpinner cal = new JSpinner(new SpinnerDateModel());
-        JButton selectDateButton = new JButton("select");
+        JButton selectDateButton = new JButton("aktualisieren");
         DateEditor editor = new DateEditor(cal, "dd.MM.yyyy");
         cal.setEditor(editor);
 
@@ -116,7 +116,7 @@ public class MensaTrackerFrame extends JFrame {
         Date date = Date.from(ld.atStartOfDay(ZoneId.systemDefault()).toInstant());
         cal.getModel().setValue(date);
         selectDateButton.addActionListener(controller.getSetDateButtonListener(cal));
-        //cal.addChangeListener(controller.getSetDateChangeListener(cal));
+        cal.addChangeListener(controller.getSetDateChangeListener(cal));
 
         dateSelectionPanel.add(cal);
         dateSelectionPanel.add(selectDateButton);

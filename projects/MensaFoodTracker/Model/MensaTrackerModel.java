@@ -2,7 +2,6 @@ package Projects.MensaFoodTracker.Model;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -13,12 +12,11 @@ import java.util.HashMap;
 
 import edu.kit.aifb.atks.mensascraper.lib.KITMensaScraper;
 import edu.kit.aifb.atks.mensascraper.lib.MensaLocation;
-import edu.kit.aifb.atks.mensascraper.lib.MensaMealType;
 import edu.kit.aifb.atks.mensascraper.lib.MensaScraperException;
 
 public class MensaTrackerModel {
-    ArrayList<MensaMealWrapper> history = new ArrayList<>();
-    ArrayList<MensaMealWrapper> selection = new ArrayList<>();
+    ArrayList<MensaMealWrapper> history = new ArrayList<MensaMealWrapper>();
+    ArrayList<MensaMealWrapper> selection = new ArrayList<MensaMealWrapper>();
     LocalDate date = LocalDate.now();
 
     final String HISTORYFILEPATH = "Projects\\MensaFoodTracker\\historyData.csv";
@@ -154,7 +152,8 @@ public class MensaTrackerModel {
         return new MensaStatistic(stats);
     }
 
-    public static String parseDateFormatToNormal(String s) {
-        return s.split("-")[2] + "-" + s.split("-")[1] + "-" + s.split("-")[0];
+    public static String reverseDateFormat(String s, String del) {
+        String[] arr = s.split(del);
+        return arr.length == 3 ? arr[2] + "-" + arr[1] + "-" + arr[0] : "0-0-0";
     }
 }
