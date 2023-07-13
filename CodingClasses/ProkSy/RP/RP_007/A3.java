@@ -15,7 +15,7 @@ public class A3 {
                                                 .collect(Collectors.joining(" ")));
 
                 List<Double> doubleListe = Stream.iterate(43.46, x -> x + 0.17 + 2 * new Random().nextGaussian())
-                                .map(x -> ((int) (100 * x)) / 100.0).limit(1000).collect(Collectors.toList());
+                                .map(x -> ((int) (100 * x)) / 100.0).limit(1000).toList();
 
                 new Plot(doubleListe);
         }

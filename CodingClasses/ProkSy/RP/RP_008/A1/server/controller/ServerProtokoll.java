@@ -62,7 +62,7 @@ public class ServerProtokoll extends Thread {
                 String[] arr = request.split(";");
                 if (arr.length < 2)
                     continue;
-                this.isBundesland = arr[0] == "1" ? true : false;
+                this.isBundesland = arr[0].equals("1");
                 String result = topographie(arr[1], isBundesland);
                 out.println(result);
 

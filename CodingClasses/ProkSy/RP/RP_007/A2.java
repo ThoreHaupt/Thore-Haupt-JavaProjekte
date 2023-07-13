@@ -17,20 +17,18 @@ public class A2 {
                                                 .sorted((x, y) -> Integer.compare(x.length(), y.length()))
                                                 .collect(Collectors.joining(" ")));
 
-                System.out.println(
-                                list
-                                                .stream()
-                                                .map(e -> {
-                                                        List<Character> l = Arrays
-                                                                        .asList(e.chars().mapToObj(c -> (char) c)
-                                                                                        .toArray(Character[]::new));
+                System.out.println(list.stream()
+                                .map(e -> {
+                                        List<Character> l = Arrays
+                                                        .asList(e.chars().mapToObj(c -> (char) c)
+                                                                        .toArray(Character[]::new));
 
-                                                        Collections.reverse(l);
-                                                        return l.stream().map(c -> c + "")
-                                                                        .collect(Collectors.joining(""));
-                                                })
-                                                .limit(4)
-                                                .collect(Collectors.joining(" ")));
+                                        Collections.reverse(l);
+                                        return l.stream().map(c -> c + "")
+                                                        .collect(Collectors.joining(""));
+                                })
+                                .limit(4)
+                                .collect(Collectors.joining(" ")));
                 int i = list
                                 .stream()
                                 .map(e -> {

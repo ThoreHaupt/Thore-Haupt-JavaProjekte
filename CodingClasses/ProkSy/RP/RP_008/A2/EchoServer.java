@@ -35,8 +35,7 @@ public class EchoServer {
     }
 
     public EchoObject getEchoObject() {
-        EchoObject result;
-        result = eo;
+        EchoObject result = eo;
         return result;
     }
 }

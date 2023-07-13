@@ -20,7 +20,6 @@ public class A4 {
         System.out.println(" Hodor :");
         hodor.sagWas("Hallo , wie geht ’s?");
         System.out.println("");
-        System.out.println("");
         System.out.println(" Plapper :");
         plapper.sagWas("Was guckst du?");
         System.out.println("");

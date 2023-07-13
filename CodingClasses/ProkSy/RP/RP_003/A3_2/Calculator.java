@@ -68,6 +68,10 @@ public class Calculator extends JFrame {
                     panel_SWC.add(SWS_Buttons[i], i);
                 }
 
+                SWS_Buttons[0].addActionListener(e -> {
+                    throw new IndexOutOfBoundsException(3);
+                });
+
                 panel_SW.add(panel_SWC, BorderLayout.WEST);
             }
         }

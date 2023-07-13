@@ -25,7 +25,7 @@ public class EchoClient {
         while (es == null) {
             try {
                 // Referenz des Server-Objekts von Registry besorgen
-                es = (EchoService) Naming.lookup("//172.23.219.33:7779/Echo");
+                es = (EchoService) Naming.lookup("rmi://localhost:1099/Echo");
             } catch (RemoteException e) {
                 // e.printStackTrace();
             } catch (MalformedURLException e) {

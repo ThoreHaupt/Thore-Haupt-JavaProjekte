@@ -1,2 +1,11 @@
 NAME;DATE;LINE;PRICE;TYPE;CARBS;KCAL;FAT;SALT;PROTEINS;SUGAR;ADDITIVES
-Salatbuffet mit frischer Rohkost, Blattsalate und hausgemachten Dressings, Preis je 100 g;2023-06-23;LINIE_6;1.0;VEGAN;0.0;0.0;0.0;0.0;0.0;0.0;[Se,          Sn]
+Salatbuffet mit frischer Rohkost, Blattsalate und hausgemachten Dressings, Preis je 100 g;2023-06-23;LINIE_6;1.0;VEGAN;0.0;0.0;0.0;0.0;0.0;0.0;[Se,            Sn]
+Pasta Carbonara mit Reibek‰se;2023-06-27;LINIE_1;3.2;PORK;84.0;766.0;31.0;2.0;34.0;2.0;[1,  2,  3,  ML,  Se,  We]
+Pasta in Zucchini - Tomatensoﬂe und Reibek‰se;2023-06-27;LINIE_1;3.2;VEGETARIAN;143.0;1080.0;36.0;4.0;36.0;38.0;[ML,  Se,  We]
+Kartoffel-Spinatgratin mit veganer K‰sealternative in heller veganer Soja-Kr‰utersoﬂe;2023-06-27;LINIE_2;3.5;VEGAN;55.0;330.0;5.0;2.0;8.0;3.0;[1,  Se,  So,  We]
+Nasi Goreng mit Gefl¸gelstreifen;2023-06-27;LINIE_3;2.95;NONE;105.0;779.0;22.0;4.0;33.0;6.0;[Se,  Sn,  So,  We]
+Blattsalat Rettichsalat;2023-06-27;LINIE_3;0.9;VEGAN;3.0;106.0;9.0;2.0;0.0;3.0;[]
+Vegane Tofu - Bratwurst mit Currysoﬂe;2023-06-27;KOERIWERK;2.1;VEGAN;37.0;556.0;32.0;4.0;26.0;34.0;[Ma, Se, Sn, So, We]
+koerifrites;2023-06-27;KOERIWERK;1.3;VEGAN;67.0;737.0;47.0;2.0;7.0;0.0;[]
+Pasta Carbonara mit Reibek‰se;2023-06-27;LINIE_1;3.2;PORK;84.0;766.0;31.0;2.0;34.0;2.0;[1, 2, 3, ML, Se, We]
+Pasta in Zucchini - Tomatensoﬂe und Reibek‰se;2023-06-27;LINIE_1;3.2;VEGETARIAN;143.0;1080.0;36.0;4.0;36.0;38.0;[ML, Se, We]

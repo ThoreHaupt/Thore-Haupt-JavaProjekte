@@ -37,4 +37,9 @@ class Sprinter extends Thread {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public void start() {
+        super.start();
+    }
 }
