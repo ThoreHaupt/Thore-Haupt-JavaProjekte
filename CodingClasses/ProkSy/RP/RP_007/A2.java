@@ -10,7 +10,7 @@ public class A2 {
                 List<String> list = Arrays.asList(" Alfons ", " Rocko ", " Willhelm ", " Henrietta ",
                                 " Heidrun ", " Leonie ");
                 System.out.println(
-                                list.stream().filter(e -> e.toCharArray()[1] == 'H').sorted()
+                                list.stream().filter(e -> e.toCharArray()[1] == 'H').sorted(String::compareTo)
                                                 .collect(Collectors.joining(" ")));
                 System.out.println(
                                 list.stream().filter(e -> e.length() > 5)

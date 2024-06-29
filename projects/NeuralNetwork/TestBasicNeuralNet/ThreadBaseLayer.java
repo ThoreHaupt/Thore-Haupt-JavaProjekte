@@ -77,7 +77,6 @@ public class ThreadBaseLayer extends Layer {
 
         weightGradient = new double[weightGradient.length][weightGradient[0].length];
         biasGradient = new double[biasGradient.length][biasGradient[0].length];
-
     }
 
     public synchronized void addWeightGradientStep(double[][] weightGradientStep) {

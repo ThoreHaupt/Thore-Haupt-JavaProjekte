@@ -268,7 +268,8 @@ public class NeuralNet {
 
             //apply bias and weight gradients to base Layers
             applyGradientStepsBaseLayer();
-
+            //learnrate *= 0.99;
+            //momentumRate *= 0.99;
             // get batchCost from each thread
             for (int j = 0; j < threadNumber; j++) {
                 currentBatchCost += threads[j].getCurrentBatchCost();
@@ -279,6 +280,7 @@ public class NeuralNet {
             //System.out.println(lastCostAverage);
         }
         copyBaseLayersValuesToNormalLayers();
+        System.out.println("learnrate: " + learnrate);
     }
 
     public synchronized void addBatchCost(double cost) {

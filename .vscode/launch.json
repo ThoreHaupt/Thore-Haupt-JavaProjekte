@@ -2,6 +2,41 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Baum",
+            "request": "launch",
+            "mainClass": "CodingClasses.testStuff.Baum",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "abstractClass",
+            "request": "launch",
+            "mainClass": "CodingClasses.testStuff.abstractClass",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "DistTest1",
+            "request": "launch",
+            "mainClass": "CodingClasses.testStuff.DistTest1",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "HandwritingWindow",
+            "request": "launch",
+            "mainClass": "Projects.NeuralNetwork.NeuralInterfaceProgramm.HandwritingWindow",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
+            "name": "EmailBombe",
+            "request": "launch",
+            "mainClass": "Projects.EmailBombe.EmailBombe",
+            "projectName": "https---github.com-ThoreHaupt-SortingAlgorithmProject_a2ef8f48"
+        },
+        {
+            "type": "java",
             "name": "EmailBombe",
             "request": "launch",
             "mainClass": "Projects.EmailBombe.EmailBombe",
